@@ -31,6 +31,7 @@
   .exec-title{font-size:16.5px;font-weight:800;margin:0 0 10px;color:var(--navy);}
   .exec-list{margin:0;padding-left:18px;font-size:14.5px;line-height:1.75;color:#1f2937;}
   .exec-list li{margin-bottom:5px;}
+  .hl{color:#dc2626;font-weight:800;}
   @media(max-width:600px){
     .exec-card{padding:14px 16px;}
     .exec-title{font-size:14.5px;}
@@ -147,21 +148,21 @@
     <h2 class="exec-title">📌 Executive Summary｜董事長摘要</h2>
     <ol class="exec-list">
       <li>已累積可追蹤營運資料庫：成本、報名、實到、廣告成效、業務跟進。</li>
-      <li>管理重點在完整轉換鏈：報名→實到→1-on-1→Reserved→成交，不只衝報名數。</li>
-      <li>第27屆已有 Reserved 1組，具成交潛力；缺成交／收入資料，ROI暫無法計算。</li>
-      <li>第28屆已有一定成本，會後需優先補實到率、1-on-1、Reserved與業務跟進。</li>
-      <li>建議作為每場Expo標準檢討工具，篩選值得複製的主題／城市／打法。</li>
+      <li>管理重點在完整轉換鏈：報名→實到→<span class="hl">1-on-1→Reserved→成交</span>，不只衝報名數。</li>
+      <li>第27屆已有 <span class="hl">Reserved 1組</span>，具成交潛力；缺成交／收入資料，<span class="hl">ROI暫無法計算</span>。</li>
+      <li>第28屆已有一定成本，會後需優先補<span class="hl">實到率、1-on-1、Reserved</span>與業務跟進。</li>
+      <li>建議作為每場Expo<span class="hl">標準檢討工具</span>，篩選值得複製的主題／城市／打法。</li>
     </ol>
   </section>
 
   <section id="mgmt-actions" class="exec-card exec-card--action">
     <h2 class="exec-title">🎯 Management Actions｜建議管理動作</h2>
     <ol class="exec-list">
-      <li>第28屆結束48小時內補齊實到、1-on-1、Reserved、業務跟進狀態。</li>
-      <li>每場統一追蹤五層漏斗：報名→實到→1-on-1→Reserved→成交。</li>
-      <li>連續兩場CPL偏高且無Reserved，需檢討主題／素材／受眾／邀約話術。</li>
-      <li>分級制度固定化，看轉換效率而非熱鬧程度。</li>
-      <li>補齊成交／收入欄位後，升級為真正ROI Dashboard。</li>
+      <li>第28屆結束<span class="hl">48小時內</span>補齊實到、1-on-1、Reserved、業務跟進狀態。</li>
+      <li>每場統一追蹤<span class="hl">五層漏斗</span>：報名→實到→1-on-1→Reserved→成交。</li>
+      <li>連續兩場<span class="hl">CPL偏高且無Reserved</span>，需檢討主題／素材／受眾／邀約話術。</li>
+      <li>分級制度固定化，看<span class="hl">轉換效率</span>而非熱鬧程度。</li>
+      <li>補齊成交／收入欄位後，升級為<span class="hl">真正ROI Dashboard</span>。</li>
     </ol>
   </section>
 
@@ -814,8 +815,8 @@ const withImg = events.filter(e=>e.img).slice().sort((a,b)=>{
 });
 document.getElementById("edmGallery").innerHTML = withImg.map(e=>{
   const statLine = e.prep
-    ? `<div style="font-size:12px;color:var(--navy);opacity:.65;margin-top:3px;">尚無成效數據</div>`
-    : (e.cpl!=null ? `<div style="font-size:12px;font-weight:800;color:var(--teal);margin-top:3px;">CPL NT$${fmt(e.cpl)}${e.rate!=null?'／到場率 '+pct(e.rate):''}</div>` : "");
+    ? `<div style="font-size:14px;color:var(--navy);opacity:.65;margin-top:4px;">尚無成效數據</div>`
+    : (e.cpl!=null ? `<div style="font-size:16px;font-weight:800;color:#dc2626;margin-top:4px;line-height:1.35;">CPL NT$${fmt(e.cpl)}${e.rate!=null?'<br>到場率 '+pct(e.rate):''}</div>` : "");
   return `
   <figure>
     <img src="${e.img}" loading="lazy" onerror="this.parentElement.style.display='none'">
