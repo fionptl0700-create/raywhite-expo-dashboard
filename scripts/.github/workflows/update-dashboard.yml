@@ -1,0 +1,37 @@
+name: Update dashboard data
+
+on:
+  schedule:
+    - cron: "0 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Update data.json
+        env:
+          ACTIVITY_CSV_URL: ${{ secrets.ACTIVITY_CSV_URL }}
+          SALES_CSV_URL: ${{ secrets.SALES_CSV_URL }}
+          OFFICIAL_SITE_URL: ${{ secrets.OFFICIAL_SITE_URL }}
+        run: node scripts/update-data.js
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add data.json
+          git diff --cached --quiet || git commit -m "update dashboard data"
+          git push
