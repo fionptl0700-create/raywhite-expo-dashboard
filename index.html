@@ -8,7 +8,7 @@
   :root{
     
     --yellow:#FFC72C; --yellow-dark:#e0ac00; --black:#101010; --dark:#1F2937; --grey:#6b7280; --grey-lt:#9ca3af;
-    --good:#1a7f37; --warn:#b45309; --bad:#b91c1c; --bg:#f4f5f7; --card:#ffffff; --border:#eceef1;
+    --good:#1a7f37; --warn:#b45309; --bad:#ab3a3a; --bg:#f6f7f9; --card:#ffffff; --border:#eceef1;
     --navy:#1a2332; --teal:#2d8b8b; --seafoam:#a8dadc; --cream:#f1faee;
   }
   *{box-sizing:border-box;}
@@ -26,10 +26,32 @@
   .container{max-width:1320px;margin:0 auto;padding:20px 20px 50px;}
   .group-label{font-size:11px;font-weight:700;color:var(--grey);text-transform:uppercase;letter-spacing:.6px;margin:2px 0 8px;}
   .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:12px;margin-bottom:18px;}
+  .exec-card{background:#ffffff;border-radius:12px;padding:20px 24px;margin-bottom:14px;box-shadow:0 1px 2px rgba(16,16,16,.05);border-left:5px solid var(--teal);}
+  .exec-card--action{border-left-color:#c2650a;}
+  .exec-title{font-size:15px;font-weight:800;margin:0 0 10px;color:var(--navy);}
+  .exec-list{margin:0;padding-left:20px;font-size:13px;line-height:1.85;color:#1f2937;}
+  .exec-list li{margin-bottom:2px;}
+  .exec-card--action .exec-list{color:#1f2937;}
+  .kpi-toggle{display:flex;gap:8px;margin-bottom:14px;}
+  .kpi-toggle button{border:1px solid #d1d5db;background:#fff;color:#374151;font-size:12.5px;font-weight:700;padding:7px 16px;border-radius:20px;cursor:pointer;transition:all .15s;}
+  .kpi-toggle button.active{background:var(--navy);color:#fff;border-color:var(--navy);}
+  .grading-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:10px;}
+  .grading-card{border-radius:10px;padding:14px 16px;background:#fff;border-top:4px solid #ccc;box-shadow:0 1px 2px rgba(16,16,16,.05);}
+  .grading-card .g-title{font-weight:800;font-size:13.5px;margin-bottom:8px;}
+  .grading-card ul{margin:0;padding-left:16px;font-size:11.5px;line-height:1.65;color:#374151;}
+  .grading-card.grade-A{border-top-color:#1a7f37;} .grading-card.grade-A .g-title{color:#1a7f37;}
+  .grading-card.grade-B{border-top-color:#2563eb;} .grading-card.grade-B .g-title{color:#2563eb;}
+  .grading-card.grade-C{border-top-color:#c2650a;} .grading-card.grade-C .g-title{color:#c2650a;}
+  .grading-card.grade-D{border-top-color:#b91c1c;} .grading-card.grade-D .g-title{color:#b91c1c;}
+  .grading-card.grade-N{border-top-color:#9ca3af;} .grading-card.grade-N .g-title{color:#6b7280;}
+  .checklist{margin:0;padding-left:20px;font-size:13px;line-height:1.9;color:#1f2937;columns:2;column-gap:32px;}
+  @media(max-width:700px){.checklist{columns:1;}}
+  .questions-list{margin:0;padding-left:20px;font-size:13px;line-height:1.9;color:#1f2937;}
+  .questions-list li{margin-bottom:4px;}
   .kpi-card{background:linear-gradient(180deg,#ffffff,var(--cream));border-radius:12px;padding:14px 16px;box-shadow:0 1px 2px rgba(26,35,50,.08);border-left:4px solid var(--teal);transition:transform .15s,box-shadow .15s;}
   .kpi-card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(26,35,50,.14);}
   .kpi-card .label{font-size:11px;color:var(--navy);margin-bottom:6px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;opacity:.75;}
-  .kpi-card .value{font-size:24px;font-weight:800;color:var(--teal);letter-spacing:-.3px;}
+  .kpi-card .value{font-size:29px;font-weight:800;color:var(--teal);letter-spacing:-.4px;}
   .kpi-card .note{font-size:11px;color:var(--navy);margin-top:4px;font-weight:600;opacity:.85;}
   .kpi-card.bad{border-left-color:var(--bad);}
   .kpi-card.bad .value{color:var(--bad);}
@@ -94,33 +116,57 @@
   </div>
   <div class="sub" id="updatedAt"></div>
 </header>
-<div id="dataErrorBanner" style="display:none;background:#b91c1c;color:#fff;text-align:center;font-weight:800;padding:10px 16px;font-size:13px;">資料讀取失敗，請檢查 GitHub Actions 或資料來源</div>
+<div id="dataErrorBanner" style="display:none;background:#fef3c7;color:#92400e;text-align:center;font-weight:700;padding:10px 16px;font-size:13px;border-bottom:1px solid #fde68a;">部分即時資料尚未同步，以下先顯示最新可用版本。</div>
 <nav class="subnav"><div class="inner">
+  <a href="#exec-summary">📌 摘要</a>
+  <a href="#mgmt-actions">🎯 管理動作</a>
   <a href="#kpi">📊 總覽KPI</a>
   <a href="#trend">📈 趨勢</a>
   <a href="#events">📋 活動總覽</a>
   <a href="#region">🗺️ 地區分析</a>
-  <a href="#charts">🎯 轉換／分級</a>
+  <a href="#charts">🎯 轉換</a>
+  <a href="#grading-logic">📐 分級邏輯</a>
   <a href="#consultants">👤 業務KPI</a>
   <a href="#coverage">📁 業務名單彙整</a>
   <a href="#s27">🔍 第27屆</a>
   <a href="#s28">🚀 第28屆</a>
+  <a href="#post-event">✅ 待補資料</a>
   <a href="#edm">🖼️ EDM影像牆</a>
+  <a href="#justin-questions">❓ 管理層追問</a>
+  <a href="#data-notes">📝 資料說明</a>
 </div></nav>
 <div class="container">
 
-  <div class="info-line">⚠ <b>無成交/收入數據</b>，故無ROI；1-on-1追蹤僅第27屆。
-  <details class="more" style="margin:0;"><summary>詳情</summary><div class="body">業務名單彙整與廣告Leads是不同量測基準，不可互相加總。第27屆廣告花費/CPL已於2026/7/9透過新來源（Google Sheet「廣告成效」）補齊，分級重算為D級。第28屆場地/交通/住宿實際成本(NT$205,690)已於2026/7/9納入。詳細缺口見 Excel 00 分頁。</div></details>
-  </div>
+  <section id="exec-summary" class="exec-card">
+    <h2 class="exec-title">📌 Executive Summary｜董事長摘要</h2>
+    <ol class="exec-list">
+      <li>目前台灣 Expo 活動已累積形成可追蹤的營運資料庫，包含成本、報名、實到、廣告成效與業務跟進狀況。</li>
+      <li>目前最大管理重點不是單純提高報名數，而是追蹤「報名 → 實到 → 1-on-1 → Reserved → 成交」的完整轉換鏈。</li>
+      <li>第27屆已出現 Reserved 1 組，代表活動具備成交潛力，但因目前缺少完整成交／收入資料，暫時無法計算真實 ROI。</li>
+      <li>第28屆目前已累積一定成本，活動後需優先追蹤實到率、1-on-1 組數、Reserved 數與業務跟進品質。</li>
+      <li>後續建議將此 Dashboard 作為每場 Expo 的標準檢討工具，用來判斷哪些主題、城市、投放策略與業務跟進方式值得複製。</li>
+    </ol>
+  </section>
+
+  <section id="mgmt-actions" class="exec-card exec-card--action">
+    <h2 class="exec-title">🎯 Management Actions｜建議管理動作</h2>
+    <ol class="exec-list">
+      <li>第28屆活動結束後 48 小時內補齊實到人數、1-on-1 組數、Reserved 數與業務跟進狀態。</li>
+      <li>每場活動統一追蹤五層漏斗：報名 → 實到 → 1-on-1 → Reserved → 成交。</li>
+      <li>若連續兩場活動 CPL 偏高且無 Reserved，需重新檢討活動主題、投放素材、受眾設定與業務邀約話術。</li>
+      <li>將活動分級制度固定化，讓未來活動不只看熱鬧程度，而是看實際轉換效率。</li>
+      <li>補齊成交與收入欄位後，下一版應升級為真正的 ROI Dashboard。</li>
+    </ol>
+  </section>
 
   <section id="kpi" style="padding-bottom:6px;">
-    <h2>📊 總覽 KPI（24場已完成場次）</h2>
-    <div class="group-label">💰 成本指標</div>
-    <div class="kpi-grid" id="kpiGridCost"></div>
-    <div class="group-label">🔄 轉換指標</div>
-    <div class="kpi-grid" id="kpiGridConv"></div>
-    <div class="group-label">✅ 資料完整度指標</div>
-    <div class="kpi-grid" id="kpiGridGap"></div>
+    <h2>📊 Core KPI｜核心經營指標</h2>
+    <div class="kpi-toggle">
+      <button id="kpiToggleTotal" class="active" onclick="switchKpiView('total')">累計總量 Total</button>
+      <button id="kpiToggleAvg" onclick="switchKpiView('avg')">一場平均 Average</button>
+    </div>
+    <div class="kpi-grid" id="kpiTotalGrid"></div>
+    <div class="kpi-grid" id="kpiAvgGrid" style="display:none;"></div>
   </section>
 
   <div id="trendInsight"></div>
@@ -171,6 +217,32 @@
       <div class="chart-wrap" style="height:300px;"><canvas id="gradeChart"></canvas></div>
     </section>
   </div>
+
+  <section id="grading-logic">
+    <h2>📐 Event Grading Logic｜活動分級邏輯</h2>
+    <div class="grading-grid">
+      <div class="grading-card grade-A">
+        <div class="g-title">A級活動</div>
+        <ul><li>CPL合理或偏低</li><li>實到率佳</li><li>有明確1-on-1或Reserved</li><li>值得複製或加碼</li></ul>
+      </div>
+      <div class="grading-card grade-B">
+        <div class="g-title">B級活動</div>
+        <ul><li>報名與實到表現正常</li><li>成本可控</li><li>有後續追蹤價值</li><li>但尚未看到明確Reserved或成交</li></ul>
+      </div>
+      <div class="grading-card grade-C">
+        <div class="g-title">C級活動</div>
+        <ul><li>CPL偏高</li><li>實到率普通或偏低</li><li>後續轉換不明顯</li><li>需要調整主題、邀約方式或投放策略</li></ul>
+      </div>
+      <div class="grading-card grade-D">
+        <div class="g-title">D級活動</div>
+        <ul><li>成本高</li><li>實到弱</li><li>無明確1-on-1／Reserved</li><li>不建議直接複製，需重新檢討策略</li></ul>
+      </div>
+      <div class="grading-card grade-N">
+        <div class="g-title">資料不足</div>
+        <ul><li>缺少關鍵欄位，例如實到、1-on-1、Reserved、成交或收入</li><li>暫不做完整評級，只作觀察</li></ul>
+      </div>
+    </div>
+  </section>
 
   <section id="consultants">
     <h2>👤 業務人員總覽 KPI</h2>
@@ -245,10 +317,52 @@
     </div>
   </section>
 
+  <section id="post-event">
+    <h2>✅ 第28屆活動後待補資料</h2>
+    <div class="info-line">目的：提醒活動後 48 小時內完成資料回填，維持Dashboard決策可信度。</div>
+    <ul class="checklist">
+      <li>實際報到人數</li>
+      <li>各場次實到率</li>
+      <li>現場 1-on-1 組數</li>
+      <li>活動後 1-on-1 預約數</li>
+      <li>Reserved 數</li>
+      <li>成交數</li>
+      <li>成交金額／預估佣金</li>
+      <li>業務跟進狀態</li>
+      <li>高意向客戶名單</li>
+      <li>廣告最終 CPL</li>
+      <li>每場活動實際成本</li>
+    </ul>
+  </section>
+
   <section id="edm">
     <h2>🖼️ 活動 EDM 影像牆</h2>
     <div class="info-line">來源：raywhitetw.com 官網 ＋ 使用者提供本機 EDM 素材。</div>
     <div class="gallery" id="edmGallery"></div>
+  </section>
+
+  <section id="justin-questions">
+    <h2>❓ Justin Review Questions｜管理層可能追問</h2>
+    <ol class="questions-list">
+      <li>哪些活動真的值得繼續辦？</li>
+      <li>哪些活動只是報名多，但沒有實際轉換？</li>
+      <li>哪個城市／主題的活動效益最好？</li>
+      <li>廣告成本是否過高？</li>
+      <li>業務是否有把名單有效推進到 1-on-1？</li>
+      <li>第28屆活動後，是否能產生 Reserved 或成交？</li>
+      <li>若沒有成交，問題是在投放、活動主題、現場轉換，還是業務跟進？</li>
+    </ol>
+  </section>
+
+  <section id="data-notes">
+    <h2>📝 Data Notes｜資料說明</h2>
+    <ol class="exec-list" style="padding-left:20px;">
+      <li>本 Dashboard 目前以活動營運數據為主，包含成本、報名、實到、廣告與部分業務跟進資料。</li>
+      <li>目前尚未完整接入成交與收入資料，因此本版不計算淨利與 ROI。</li>
+      <li>第27屆業務跟進資料較完整，可作為初步轉換分析樣本。</li>
+      <li>業務名單彙整區塊與廣告 Leads 屬於不同資料口徑，不建議直接加總。</li>
+      <li>後續若接入 CRM／PIP 成交資料，可升級為完整活動 ROI 與業務轉換 Dashboard。</li>
+    </ol>
   </section>
 
   <div class="foot">Ray White Taiwan 活動效益總表.xlsx／Google Sheet「Expo客戶進度」「廣告成效」／raywhitetw.com ｜ 資料截至 2026/7/9</div>
@@ -331,21 +445,36 @@ function renderKpis(elId, list){
       <div class="note">${k.note}</div>
     </div>`).join("");
 }
-renderKpis("kpiGridCost", [
-  {label:"24場合計廣告花費", value: fmt(totalAds), note:"NT$，總計"},
-  {label:"平均每場廣告花費", value: fmt(avgAds), note:"NT$"},
-  {label:"平均 CPL", value: fmt(avgCpl), note:"NT$／Lead"},
-  {label:"24場合計總成本", value: fmt(totalCost), note:"NT$，下限"},
-  {label:"平均每場總成本", value: fmt(avgCostPerEvent), note:"NT$，下限"},
-  {label:"第27屆完整成本", value:"129,681", note:"NT$，唯一含1-on-1"},
+const totalRegistrations = completed.reduce((s,e)=>s+(e.leads||0),0);
+const totalAttendance = completed.reduce((s,e)=>s+(e.att||0),0);
+const ONE_ON_ONE_COUNT = 17; // 第27屆唯一完整追蹤場次，4場合計
+const RESERVED_COUNT = 1;    // 第27屆
+renderKpis("kpiTotalGrid", [
+  {label:"Total Events｜累積活動場次", value: events.length, note:"24場已完成＋第28屆籌備中"},
+  {label:"Total Cost｜累積活動成本", value:"NT$"+fmt(totalCost), note:"廣告＋場地／交通／住宿，24場下限值"},
+  {label:"Total Registrations｜累積報名人數", value: fmt(totalRegistrations), note:"24場合計"},
+  {label:"Total Attendance｜累積實到人數", value: fmt(totalAttendance), note:"24場合計"},
+  {label:"Average CPL｜平均CPL", value:"NT$"+fmt(avgCpl), note:"每Lead成本，24場平均"},
+  {label:"Average Attendance Rate｜平均實到率", value: pct(avgRate), note:"24場平均"},
+  {label:"1-on-1 Count｜1-on-1組數", value: ONE_ON_ONE_COUNT, note:"僅第27屆完整追蹤", cls:"bad"},
+  {label:"Reserved Count｜Reserved數", value: RESERVED_COUNT, note:"第27屆", cls:"bad"},
+  {label:"ROI Status｜ROI是否可計算", value:"Not yet measurable", note:"缺成交／收入資料，暫不可完整計算", cls:"bad"},
 ]);
-renderKpis("kpiGridConv", [
-  {label:"平均 Leads→實到率", value: pct(avgRate), note:"24場平均"},
+renderKpis("kpiAvgGrid", [
+  {label:"Average Cost per Event｜平均每場成本", value:"NT$"+fmt(avgCostPerEvent), note:"24場平均，下限值"},
+  {label:"Average Registration per Event｜平均每場報名數", value: fmt(totalRegistrations/completed.length), note:"24場平均"},
+  {label:"Average Attendance per Event｜平均每場實到數", value: fmt(totalAttendance/completed.length), note:"24場平均"},
+  {label:"Average CPL｜平均每Lead成本", value:"NT$"+fmt(avgCpl), note:"24場平均"},
+  {label:"Average Attendance Rate｜平均實到率", value: pct(avgRate), note:"24場平均"},
+  {label:"Average 1-on-1 per Event｜平均每場1-on-1數", value:(ONE_ON_ONE_COUNT/completed.length).toFixed(1), note:"以24場為分母，僅第27屆有數據"},
+  {label:"Average Reserved per Event｜平均每場Reserved數", value:(RESERVED_COUNT/completed.length).toFixed(2), note:"以24場為分母，僅第27屆有數據"},
 ]);
-renderKpis("kpiGridGap", [
-  {label:"1-on-1/Reserved追蹤", value:"1 / 24", note:"結構性缺口", cls:"bad"},
-  {label:"有收入數據場次", value:"0 / 24", note:"無法算ROI", cls:"bad"},
-]);
+window.switchKpiView = function(view){
+  document.getElementById("kpiTotalGrid").style.display = view==="total" ? "" : "none";
+  document.getElementById("kpiAvgGrid").style.display = view==="avg" ? "" : "none";
+  document.getElementById("kpiToggleTotal").className = view==="total" ? "active" : "";
+  document.getElementById("kpiToggleAvg").className = view==="avg" ? "active" : "";
+};
 
 // 地區表現分析：依原始地點標籤分組，不拆分聯合場次，避免同一場次重複計入多地區
 const regionGroups = {};
@@ -629,7 +758,26 @@ document.getElementById("eventConsultantTable").innerHTML = eventConsultant.map(
   }
   const qlabel = e.quality==="部分" ? `⚠ 部分${e.note?" ("+e.note+")":""}` : "完整";
   return `<tr><td class="left">${ordDateLabel(e.label)}</td><td class="left" style="white-space:normal;font-size:11px;">${qlabel}</td><td>${e.total}</td><td>${e.added}</td><td>${(e.rate*100).toFixed(1)}%</td><td>${e.yes}</td><td>${e.no}</td><td>${e.undecided}</td></tr>`;
-}).join("");
+}).join("") + (function(){
+  const valid = eventConsultant.filter(e=>e.covered!==false);
+  const sumTotal = valid.reduce((s,e)=>s+e.total,0);
+  const sumAdded = valid.reduce((s,e)=>s+e.added,0);
+  const sumYes = valid.reduce((s,e)=>s+e.yes,0);
+  const sumNo = valid.reduce((s,e)=>s+e.no,0);
+  const sumUndecided = valid.reduce((s,e)=>s+e.undecided,0);
+  const sumRate = sumTotal ? (sumAdded/sumTotal*100).toFixed(1) : "0.0";
+  const oc = "color:#c2650a;font-weight:800;background:#fff3e0;";
+  return `<tr style="border-top:2px solid #c2650a;">
+    <td class="left" style="${oc}">加總</td>
+    <td class="left" style="${oc}">${valid.length}屆有效資料</td>
+    <td style="${oc}">${sumTotal}</td>
+    <td style="${oc}">${sumAdded}</td>
+    <td style="${oc}">${sumRate}%</td>
+    <td style="${oc}">${sumYes}</td>
+    <td style="${oc}">${sumNo}</td>
+    <td style="${oc}">${sumUndecided}</td>
+  </tr>`;
+})();
 
 const s27 = [
   {s:"6/27 上午\n移民講座", reg:28, att:6, one:3},
@@ -732,7 +880,10 @@ function applyLiveRow(ev, row){
     console.error("renderDashboard failed:", renderErr);
     const banner = document.getElementById("dataErrorBanner");
     banner.style.display = "block";
-    banner.textContent = "資料讀取失敗，請檢查 GitHub Actions 或資料來源（頁面渲染發生錯誤：" + (renderErr && renderErr.message ? renderErr.message : renderErr) + "）";
+    banner.style.background = "#fee2e2";
+    banner.style.color = "#991b1b";
+    banner.style.borderBottom = "1px solid #fecaca";
+    banner.textContent = "系統顯示發生異常，畫面可能不完整，請稍後重新整理（技術細節已記錄於瀏覽器主控台）。";
   }
 })();
 </script>
