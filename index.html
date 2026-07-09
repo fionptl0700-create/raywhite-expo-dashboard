@@ -336,8 +336,8 @@
   </section>
 
   <section id="edm">
-    <h2>🖼️ 活動 EDM 影像牆</h2>
-    <div class="info-line">來源：raywhitetw.com 官網 ＋ 使用者提供本機 EDM 素材。</div>
+    <h2>🖼️ 活動 EDM 影像牆｜對應 CPL／到場率表現（表現最佳→最弱排序）</h2>
+    <div class="info-line">來源：raywhitetw.com 官網 ＋ 使用者提供本機 EDM 素材。排序依到場率由高到低；尚無到場率數據（籌備中／資料不足）排在最後。</div>
     <div class="gallery" id="edmGallery"></div>
   </section>
 
@@ -800,11 +800,16 @@ new Chart(document.getElementById("s27Chart"), {
   options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{position:"bottom"}}, scales:{ y:{beginAtZero:true} } }
 });
 
-const withImg = events.filter(e=>e.img).slice().sort((a,b)=> a.d < b.d ? 1 : -1);
+const withImg = events.filter(e=>e.img).slice().sort((a,b)=>{
+  if(a.rate==null && b.rate==null) return 0;
+  if(a.rate==null) return 1;
+  if(b.rate==null) return -1;
+  return b.rate - a.rate;
+});
 document.getElementById("edmGallery").innerHTML = withImg.map(e=>{
   const statLine = e.prep
-    ? `<div style="font-size:10px;color:var(--navy);opacity:.65;margin-top:2px;">尚無成效數據</div>`
-    : (e.cpl!=null ? `<div style="font-size:10px;color:var(--navy);opacity:.7;margin-top:2px;">CPL NT$${fmt(e.cpl)}${e.rate!=null?'／到場率 '+pct(e.rate):''}</div>` : "");
+    ? `<div style="font-size:12px;color:var(--navy);opacity:.65;margin-top:3px;">尚無成效數據</div>`
+    : (e.cpl!=null ? `<div style="font-size:12px;font-weight:800;color:var(--teal);margin-top:3px;">CPL NT$${fmt(e.cpl)}${e.rate!=null?'／到場率 '+pct(e.rate):''}</div>` : "");
   return `
   <figure>
     <img src="${e.img}" loading="lazy" onerror="this.parentElement.style.display='none'">
