@@ -37,6 +37,7 @@
     .exec-title{font-size:14.5px;}
     .exec-list{font-size:13px;line-height:1.55;padding-left:15px;}
     .exec-list li{margin-bottom:6px;}
+    .jq-answer{font-size:12.5px;}
   }
   .exec-card--action .exec-list{color:#1f2937;}
   .kpi-toggle{display:flex;gap:8px;margin-bottom:14px;}
@@ -54,7 +55,8 @@
   .checklist{margin:0;padding-left:20px;font-size:14.5px;line-height:1.95;color:#1f2937;columns:2;column-gap:32px;}
   @media(max-width:700px){.checklist{columns:1;}}
   .questions-list{margin:0;padding-left:20px;font-size:14.5px;line-height:1.95;color:#1f2937;}
-  .questions-list li{margin-bottom:4px;}
+  .questions-list li{margin-bottom:10px;}
+  .jq-answer{color:var(--good);font-weight:800;margin-top:2px;font-size:13.5px;line-height:1.6;}
   .kpi-card{background:linear-gradient(180deg,#ffffff,var(--cream));border-radius:12px;padding:14px 16px;box-shadow:0 1px 2px rgba(26,35,50,.08);border-left:4px solid var(--teal);transition:transform .15s,box-shadow .15s;}
   .kpi-card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(26,35,50,.14);}
   .kpi-card .label{font-size:12px;color:var(--navy);margin-bottom:6px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;opacity:.75;}
@@ -350,7 +352,7 @@
 
   <section id="justin-questions">
     <h2>❓ Justin Review Questions｜管理層可能追問</h2>
-    <ol class="questions-list">
+    <ol class="questions-list" id="justinQAList">
       <li>哪些活動真的值得繼續辦？</li>
       <li>哪些活動只是報名多，但沒有實際轉換？</li>
       <li>哪個城市／主題的活動效益最好？</li>
@@ -824,6 +826,44 @@ document.getElementById("edmGallery").innerHTML = withImg.map(e=>{
   </figure>`;
 }).join("");
 document.getElementById("s27Gallery").innerHTML = `<figure><img src="${events.find(e=>e.ord==='27').img}"><figcaption>第27屆 6/27-28 EDM</figcaption></figure>`;
+
+// Justin Review Questions：依現有資料自動運算答案（非人工填寫，資料變動時自動更新）
+(function(){
+  const gradeAEvents = completed.filter(e=>e.grade==="A");
+  const gradeAOrds = gradeAEvents.map(e=>e.ord).join("、");
+  const overLeadsUnderRate = completed.filter(e=> e.leads!=null && tAvgLeads!=null && e.leads>tAvgLeads && e.rate!=null && e.rate<avgRate);
+  const overLeadsOrds = overLeadsUnderRate.map(e=>e.ord).join("、");
+  const validRegions = regionRows.filter(r=>r.count>=2 && r.avgRate!=null);
+  const bestRegion = validRegions.slice().sort((a,b)=>b.avgRate-a.avgRate)[0];
+  const cplHigh = cplStreakInfo.streak>=3 || (last3AvgCpl > avgCpl*1.1);
+  const prepEvent = events.find(e=>e.prep);
+
+  const answers = [
+    gradeAEvents.length
+      ? `A：第${gradeAOrds}屆為A級（到場率與CPL皆優於平均），是值得複製的組合；其餘等級可對照「活動分級邏輯」逐場檢視。`
+      : `A：目前尚無A級場次，需對照分級邏輯重新檢視主題／城市／打法。`,
+    overLeadsUnderRate.length
+      ? `A：第${overLeadsOrds}屆報名數高於平均、但到場率低於平均，屬「報名多、轉換弱」，建議檢討現場邀約與提醒機制。`
+      : `A：目前無報名遠高於平均、但到場率明顯偏低的場次。`,
+    bestRegion
+      ? `A：${bestRegion.loc}平均到場率最高（${pct(bestRegion.avgRate)}，共${bestRegion.count}場），效益優於其他地區。`
+      : `A：地區樣本數不足，暫無法判斷最佳城市。`,
+    cplHigh
+      ? `A：CPL偏高，近3場平均NT$${fmt(last3AvgCpl)} vs 24場平均NT$${fmt(avgCpl)}${cplStreakInfo.streak>=3?'，且連續'+cplStreakInfo.streak+'場上升':''}，需檢討投放策略。`
+      : `A：目前CPL在可接受區間內（近3場NT$${fmt(last3AvgCpl)} vs 平均NT$${fmt(avgCpl)}），未見明顯惡化。`,
+    `A：目前僅第27屆有完整1-on-1追蹤（${ONE_ON_ONE_COUNT}組），其餘場次業務跟進資料缺失，無法判斷整體轉換率，需優先補齊。`,
+    `A：第${prepEvent?prepEvent.ord:'28'}屆尚未舉行，Reserved／成交需活動結束後才有數據，目前無法回答。`,
+    `A：目前缺成交／收入資料，無法歸因；待資料補齊後可用五層漏斗（報名→實到→1-on-1→Reserved→成交）逐層檢視問題點。`
+  ];
+  document.querySelectorAll("#justinQAList > li").forEach((li,i)=>{
+    if(answers[i]){
+      const d = document.createElement("div");
+      d.className = "jq-answer";
+      d.textContent = answers[i];
+      li.appendChild(d);
+    }
+  });
+})();
 } // end renderDashboard
 
 // live data bootstrap：只覆蓋7/11以後新場次的 活動／實際花費／總名單數，其餘歷史場次維持本機Excel既有數字
