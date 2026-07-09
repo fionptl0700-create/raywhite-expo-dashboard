@@ -29,8 +29,14 @@
   .exec-card{background:#ffffff;border-radius:12px;padding:20px 24px;margin-bottom:14px;box-shadow:0 1px 2px rgba(16,16,16,.05);border-left:5px solid var(--teal);}
   .exec-card--action{border-left-color:#c2650a;}
   .exec-title{font-size:16.5px;font-weight:800;margin:0 0 10px;color:var(--navy);}
-  .exec-list{margin:0;padding-left:20px;font-size:14.5px;line-height:1.9;color:#1f2937;}
-  .exec-list li{margin-bottom:2px;}
+  .exec-list{margin:0;padding-left:18px;font-size:14.5px;line-height:1.75;color:#1f2937;}
+  .exec-list li{margin-bottom:5px;}
+  @media(max-width:600px){
+    .exec-card{padding:14px 16px;}
+    .exec-title{font-size:14.5px;}
+    .exec-list{font-size:13px;line-height:1.55;padding-left:15px;}
+    .exec-list li{margin-bottom:6px;}
+  }
   .exec-card--action .exec-list{color:#1f2937;}
   .kpi-toggle{display:flex;gap:8px;margin-bottom:14px;}
   .kpi-toggle button{border:1px solid #d1d5db;background:#fff;color:#374151;font-size:12.5px;font-weight:700;padding:7px 16px;border-radius:20px;cursor:pointer;transition:all .15s;}
@@ -140,22 +146,22 @@
   <section id="exec-summary" class="exec-card">
     <h2 class="exec-title">📌 Executive Summary｜董事長摘要</h2>
     <ol class="exec-list">
-      <li>目前台灣 Expo 活動已累積形成可追蹤的營運資料庫，包含成本、報名、實到、廣告成效與業務跟進狀況。</li>
-      <li>目前最大管理重點不是單純提高報名數，而是追蹤「報名 → 實到 → 1-on-1 → Reserved → 成交」的完整轉換鏈。</li>
-      <li>第27屆已出現 Reserved 1 組，代表活動具備成交潛力，但因目前缺少完整成交／收入資料，暫時無法計算真實 ROI。</li>
-      <li>第28屆目前已累積一定成本，活動後需優先追蹤實到率、1-on-1 組數、Reserved 數與業務跟進品質。</li>
-      <li>後續建議將此 Dashboard 作為每場 Expo 的標準檢討工具，用來判斷哪些主題、城市、投放策略與業務跟進方式值得複製。</li>
+      <li>已累積可追蹤營運資料庫：成本、報名、實到、廣告成效、業務跟進。</li>
+      <li>管理重點在完整轉換鏈：報名→實到→1-on-1→Reserved→成交，不只衝報名數。</li>
+      <li>第27屆已有 Reserved 1組，具成交潛力；缺成交／收入資料，ROI暫無法計算。</li>
+      <li>第28屆已有一定成本，會後需優先補實到率、1-on-1、Reserved與業務跟進。</li>
+      <li>建議作為每場Expo標準檢討工具，篩選值得複製的主題／城市／打法。</li>
     </ol>
   </section>
 
   <section id="mgmt-actions" class="exec-card exec-card--action">
     <h2 class="exec-title">🎯 Management Actions｜建議管理動作</h2>
     <ol class="exec-list">
-      <li>第28屆活動結束後 48 小時內補齊實到人數、1-on-1 組數、Reserved 數與業務跟進狀態。</li>
-      <li>每場活動統一追蹤五層漏斗：報名 → 實到 → 1-on-1 → Reserved → 成交。</li>
-      <li>若連續兩場活動 CPL 偏高且無 Reserved，需重新檢討活動主題、投放素材、受眾設定與業務邀約話術。</li>
-      <li>將活動分級制度固定化，讓未來活動不只看熱鬧程度，而是看實際轉換效率。</li>
-      <li>補齊成交與收入欄位後，下一版應升級為真正的 ROI Dashboard。</li>
+      <li>第28屆結束48小時內補齊實到、1-on-1、Reserved、業務跟進狀態。</li>
+      <li>每場統一追蹤五層漏斗：報名→實到→1-on-1→Reserved→成交。</li>
+      <li>連續兩場CPL偏高且無Reserved，需檢討主題／素材／受眾／邀約話術。</li>
+      <li>分級制度固定化，看轉換效率而非熱鬧程度。</li>
+      <li>補齊成交／收入欄位後，升級為真正ROI Dashboard。</li>
     </ol>
   </section>
 
