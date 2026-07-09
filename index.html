@@ -666,8 +666,9 @@ document.getElementById("s27Gallery").innerHTML = `<figure><img src="${events.fi
 
 // live data bootstrap：只覆蓋7/11以後新場次的 活動／實際花費／總名單數，其餘歷史場次維持本機Excel既有數字
 const LIVE_ACTIVITY_MAP = {
-  "Taiwan Expo 11-12 Jul 2026": "28"
-  // 未來新場次：在此加一行 "CSV裡的活動名稱片段": "對應ord"
+  // 選用／例外情況才需要：如果雲端表格最新一列剛好對不上目前籌備中的場次，
+  // 可以在這裡強制指定 "CSV裡的活動名稱片段": "對應ord" 覆蓋自動判斷。
+  // 正常情況下不需要維護這裡——見下方「自動抓最新一列」邏輯。
 };
 function numFromCell(v){
   if(v==null) return null;
@@ -675,6 +676,16 @@ function numFromCell(v){
   if(raw.indexOf('"') !== -1) return null; // 殘留引號＝來源CSV欄位可能被破壞，寧可不覆蓋也不顯示可疑數字（防禦性，雙保險）
   const n = parseFloat(raw.replace(/[^0-9.\-]/g,""));
   return isFinite(n) ? n : null;
+}
+function applyLiveRow(ev, row){
+  const spend = numFromCell(row["實際花費"]);
+  const total = numFromCell(row["總名單數"]);
+  let touched = false;
+  if(spend!=null){ ev.ads = spend; touched = true; }
+  if(total!=null){ ev.leads = total; touched = true; }
+  if(spend!=null && total){ ev.cpl = Math.round(spend/total); }
+  if(touched) ev._live = true;
+  return touched;
 }
 (async function bootstrapDashboard(){
   try{
@@ -685,24 +696,29 @@ function numFromCell(v){
       throw new Error("data.json schema unexpected");
     }
     let matched = 0;
+    // ① 手動對應表（例外才用得到，正常情況是空的）
     data.activityRows.forEach(row=>{
       const name = row["活動"] || row["活动"] || "";
       for(const frag in LIVE_ACTIVITY_MAP){
         if(name.indexOf(frag) !== -1){
-          const ord = LIVE_ACTIVITY_MAP[frag];
-          const ev = events.find(e=>e.ord===ord);
-          if(!ev) continue;
-          const spend = numFromCell(row["實際花費"]);
-          const total = numFromCell(row["總名單數"]);
-          if(spend!=null){ ev.ads = spend; matched++; }
-          if(total!=null){ ev.leads = total; }
-          if(spend!=null && total){ ev.cpl = Math.round(spend/total); }
-          ev._live = true;
+          const ev = events.find(e=>e.ord===LIVE_ACTIVITY_MAP[frag]);
+          if(ev && applyLiveRow(ev, row)) matched++;
         }
       }
     });
+    // ② 自動抓最新一列：雲端表格是依時間序累加，最後一列＝最新一場活動。
+    //    對到目前events陣列裡標記「籌備中」(prep:true) 的那一場，不用每次新場次都改code；
+    //    真的有新場次時，只要在 events 陣列補一筆新場次（ord/date/loc等基本資料＋prep:true），
+    //    這裡會自動把雲端最新數字套上去。
     if(matched===0){
-      // 抓得到 data.json 但找不到對應活動列，仍視為資料來源異常
+      const prepEv = events.find(e=>e.prep);
+      const lastRow = data.activityRows[data.activityRows.length-1];
+      if(prepEv && lastRow && applyLiveRow(prepEv, lastRow)){
+        matched++;
+      }
+    }
+    if(matched===0){
+      // 抓得到 data.json 但找不到可對應的活動列，仍視為資料來源異常
       throw new Error("no matching activity row found in data.activityRows");
     }
     window.__liveUpdatedAt = data.updatedAt || null;
