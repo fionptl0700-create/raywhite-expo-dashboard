@@ -131,6 +131,9 @@
   <a href="#mgmt-actions">🎯 管理動作</a>
   <a href="#kpi">📊 總覽KPI</a>
   <a href="#trend">📈 趨勢</a>
+  <a href="#perf-trend">📊 效益趨勢</a>
+  <a href="#perf-ranking">🏆 表現排行</a>
+  <a href="#ad-efficiency">💰 廣告效益</a>
   <a href="#events">📋 活動總覽</a>
   <a href="#region">🗺️ 地區分析</a>
   <a href="#charts">🎯 轉換</a>
@@ -185,6 +188,44 @@
     <div class="chart-wrap" style="height:260px;"><canvas id="trendChart"></canvas></div>
   </section>
 
+  <section id="perf-trend">
+    <h2>📊 Expo Performance Trend｜活動效益趨勢</h2>
+    <div class="info-line" id="perfTrendInsight"></div>
+    <div class="kpi-toggle" style="flex-wrap:wrap;">
+      <button class="perf-metric-btn" data-metric="cost">總成本</button>
+      <button class="perf-metric-btn" data-metric="leads">報名</button>
+      <button class="perf-metric-btn" data-metric="att">實到</button>
+      <button class="perf-metric-btn active" data-metric="rate">實到率</button>
+      <button class="perf-metric-btn" data-metric="cpl">CPL</button>
+    </div>
+    <div class="chart-wrap" style="height:260px;"><canvas id="perfTrendChart"></canvas></div>
+  </section>
+
+  <section id="perf-ranking">
+    <h2>🏆 Performance Ranking｜表現排行</h2>
+    <div class="kpi-toggle" style="flex-wrap:wrap;">
+      <button class="rank-metric-btn active" data-metric="cpl">CPL</button>
+      <button class="rank-metric-btn" data-metric="rate">實到率</button>
+      <button class="rank-metric-btn" data-metric="leads">報名</button>
+      <button class="rank-metric-btn" data-metric="cost">總成本</button>
+      <button class="rank-mode-btn" data-mode="top" style="margin-left:14px;">Top 5</button>
+      <button class="rank-mode-btn active" data-mode="bottom">Bottom 5</button>
+    </div>
+    <div class="chart-wrap" style="height:260px;"><canvas id="rankingChart"></canvas></div>
+  </section>
+
+  <div class="charts-row" id="ad-efficiency">
+    <section>
+      <h2>💰 廣告花費 vs 報名數</h2>
+      <div class="chart-wrap" style="height:280px;"><canvas id="spendLeadsChart"></canvas></div>
+    </section>
+    <section>
+      <h2>🎯 Ad Efficiency｜花費 vs CPL 分布</h2>
+      <div class="info-line" id="adEffInsight"></div>
+      <div class="chart-wrap" style="height:280px;"><canvas id="adEffScatterChart"></canvas></div>
+    </section>
+  </div>
+
   <section id="events">
     <h2>📋 活動總覽（25場，最新在最上）</h2>
     <div class="filters">
@@ -207,8 +248,15 @@
 
   <section id="region">
     <h2>🗺️ 地區表現分析（依場次登記地點分組）</h2>
-    <div class="info-line">依原始地點標籤分組，聯合場次（如「台北/新竹」）不拆分計入多地區，避免同一場次被重複計算而失真；因此非台北地區樣本數少，數字僅供參考，不做強結論。</div>
-    <div style="max-height:280px;overflow:auto;">
+    <div class="info-line" id="regionInsight"></div>
+    <div class="kpi-toggle" style="flex-wrap:wrap;">
+      <button class="region-metric-btn active" data-metric="rate">實到率</button>
+      <button class="region-metric-btn" data-metric="cpl">平均CPL</button>
+      <button class="region-metric-btn" data-metric="leads">平均報名</button>
+      <button class="region-metric-btn" data-metric="cost">平均總成本</button>
+    </div>
+    <div class="chart-wrap" style="height:240px;"><canvas id="regionChart"></canvas></div>
+    <div style="max-height:280px;overflow:auto;margin-top:10px;">
     <table>
       <thead><tr><th class="left">📍 地點</th><th>場次數</th><th>平均CPL(NT$)</th><th>平均實到率</th><th>平均報名數</th><th>平均總成本(NT$)</th></tr></thead>
       <tbody id="regionTable"></tbody>
@@ -224,6 +272,18 @@
     <section>
       <h2>🏆 活動分級分布</h2>
       <div class="chart-wrap" style="height:300px;"><canvas id="gradeChart"></canvas></div>
+    </section>
+  </div>
+
+  <div class="charts-row">
+    <section>
+      <h2>📊 分級效益分布｜各級平均CPL／實到率</h2>
+      <div class="chart-wrap" style="height:280px;"><canvas id="gradeDistChart"></canvas></div>
+    </section>
+    <section>
+      <h2>🔬 CPL vs 實到率 分布圖</h2>
+      <div class="info-line">每個點代表一場活動；顏色對應分級。右下角（低CPL、高實到率）為最佳象限。</div>
+      <div class="chart-wrap" style="height:280px;"><canvas id="gradeScatterChart"></canvas></div>
     </section>
   </div>
 
@@ -513,6 +573,41 @@ document.getElementById("regionTable").innerHTML = regionRows.map(r=>`
   <td>${colorCell(r.avgCpl, tAvgCpl, r.avgCpl!=null?fmt(r.avgCpl):"—", true)}</td>
   <td>${pct(r.avgRate)}</td><td>${fmt(r.avgLeads)}</td><td>${fmt(r.avgCost)}</td></tr>`).join("");
 
+// ---- Additive: Region grouped bar chart ----
+const regionMetrics = {
+  rate: {label:"實到率", get:r=>r.avgRate==null?null:r.avgRate*100, fmt:v=>v==null?"—":v.toFixed(1)+"%"},
+  cpl:  {label:"平均CPL", get:r=>r.avgCpl, fmt:v=>v==null?"—":"NT$"+fmt(v)},
+  leads:{label:"平均報名", get:r=>r.avgLeads, fmt:v=>v==null?"—":fmt(v)},
+  cost: {label:"平均總成本", get:r=>r.avgCost, fmt:v=>v==null?"—":"NT$"+fmt(v)},
+};
+let regionChartObj = null;
+function renderRegionChart(metricKey){
+  const m = regionMetrics[metricKey];
+  const rows = regionRows.filter(r=>m.get(r)!=null);
+  if(regionChartObj) regionChartObj.destroy();
+  regionChartObj = new Chart(document.getElementById("regionChart"), {
+    type:"bar",
+    data:{ labels: rows.map(r=>r.loc+(r.count<3?"（樣本少）":"")), datasets:[{ label:m.label, data: rows.map(r=>+m.get(r).toFixed(2)), backgroundColor:"#2d8b8b" }] },
+    options:{ responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label:(ctx)=> m.label+"："+m.fmt(ctx.parsed.y) } } },
+      scales:{ y:{ beginAtZero:true, ticks:{ callback:v=>m.fmt(v) } } }
+    }
+  });
+}
+document.querySelectorAll(".region-metric-btn").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    document.querySelectorAll(".region-metric-btn").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    renderRegionChart(btn.dataset.metric);
+  });
+});
+renderRegionChart("rate");
+const bestRegionForInsight = regionRows.filter(r=>r.count>=2 && r.avgRate!=null).slice().sort((a,b)=>b.avgRate-a.avgRate)[0];
+if(bestRegionForInsight){
+  document.getElementById("regionInsight").textContent =
+    `${bestRegionForInsight.loc}平均到場率最高（${pct(bestRegionForInsight.avgRate)}，共${bestRegionForInsight.count}場）；其餘地區樣本較少，僅供參考。`;
+}
+
 const rateEvents = completed.filter(e=>e.rate!=null);
 const last3Rate = rateEvents.slice(-3);
 const last3AvgRate = last3Rate.reduce((s,e)=>s+e.rate,0)/last3Rate.length;
@@ -652,6 +747,56 @@ new Chart(document.getElementById("gradeChart"), {
       backgroundColor:["#1a7f37","#2563eb","#FFC72C","#b91c1c","#9ca3af"] }]
   },
   options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{position:"bottom"} } }
+});
+
+// ---- Additive: Grade distribution bar (avg CPL/rate per grade) + CPL-vs-rate scatter ----
+const gradeColors = {A:"#1a7f37",B:"#2563eb",C:"#FFC72C",D:"#b91c1c",N:"#9ca3af"};
+const gradeOrder = ["A","B","C","D"];
+const gradeStats = gradeOrder.map(g=>{
+  const list = completed.filter(e=>e.grade===g);
+  const cplList = list.map(e=>e.cpl).filter(v=>v!=null);
+  const rateList = list.map(e=>e.rate).filter(v=>v!=null);
+  return {
+    grade:g, count:list.length,
+    avgCpl: cplList.length? cplList.reduce((a,b)=>a+b,0)/cplList.length : null,
+    avgRate: rateList.length? rateList.reduce((a,b)=>a+b,0)/rateList.length : null,
+  };
+}).filter(g=>g.count>0);
+new Chart(document.getElementById("gradeDistChart"), {
+  type:"bar",
+  data:{
+    labels: gradeStats.map(g=>g.grade+"級（"+g.count+"場）"),
+    datasets:[
+      {label:"平均CPL(NT$)", data: gradeStats.map(g=>g.avgCpl!=null?Math.round(g.avgCpl):null), backgroundColor:"#ab3a3a", yAxisID:"y"},
+      {label:"平均實到率(%)", data: gradeStats.map(g=>g.avgRate!=null?+(g.avgRate*100).toFixed(1):null), backgroundColor:"#1a7f37", yAxisID:"y1"},
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{position:"bottom"} },
+    scales:{
+      y:{ beginAtZero:true, position:"left", title:{display:true,text:"CPL(NT$)"} },
+      y1:{ beginAtZero:true, position:"right", title:{display:true,text:"實到率(%)"}, grid:{drawOnChartArea:false} }
+    }
+  }
+});
+const scatterPoints = completed.filter(e=>e.cpl!=null && e.rate!=null).map(e=>({x:e.cpl, y:+(e.rate*100).toFixed(1), ord:e.ord, loc:e.loc, cost:(e.ads||0)+(e.venue||0), grade:e.grade}));
+const scatterByGrade = gradeOrder.map(g=>({
+  label:g+"級",
+  data: scatterPoints.filter(p=>p.grade===g),
+  backgroundColor: gradeColors[g],
+})).filter(ds=>ds.data.length>0);
+new Chart(document.getElementById("gradeScatterChart"), {
+  type:"scatter",
+  data:{ datasets: scatterByGrade },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{position:"bottom"},
+      tooltip:{ callbacks:{ label:(ctx)=>{ const p=ctx.raw; return [`第${p.ord}屆（${p.loc}）`, `CPL NT$${fmt(p.x)}`, `實到率 ${p.y}%`, `總成本 NT$${fmt(p.cost)}`]; } } }
+    },
+    scales:{ x:{ title:{display:true,text:"CPL(NT$)"}, beginAtZero:true }, y:{ title:{display:true,text:"實到率(%)"}, beginAtZero:true } }
+  }
 });
 
 const consultants = [
@@ -826,6 +971,122 @@ document.getElementById("edmGallery").innerHTML = withImg.map(e=>{
   </figure>`;
 }).join("");
 document.getElementById("s27Gallery").innerHTML = `<figure><img src="${events.find(e=>e.ord==='27').img}"><figcaption>第27屆 6/27-28 EDM</figcaption></figure>`;
+
+// ---- Additive: Expo Performance Trend (metric toggle) + Ranking ----
+const perfMetrics = {
+  cost: {label:"總成本", get:e=>(e.ads!=null||e.venue!=null)?((e.ads||0)+(e.venue||0)):null, fmt:v=>v==null?"—":"NT$"+fmt(v), lowerBetter:true},
+  leads:{label:"報名", get:e=>e.leads, fmt:v=>v==null?"—":fmt(v), lowerBetter:false},
+  att:  {label:"實到", get:e=>e.att, fmt:v=>v==null?"—":fmt(v), lowerBetter:false},
+  rate: {label:"實到率", get:e=>e.rate==null?null:e.rate*100, fmt:v=>v==null?"—":v.toFixed(1)+"%", lowerBetter:false},
+  cpl:  {label:"CPL", get:e=>e.cpl, fmt:v=>v==null?"—":"NT$"+fmt(v), lowerBetter:true},
+};
+let perfTrendChartObj = null;
+function renderPerfTrendChart(metricKey){
+  const m = perfMetrics[metricKey];
+  const labels = completed.map(e=>shortDate(e.date));
+  const data = completed.map(e=>{ const v=m.get(e); return v==null?null:v; });
+  if(perfTrendChartObj) perfTrendChartObj.destroy();
+  perfTrendChartObj = new Chart(document.getElementById("perfTrendChart"), {
+    type:"line",
+    data:{ labels, datasets:[{ label:m.label, data, borderColor:"#2d8b8b", backgroundColor:"rgba(45,139,139,.12)", fill:true, tension:.25, spanGaps:true, pointRadius:3 }] },
+    options:{ responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label:(ctx)=> m.label+"："+m.fmt(ctx.parsed.y) } } },
+      scales:{ y:{ beginAtZero:true, ticks:{ callback:v=>m.fmt(v) } } }
+    }
+  });
+}
+document.querySelectorAll(".perf-metric-btn").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    document.querySelectorAll(".perf-metric-btn").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    renderPerfTrendChart(btn.dataset.metric);
+  });
+});
+renderPerfTrendChart("rate");
+if(withRate.length){
+  document.getElementById("perfTrendInsight").textContent =
+    `近3場平均實到率 ${pct(last3AvgRate)}（24場平均 ${pct(avgRate)}），CPL NT$${fmt(last3AvgCpl)}（24場平均 NT$${fmt(avgCpl)}）。`;
+}
+
+let rankChartObj = null;
+const rankState = { metric:"cpl", mode:"bottom" };
+function renderRankChart(){
+  const m = perfMetrics[rankState.metric];
+  const withVal = completed.filter(e=>m.get(e)!=null).map(e=>({ord:e.ord, v:m.get(e)}));
+  const sorted = withVal.slice().sort((a,b)=> m.lowerBetter ? a.v-b.v : b.v-a.v);
+  const top5 = sorted.slice(0,5);
+  const bottom5 = sorted.slice(-5).reverse();
+  const list = rankState.mode==="top" ? top5 : bottom5;
+  const labels = list.map(x=>"第"+x.ord+"屆");
+  const data = list.map(x=>+x.v.toFixed(2));
+  const barColor = rankState.mode==="top" ? "#1a7f37" : "#ab3a3a";
+  if(rankChartObj) rankChartObj.destroy();
+  rankChartObj = new Chart(document.getElementById("rankingChart"), {
+    type:"bar",
+    data:{ labels, datasets:[{ label:m.label, data, backgroundColor:barColor }] },
+    options:{ indexAxis:"y", responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label:(ctx)=> m.label+"："+m.fmt(ctx.parsed.x) } } },
+      scales:{ x:{ beginAtZero:true, ticks:{ callback:v=>m.fmt(v) } } }
+    }
+  });
+}
+document.querySelectorAll(".rank-metric-btn").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    document.querySelectorAll(".rank-metric-btn").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    rankState.metric = btn.dataset.metric;
+    renderRankChart();
+  });
+});
+document.querySelectorAll(".rank-mode-btn").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    document.querySelectorAll(".rank-mode-btn").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    rankState.mode = btn.dataset.mode;
+    renderRankChart();
+  });
+});
+renderRankChart();
+
+// ---- Additive: Spend vs Leads combo + Ad Efficiency scatter ----
+const adRows = completed.filter(e=>e.ads!=null);
+new Chart(document.getElementById("spendLeadsChart"), {
+  data:{
+    labels: adRows.map(e=>shortDate(e.date)),
+    datasets:[
+      {type:"bar", label:"廣告花費(NT$)", data: adRows.map(e=>e.ads), backgroundColor:"#a8dadc", yAxisID:"y"},
+      {type:"line", label:"報名數", data: adRows.map(e=>e.leads), borderColor:"#c2650a", backgroundColor:"#c2650a", yAxisID:"y1", tension:.25, pointRadius:3},
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{position:"bottom"} },
+    scales:{
+      y:{ beginAtZero:true, position:"left", title:{display:true,text:"廣告花費(NT$)"} },
+      y1:{ beginAtZero:true, position:"right", title:{display:true,text:"報名數"}, grid:{drawOnChartArea:false} }
+    }
+  }
+});
+const adEffPoints = completed.filter(e=>e.ads!=null && e.cpl!=null).map(e=>({x:e.ads, y:e.cpl, ord:e.ord, loc:e.loc, leads:e.leads}));
+new Chart(document.getElementById("adEffScatterChart"), {
+  type:"scatter",
+  data:{ datasets:[{ label:"活動", data: adEffPoints, backgroundColor: adEffPoints.map(p=>p.y>avgCpl?"#ab3a3a":"#1a7f37") }] },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      tooltip:{ callbacks:{ label:(ctx)=>{ const p=ctx.raw; return [`第${p.ord}屆（${p.loc}）`, `廣告花費 NT$${fmt(p.x)}`, `CPL NT$${fmt(p.y)}`, `報名 ${p.leads}人`]; } } }
+    },
+    scales:{ x:{ title:{display:true,text:"廣告花費(NT$)"}, beginAtZero:true }, y:{ title:{display:true,text:"CPL(NT$)"}, beginAtZero:true } }
+  }
+});
+const highSpendHighCpl = adEffPoints.filter(p=>p.x > (adEffPoints.reduce((s,p)=>s+p.x,0)/adEffPoints.length) && p.y > avgCpl);
+if(highSpendHighCpl.length){
+  document.getElementById("adEffInsight").textContent =
+    `第${highSpendHighCpl.map(p=>p.ord).join("、")}屆屬「高花費、CPL偏高」象限，建議優先檢討投放設定。`;
+} else if(adEffPoints.length){
+  document.getElementById("adEffInsight").textContent = `目前無「高花費、CPL偏高」的極端場次。`;
+}
 
 // Justin Review Questions：依現有資料自動運算答案（非人工填寫，資料變動時自動更新）
 (function(){
