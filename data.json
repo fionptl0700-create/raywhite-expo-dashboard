@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-09T14:10:09.815Z",
+  "updatedAt": "2026-07-09T15:26:05.719Z",
   "sources": {
     "activitySheet": "ACTIVITY_CSV_URL",
     "salesSheet": "SALES_CSV_URL",
@@ -7,240 +7,309 @@
   },
   "activityRows": [
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"5AobU2QjwGanCU2XoN4oIQ\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "function n(a){a=[\"object\"==typeof globalThis&&globalThis",
-      "deleteIsEnforced:  false": "a",
-      "sealIsEnforced:  false": "\"object\"==typeof window&&window",
-      "heartbeatRate:  0.5": "\"object\"==typeof self&&self",
-      "periodicReportingRateMillis:  60000.0": "\"object\"==typeof global&&global];for(var b=0;b<a.length;++b){var c=a[b];if(c&&c.Math==Math)return c}throw Error(\"Cannot find global object\");}var p=n(this);function q(a",
-      "disableAllReporting:  false };(function(){'use strict';function k(a){var b=0;return function(){return b<a.length?{done:!1": "b){if(b)a:{var c=p;a=a.split(\".\");for(var d=0;d<a.length-1;d++){var e=a[d];if(!(e in c))break a;c=c[e]}a=a[a.length-1];d=c[a];b=b(d);b!=d&&b!=null&&m(c",
-      "value:a[b++]}:{done:!0}}}function l(a){var b=typeof Symbol!=\"undefined\"&&Symbol.iterator&&a[Symbol.iterator];if(b)return b.call(a);if(typeof a.length==\"number\")return{next:k(a)};throw Error(String(a)+\" is not an iterable or ArrayLike\");}var m=typeof Object.defineProperties==\"function\"?Object.defineProperty:function(a": "a",
-      "b": "{configurable:!0",
-      "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": "writable:!0"
+      "活動": "[AU] Taiwan 5th Expo",
+      "廣告預算": "\"NT$280",
+      "實際花費": "000\"",
+      "FB名單數": "\"NT$280",
+      "CPM": "000\"",
+      "CTR": "180",
+      "CPL": "NT$366",
+      "landing page": "",
+      "總名單數": "\"NT$1",
+      "備註": "556\""
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"5AobU2QjwGanCU2XoN4oIQ\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "q(\"Object.is\"",
-      "deleteIsEnforced:  false": "function(a){return a?a:function(b",
-      "sealIsEnforced:  false": "c){return b===c?b!==0||1/b===1/c:b!==b&&c!==c}});q(\"Array.prototype.includes\"",
-      "heartbeatRate:  0.5": "function(a){return a?a:function(b",
-      "periodicReportingRateMillis:  60000.0": "c){var d=this;d instanceof String&&(d=String(d));var e=d.length;c=c||0;for(c<0&&(c=Math.max(c+e",
-      "disableAllReporting:  false };(function(){'use strict';function k(a){var b=0;return function(){return b<a.length?{done:!1": "0));c<e;c++){var f=d[c];if(f===b||Object.is(f",
-      "value:a[b++]}:{done:!0}}}function l(a){var b=typeof Symbol!=\"undefined\"&&Symbol.iterator&&a[Symbol.iterator];if(b)return b.call(a);if(typeof a.length==\"number\")return{next:k(a)};throw Error(String(a)+\" is not an iterable or ArrayLike\");}var m=typeof Object.defineProperties==\"function\"?Object.defineProperty:function(a": "b))return!0}return!1}});",
-      "b": "",
-      "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": ""
+      "活動": "[AU] Taiwan 6th Expo",
+      "廣告預算": "\"NT$280",
+      "實際花費": "000\"",
+      "FB名單數": "\"NT$280",
+      "CPM": "000\"",
+      "CTR": "142",
+      "CPL": "NT$375",
+      "landing page": "",
+      "總名單數": "\"NT$1",
+      "備註": "972\""
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"5AobU2QjwGanCU2XoN4oIQ\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "q(\"String.prototype.includes\"",
-      "deleteIsEnforced:  false": "function(a){return a?a:function(b",
-      "sealIsEnforced:  false": "c){if(this==null)throw new TypeError(\"The 'this' value for String.prototype.includes must not be null or undefined\");if(b instanceof RegExp)throw new TypeError(\"First argument to String.prototype.includes must not be a regular expression\");return this.indexOf(b",
-      "heartbeatRate:  0.5": "c||0)!==-1}});function r(a",
-      "periodicReportingRateMillis:  60000.0": "b",
-      "disableAllReporting:  false };(function(){'use strict';function k(a){var b=0;return function(){return b<a.length?{done:!1": "c){a(\"https://csp.withgoogle.com/csp/proto/\"+encodeURIComponent(b)",
-      "value:a[b++]}:{done:!0}}}function l(a){var b=typeof Symbol!=\"undefined\"&&Symbol.iterator&&a[Symbol.iterator];if(b)return b.call(a);if(typeof a.length==\"number\")return{next:k(a)};throw Error(String(a)+\" is not an iterable or ArrayLike\");}var m=typeof Object.defineProperties==\"function\"?Object.defineProperty:function(a": "JSON.stringify(c))}function t(){var a;if((a=window.ppConfig)==null?0:a.disableAllReporting)return function(){};var b",
-      "b": "c",
-      "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": "d"
+      "活動": "[AU] Taiwan 7th Expo",
+      "廣告預算": "\"NT$240",
+      "實際花費": "000\"",
+      "FB名單數": "\"NT$239",
+      "CPM": "979\"",
+      "CTR": "116",
+      "CPL": "NT$388",
+      "landing page": "",
+      "總名單數": "\"NT$2",
+      "備註": "069\""
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"5AobU2QjwGanCU2XoN4oIQ\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "function v(){var a=(w=Object.prototype)==null?void 0:w.__lookupGetter__(\"__proto__\")",
-      "deleteIsEnforced:  false": "b=x",
-      "sealIsEnforced:  false": "c=y;return function(){var d=a.call(this)",
-      "heartbeatRate:  0.5": "e",
-      "periodicReportingRateMillis:  60000.0": "f",
-      "disableAllReporting:  false };(function(){'use strict';function k(a){var b=0;return function(){return b<a.length?{done:!1": "g",
-      "value:a[b++]}:{done:!0}}}function l(a){var b=typeof Symbol!=\"undefined\"&&Symbol.iterator&&a[Symbol.iterator];if(b)return b.call(a);if(typeof a.length==\"number\")return{next:k(a)};throw Error(String(a)+\" is not an iterable or ArrayLike\");}var m=typeof Object.defineProperties==\"function\"?Object.defineProperty:function(a": "h;r(c",
-      "b": "b",
-      "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": "{type:\"ACCESS_GET\""
+      "活動": "[AU] Taiwan 8th Expo",
+      "廣告預算": "\"NT$240",
+      "實際花費": "000\"",
+      "FB名單數": "\"NT$239",
+      "CPM": "994\"",
+      "CTR": "126",
+      "CPL": "NT$363",
+      "landing page": "",
+      "總名單數": "\"NT$1",
+      "備註": "905\""
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"5AobU2QjwGanCU2XoN4oIQ\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "function z(){var a=(A=Object.prototype)==null?void 0:A.__lookupSetter__(\"__proto__\")",
-      "deleteIsEnforced:  false": "b=x",
-      "sealIsEnforced:  false": "c=y;return function(d){d=a.call(this",
-      "heartbeatRate:  0.5": "d);var e",
-      "periodicReportingRateMillis:  60000.0": "f",
-      "disableAllReporting:  false };(function(){'use strict';function k(a){var b=0;return function(){return b<a.length?{done:!1": "g",
-      "value:a[b++]}:{done:!0}}}function l(a){var b=typeof Symbol!=\"undefined\"&&Symbol.iterator&&a[Symbol.iterator];if(b)return b.call(a);if(typeof a.length==\"number\")return{next:k(a)};throw Error(String(a)+\" is not an iterable or ArrayLike\");}var m=typeof Object.defineProperties==\"function\"?Object.defineProperty:function(a": "h;r(c",
-      "b": "b",
-      "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": "{type:\"ACCESS_SET\""
+      "活動": "[AU] Taiwan 9th Expo",
+      "廣告預算": "\"NT$280",
+      "實際花費": "000\"",
+      "FB名單數": "\"NT$280",
+      "CPM": "000\"",
+      "CTR": "89",
+      "CPL": "NT$349",
+      "landing page": "",
+      "總名單數": "\"NT$3",
+      "備註": "146\""
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"5AobU2QjwGanCU2XoN4oIQ\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "var D=\"constructor __defineGetter__ __defineSetter__ hasOwnProperty __lookupGetter__ __lookupSetter__ isPrototypeOf propertyIsEnumerable toString valueOf __proto__ toLocaleString x_ngfn_x\".split(\" \")",
-      "deleteIsEnforced:  false": "E=D.concat",
-      "sealIsEnforced:  false": "F=navigator.userAgent.match(/Firefox\\/([0-9]+)\\./)",
-      "heartbeatRate:  0.5": "G=(!F||F.length<2?0:Number(F[1])<75)?[\"toSource\"]:[]",
-      "periodicReportingRateMillis:  60000.0": "H;if(G instanceof Array)H=G;else{for(var I=l(G)",
-      "disableAllReporting:  false };(function(){'use strict';function k(a){var b=0;return function(){return b<a.length?{done:!1": "J",
-      "value:a[b++]}:{done:!0}}}function l(a){var b=typeof Symbol!=\"undefined\"&&Symbol.iterator&&a[Symbol.iterator];if(b)return b.call(a);if(typeof a.length==\"number\")return{next:k(a)};throw Error(String(a)+\" is not an iterable or ArrayLike\");}var m=typeof Object.defineProperties==\"function\"?Object.defineProperty:function(a": "K=[];!(J=I.next()).done;)K.push(J.value);H=K}var L=E.call(D",
-      "b": "H)",
-      "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": "M=[];"
+      "活動": "[AU] Taiwan 10th Expo",
+      "廣告預算": "\"NT$280",
+      "實際花費": "000\"",
+      "FB名單數": "\"NT$279",
+      "CPM": "995\"",
+      "CTR": "87",
+      "CPL": "NT$589",
+      "landing page": "",
+      "總名單數": "\"NT$3",
+      "備註": "218\""
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"5AobU2QjwGanCU2XoN4oIQ\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "function C(a",
-      "deleteIsEnforced:  false": "b){for(var c=[]",
-      "sealIsEnforced:  false": "d=l(Object.getOwnPropertyNames(Object.prototype))",
-      "heartbeatRate:  0.5": "e=d.next();!e.done;e=d.next())e=e.value",
-      "periodicReportingRateMillis:  60000.0": "L.includes(e)||M.includes(e)||c.push(e);e=Object.prototype;d=[];for(var f=0;f<c.length;f++){var g=c[f];d[f]={name:g",
-      "disableAllReporting:  false };(function(){'use strict';function k(a){var b=0;return function(){return b<a.length?{done:!1": "descriptor:Object.getOwnPropertyDescriptor(Object.prototype",
-      "value:a[b++]}:{done:!0}}}function l(a){var b=typeof Symbol!=\"undefined\"&&Symbol.iterator&&a[Symbol.iterator];if(b)return b.call(a);if(typeof a.length==\"number\")return{next:k(a)};throw Error(String(a)+\" is not an iterable or ArrayLike\");}var m=typeof Object.defineProperties==\"function\"?Object.defineProperty:function(a": "g)",
-      "b": "type:typeof e[g]}}if(d.length!==0){c=l(d);for(e=c.next();!e.done;e=c.next())M.push(e.value.name);var h;r(b",
-      "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": "a"
+      "活動": "[AU] Taiwan 11th Expo",
+      "廣告預算": "\"NT$280",
+      "實際花費": "000\"",
+      "FB名單數": "\"NT$279",
+      "CPM": "454\"",
+      "CTR": "114",
+      "CPL": "NT$380",
+      "landing page": "",
+      "總名單數": "\"NT$2",
+      "備註": "451\""
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"5AobU2QjwGanCU2XoN4oIQ\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "(function(){var a=t()",
-      "deleteIsEnforced:  false": "b=window.ppConfig;b&&(b.sealIsEnforced?Object.seal(Object.prototype):b.disableAllReporting||(document.readyState!==\"loading\"?B(b",
-      "sealIsEnforced:  false": "a):document.addEventListener(\"DOMContentLoaded\"",
-      "heartbeatRate:  0.5": "function(){B(b",
-      "periodicReportingRateMillis:  60000.0": "a)})))})();}).call(this);",
-      "disableAllReporting:  false };(function(){'use strict';function k(a){var b=0;return function(){return b<a.length?{done:!1": "",
-      "value:a[b++]}:{done:!0}}}function l(a){var b=typeof Symbol!=\"undefined\"&&Symbol.iterator&&a[Symbol.iterator];if(b)return b.call(a);if(typeof a.length==\"number\")return{next:k(a)};throw Error(String(a)+\" is not an iterable or ArrayLike\");}var m=typeof Object.defineProperties==\"function\"?Object.defineProperty:function(a": "",
-      "b": "",
-      "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": ""
+      "活動": "[AU] Taiwan 12th Expo",
+      "廣告預算": "\"NT$320",
+      "實際花費": "000\"",
+      "FB名單數": "\"NT$320",
+      "CPM": "000\"",
+      "CTR": "131",
+      "CPL": "NT$496",
+      "landing page": "",
+      "總名單數": "\"NT$2",
+      "備註": "443\""
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"5AobU2QjwGanCU2XoN4oIQ\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "</script><script nonce=\"5AobU2QjwGanCU2XoN4oIQ\">var DOCS_timing={}; DOCS_timing['pls']=new Date().getTime();</script><meta property=\"og:title\" content=\"廣告成效\"><meta property=\"og:type\" content=\"article\"><meta property=\"og:site_name\" content=\"Google Docs\"><meta property=\"og:url\" content=\"https://docs.google.com/spreadsheets/d/1izt730PjV3onmfRpWXv5IsLmx-wc42gohfckOv9g1iA/edit?gid=0&amp;usp=embed_facebook\"><meta property=\"og:image\" content=\"https://lh7-us.googleusercontent.com/docs/AHkbwyLkrynNLvQKI8wlYgT4Nbjqz5Q6FLe8i6FRMwh8h2KDbpxCqI8vPSHrnuVY_9i4T4fpo8qHJ590DqWqZ4X2XTktVjbrcOnaz4yJ0I2ZTdqHsxkX-qHv=w1200-h630-p\"><meta property=\"og:image:width\" content=\"1200\"><meta property=\"og:image:height\" content=\"630\"><meta name=\"google\" content=\"notranslate\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge;\"><meta name=\"referrer\" content=\"origin\"><title>廣告成效 - Google Sheets</title><link rel=\"shortcut icon\" href=\"https://ssl.gstatic.com/docs/spreadsheets/spreadsheets-2026-v2.ico\"><link rel=\"chrome-webstore-item\" href=\"https://chrome.google.com/webstore/detail/apdfllckaahabafndbhieahigkjlhalf\"><style nonce=\"TUCJz6ccOQ-4S8AMRGlvkQ\">.gb_y{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-box-pack:end;-webkit-justify-content:flex-end;justify-content:flex-end;width:100%}.gb_z{-webkit-box-sizing:border-box;box-sizing:border-box;height:48px;padding:4px}.gb_A",
-      "deleteIsEnforced:  false": ".gb_B",
-      "sealIsEnforced:  false": ".gb_C{-webkit-tap-highlight-color:rgba(0",
-      "heartbeatRate:  0.5": "0",
-      "periodicReportingRateMillis:  60000.0": "0",
-      "disableAllReporting:  false };(function(){'use strict';function k(a){var b=0;return function(){return b<a.length?{done:!1": "0);-webkit-tap-highlight-color:transparent;-webkit-box-sizing:border-box;box-sizing:border-box;float:right;outline:none}.gb_D{-webkit-box-sizing:border-box;box-sizing:border-box;display:inline-block;height:48px;outline:none;padding:4px;position:relative}.gb_E{display:none}.gb_F{display:block}.gb_H",
-      "value:a[b++]}:{done:!0}}}function l(a){var b=typeof Symbol!=\"undefined\"&&Symbol.iterator&&a[Symbol.iterator];if(b)return b.call(a);if(typeof a.length==\"number\")return{next:k(a)};throw Error(String(a)+\" is not an iterable or ArrayLike\");}var m=typeof Object.defineProperties==\"function\"?Object.defineProperty:function(a": ".gb_I",
-      "b": ".gb_J{fill:currentColor;color:#444746;color:var(--og-svg-color",
-      "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": "var(--gm3-sys-color-on-surface-variant"
+      "活動": "[AU] Taiwan 13th Expo",
+      "廣告預算": "\"NT$280",
+      "實際花費": "000\"",
+      "FB名單數": "\"NT$279",
+      "CPM": "995\"",
+      "CTR": "182",
+      "CPL": "NT$418",
+      "landing page": "",
+      "總名單數": "\"NT$1",
+      "備註": "538\""
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"5AobU2QjwGanCU2XoN4oIQ\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "/*",
-      "deleteIsEnforced:  false": "",
-      "sealIsEnforced:  false": "",
-      "heartbeatRate:  0.5": "",
-      "periodicReportingRateMillis:  60000.0": "",
-      "disableAllReporting:  false };(function(){'use strict';function k(a){var b=0;return function(){return b<a.length?{done:!1": "",
-      "value:a[b++]}:{done:!0}}}function l(a){var b=typeof Symbol!=\"undefined\"&&Symbol.iterator&&a[Symbol.iterator];if(b)return b.call(a);if(typeof a.length==\"number\")return{next:k(a)};throw Error(String(a)+\" is not an iterable or ArrayLike\");}var m=typeof Object.defineProperties==\"function\"?Object.defineProperty:function(a": "",
-      "b": "",
-      "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": ""
+      "活動": "[AU] Taiwan Taipei Expo 8-9 Nov 2025",
+      "廣告預算": "\"NT$320",
+      "實際花費": "000\"",
+      "FB名單數": "\"NT$319",
+      "CPM": "964\"",
+      "CTR": "84",
+      "CPL": "NT$678",
+      "landing page": "",
+      "總名單數": "\"NT$3",
+      "備註": "809\""
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"5AobU2QjwGanCU2XoN4oIQ\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "",
-      "deleteIsEnforced:  false": "",
-      "sealIsEnforced:  false": "",
-      "heartbeatRate:  0.5": "",
-      "periodicReportingRateMillis:  60000.0": "",
-      "disableAllReporting:  false };(function(){'use strict';function k(a){var b=0;return function(){return b<a.length?{done:!1": "",
-      "value:a[b++]}:{done:!0}}}function l(a){var b=typeof Symbol!=\"undefined\"&&Symbol.iterator&&a[Symbol.iterator];if(b)return b.call(a);if(typeof a.length==\"number\")return{next:k(a)};throw Error(String(a)+\" is not an iterable or ArrayLike\");}var m=typeof Object.defineProperties==\"function\"?Object.defineProperty:function(a": "",
-      "b": "",
-      "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": ""
+      "活動": "[AU] Taiwan Taipei Expo 22-23 Nov 2025",
+      "廣告預算": "\"NT$320",
+      "實際花費": "000\"",
+      "FB名單數": "\"NT$319",
+      "CPM": "960\"",
+      "CTR": "130",
+      "CPL": "NT$639",
+      "landing page": "",
+      "總名單數": "\"NT$2",
+      "備註": "461\""
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"5AobU2QjwGanCU2XoN4oIQ\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "Copyright The Closure Library Authors.",
-      "deleteIsEnforced:  false": "",
-      "sealIsEnforced:  false": "",
-      "heartbeatRate:  0.5": "",
-      "periodicReportingRateMillis:  60000.0": "",
-      "disableAllReporting:  false };(function(){'use strict';function k(a){var b=0;return function(){return b<a.length?{done:!1": "",
-      "value:a[b++]}:{done:!0}}}function l(a){var b=typeof Symbol!=\"undefined\"&&Symbol.iterator&&a[Symbol.iterator];if(b)return b.call(a);if(typeof a.length==\"number\")return{next:k(a)};throw Error(String(a)+\" is not an iterable or ArrayLike\");}var m=typeof Object.defineProperties==\"function\"?Object.defineProperty:function(a": "",
-      "b": "",
-      "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": ""
+      "活動": "[AU] Taiwan Taipei Expo 6-7 Dec 2025",
+      "廣告預算": "\"NT$320",
+      "實際花費": "000\"",
+      "FB名單數": "\"NT$319",
+      "CPM": "926\"",
+      "CTR": "85",
+      "CPL": "NT$548",
+      "landing page": "",
+      "總名單數": "\"NT$3",
+      "備註": "764\""
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"5AobU2QjwGanCU2XoN4oIQ\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "SPDX-License-Identifier: Apache-2.0",
-      "deleteIsEnforced:  false": "",
-      "sealIsEnforced:  false": "",
-      "heartbeatRate:  0.5": "",
-      "periodicReportingRateMillis:  60000.0": "",
-      "disableAllReporting:  false };(function(){'use strict';function k(a){var b=0;return function(){return b<a.length?{done:!1": "",
-      "value:a[b++]}:{done:!0}}}function l(a){var b=typeof Symbol!=\"undefined\"&&Symbol.iterator&&a[Symbol.iterator];if(b)return b.call(a);if(typeof a.length==\"number\")return{next:k(a)};throw Error(String(a)+\" is not an iterable or ArrayLike\");}var m=typeof Object.defineProperties==\"function\"?Object.defineProperty:function(a": "",
-      "b": "",
-      "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": ""
+      "活動": "[AU] Taiwan Taipei Expo 20-21 Dec 2025",
+      "廣告預算": "\"NT$240",
+      "實際花費": "000\"",
+      "FB名單數": "\"NT$239",
+      "CPM": "974\"",
+      "CTR": "71",
+      "CPL": "NT$697",
+      "landing page": "",
+      "總名單數": "\"NT$3",
+      "備註": "380\""
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"5AobU2QjwGanCU2XoN4oIQ\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "*/",
-      "deleteIsEnforced:  false": "",
-      "sealIsEnforced:  false": "",
-      "heartbeatRate:  0.5": "",
-      "periodicReportingRateMillis:  60000.0": "",
-      "disableAllReporting:  false };(function(){'use strict';function k(a){var b=0;return function(){return b<a.length?{done:!1": "",
-      "value:a[b++]}:{done:!0}}}function l(a){var b=typeof Symbol!=\"undefined\"&&Symbol.iterator&&a[Symbol.iterator];if(b)return b.call(a);if(typeof a.length==\"number\")return{next:k(a)};throw Error(String(a)+\" is not an iterable or ArrayLike\");}var m=typeof Object.defineProperties==\"function\"?Object.defineProperty:function(a": "",
-      "b": "",
-      "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": ""
+      "活動": "[AU] Taiwan Taipei Expo 10-11 Jan 2026",
+      "廣告預算": "\"NT$240",
+      "實際花費": "000\"",
+      "FB名單數": "\"NT$239",
+      "CPM": "951\"",
+      "CTR": "85",
+      "CPL": "NT$636",
+      "landing page": "",
+      "總名單數": "\"NT$2",
+      "備註": "823\""
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"5AobU2QjwGanCU2XoN4oIQ\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "function a(c){var f",
-      "deleteIsEnforced:  false": "g",
-      "sealIsEnforced:  false": "h;if(((f=document)==null?0:(g=f.fonts)==null?0:(h=g.ready)==null?0:h.then)&&typeof document.fonts.ready.then==\"function\"){var k",
-      "heartbeatRate:  0.5": "l;((l=(k=window).DOCS_timingPromises)!=null?l:k.DOCS_timingPromises=[]).push({impressionCode:1337379",
-      "periodicReportingRateMillis:  60000.0": "promise:document.fonts.ready.then(function(){return(new Date).getTime()-c})})}}",
-      "disableAllReporting:  false };(function(){'use strict';function k(a){var b=0;return function(){return b<a.length?{done:!1": "",
-      "value:a[b++]}:{done:!0}}}function l(a){var b=typeof Symbol!=\"undefined\"&&Symbol.iterator&&a[Symbol.iterator];if(b)return b.call(a);if(typeof a.length==\"number\")return{next:k(a)};throw Error(String(a)+\" is not an iterable or ArrayLike\");}var m=typeof Object.defineProperties==\"function\"?Object.defineProperty:function(a": "",
-      "b": "",
-      "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": ""
+      "活動": "[AU] Taiwan Taipei Expo 24-25 Jan 2026",
+      "廣告預算": "\"NT$160",
+      "實際花費": "000\"",
+      "FB名單數": "\"NT$160",
+      "CPM": "000\"",
+      "CTR": "42",
+      "CPL": "NT$752",
+      "landing page": "",
+      "總名單數": "\"NT$3",
+      "備註": "810\""
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"5AobU2QjwGanCU2XoN4oIQ\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "for(var b=[\"DOCS_attachInitialMaterialFontLoadListener\"]",
-      "deleteIsEnforced:  false": "d=this||self",
-      "sealIsEnforced:  false": "e;b.length&&(e=b.shift());)b.length||a===void 0?d[e]&&d[e]!==Object.prototype[e]?d=d[e]:d=d[e]={}:d[e]=a;",
-      "heartbeatRate:  0.5": "",
-      "periodicReportingRateMillis:  60000.0": "",
-      "disableAllReporting:  false };(function(){'use strict';function k(a){var b=0;return function(){return b<a.length?{done:!1": "",
-      "value:a[b++]}:{done:!0}}}function l(a){var b=typeof Symbol!=\"undefined\"&&Symbol.iterator&&a[Symbol.iterator];if(b)return b.call(a);if(typeof a.length==\"number\")return{next:k(a)};throw Error(String(a)+\" is not an iterable or ArrayLike\");}var m=typeof Object.defineProperties==\"function\"?Object.defineProperty:function(a": "",
-      "b": "",
-      "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": ""
+      "活動": "[AU] Taiwan Taipei Expo 7-8 Mar 2026",
+      "廣告預算": "\"NT$240",
+      "實際花費": "000\"",
+      "FB名單數": "\"NT$240",
+      "CPM": "000\"",
+      "CTR": "80",
+      "CPL": "NT$711",
+      "landing page": "",
+      "總名單數": "\"NT$2",
+      "備註": "900\""
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"5AobU2QjwGanCU2XoN4oIQ\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "// Google Inc.",
-      "deleteIsEnforced:  false": "",
-      "sealIsEnforced:  false": "",
-      "heartbeatRate:  0.5": "",
-      "periodicReportingRateMillis:  60000.0": "",
-      "disableAllReporting:  false };(function(){'use strict';function k(a){var b=0;return function(){return b<a.length?{done:!1": "",
-      "value:a[b++]}:{done:!0}}}function l(a){var b=typeof Symbol!=\"undefined\"&&Symbol.iterator&&a[Symbol.iterator];if(b)return b.call(a);if(typeof a.length==\"number\")return{next:k(a)};throw Error(String(a)+\" is not an iterable or ArrayLike\");}var m=typeof Object.defineProperties==\"function\"?Object.defineProperty:function(a": "",
-      "b": "",
-      "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": ""
+      "活動": "[AU] Taiwan Taipei Expo 28-29 Mar 2026",
+      "廣告預算": "\"NT$240",
+      "實際花費": "000\"",
+      "FB名單數": "\"NT$239",
+      "CPM": "695\"",
+      "CTR": "66",
+      "CPL": "NT$488",
+      "landing page": "",
+      "總名單數": "\"NT$3",
+      "備註": "632\""
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"5AobU2QjwGanCU2XoN4oIQ\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "</script><script nonce=\"5AobU2QjwGanCU2XoN4oIQ\">DOCS_attachInitialMaterialFontLoadListener(DOCS_materialFontLoadStart);</script><style nonce=\"TUCJz6ccOQ-4S8AMRGlvkQ\">@font-face{font-family:'Noto Color Emoji';font-style:normal;font-weight:400;src:url(//fonts.gstatic.com/s/notocoloremoji/v38/Yq6P-KqIXTD0t4D9z1ESnKM3-HpFWRxHy9A.ttf)format('truetype');}body {--google-font-color-notocoloremoji:none;}</style><style>:root{--docs-material-font-family:Roboto",
-      "deleteIsEnforced:  false": "RobotoDraft",
-      "sealIsEnforced:  false": "Helvetica",
-      "heartbeatRate:  0.5": "Arial",
-      "periodicReportingRateMillis:  60000.0": "sans-serif;--docs-material-header-font-family:Roboto",
-      "disableAllReporting:  false };(function(){'use strict';function k(a){var b=0;return function(){return b<a.length?{done:!1": "RobotoDraft",
-      "value:a[b++]}:{done:!0}}}function l(a){var b=typeof Symbol!=\"undefined\"&&Symbol.iterator&&a[Symbol.iterator];if(b)return b.call(a);if(typeof a.length==\"number\")return{next:k(a)};throw Error(String(a)+\" is not an iterable or ArrayLike\");}var m=typeof Object.defineProperties==\"function\"?Object.defineProperty:function(a": "Helvetica",
-      "b": "Arial",
-      "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": "sans-serif;--docs-material-font-weight-normal:400;--docs-material-font-weight-bold:500;--docs-material-font-size-normal:14px;--docs-material-font-size-9:9px;--docs-material-font-size-11:11px;--docs-material-font-size-12:12px;--docs-material-font-size-22:22px}sentinel{}</style><style>:root{--docs-material-header-font-family:\"Google Sans\""
+      "活動": "[AU] Taiwan Taipei Expo 11-12 Apr 2026",
+      "廣告預算": "\"NT$240",
+      "實際花費": "000\"",
+      "FB名單數": "\"NT$239",
+      "CPM": "872\"",
+      "CTR": "51",
+      "CPL": "NT$835",
+      "landing page": "",
+      "總名單數": "\"NT$4",
+      "備註": "704\""
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"5AobU2QjwGanCU2XoN4oIQ\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "g&&(a+=15);var f=d.getElementById(\"docs-chrome\")",
-      "deleteIsEnforced:  false": "m=f?f.offsetHeight:0",
-      "sealIsEnforced:  false": "k=f?null:d.getElementById(\"docs-additional-bars\");k=k?k.offsetHeight:0;var l=d.getElementById(\"grid-bottom-bar\")",
-      "heartbeatRate:  0.5": "n=l?l.offsetHeight:0;g&&(m=f?119:0",
-      "periodicReportingRateMillis:  60000.0": "n=l?31:0);g=d.getElementById(e+\"-grid-table-container\");var h;f=new URLSearchParams(c.location.search);f.has(\"gid\")&&(h=f.get(\"gid\"));h||(c=/gid=([0-9]*)/.exec(c.location.hash))&&c[1]&&(h=c[1]);h&&h!=e?(d.getElementById(e+\"-grid-container\").style.display=\"none\"",
-      "disableAllReporting:  false };(function(){'use strict';function k(a){var b=0;return function(){return b<a.length?{done:!1": "e=d.getElementById(\"waffle-loading-screen\")",
-      "value:a[b++]}:{done:!0}}}function l(a){var b=typeof Symbol!=\"undefined\"&&Symbol.iterator&&a[Symbol.iterator];if(b)return b.call(a);if(typeof a.length==\"number\")return{next:k(a)};throw Error(String(a)+\" is not an iterable or ArrayLike\");}var m=typeof Object.defineProperties==\"function\"?Object.defineProperty:function(a": "",
-      "b": "",
-      "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": ""
+      "活動": "[AU] Taiwan Kaohsiung Taichung Expo 25-26 Apr 2026",
+      "廣告預算": "\"NT$240",
+      "實際花費": "000\"",
+      "FB名單數": "\"NT$239",
+      "CPM": "928\"",
+      "CTR": "78",
+      "CPL": "NT$787",
+      "landing page": "",
+      "總名單數": "\"NT$3",
+      "備註": "076\""
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"5AobU2QjwGanCU2XoN4oIQ\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "e.style.display=\"block\"):(g.style.overflow=\"auto\"",
-      "deleteIsEnforced:  false": "e=g);e.style.height=b-m-k-n+\"px\";e.style.width=a+\"px\"};}).call(this);",
-      "sealIsEnforced:  false": "",
-      "heartbeatRate:  0.5": "",
-      "periodicReportingRateMillis:  60000.0": "",
-      "disableAllReporting:  false };(function(){'use strict';function k(a){var b=0;return function(){return b<a.length?{done:!1": "",
-      "value:a[b++]}:{done:!0}}}function l(a){var b=typeof Symbol!=\"undefined\"&&Symbol.iterator&&a[Symbol.iterator];if(b)return b.call(a);if(typeof a.length==\"number\")return{next:k(a)};throw Error(String(a)+\" is not an iterable or ArrayLike\");}var m=typeof Object.defineProperties==\"function\"?Object.defineProperty:function(a": "",
-      "b": "",
-      "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": ""
+      "活動": "[AU] Taiwan Cavallo Expo 9 May 2026",
+      "廣告預算": "\"NT$100",
+      "實際花費": "000\"",
+      "FB名單數": "\"NT$119",
+      "CPM": "828\"",
+      "CTR": "28",
+      "CPL": "\"NT$1",
+      "landing page": "218\"",
+      "總名單數": "",
+      "備註": "\"NT$4"
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"5AobU2QjwGanCU2XoN4oIQ\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "_bootstrap( 0.0 );</script><div role=\"navigation\" aria-label=\"Sheet tab bar\"><table id=\"grid-bottom-bar\" style='position: relative; bottom: 0; z-index: 100;' class=\"grid-bottom-bar \" cellspacing=\"0\" cellpadding=\"0\" dir=\"ltr\" role=\"presentation\"><tr style=\"display:none;\" id=\"waffle-disclaimer-bar\" class=\"waffle-disclaimer\"><td colspan=\"5\" id=\"waffle-disclaimer-content\">Quotes are not sourced from all markets and may be delayed up to 20 minutes. Information is provided 'as is' and solely for informational purposes",
-      "deleteIsEnforced:  false": "not for trading purposes or advice.<a class=\"waffle-disclaimer-link\" target=\"_blank\" href=\"http://www.google.com/googlefinance/disclaimer/\">Disclaimer</a></td></tr><tr><td style=\"width:3em;\">&nbsp;</td><td style=\"width:1em;\"><div class=\"docs-sheet-button-bar goog-toolbar goog-inline-block\"><div class=\"docs-sheet-button goog-inline-block docs-sheet-add-button\" title=\"Add Sheet\" tabindex=\"0\"><div class=\"goog-inline-block docs-sheet-button-outer-box\"><div class=\"docs-material goog-inline-block docs-sheet-button-inner-box\"><div class=\"docs-icon goog-inline-block \"><div class=\"docs-icon-img-container docs-icon-img docs-icon-add-20\" aria-hidden=\"true\">&nbsp;</div></div></div></div></div><div class=\"docs-sheet-menu-button goog-inline-block docs-sheet-all-button\" title=\"All Sheets\" tabindex=\"0\"><div class=\"goog-inline-block docs-sheet-button-outer-box\"><div class=\"docs-material goog-inline-block docs-sheet-button-inner-box\"><div class=\"docs-icon goog-inline-block \"><div class=\"docs-icon-img-container docs-icon-img docs-icon-menu-20\" aria-hidden=\"true\">&nbsp;</div></div></div></div></div><div class=\"docs-sheet-menu-button goog-inline-block docs-sheet-canvas-button\" title=\"Canvas menu\" tabindex=\"0\"><div class=\"goog-inline-block docs-sheet-button-outer-box\"><div class=\"docs-material goog-inline-block docs-sheet-button-inner-box\"><div class=\"docs-icon goog-inline-block \"><div class=\"docs-icon-img-container docs-icon-img docs-icon-canvas-20x20\" aria-hidden=\"true\">&nbsp;</div></div></div></div></div></div></td><td class=\"docs-sheet-outer-container\"><div class=\"goog-inline-block\"><div class=\"docs-sheet-fade docs-sheet-fade-left\"><div class=\"docs-grille-sheet-fade\"></div></div><div class=\"docs-sheet-fade docs-sheet-fade-right\"><div class=\"docs-grille-sheet-fade\"></div></div><div class=\"docs-sheet-container goog-inline-block\"><div class=\"docs-sheet-container-bar goog-toolbar goog-inline-block\"><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">廣告成效</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">工作表4</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">工作表5</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">說明會數據</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div></div></div></div></td><td class=\"docs-sheet-button-bar-container\"><div class=\"docs-sheet-button-bar goog-toolbar goog-inline-block\"><div class=\"docs-sheet-button goog-inline-block docs-sheet-left-button\" title=\"Scroll left\"><div class=\"goog-inline-block docs-sheet-button-outer-box\"><div class=\"docs-material goog-inline-block docs-sheet-button-inner-box\"><div class=\"docs-icon goog-inline-block \"><div class=\"docs-icon-img-container docs-icon-img docs-icon-chevron-left-20\" aria-hidden=\"true\">&nbsp;</div></div></div></div></div><div class=\"docs-sheet-button goog-inline-block docs-sheet-right-button\" title=\"Scroll right\"><div class=\"goog-inline-block docs-sheet-button-outer-box\"><div class=\"docs-material goog-inline-block docs-sheet-button-inner-box\"><div class=\"docs-icon goog-inline-block \"><div class=\"docs-icon-img-container docs-icon-img docs-icon-chevron-right-20\" aria-hidden=\"true\">&nbsp;</div></div></div></div></div></div></td><td class=\"docs-sheet-status-container\"><div class=\"docs-sheet-status\"></div><div class=\"docs-sheet-filter-status\" style=\"display:none\" tabindex=\"0\" role=\"contentinfo\"><div class=\"docs-material\"><div class=\"docs-icon goog-inline-block \"><div class=\"docs-icon-img-container docs-icon-img docs-icon-editors-ia-filter-funnel-solid\" aria-hidden=\"true\">&nbsp;</div></div></div><div class=\"docs-sheet-filter-status-text\"></div></div></td></tr></table></div><script nonce=\"5AobU2QjwGanCU2XoN4oIQ\">var mergedConfig = {\"id\":\"562e11047c0ea0ee\"",
-      "sealIsEnforced:  false": "\"appConfig\":{\"staticResourcePathPrefix\":\"\"",
-      "heartbeatRate:  0.5": "\"oui\":\"ANONYMOUS_00801369372001435688\"",
-      "periodicReportingRateMillis:  60000.0": "\"editable\":false",
-      "disableAllReporting:  false };(function(){'use strict';function k(a){var b=0;return function(){return b<a.length?{done:!1": "\"commentable\":false",
-      "value:a[b++]}:{done:!0}}}function l(a){var b=typeof Symbol!=\"undefined\"&&Symbol.iterator&&a[Symbol.iterator];if(b)return b.call(a);if(typeof a.length==\"number\")return{next:k(a)};throw Error(String(a)+\" is not an iterable or ArrayLike\");}var m=typeof Object.defineProperties==\"function\"?Object.defineProperty:function(a": "\"readComments\":false",
-      "b": "\"accessCapabilitiesJspbFormat\":\"[\\\"docs.security.access_capabilities\\\"",
-      "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": "1"
+      "活動": "[AU] Taiwan Taipei Expo 16-17 May 2026",
+      "廣告預算": "\"NT$250",
+      "實際花費": "000\"",
+      "FB名單數": "\"NT$178",
+      "CPM": "036\"",
+      "CTR": "48",
+      "CPL": "NT$857",
+      "landing page": "",
+      "總名單數": "\"NT$3",
+      "備註": "709\""
+    },
+    {
+      "活動": "[AU] Taiwan Expo 30-31 May 2026",
+      "廣告預算": "\"NT$240",
+      "實際花費": "000\"",
+      "FB名單數": "\"NT$239",
+      "CPM": "900\"",
+      "CTR": "94",
+      "CPL": "NT$600",
+      "landing page": "",
+      "總名單數": "\"NT$2",
+      "備註": "552\""
+    },
+    {
+      "活動": "[AU] Taiwan Expo 27-28 Jun 2026",
+      "廣告預算": "\"NT$240",
+      "實際花費": "000\"",
+      "FB名單數": "\"NT$240",
+      "CPM": "000\"",
+      "CTR": "65",
+      "CPL": "\"NT$1",
+      "landing page": "303\"",
+      "總名單數": "2.63%",
+      "備註": "\"NT$3"
+    },
+    {
+      "活動": "CPL從 $7",
+      "廣告預算": "748 掉到現在\"",
+      "實際花費": "",
+      "FB名單數": "",
+      "CPM": "",
+      "CTR": "",
+      "CPL": "",
+      "landing page": "",
+      "總名單數": "",
+      "備註": ""
+    },
+    {
+      "活動": "[AU] Taiwan Expo 11-12 Jul 2026",
+      "廣告預算": "\"NT$240",
+      "實際花費": "000\"",
+      "FB名單數": "\"NT$201",
+      "CPM": "437\"",
+      "CTR": "75",
+      "CPL": "NT$732",
+      "landing page": "",
+      "總名單數": "\"NT$2",
+      "備註": "686\""
     }
   ],
   "salesRows": [
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"Y4CUkd7a7VC1GXc1jKCptg\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "function n(a){a=[\"object\"==typeof globalThis&&globalThis",
+      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"uFudq5c8dyNvmrpmBxB_Ag\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "function n(a){a=[\"object\"==typeof globalThis&&globalThis",
       "deleteIsEnforced:  false": "a",
       "sealIsEnforced:  false": "\"object\"==typeof window&&window",
       "heartbeatRate:  0.5": "\"object\"==typeof self&&self",
@@ -251,7 +320,7 @@
       "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": "writable:!0"
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"Y4CUkd7a7VC1GXc1jKCptg\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "q(\"Object.is\"",
+      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"uFudq5c8dyNvmrpmBxB_Ag\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "q(\"Object.is\"",
       "deleteIsEnforced:  false": "function(a){return a?a:function(b",
       "sealIsEnforced:  false": "c){return b===c?b!==0||1/b===1/c:b!==b&&c!==c}});q(\"Array.prototype.includes\"",
       "heartbeatRate:  0.5": "function(a){return a?a:function(b",
@@ -262,7 +331,7 @@
       "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": ""
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"Y4CUkd7a7VC1GXc1jKCptg\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "q(\"String.prototype.includes\"",
+      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"uFudq5c8dyNvmrpmBxB_Ag\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "q(\"String.prototype.includes\"",
       "deleteIsEnforced:  false": "function(a){return a?a:function(b",
       "sealIsEnforced:  false": "c){if(this==null)throw new TypeError(\"The 'this' value for String.prototype.includes must not be null or undefined\");if(b instanceof RegExp)throw new TypeError(\"First argument to String.prototype.includes must not be a regular expression\");return this.indexOf(b",
       "heartbeatRate:  0.5": "c||0)!==-1}});function r(a",
@@ -273,7 +342,7 @@
       "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": "d"
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"Y4CUkd7a7VC1GXc1jKCptg\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "function v(){var a=(w=Object.prototype)==null?void 0:w.__lookupGetter__(\"__proto__\")",
+      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"uFudq5c8dyNvmrpmBxB_Ag\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "function v(){var a=(w=Object.prototype)==null?void 0:w.__lookupGetter__(\"__proto__\")",
       "deleteIsEnforced:  false": "b=x",
       "sealIsEnforced:  false": "c=y;return function(){var d=a.call(this)",
       "heartbeatRate:  0.5": "e",
@@ -284,7 +353,7 @@
       "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": "{type:\"ACCESS_GET\""
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"Y4CUkd7a7VC1GXc1jKCptg\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "function z(){var a=(A=Object.prototype)==null?void 0:A.__lookupSetter__(\"__proto__\")",
+      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"uFudq5c8dyNvmrpmBxB_Ag\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "function z(){var a=(A=Object.prototype)==null?void 0:A.__lookupSetter__(\"__proto__\")",
       "deleteIsEnforced:  false": "b=x",
       "sealIsEnforced:  false": "c=y;return function(d){d=a.call(this",
       "heartbeatRate:  0.5": "d);var e",
@@ -295,7 +364,7 @@
       "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": "{type:\"ACCESS_SET\""
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"Y4CUkd7a7VC1GXc1jKCptg\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "var D=\"constructor __defineGetter__ __defineSetter__ hasOwnProperty __lookupGetter__ __lookupSetter__ isPrototypeOf propertyIsEnumerable toString valueOf __proto__ toLocaleString x_ngfn_x\".split(\" \")",
+      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"uFudq5c8dyNvmrpmBxB_Ag\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "var D=\"constructor __defineGetter__ __defineSetter__ hasOwnProperty __lookupGetter__ __lookupSetter__ isPrototypeOf propertyIsEnumerable toString valueOf __proto__ toLocaleString x_ngfn_x\".split(\" \")",
       "deleteIsEnforced:  false": "E=D.concat",
       "sealIsEnforced:  false": "F=navigator.userAgent.match(/Firefox\\/([0-9]+)\\./)",
       "heartbeatRate:  0.5": "G=(!F||F.length<2?0:Number(F[1])<75)?[\"toSource\"]:[]",
@@ -306,7 +375,7 @@
       "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": "M=[];"
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"Y4CUkd7a7VC1GXc1jKCptg\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "function C(a",
+      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"uFudq5c8dyNvmrpmBxB_Ag\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "function C(a",
       "deleteIsEnforced:  false": "b){for(var c=[]",
       "sealIsEnforced:  false": "d=l(Object.getOwnPropertyNames(Object.prototype))",
       "heartbeatRate:  0.5": "e=d.next();!e.done;e=d.next())e=e.value",
@@ -317,7 +386,7 @@
       "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": "a"
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"Y4CUkd7a7VC1GXc1jKCptg\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "(function(){var a=t()",
+      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"uFudq5c8dyNvmrpmBxB_Ag\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "(function(){var a=t()",
       "deleteIsEnforced:  false": "b=window.ppConfig;b&&(b.sealIsEnforced?Object.seal(Object.prototype):b.disableAllReporting||(document.readyState!==\"loading\"?B(b",
       "sealIsEnforced:  false": "a):document.addEventListener(\"DOMContentLoaded\"",
       "heartbeatRate:  0.5": "function(){B(b",
@@ -328,7 +397,7 @@
       "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": ""
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"Y4CUkd7a7VC1GXc1jKCptg\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "</script><script nonce=\"Y4CUkd7a7VC1GXc1jKCptg\">var DOCS_timing={}; DOCS_timing['pls']=new Date().getTime();</script><meta property=\"og:title\" content=\"Expo 客戶進度\"><meta property=\"og:type\" content=\"article\"><meta property=\"og:site_name\" content=\"Google Docs\"><meta property=\"og:url\" content=\"https://docs.google.com/spreadsheets/d/1Z_ILsnImahm7mSbbgce3lyZ0xUaBi7MJkOkCIuDntDQ/edit?gid=996182570&amp;usp=embed_facebook\"><meta property=\"og:image\" content=\"https://lh7-us.googleusercontent.com/docs/AHkbwyInlS7h_O2wVO9e2puo46EXuJBL_Ren6kh4XQ3WxVE2ObWzYZXeD7z9c-XozlksdGjpc-MIvQyKGXrldI13lpLsq1mqsIFairaEBZcAYXlAL_uPt0wN=w1200-h630-p\"><meta property=\"og:image:width\" content=\"1200\"><meta property=\"og:image:height\" content=\"630\"><meta name=\"google\" content=\"notranslate\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge;\"><meta name=\"referrer\" content=\"origin\"><title>Expo 客戶進度 - Google Sheets</title><link rel=\"shortcut icon\" href=\"https://ssl.gstatic.com/docs/spreadsheets/spreadsheets-2026-v2.ico\"><link rel=\"chrome-webstore-item\" href=\"https://chrome.google.com/webstore/detail/apdfllckaahabafndbhieahigkjlhalf\"><style nonce=\"QxPwBOpGd2xqB-AFfxSuEw\">.gb_y{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-box-pack:end;-webkit-justify-content:flex-end;justify-content:flex-end;width:100%}.gb_z{-webkit-box-sizing:border-box;box-sizing:border-box;height:48px;padding:4px}.gb_A",
+      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"uFudq5c8dyNvmrpmBxB_Ag\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "</script><script nonce=\"uFudq5c8dyNvmrpmBxB_Ag\">var DOCS_timing={}; DOCS_timing['pls']=new Date().getTime();</script><meta property=\"og:title\" content=\"Expo 客戶進度\"><meta property=\"og:type\" content=\"article\"><meta property=\"og:site_name\" content=\"Google Docs\"><meta property=\"og:url\" content=\"https://docs.google.com/spreadsheets/d/1Z_ILsnImahm7mSbbgce3lyZ0xUaBi7MJkOkCIuDntDQ/edit?gid=996182570&amp;usp=embed_facebook\"><meta property=\"og:image\" content=\"https://lh7-us.googleusercontent.com/docs/AHkbwyInlS7h_O2wVO9e2puo46EXuJBL_Ren6kh4XQ3WxVE2ObWzYZXeD7z9c-XozlksdGjpc-MIvQyKGXrldI13lpLsq1mqsIFairaEBZcAYXlAL_uPt0wN=w1200-h630-p\"><meta property=\"og:image:width\" content=\"1200\"><meta property=\"og:image:height\" content=\"630\"><meta name=\"google\" content=\"notranslate\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge;\"><meta name=\"referrer\" content=\"origin\"><title>Expo 客戶進度 - Google Sheets</title><link rel=\"shortcut icon\" href=\"https://ssl.gstatic.com/docs/spreadsheets/spreadsheets-2026-v2.ico\"><link rel=\"chrome-webstore-item\" href=\"https://chrome.google.com/webstore/detail/apdfllckaahabafndbhieahigkjlhalf\"><style nonce=\"Mc0oONpUJSq_FOFmUwURWA\">.gb_y{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-box-pack:end;-webkit-justify-content:flex-end;justify-content:flex-end;width:100%}.gb_z{-webkit-box-sizing:border-box;box-sizing:border-box;height:48px;padding:4px}.gb_A",
       "deleteIsEnforced:  false": ".gb_B",
       "sealIsEnforced:  false": ".gb_C{-webkit-tap-highlight-color:rgba(0",
       "heartbeatRate:  0.5": "0",
@@ -339,7 +408,7 @@
       "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": "var(--gm3-sys-color-on-surface-variant"
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"Y4CUkd7a7VC1GXc1jKCptg\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "/*",
+      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"uFudq5c8dyNvmrpmBxB_Ag\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "/*",
       "deleteIsEnforced:  false": "",
       "sealIsEnforced:  false": "",
       "heartbeatRate:  0.5": "",
@@ -350,7 +419,7 @@
       "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": ""
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"Y4CUkd7a7VC1GXc1jKCptg\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "",
+      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"uFudq5c8dyNvmrpmBxB_Ag\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "",
       "deleteIsEnforced:  false": "",
       "sealIsEnforced:  false": "",
       "heartbeatRate:  0.5": "",
@@ -361,7 +430,7 @@
       "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": ""
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"Y4CUkd7a7VC1GXc1jKCptg\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "Copyright The Closure Library Authors.",
+      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"uFudq5c8dyNvmrpmBxB_Ag\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "Copyright The Closure Library Authors.",
       "deleteIsEnforced:  false": "",
       "sealIsEnforced:  false": "",
       "heartbeatRate:  0.5": "",
@@ -372,7 +441,7 @@
       "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": ""
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"Y4CUkd7a7VC1GXc1jKCptg\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "SPDX-License-Identifier: Apache-2.0",
+      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"uFudq5c8dyNvmrpmBxB_Ag\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "SPDX-License-Identifier: Apache-2.0",
       "deleteIsEnforced:  false": "",
       "sealIsEnforced:  false": "",
       "heartbeatRate:  0.5": "",
@@ -383,7 +452,7 @@
       "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": ""
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"Y4CUkd7a7VC1GXc1jKCptg\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "*/",
+      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"uFudq5c8dyNvmrpmBxB_Ag\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "*/",
       "deleteIsEnforced:  false": "",
       "sealIsEnforced:  false": "",
       "heartbeatRate:  0.5": "",
@@ -394,7 +463,7 @@
       "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": ""
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"Y4CUkd7a7VC1GXc1jKCptg\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "function a(c){var f",
+      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"uFudq5c8dyNvmrpmBxB_Ag\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "function a(c){var f",
       "deleteIsEnforced:  false": "g",
       "sealIsEnforced:  false": "h;if(((f=document)==null?0:(g=f.fonts)==null?0:(h=g.ready)==null?0:h.then)&&typeof document.fonts.ready.then==\"function\"){var k",
       "heartbeatRate:  0.5": "l;((l=(k=window).DOCS_timingPromises)!=null?l:k.DOCS_timingPromises=[]).push({impressionCode:1337379",
@@ -405,7 +474,7 @@
       "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": ""
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"Y4CUkd7a7VC1GXc1jKCptg\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "for(var b=[\"DOCS_attachInitialMaterialFontLoadListener\"]",
+      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"uFudq5c8dyNvmrpmBxB_Ag\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "for(var b=[\"DOCS_attachInitialMaterialFontLoadListener\"]",
       "deleteIsEnforced:  false": "d=this||self",
       "sealIsEnforced:  false": "e;b.length&&(e=b.shift());)b.length||a===void 0?d[e]&&d[e]!==Object.prototype[e]?d=d[e]:d=d[e]={}:d[e]=a;",
       "heartbeatRate:  0.5": "",
@@ -416,7 +485,7 @@
       "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": ""
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"Y4CUkd7a7VC1GXc1jKCptg\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "// Google Inc.",
+      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"uFudq5c8dyNvmrpmBxB_Ag\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "// Google Inc.",
       "deleteIsEnforced:  false": "",
       "sealIsEnforced:  false": "",
       "heartbeatRate:  0.5": "",
@@ -427,7 +496,7 @@
       "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": ""
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"Y4CUkd7a7VC1GXc1jKCptg\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "</script><script nonce=\"Y4CUkd7a7VC1GXc1jKCptg\">DOCS_attachInitialMaterialFontLoadListener(DOCS_materialFontLoadStart);</script><style nonce=\"QxPwBOpGd2xqB-AFfxSuEw\">@font-face{font-family:'Noto Color Emoji';font-style:normal;font-weight:400;src:url(//fonts.gstatic.com/s/notocoloremoji/v38/Yq6P-KqIXTD0t4D9z1ESnKM3-HpFWRxHy9A.ttf)format('truetype');}body {--google-font-color-notocoloremoji:none;}</style><style>:root{--docs-material-font-family:Roboto",
+      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"uFudq5c8dyNvmrpmBxB_Ag\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "</script><script nonce=\"uFudq5c8dyNvmrpmBxB_Ag\">DOCS_attachInitialMaterialFontLoadListener(DOCS_materialFontLoadStart);</script><style nonce=\"Mc0oONpUJSq_FOFmUwURWA\">@font-face{font-family:'Noto Color Emoji';font-style:normal;font-weight:400;src:url(//fonts.gstatic.com/s/notocoloremoji/v38/Yq6P-KqIXTD0t4D9z1ESnKM3-HpFWRxHy9A.ttf)format('truetype');}body {--google-font-color-notocoloremoji:none;}</style><style>:root{--docs-material-font-family:Roboto",
       "deleteIsEnforced:  false": "RobotoDraft",
       "sealIsEnforced:  false": "Helvetica",
       "heartbeatRate:  0.5": "Arial",
@@ -438,7 +507,7 @@
       "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": "sans-serif;--docs-material-font-weight-normal:400;--docs-material-font-weight-bold:500;--docs-material-font-size-normal:14px;--docs-material-font-size-9:9px;--docs-material-font-size-11:11px;--docs-material-font-size-12:12px;--docs-material-font-size-22:22px}sentinel{}</style><style>:root{--docs-material-header-font-family:\"Google Sans\""
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"Y4CUkd7a7VC1GXc1jKCptg\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "g&&(a+=15);var f=d.getElementById(\"docs-chrome\")",
+      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"uFudq5c8dyNvmrpmBxB_Ag\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "g&&(a+=15);var f=d.getElementById(\"docs-chrome\")",
       "deleteIsEnforced:  false": "m=f?f.offsetHeight:0",
       "sealIsEnforced:  false": "k=f?null:d.getElementById(\"docs-additional-bars\");k=k?k.offsetHeight:0;var l=d.getElementById(\"grid-bottom-bar\")",
       "heartbeatRate:  0.5": "n=l?l.offsetHeight:0;g&&(m=f?119:0",
@@ -449,7 +518,7 @@
       "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": ""
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"Y4CUkd7a7VC1GXc1jKCptg\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "e.style.display=\"block\"):(g.style.overflow=\"auto\"",
+      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"uFudq5c8dyNvmrpmBxB_Ag\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "e.style.display=\"block\"):(g.style.overflow=\"auto\"",
       "deleteIsEnforced:  false": "e=g);e.style.height=b-m-k-n+\"px\";e.style.width=a+\"px\"};}).call(this);",
       "sealIsEnforced:  false": "",
       "heartbeatRate:  0.5": "",
@@ -460,8 +529,8 @@
       "c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};": ""
     },
     {
-      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"Y4CUkd7a7VC1GXc1jKCptg\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "_bootstrap( 9.9618257E8 );</script><div role=\"navigation\" aria-label=\"Sheet tab bar\"><table id=\"grid-bottom-bar\" style='position: relative; bottom: 0; z-index: 100;' class=\"grid-bottom-bar \" cellspacing=\"0\" cellpadding=\"0\" dir=\"ltr\" role=\"presentation\"><tr style=\"display:none;\" id=\"waffle-disclaimer-bar\" class=\"waffle-disclaimer\"><td colspan=\"5\" id=\"waffle-disclaimer-content\">Quotes are not sourced from all markets and may be delayed up to 20 minutes. Information is provided 'as is' and solely for informational purposes",
-      "deleteIsEnforced:  false": "not for trading purposes or advice.<a class=\"waffle-disclaimer-link\" target=\"_blank\" href=\"http://www.google.com/googlefinance/disclaimer/\">Disclaimer</a></td></tr><tr><td style=\"width:3em;\">&nbsp;</td><td style=\"width:1em;\"><div class=\"docs-sheet-button-bar goog-toolbar goog-inline-block\"><div class=\"docs-sheet-button goog-inline-block docs-sheet-add-button\" title=\"Add Sheet\" tabindex=\"0\"><div class=\"goog-inline-block docs-sheet-button-outer-box\"><div class=\"docs-material goog-inline-block docs-sheet-button-inner-box\"><div class=\"docs-icon goog-inline-block \"><div class=\"docs-icon-img-container docs-icon-img docs-icon-add-20\" aria-hidden=\"true\">&nbsp;</div></div></div></div></div><div class=\"docs-sheet-menu-button goog-inline-block docs-sheet-all-button\" title=\"All Sheets\" tabindex=\"0\"><div class=\"goog-inline-block docs-sheet-button-outer-box\"><div class=\"docs-material goog-inline-block docs-sheet-button-inner-box\"><div class=\"docs-icon goog-inline-block \"><div class=\"docs-icon-img-container docs-icon-img docs-icon-menu-20\" aria-hidden=\"true\">&nbsp;</div></div></div></div></div><div class=\"docs-sheet-menu-button goog-inline-block docs-sheet-canvas-button\" title=\"Canvas menu\" tabindex=\"0\"><div class=\"goog-inline-block docs-sheet-button-outer-box\"><div class=\"docs-material goog-inline-block docs-sheet-button-inner-box\"><div class=\"docs-icon goog-inline-block \"><div class=\"docs-icon-img-container docs-icon-img docs-icon-canvas-20x20\" aria-hidden=\"true\">&nbsp;</div></div></div></div></div></div></td><td class=\"docs-sheet-outer-container\"><div class=\"goog-inline-block\"><div class=\"docs-sheet-fade docs-sheet-fade-left\"><div class=\"docs-grille-sheet-fade\"></div></div><div class=\"docs-sheet-fade docs-sheet-fade-right\"><div class=\"docs-grille-sheet-fade\"></div></div><div class=\"docs-sheet-container goog-inline-block\"><div class=\"docs-sheet-container-bar goog-toolbar goog-inline-block\"><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">說明會空白範例</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">7/11 .12 White</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">7/11(六)台中Nicole</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">7/12(日)高雄Nicole</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">「7/11(六)台中Amber-Bailey」</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">「7/12(日)高雄 Amber-Bailey」</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">「7/11(六)台中Cathy」</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">「7/12(日)高雄Cathy」</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">「6/27-6/28 Bailey</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">062829說明會Bailey名單</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">6/27-6/28 White</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">「6/27-6/28 White」的副本</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">「6/27-6/28 Nicole客戶</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">6/27-6/28 Cathy</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">5/30-5/31 WHITE客戶進度</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">5/30-5/31 Amber客戶進度</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">工作表38</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">5/16-5/17 Amber</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">516-517 White</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">「516-517 White」的副本</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">411-412White</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">4/11-12 Amber</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">4/25-26Amber</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">3/27 - 3/28 Amber</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">工作表24</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">3/27-3/28 White</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">「3/27-3/28 White」的副本</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">3/7-3/8 Amber</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">0307-08 WHITE說明會</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">「0307-08 WHITE說明會」的副本</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">2026/1/24-25客戶Amber</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">2026/1/24~25客戶White</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">1/10- 1/11 Chloe</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">1/10- 1/11 Amber</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">12/20-12/21 Amber</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">12/20、21Bob</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">12/6 - 12/7 Amber</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">Murrumbeena Amber</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">11/22 -11/23Amber</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">11/22、23 Bob</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">工作表9</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">11/8-11/9Amber</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">11/8、9Bob</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">MC - Bob</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">11/08、9Chloe</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">11/22、23Chloe</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">「11/22、23Chloe」的副本</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">MC - Chloe</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">10/25、26 TOBO</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">工作表12</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">10/25 26Bob</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">10/25、26Amber</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">10/25、26Chloe</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">10/11、12Tobo</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">10/11、12Bob</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">10/11、12Amber</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">10/11、12Chloe</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">「「「7/11(六)台中Bailey」」的副本 1」的副本</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div></div></div></div></td><td class=\"docs-sheet-button-bar-container\"><div class=\"docs-sheet-button-bar goog-toolbar goog-inline-block\"><div class=\"docs-sheet-button goog-inline-block docs-sheet-left-button\" title=\"Scroll left\"><div class=\"goog-inline-block docs-sheet-button-outer-box\"><div class=\"docs-material goog-inline-block docs-sheet-button-inner-box\"><div class=\"docs-icon goog-inline-block \"><div class=\"docs-icon-img-container docs-icon-img docs-icon-chevron-left-20\" aria-hidden=\"true\">&nbsp;</div></div></div></div></div><div class=\"docs-sheet-button goog-inline-block docs-sheet-right-button\" title=\"Scroll right\"><div class=\"goog-inline-block docs-sheet-button-outer-box\"><div class=\"docs-material goog-inline-block docs-sheet-button-inner-box\"><div class=\"docs-icon goog-inline-block \"><div class=\"docs-icon-img-container docs-icon-img docs-icon-chevron-right-20\" aria-hidden=\"true\">&nbsp;</div></div></div></div></div></div></td><td class=\"docs-sheet-status-container\"><div class=\"docs-sheet-status\"></div><div class=\"docs-sheet-filter-status\" style=\"display:none\" tabindex=\"0\" role=\"contentinfo\"><div class=\"docs-material\"><div class=\"docs-icon goog-inline-block \"><div class=\"docs-icon-img-container docs-icon-img docs-icon-editors-ia-filter-funnel-solid\" aria-hidden=\"true\">&nbsp;</div></div></div><div class=\"docs-sheet-filter-status-text\"></div></div></td></tr></table></div><script nonce=\"Y4CUkd7a7VC1GXc1jKCptg\">var mergedConfig = {\"id\":\"44bd1eda694fefeb\"",
+      "<!DOCTYPE html><html lang=\"en-US\"><head><script nonce=\"uFudq5c8dyNvmrpmBxB_Ag\">window['ppConfig'] = {productName: '26981ed0d57bbad37e728ff58134270c'": "_bootstrap( 9.9618257E8 );</script><div role=\"navigation\" aria-label=\"Sheet tab bar\"><table id=\"grid-bottom-bar\" style='position: relative; bottom: 0; z-index: 100;' class=\"grid-bottom-bar \" cellspacing=\"0\" cellpadding=\"0\" dir=\"ltr\" role=\"presentation\"><tr style=\"display:none;\" id=\"waffle-disclaimer-bar\" class=\"waffle-disclaimer\"><td colspan=\"5\" id=\"waffle-disclaimer-content\">Quotes are not sourced from all markets and may be delayed up to 20 minutes. Information is provided 'as is' and solely for informational purposes",
+      "deleteIsEnforced:  false": "not for trading purposes or advice.<a class=\"waffle-disclaimer-link\" target=\"_blank\" href=\"http://www.google.com/googlefinance/disclaimer/\">Disclaimer</a></td></tr><tr><td style=\"width:3em;\">&nbsp;</td><td style=\"width:1em;\"><div class=\"docs-sheet-button-bar goog-toolbar goog-inline-block\"><div class=\"docs-sheet-button goog-inline-block docs-sheet-add-button\" title=\"Add Sheet\" tabindex=\"0\"><div class=\"goog-inline-block docs-sheet-button-outer-box\"><div class=\"docs-material goog-inline-block docs-sheet-button-inner-box\"><div class=\"docs-icon goog-inline-block \"><div class=\"docs-icon-img-container docs-icon-img docs-icon-add-20\" aria-hidden=\"true\">&nbsp;</div></div></div></div></div><div class=\"docs-sheet-menu-button goog-inline-block docs-sheet-all-button\" title=\"All Sheets\" tabindex=\"0\"><div class=\"goog-inline-block docs-sheet-button-outer-box\"><div class=\"docs-material goog-inline-block docs-sheet-button-inner-box\"><div class=\"docs-icon goog-inline-block \"><div class=\"docs-icon-img-container docs-icon-img docs-icon-menu-20\" aria-hidden=\"true\">&nbsp;</div></div></div></div></div><div class=\"docs-sheet-menu-button goog-inline-block docs-sheet-canvas-button\" title=\"Canvas menu\" tabindex=\"0\"><div class=\"goog-inline-block docs-sheet-button-outer-box\"><div class=\"docs-material goog-inline-block docs-sheet-button-inner-box\"><div class=\"docs-icon goog-inline-block \"><div class=\"docs-icon-img-container docs-icon-img docs-icon-canvas-20x20\" aria-hidden=\"true\">&nbsp;</div></div></div></div></div></div></td><td class=\"docs-sheet-outer-container\"><div class=\"goog-inline-block\"><div class=\"docs-sheet-fade docs-sheet-fade-left\"><div class=\"docs-grille-sheet-fade\"></div></div><div class=\"docs-sheet-fade docs-sheet-fade-right\"><div class=\"docs-grille-sheet-fade\"></div></div><div class=\"docs-sheet-container goog-inline-block\"><div class=\"docs-sheet-container-bar goog-toolbar goog-inline-block\"><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">說明會空白範例</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">7/11 .12 White</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">7/11(六)台中Nicole</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">7/12(日)高雄Nicole</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">「7/11(六)台中Amber-Bailey」</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">「7/12(日)高雄 Amber-Bailey」</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">「7/11(六)台中Cathy」</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">「7/12(日)高雄Cathy」</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">「6/27-6/28 Bailey</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">062829說明會Bailey名單</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">6/27-6/28 White</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">「6/27-6/28 White」的副本</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">「6/27-6/28 Nicole客戶</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">6/27-6/28 Cathy</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">5/30-5/31 WHITE客戶進度</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">5/30-5/31 Amber客戶進度</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">工作表38</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">5/16-5/17 Amber</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">516-517 White</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">「516-517 White」的副本</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">411-412White</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">4/11-12 Amber</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">4/25-26Amber</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">3/27 - 3/28 Amber</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">工作表24</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">3/27-3/28 White</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">「3/27-3/28 White」的副本</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">3/7-3/8 Amber</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">0307-08 WHITE說明會</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">「0307-08 WHITE說明會」的副本</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">2026/1/24-25客戶Amber</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">2026/1/24~25客戶White</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">1/10- 1/11 Chloe</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">1/10- 1/11 Amber</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">12/20-12/21 Amber</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">12/20、21Bob</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">12/6 - 12/7 Amber</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">Murrumbeena Amber</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">11/22 -11/23Amber</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">11/22、23 Bob</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">工作表9</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">11/8-11/9Amber</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">11/8、9Bob</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">MC - Bob</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">11/08、9Chloe</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">11/22、23Chloe</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">「11/22、23Chloe」的副本</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">MC - Chloe</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">10/25、26 TOBO</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">工作表12</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">10/25 26Bob</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">10/25、26Amber</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">10/25、26Chloe</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">10/11、12Tobo</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">10/11、12Bob</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">10/11、12Amber</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">10/11、12Chloe</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div><div class=\"docs-sheet-tab goog-inline-block\"><div class=\"goog-inline-block docs-sheet-tab-outer-box\"><div class=\"goog-inline-block docs-sheet-tab-inner-box\"><div class=\"goog-inline-block docs-sheet-tab-caption\">「「「7/11(六)台中Bailey」」的副本 1」的副本</div><div class=\"goog-inline-block docs-sheet-tab-dropdown\"></div></div></div></div></div></div></div></td><td class=\"docs-sheet-button-bar-container\"><div class=\"docs-sheet-button-bar goog-toolbar goog-inline-block\"><div class=\"docs-sheet-button goog-inline-block docs-sheet-left-button\" title=\"Scroll left\"><div class=\"goog-inline-block docs-sheet-button-outer-box\"><div class=\"docs-material goog-inline-block docs-sheet-button-inner-box\"><div class=\"docs-icon goog-inline-block \"><div class=\"docs-icon-img-container docs-icon-img docs-icon-chevron-left-20\" aria-hidden=\"true\">&nbsp;</div></div></div></div></div><div class=\"docs-sheet-button goog-inline-block docs-sheet-right-button\" title=\"Scroll right\"><div class=\"goog-inline-block docs-sheet-button-outer-box\"><div class=\"docs-material goog-inline-block docs-sheet-button-inner-box\"><div class=\"docs-icon goog-inline-block \"><div class=\"docs-icon-img-container docs-icon-img docs-icon-chevron-right-20\" aria-hidden=\"true\">&nbsp;</div></div></div></div></div></div></td><td class=\"docs-sheet-status-container\"><div class=\"docs-sheet-status\"></div><div class=\"docs-sheet-filter-status\" style=\"display:none\" tabindex=\"0\" role=\"contentinfo\"><div class=\"docs-material\"><div class=\"docs-icon goog-inline-block \"><div class=\"docs-icon-img-container docs-icon-img docs-icon-editors-ia-filter-funnel-solid\" aria-hidden=\"true\">&nbsp;</div></div></div><div class=\"docs-sheet-filter-status-text\"></div></div></td></tr></table></div><script nonce=\"uFudq5c8dyNvmrpmBxB_Ag\">var mergedConfig = {\"id\":\"a45b455e000a125\"",
       "sealIsEnforced:  false": "\"appConfig\":{\"staticResourcePathPrefix\":\"\"",
       "heartbeatRate:  0.5": "\"oui\":\"ANONYMOUS_00801369372001435688\"",
       "periodicReportingRateMillis:  60000.0": "\"editable\":false",
