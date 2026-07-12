@@ -144,6 +144,7 @@
   .badge-row span.b-orange{color:#c2650a;font-weight:800;background:#fff3e0;}
   .badge-row span.b-red{color:#b91c1c;font-weight:800;background:#fdecec;}
   .badge-row span.b-green{color:#1a7f37;font-weight:800;background:#e8f5ee;}
+  .b-blue{color:#1d4ed8;font-weight:800;background:#e8eefd;}
   header{position:relative;overflow:hidden;}
   .hero-deco{position:absolute;right:0;top:0;height:100%;width:46%;opacity:.55;pointer-events:none;}
   .exec-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:14px;}
@@ -178,7 +179,7 @@
 </svg>
     <div>
       <h1><span class="tag">RAY WHITE TAIWAN</span> <span class="ic" style="width:18px;height:18px;color:var(--yellow);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v18Z"/><path d="M6 12H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h2"/><path d="M18 9h2a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg></span> 活動場次營運效益 Dashboard</h1>
-      <div class="sub">2025/6–2026/7 ｜ 26場（25場已完成，含28屆7/11台中＋7/12高雄籌備中）｜ 全數NT$</div>
+      <div class="sub">2025/6–2026/7 ｜ 共26場活動紀錄｜25場已完成（含28屆7/11台中）｜1場資料仍在追蹤更新中（28屆7/12高雄，活動已結束）｜全數NT$</div>
     </div>
   </div>
   <div class="sub" id="updatedAt"></div>
@@ -278,8 +279,8 @@
       <div class="stat-chip"><div class="sv">60筆</div><div class="sl">聯繫名單（去重）</div></div>
       <div class="stat-chip"><div class="sv" style="color:var(--good);">85%</div><div class="sl">已加賴</div></div>
       <div class="stat-chip"><div class="sv" style="color:var(--bad);">48%</div><div class="sl">明確會參加</div></div>
-      <div class="stat-chip" data-tip="高雄7/12 9:30場實到6組 ÷ 聯繫名單總數60筆，非同一基準之嚴謹到場率，僅供參考"><div class="sv" style="color:var(--bad);">10%</div><div class="sl">實到（6/60）</div></div>
     </div>
+    <div class="info-line" style="margin-top:6px;margin-bottom:12px;">業務聯繫名單(60筆)為活動前意向調查，與下方「活動結果」現場實到人數(台中30人／高雄9人)分屬不同資料來源與統計基準，不強行合併計算到場率。</div>
     <div class="charts-row" style="margin-bottom:12px;">
       <div class="day-card">
         <h4>台中 7/11<span class="badge" style="background:#f1f2f4;color:var(--grey);">已結束・因颱風改線上</span></h4>
@@ -321,10 +322,10 @@
         <div class="value" style="color:var(--good);">70</div>
         <div class="note">＝7/11(49)＋7/12(21)，房產場專屬報名數</div>
       </div>
-      <div class="kpi-card" data-tip="到場率公式＝實到9人÷報名21人＝28.6%。與說明會數據頁簽房產到場組數(6組)交叉驗證一致。">
+      <div class="kpi-card" data-tip="到場率公式(人數基準)＝實到9人÷報名21人＝42.9%。6組為到場家庭/伴侶等複數人同組之組數統計，僅供業務追蹤參考，不作為到場率計算單位（避免人數與組數混算）。">
         <div class="label"><span class="ic" style="width:12px;height:12px;color:currentColor;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span> 高雄7/12 9:30 場實到</div>
-        <div class="value">6組(9人)</div>
-        <div class="note">使用者回報，與說明會數據頁簽房產到場組數6交叉驗證一致。到場率6/21=28.6%</div>
+        <div class="value">9人(6組)</div>
+        <div class="note">使用者回報9人到場，與說明會數據頁簽房產到場組數6交叉驗證一致。到場率(人數基準)＝9÷21＝42.9%</div>
       </div>
       <div class="kpi-card" data-tip="到場9人中，目前3組已安排後續1-on-1，其餘2組姓名/分級待業務補充回報。">
         <div class="label"><span class="ic" style="width:12px;height:12px;color:currentColor;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span> 後續1-on-1安排中</div>
@@ -499,7 +500,7 @@
   <section id="conclusions">
     <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></svg></span> 管理層結論與建議（來源：Excel 07分頁）</h2>
     <div class="info-line" style="background:#FFF8E1;border:1px solid #FFE082;border-radius:8px;padding:10px 13px;color:#6b5300;font-weight:600;">
-      24場活動廣告帶量能力穩定（平均實到率34.3%），但公司無法回答「這些活動有沒有賺錢」——收入/成交追蹤只覆蓋1場(第27屆)，其餘23場錢花完之後發生什麼，沒人知道。
+      24場活動廣告帶量能力穩定（平均實到率34.3%），但公司仍無法回答「這些活動有沒有賺錢」——雖有5場（第23-27屆）具備到場→開單轉換率資料，但全體26場均缺成交金額與佣金收入，僅第27屆有完整1-on-1／Reserved全流程追蹤，其餘場次到場後續發生什麼、是否真的成交，仍缺乏數據佐證。
     </div>
     <div class="charts-row">
       <div>
@@ -533,7 +534,7 @@
     <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span> 第27屆 (2026/6/27-28) 深度剖析</h2>
     <div class="info-line" style="margin-bottom:8px;"><span class="ic" style="width:13px;height:13px;color:var(--v-red);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span> 下列87/31/35.6%為4場講座各自簽到統計加總（非Meta廣告Leads基準），與總覽KPI／27v28對照卡使用的107/25/23.4%（Meta廣告Leads基準）是<b>不同口徑</b>，不可互相比較或替換。</div>
     <div class="badge-row" style="margin-bottom:10px;">
-      <span class="b-orange">總成本 NT$129,681</span><span data-tip="4場講座簽到統計加總，非Meta廣告Leads">4場合計報名 87（講座簽到基準）</span><span data-tip="4場講座簽到統計加總，非Meta廣告Leads">實到 31（35.6%，講座簽到基準）</span>
+      <span class="b-orange" data-tip="場地/交通/住宿/人事，獨立追蹤，未與廣告費加總">非廣告成本 NT$129,681</span><span class="b-blue" data-tip="＝廣告花費240,000＋非廣告成本129,681，尚未扣除任何成交收入">已知總投入 NT$369,681</span><span data-tip="4場講座簽到統計加總，非Meta廣告Leads">4場合計報名 87（講座簽到基準）</span><span data-tip="4場講座簽到統計加總，非Meta廣告Leads">實到 31（35.6%，講座簽到基準）</span>
       <span>1-on-1 共17組</span><span>Reserved 1組</span>
       <span>唯一有1-on-1/Reserved完整追蹤</span>
     </div>
@@ -560,7 +561,7 @@
       <div class="cmp-col">
         <h3><span class="ic" style="width:16px;height:16px;color:var(--v-orange);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></span> 第28屆（7/11台中＋7/12高雄）</h3>
         <div class="cmp-row" data-tip="來源：說明會數據頁簽，房產場專屬報名基準"><span class="k">報名(房產場基準)</span><span class="v">70（49＋21）</span></div>
-        <div class="cmp-row"><span class="k">實到</span><span class="v">36（51.4%）</span></div>
+        <div class="cmp-row" data-tip="台中30人＋高雄9人(6組換算人數)＝39人，皆為人數基準；不與組數(6)相加，避免人組混算。"><span class="k">實到(人數基準)</span><span class="v">39人（55.7%）</span></div>
         <div class="cmp-row"><span class="k">CPL(混合)</span><span class="v">NT$1,668</span></div>
         <div class="cmp-row" data-tip="Meta 2檔Campaign各取一半歸戶：7/11(186,520÷2=93,260)+7/12(46,960÷2=23,480)"><span class="k">廣告花費</span><span class="v">NT$116,740</span></div>
         <div class="cmp-row" data-tip="場地/住宿/人事/伙食/高鐵(均攤)"><span class="k">非廣告完整成本</span><span class="v">NT$89,310</span></div>
@@ -575,7 +576,7 @@
     <div class="gallery" id="edmGallery"></div>
   </section>
 
-  <div class="foot">Ray White Taiwan 活動效益總表.xlsx／Google Sheet「Expo客戶進度」「廣告成效」／raywhitetw.com ｜ 資料截至 2026/7/12</div>
+  <div class="foot">Ray White Taiwan 活動效益總表.xlsx／Google Sheet「Expo客戶進度」「廣告成效」／raywhitetw.com　｜　Dashboard更新：2026/7/12　｜　廣告資料截至：2026/7/11　｜　活動報名/實到資料截至：2026/7/12　｜　業務後續追蹤(1-on-1／Reserved／開單)：持續追蹤中</div>
 </div>
 
 <script>
@@ -691,7 +692,7 @@ const events = [
  {ord:"26",d:"2026-05-30",event:"Taiwan 26th EXPO",date:"2026/5/30-31",loc:"台中/新竹",leads:109,att:39,rate:0.3578,ads:139709,venue:241723,cpl:2253,grade:"B",img:"https://raywhitetw.com/wp-content/uploads/2026/05/WhatsApp-Image-2026-05-15-at-14.21.57.jpeg"},
  {ord:"27",d:"2026-06-27",event:"Taiwan 27th EXPO",date:"2026/6/27-28",loc:"台北",leads:107,att:25,rate:0.2336,ads:240000,venue:null,cpl:3692,grade:"D",img:"https://raywhitetw.com/wp-content/uploads/2026/06/WhatsApp-Image-2026-06-10-at-15.34.18.jpeg"},
  {ord:"28",d:"2026-07-11",event:"Taiwan 28th EXPO（7/11台中）",date:"2026/7/11",loc:"台中(線上)",leads:49,att:30,rate:0.6122448979591837,ads:93260,venue:21505,cpl:1903,grade:"N",img:"https://raywhitetw.com/wp-content/uploads/2026/06/Gemini_Generated_Image_z246kuz246kuz246.png"},
- {ord:"28",d:"2026-07-12",event:"Taiwan 28th EXPO（7/12高雄）",date:"2026/7/12",loc:"高雄",leads:21,att:6,rate:0.2857142857142857,ads:23480,venue:67805,cpl:1118,grade:"N",img:"https://raywhitetw.com/wp-content/uploads/2026/06/Gemini_Generated_Image_z246kuz246kuz246.png",prep:true},
+ {ord:"28",d:"2026-07-12",event:"Taiwan 28th EXPO（7/12高雄）",date:"2026/7/12",loc:"高雄",leads:21,att:9,attGroups:6,rate:0.42857142857142855,ads:23480,venue:67805,cpl:1118,grade:"N",img:"https://raywhitetw.com/wp-content/uploads/2026/06/Gemini_Generated_Image_z246kuz246kuz246.png",prep:true},
 ];
 const completed = events.filter(e=>!e.prep);
 function tblAvgOf(arr,key){ const v=arr.map(e=>e[key]).filter(x=>x!=null); return v.length? v.reduce((a,b)=>a+b,0)/v.length : null; }
@@ -781,7 +782,7 @@ function renderCostConvSection(scope){
   const n = evs.length;
   const scopeLabel = scope==="all" ? `${n}場合計` : scope==="month" ? `當月${n}場合計` : `當次（第${evs[0]?.ord||"—"}屆）`;
   const isSingle = scope==="latest";
-  document.getElementById("scopeHint").textContent = scope==="all" ? "＝全部25場已完成活動" : scope==="month" ? `＝${evs[0]?evs[0].d.slice(0,7):""}當月全部活動，共${n}場（含籌備中場次）` : `＝最近一場已完成活動（第${evs[0]?.ord||"—"}屆）`;
+  document.getElementById("scopeHint").textContent = scope==="all" ? "＝全部25場已完成活動" : scope==="month" ? `＝${evs[0]?evs[0].d.slice(0,7):""}當月全部活動，共${n}場（含資料仍在追蹤更新中場次）` : `＝最近一場已完成活動（第${evs[0]?.ord||"—"}屆）`;
 
   renderKpis("kpiGridCost", [
     {label:`${scopeLabel}廣告花費`, value: fmt(tAds), raw:tAds, note:"NT$", icon:"dollar", cls:"cost",
@@ -875,7 +876,7 @@ const cplBetter = last3AvgCpl <= avgCpl;
 const totalLeadsAll = completed.reduce((s,e)=>s+(e.leads||0),0);
 const totalAttAll = completed.reduce((s,e)=>s+(e.att||0),0);
 document.getElementById("execSummary").innerHTML = `
-  <div class="exec-card" data-tip="25場已完成活動（第5-27屆全部＋第28屆7/11台中場），不含7/12籌備中場次。"><div class="ic">${icon("calendar",22)}</div><div class="txt"><div class="v cu" data-raw="${completed.length}">0</div><div class="l">總活動場次（第5-27屆＋28屆7/11已完成）</div></div></div>
+  <div class="exec-card" data-tip="25場已完成活動（第5-27屆全部＋第28屆7/11台中場），不含7/12高雄場（活動已結束，惟部分資料仍在追蹤更新中）。"><div class="ic">${icon("calendar",22)}</div><div class="txt"><div class="v cu" data-raw="${completed.length}">0</div><div class="l">總活動場次（第5-27屆＋28屆7/11已完成）</div></div></div>
   <div class="exec-card" data-tip="公式＝Σ各場Leads(廣告報名數)，25場合計。"><div class="ic">${icon("users",22)}</div><div class="txt"><div class="v cu" data-raw="${totalLeadsAll}">0</div><div class="l">總報名人數</div></div></div>
   <div class="exec-card" data-tip="公式＝Σ各場實到人數÷Σ各場Leads＝${pct(avgRate)}到訪率。"><div class="ic">${icon("check",22)}</div><div class="txt"><div class="v cu" data-raw="${totalAttAll}">0</div><div class="l">總實到人數（到訪率${pct(avgRate)}）</div></div></div>
   <div class="exec-card" data-tip="公式＝Σ(廣告花費＋場地費)，僅涵蓋有資料欄位，未計入人事/物料，為成本下限。"><div class="ic">${icon("dollar",22)}</div><div class="txt"><div class="v cu" data-raw="${totalCost}">$0</div><div class="l">總活動支出（廣告+場地，下限，不含人事/物料）</div></div></div>
@@ -1001,7 +1002,7 @@ new Chart(document.getElementById("cplTrendChart"), {
 });
 
 function gradeBadge(e){
-  if (e.prep) return `<span class="prep-badge">籌備中</span>`;
+  if (e.prep) return `<span class="prep-badge">追蹤中</span>`;
   const cls = {A:"gA",B:"gB",C:"gC",D:"gD",N:"gN"}[e.grade]||"gN";
   const label = e.grade==="N" ? "-" : e.grade;
   return `<span class="grade ${cls}">${label}</span>`;
@@ -1011,8 +1012,8 @@ function renderTable(list){
   const tbody = document.querySelector("#eventTable tbody");
   tbody.innerHTML = sorted.map(e=>{
     const total = (e.ads||0)+(e.venue||0);
-    const img = e.img ? `<img class="thumb" src="${e.img}" loading="lazy" onerror="this.style.display='none'">` : `<div class="thumb-ph">${e.prep?"籌備中":"無圖"}</div>`;
-    const leadsCell = e.leads==null ? `<span class="prep-badge">籌備中</span>` : colorCell(e.leads,tAvgLeads,fmt(e.leads));
+    const img = e.img ? `<img class="thumb" src="${e.img}" loading="lazy" onerror="this.style.display='none'">` : `<div class="thumb-ph">${e.prep?"資料追蹤中":"無圖"}</div>`;
+    const leadsCell = e.leads==null ? `<span class="prep-badge">無資料</span>` : colorCell(e.leads,tAvgLeads,fmt(e.leads));
     const attCell = e.att==null ? "—" : colorCell(e.att,tAvgAtt,e.att);
     const rateCell = e.rate==null ? "—" : colorCell(e.rate,tAvgRate,pct(e.rate));
     const cplCell = e.cpl==null ? "—" : colorCell(e.cpl,tAvgCpl,fmt(e.cpl),true);
@@ -1265,7 +1266,7 @@ const eventConsultant = [
  {label:"第25屆",total:20,added:16,rate:16/20,yes:13,no:0,undecided:0,quality:"完整"},
  {label:"第26屆",total:33,added:27,rate:27/33,yes:6,no:2,undecided:1,quality:"完整"},
  {label:"第27屆",total:47,added:29,rate:29/47,yes:23,no:20,undecided:4,quality:"完整"},
- {label:"第28屆(7/11台中已完成＋7/12高雄籌備中)",total:60,added:51,rate:51/60,yes:29,no:7,undecided:15,quality:"完整"},
+ {label:"第28屆(7/11台中＋7/12高雄，活動皆已結束，名單資料仍在核對中)",total:60,added:51,rate:51/60,yes:29,no:7,undecided:15,quality:"完整"},
 ];
 function ordDateLabel(label){
   const m = label.match(/^\u7b2c(\d+)\u5c46/);
@@ -1376,7 +1377,7 @@ document.getElementById("edmGallery").innerHTML = withImg.map(e=>{
   return `
   <figure>
     <img src="${e.img}" loading="lazy" onerror="this.parentElement.style.display='none'">
-    <figcaption>第${e.ord}屆・${e.date}${e.prep?'　<span class="prep-badge" style="font-size:9px;padding:1px 5px;">籌備中</span>':''}${statLine}</figcaption>
+    <figcaption>第${e.ord}屆・${e.date}${e.prep?'　<span class="prep-badge" style="font-size:9px;padding:1px 5px;">追蹤中</span>':''}${statLine}</figcaption>
   </figure>`;
 }).join("");
 document.getElementById("s27Gallery").innerHTML = `<figure><img src="${events.find(e=>e.ord==='27').img}"><figcaption>第27屆 6/27-28 EDM</figcaption></figure>`;
