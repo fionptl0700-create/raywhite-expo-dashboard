@@ -248,14 +248,14 @@
   <section id="costmix">
     <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg></span> 支出結構（僅2類有完整資料，非5類完整結構）</h2>
     <div class="info-line">⚠ <b>此圖不含人事費</b>——25場歷史資料完全無來源，避免腦補。場地/住宿/交通/餐飲已拆成4個獨立類別，但涵蓋度差異很大：場地10/25場，住宿/交通/餐飲僅2/25場（第23、26屆才有逐項紀錄，其餘場次即使有場地費也未拆分住宿/交通/餐飲），故後3類比例被嚴重低估，不是「這3類真的很小」，是「大部分場次沒拆這麼細」。
-    <details class="more" style="margin:0;"><summary>詳情</summary><div class="body">場地/住宿/交通/餐飲來源RW-TW說明會費用.xlsx，依日期比對10場成功匹配(第6,7,8,9,12,13,14,23,25,26屆)。其中僅23、26屆有完整的住宿/交通/餐飲逐項紀錄；其餘8場(6,7,8,9,12,13,14,25屆)只有單一「場地費/活動費」合計數字，無法拆分。廣告費(Meta)來源02分頁，25/25場皆有資料，與上方總覽KPI「累計廣告花費」同一組數即時計算（先前此處曾誤植NT$5,913,835的舊快照，已修正為即時加總值；28屆7/11廣告花費另於2026/7/12依Meta後台2檔Campaign實際花費46,960+186,520=233,480重新均攤兩天，7/11由NT$93,260上修為NT$116,740，故此處總額同步上修為NT$6,030,575）。詳見Excel 00分頁第五節。</div></details>
+    <details class="more" style="margin:0;"><summary>詳情</summary><div class="body">場地/住宿/交通/餐飲來源RW-TW說明會費用.xlsx，依日期比對10場成功匹配(第6,7,8,9,12,13,14,23,25,26屆)。其中僅23、26屆有完整的住宿/交通/餐飲逐項紀錄；其餘8場(6,7,8,9,12,13,14,25屆)只有單一「場地費/活動費」合計數字，無法拆分。廣告費(Meta)來源02分頁，25/25場皆有資料，與上方總覽KPI「累計廣告花費」同一組數即時計算（先前此處曾誤植NT$5,913,835的舊快照，實際少計28屆7/11的NT$93,260，已修正為即時加總值NT$6,007,095）。詳見Excel 00分頁第五節。</div></details>
     </div>
     <div class="group-label" style="margin-top:6px;">📊 支出結構長條圖＋資料涵蓋度指示（●綠=涵蓋完整　●橘=部分　●紅=嚴重低估/缺）</div>
     <div id="costBarWrap"></div>
     <table style="margin-top:14px;">
       <thead><tr><th class="left">類別</th><th>金額(NT$)</th><th>資料涵蓋</th></tr></thead>
       <tbody>
-        <tr><td class="left">廣告費(Meta)</td><td>6,030,575</td><td>25/25場</td></tr>
+        <tr><td class="left">廣告費(Meta)</td><td>6,007,095</td><td>25/25場</td></tr>
         <tr><td class="left">場地費</td><td>1,684,370</td><td class="lo">僅10/25場（低估）</td></tr>
         <tr><td class="left">住宿費</td><td>31,800</td><td class="lo">僅2/25場（第23、26屆），嚴重低估</td></tr>
         <tr><td class="left">交通費</td><td>30,955</td><td class="lo">僅2/25場（第23、26屆），嚴重低估</td></tr>
@@ -282,9 +282,9 @@
         <div class="drow"><span class="k">住宿（7/10晚，提前出差）</span><span class="v">NT$1,800</span></div>
         <div class="drow"><span class="k">人事(PT)</span><span class="v">NT$1,100</span></div>
         <div class="drow"><span class="k">伙食</span><span class="v">NT$5,800</span></div>
-        <div class="drow" data-tip="Meta 2檔Campaign合計NT$46,960+NT$186,520=NT$233,480，無法依日拆分，均攤2天。"><span class="k">廣告花費（2檔Campaign均攤）</span><span class="v">NT$116,740</span></div>
+        <div class="drow" data-tip="Meta Campaign B總花費NT$186,520，其中一半歸屬7/11場次"><span class="k">廣告花費（Campaign B÷2）</span><span class="v">NT$93,260</span></div>
         <div class="drow"><span class="k">高鐵（7/11）</span><span class="v">NT$12,805</span></div>
-        <div class="drow" style="border-top:2px solid var(--border);margin-top:4px;padding-top:8px;"><span class="k" style="font-weight:800;color:var(--navy);">小計</span><span class="v" style="font-size:13px;">NT$138,245</span></div>
+        <div class="drow" style="border-top:2px solid var(--border);margin-top:4px;padding-top:8px;"><span class="k" style="font-weight:800;color:var(--navy);">小計</span><span class="v" style="font-size:13px;">NT$114,765</span></div>
       </div>
       <div class="day-card">
         <h4>高雄 7/12<span class="badge" style="background:var(--v-orange-soft);color:var(--v-orange);">進行中</span></h4>
@@ -292,13 +292,13 @@
         <div class="drow"><span class="k">住宿（7/11晚德立莊）</span><span class="v">NT$11,500</span></div>
         <div class="drow"><span class="k">人事(PT)</span><span class="v">NT$2,700</span></div>
         <div class="drow"><span class="k">伙食</span><span class="v">NT$5,800</span></div>
-        <div class="drow" data-tip="Meta 2檔Campaign合計NT$46,960+NT$186,520=NT$233,480，無法依日拆分，均攤2天。"><span class="k">廣告花費（2檔Campaign均攤）</span><span class="v">NT$116,740</span></div>
+        <div class="drow" data-tip="Meta Campaign A總花費NT$46,960，其中一半歸屬7/12場次"><span class="k">廣告花費（Campaign A÷2）</span><span class="v">NT$23,480</span></div>
         <div class="drow"><span class="k">高鐵（7/12）</span><span class="v">NT$12,805</span></div>
-        <div class="drow" style="border-top:2px solid var(--border);margin-top:4px;padding-top:8px;"><span class="k" style="font-weight:800;color:var(--navy);">小計</span><span class="v" style="font-size:13px;">NT$184,545</span></div>
+        <div class="drow" style="border-top:2px solid var(--border);margin-top:4px;padding-top:8px;"><span class="k" style="font-weight:800;color:var(--navy);">小計</span><span class="v" style="font-size:13px;">NT$91,285</span></div>
       </div>
     </div>
     <div class="badge-row" style="margin-bottom:6px;">
-      <span class="b-green"><b>兩天合計 NT$322,790</b>（7/10-7/12三天共用高鐵已依日均攤入各場小計）</span>
+      <span class="b-green"><b>兩天合計 NT$206,050</b>（7/10-7/12三天共用高鐵已依日均攤入各場小計）</span>
     </div>
     <div class="kpi-grid" style="margin-bottom:10px;">
       <div class="kpi-card" data-tip="房產(9:30)場專屬報名欄位，非整場總報名，與線上其他時段場次分開計算。">
@@ -358,13 +358,13 @@
       <tr><td class="left">場地費(NT$)</td><td class="left">0（因颱風改線上）</td><td class="left">35,000</td></tr>
       <tr><td class="left">住宿費(NT$)</td><td class="left">1,800（7/10晚台中橙居，Amber，提前出差）</td><td class="left">11,500（7/11晚高雄德立莊，為7/12過夜）</td></tr>
       <tr><td class="left">人事(PT)成本(NT$)</td><td class="left">1,100</td><td class="left">2,700</td></tr>
-      <tr><td class="left">廣告花費(NT$，2檔Campaign合計÷2均攤)</td><td class="left">116,740</td><td class="left">116,740</td></tr>
+      <tr><td class="left">廣告花費(NT$，各對應Campaign÷2)</td><td class="left">93,260</td><td class="left">23,480</td></tr>
       <tr><td class="left">高鐵票(NT$)</td><td class="left">12,805</td><td class="left">12,805</td></tr>
       <tr><td class="left">伙食費(NT$)</td><td class="left">5,800</td><td class="left">5,800</td></tr>
-      <tr style="font-weight:800;"><td class="left">小計</td><td class="left">138,245</td><td class="left">184,545</td></tr>
-      <tr style="font-weight:800;color:var(--good);background:#eaf7ee;"><td class="left">兩天合計</td><td class="left" colspan="2">322,790</td></tr>
+      <tr style="font-weight:800;"><td class="left">小計</td><td class="left">114,765</td><td class="left">91,285</td></tr>
+      <tr style="font-weight:800;color:var(--good);background:#eaf7ee;"><td class="left">兩天合計</td><td class="left" colspan="2">206,050</td></tr>
       </tbody></table>
-      高鐵票NT$25,610（7/10、7/11、7/12共用行程）已依7/11、7/12各半均攤，每天NT$12,805。7/11台中場因颱風臨時改為線上，場地費NT$0；住宿NT$1,800(7/10晚台中橙居)、人事NT$1,100、伙食NT$5,800為工作人員提前出差之差旅成本。7/12場地NT$35,000(高雄萬豪酒店)、住宿NT$11,500(7/11晚德立莊過夜)、人事NT$2,700、伙食NT$5,800。廣告花費：Meta後台2檔Campaign實際花費分別為NT$46,960、NT$186,520，合計NT$233,480，因無法依日拆分歸戶，故均攤2天各NT$116,740。<br>
+      高鐵票NT$25,610（7/10、7/11、7/12共用行程）已依7/11、7/12各半均攤，每天NT$12,805。7/11台中場因颱風臨時改為線上，場地費NT$0；住宿NT$1,800(7/10晚台中橙居)、人事NT$1,100、伙食NT$5,800為工作人員提前出差之差旅成本。7/12場地NT$35,000(高雄萬豪酒店)、住宿NT$11,500(7/11晚德立莊過夜)、人事NT$2,700、伙食NT$5,800。廣告花費：Meta後台2檔Campaign實際花費分別為NT$186,520(對應7/11)、NT$46,960(對應7/12)，各自取一半歸戶：7/11 NT$93,260、7/12 NT$23,480，28屆合計NT$116,740。<br>
       聯繫名單去重60筆：已加賴51、未加賴3、連繫中5、會參加29、不參加7、未定15，另9筆尚未詢問意願、1筆狀態不明(吳穎婷)。後續1-on-1推進中共3組：其中1組為林徑緯(PR，A級)，約7/13另見面；其餘2組姓名/分級待業務補充回報。名單重複/標籤錯誤(高雄Cathy分頁日期誤植711、蘇宗鵬地點誤植台北)已標記業務核對。詳見Excel 08分頁。<br>
       報名人數與上方「聯繫名單彙整表」（業務手動追蹤之聯繫意向）為不同性質、不可加總比對。7/12 14:00場報名/到場、9:30與14:00場次拆分尚無業務回報，為現有缺口。
     </div>
@@ -555,8 +555,8 @@
         <h3>🚀 第28屆（7/11台中＋7/12高雄）</h3>
         <div class="cmp-row" data-tip="來源：說明會數據頁簽，房產場專屬報名基準"><span class="k">報名(房產場基準)</span><span class="v">70（49＋21）</span></div>
         <div class="cmp-row"><span class="k">實到</span><span class="v">36（51.4%）</span></div>
-        <div class="cmp-row"><span class="k">CPL(混合)</span><span class="v">NT$3,335</span></div>
-        <div class="cmp-row" data-tip="Meta 2檔Campaign合計NT$233,480（原始NT$46,960+NT$186,520，無法依日拆分）"><span class="k">廣告花費</span><span class="v">NT$233,480</span></div>
+        <div class="cmp-row"><span class="k">CPL(混合)</span><span class="v">NT$1,668</span></div>
+        <div class="cmp-row" data-tip="Meta 2檔Campaign各取一半歸戶：7/11(186,520÷2=93,260)+7/12(46,960÷2=23,480)"><span class="k">廣告花費</span><span class="v">NT$116,740</span></div>
         <div class="cmp-row" data-tip="場地/住宿/人事/伙食/高鐵(均攤)"><span class="k">非廣告完整成本</span><span class="v">NT$89,310</span></div>
         <div class="cmp-row" style="border-bottom:none;"><span class="k">1-on-1 ／ 開單</span><span class="v" style="color:var(--v-orange);">3組安排中 ／ 0（剛結束，非缺失）</span></div>
       </div>
@@ -681,8 +681,8 @@ const events = [
  {ord:"S",d:"2026-05-23",event:"Taiwan-Japan Karuizawa AISIA",date:"2026/5/23",loc:"台北",leads:78,att:null,rate:null,ads:151276,venue:13406,cpl:2072,grade:"N",img:"https://raywhitetw.com/wp-content/uploads/2026/05/WhatsApp-Image-2026-05-18-at-15.31.33%E6%8B%B7%E8%B2%9D.jpeg"},
  {ord:"26",d:"2026-05-30",event:"Taiwan 26th EXPO",date:"2026/5/30-31",loc:"台中/新竹",leads:109,att:39,rate:0.3578,ads:139709,venue:241723,cpl:2253,grade:"B",img:"https://raywhitetw.com/wp-content/uploads/2026/05/WhatsApp-Image-2026-05-15-at-14.21.57.jpeg"},
  {ord:"27",d:"2026-06-27",event:"Taiwan 27th EXPO",date:"2026/6/27-28",loc:"台北",leads:107,att:25,rate:0.2336,ads:240000,venue:null,cpl:3692,grade:"D",img:"https://raywhitetw.com/wp-content/uploads/2026/06/WhatsApp-Image-2026-06-10-at-15.34.18.jpeg"},
- {ord:"28",d:"2026-07-11",event:"Taiwan 28th EXPO（7/11台中）",date:"2026/7/11",loc:"台中(線上)",leads:49,att:30,rate:0.6122448979591837,ads:116740,venue:21505,cpl:2382,grade:"N",img:"https://raywhitetw.com/wp-content/uploads/2026/06/Gemini_Generated_Image_z246kuz246kuz246.png"},
- {ord:"28",d:"2026-07-12",event:"Taiwan 28th EXPO（7/12高雄）",date:"2026/7/12",loc:"高雄",leads:21,att:6,rate:0.2857142857142857,ads:116740,venue:67805,cpl:5559,grade:"N",img:"https://raywhitetw.com/wp-content/uploads/2026/06/Gemini_Generated_Image_z246kuz246kuz246.png",prep:true},
+ {ord:"28",d:"2026-07-11",event:"Taiwan 28th EXPO（7/11台中）",date:"2026/7/11",loc:"台中(線上)",leads:49,att:30,rate:0.6122448979591837,ads:93260,venue:21505,cpl:1903,grade:"N",img:"https://raywhitetw.com/wp-content/uploads/2026/06/Gemini_Generated_Image_z246kuz246kuz246.png"},
+ {ord:"28",d:"2026-07-12",event:"Taiwan 28th EXPO（7/12高雄）",date:"2026/7/12",loc:"高雄",leads:21,att:6,rate:0.2857142857142857,ads:23480,venue:67805,cpl:1118,grade:"N",img:"https://raywhitetw.com/wp-content/uploads/2026/06/Gemini_Generated_Image_z246kuz246kuz246.png",prep:true},
 ];
 const completed = events.filter(e=>!e.prep);
 function tblAvgOf(arr,key){ const v=arr.map(e=>e[key]).filter(x=>x!=null); return v.length? v.reduce((a,b)=>a+b,0)/v.length : null; }
