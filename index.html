@@ -83,8 +83,8 @@
   .chart-wrap{position:relative;width:100%;}
   nav.subnav{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--border);box-shadow:0 2px 6px rgba(0,0,0,.04);}
   nav.subnav .inner{max-width:1320px;margin:0 auto;padding:0 20px;display:flex;gap:4px;overflow-x:auto;}
-  nav.subnav a{white-space:nowrap;display:inline-block;padding:10px 13px;font-size:12px;color:var(--grey);text-decoration:none;font-weight:600;border-bottom:3px solid transparent;transition:color .15s,border-color .15s;}
-  nav.subnav a:hover{color:var(--black);border-bottom-color:var(--yellow);}
+  nav.subnav a{white-space:nowrap;display:inline-block;padding:10px 13px;font-size:12px;color:var(--navy);text-decoration:none;font-weight:700;border-bottom:3px solid transparent;transition:color .15s,border-color .15s;}
+  nav.subnav a:hover{color:var(--v-blue);border-bottom-color:var(--yellow);}
   .container{max-width:1320px;margin:0 auto;padding:20px 20px 50px;}
   .group-label{font-size:11px;font-weight:700;color:var(--grey);text-transform:uppercase;letter-spacing:.6px;margin:2px 0 8px;}
   .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:12px;margin-bottom:18px;}
@@ -95,6 +95,10 @@
   .kpi-card .note{font-size:11px;color:var(--navy);margin-top:4px;font-weight:600;opacity:.85;}
   .kpi-card.bad{border-left-color:var(--bad);}
   .kpi-card.bad .value{color:var(--bad);}
+  .kpi-card.cost{border-left-color:var(--v-orange);}
+  .kpi-card.cost .value{color:var(--v-orange);}
+  .kpi-card.conv{border-left-color:var(--v-blue);}
+  .kpi-card.conv .value{color:var(--v-blue);}
   section{background:var(--card);border-radius:12px;padding:22px 24px;margin-bottom:18px;box-shadow:0 1px 2px rgba(16,16,16,.05);scroll-margin-top:52px;}
   @media(min-width:900px){ section{padding:28px 32px;} }
   section h2{font-size:15.5px;margin:0 0 12px;padding-bottom:10px;border-bottom:2px solid var(--yellow);font-weight:700;}
@@ -724,7 +728,7 @@ function renderKpis(elId, list){
     <div class="kpi-card ${k.cls||''}"${k.tip?` data-tip="${k.tip.replace(/"/g,'&quot;')}"`:''}>
       <div class="label">${k.icon?icon(k.icon,12)+' ':''}${k.label}</div>
       <div class="value"><span class="cu" data-raw="${k.raw!=null?k.raw:''}">${k.value}</span>${k.trend||''}</div>
-      ${k.spark?sparkline(k.spark,{color:k.cls==='bad'?'var(--v-red)':'var(--teal)'}):''}
+      ${k.spark?sparkline(k.spark,{color:k.cls==='bad'?'var(--v-red)':k.cls==='cost'?'var(--v-orange)':k.cls==='conv'?'var(--v-blue)':'var(--teal)'}):''}
       <div class="note">${k.note}</div>
     </div>`).join("");
   markReveal(el);
@@ -754,8 +758,8 @@ const _l3Ads = _last3avg(_adsSeries), _l3Cpl = _last3avg(_cplSeries), _l3Rate = 
 function scopeEvents(scope){
   if(scope==="latest") return completed.slice(-1);
   if(scope==="month"){
-    const latestMonth = completed[completed.length-1].d.slice(0,7);
-    return completed.filter(e=>e.d.slice(0,7)===latestMonth);
+    const latestMonth = events[events.length-1].d.slice(0,7);
+    return events.filter(e=>e.d.slice(0,7)===latestMonth);
   }
   return completed;
 }
@@ -773,22 +777,22 @@ function renderCostConvSection(scope){
   const n = evs.length;
   const scopeLabel = scope==="all" ? `${n}場合計` : scope==="month" ? `當月${n}場合計` : `當次（第${evs[0]?.ord||"—"}屆）`;
   const isSingle = scope==="latest";
-  document.getElementById("scopeHint").textContent = scope==="all" ? "＝全部25場已完成活動" : scope==="month" ? `＝${evs[0]?evs[0].d.slice(0,7):""}當月已完成場次` : `＝最近一場已完成活動（第${evs[0]?.ord||"—"}屆）`;
+  document.getElementById("scopeHint").textContent = scope==="all" ? "＝全部25場已完成活動" : scope==="month" ? `＝${evs[0]?evs[0].d.slice(0,7):""}當月全部活動，共${n}場（含籌備中場次）` : `＝最近一場已完成活動（第${evs[0]?.ord||"—"}屆）`;
 
   renderKpis("kpiGridCost", [
-    {label:`${scopeLabel}廣告花費`, value: fmt(tAds), raw:tAds, note:"NT$", icon:"dollar",
+    {label:`${scopeLabel}廣告花費`, value: fmt(tAds), raw:tAds, note:"NT$", icon:"dollar", cls:"cost",
       tip:"公式＝Σ各場廣告花費(Meta)。來源：02分頁廣告成效原始檔。"},
-    {label:"平均每場廣告花費", value: fmt(aAds), raw:aAds, note:"NT$", icon:"dollar", spark: isSingle?null:evs.map(e=>e.ads),
+    {label:"平均每場廣告花費", value: fmt(aAds), raw:aAds, note:"NT$", icon:"dollar", cls:"cost", spark: isSingle?null:evs.map(e=>e.ads),
       trend: (scope==="all")? trendPill(_l3Ads, avgAds, true): "", tip:"公式＝範圍內合計廣告花費÷有資料場次數。"},
-    {label:"平均 CPL", value: fmt(aCpl), raw:aCpl, note:"NT$／Lead", icon:"target", spark: isSingle?null:evs.map(e=>e.cpl),
+    {label:"平均 CPL", value: fmt(aCpl), raw:aCpl, note:"NT$／Lead", icon:"target", cls:"cost", spark: isSingle?null:evs.map(e=>e.cpl),
       trend: (scope==="all")? trendPill(_l3Cpl, avgCpl, true): "", tip:"公式＝廣告花費÷Leads數，逐場計算後取平均。CPL愈低代表單一名單成本愈省。"},
-    {label:`${scopeLabel}總成本`, value: fmt(tCost), raw:tCost, note:"NT$，下限", icon:"layers",
+    {label:`${scopeLabel}總成本`, value: fmt(tCost), raw:tCost, note:"NT$，下限", icon:"layers", cls:"cost",
       tip:"公式＝Σ(廣告花費＋場地費)，僅涵蓋有資料欄位，未計入人事/物料，故為成本下限。"},
-    {label:"平均每場總成本", value: fmt(aCost), raw:aCost, note:"NT$，下限", icon:"layers", spark: isSingle?null:evs.map(e=>(e.ads||0)+(e.venue||0)),
+    {label:"平均每場總成本", value: fmt(aCost), raw:aCost, note:"NT$，下限", icon:"layers", cls:"cost", spark: isSingle?null:evs.map(e=>(e.ads||0)+(e.venue||0)),
       trend: (scope==="all")? trendPill(_l3Total, avgCostPerEvent, true): "", tip:"公式＝範圍內合計總成本÷場次數。同樣為下限估算。"},
   ]);
   renderKpis("kpiGridConv", [
-    {label:"平均 Leads→實到率", value: pct(aRate), raw:aRate!=null?aRate*100:null, note: scope==="all"?"24場平均（S特別場無到場率資料）":scopeLabel, icon:"users",
+    {label:"平均 Leads→實到率", value: pct(aRate), raw:aRate!=null?aRate*100:null, note: scope==="all"?"24場平均（S特別場無到場率資料）":scopeLabel, icon:"users", cls:"conv",
       spark: isSingle?null:evs.map(e=>e.rate!=null?e.rate*100:null),
       trend: (scope==="all")? trendPill(_l3Rate, avgRate, false): "", tip:"公式＝實到人數÷Leads數，逐場計算後取平均。"},
   ]);
@@ -810,7 +814,7 @@ renderKpis("kpiGridGap", [
 ]);
 
 const regionGroups = {};
-completed.forEach(e=>{
+events.forEach(e=>{
   const key = e.loc || "未標註";
   (regionGroups[key] = regionGroups[key] || []).push(e);
 });
