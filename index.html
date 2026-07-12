@@ -128,6 +128,7 @@
   <a href="#events">📋 活動總覽</a>
   <a href="#region">🗺️ 地區分析</a>
   <a href="#charts">🎯 轉換／分級</a>
+  <a href="#convrate">💎 轉單率</a>
   <a href="#consultants">👤 業務KPI</a>
   <a href="#coverage">📁 業務名單彙整</a>
   <a href="#s27">🔍 第27屆</a>
@@ -140,7 +141,7 @@
   <div class="exec-grid" id="execSummary"></div>
   <div class="insight-row" id="execDelta" style="margin-bottom:16px;"></div>
 
-  <div class="info-line">⚠ <b>無成交/收入數據</b>，故無ROI；1-on-1追蹤僅第27屆。
+  <div class="info-line">⚠ <b>僅5/26場有房產轉單率資料</b>（第23-27屆，來源「說明會數據」頁簽）；其餘場次仍無成交/收入數據，故無法算完整ROI；1-on-1追蹤僅第27屆。
   <details class="more" style="margin:0;"><summary>詳情</summary><div class="body">業務名單彙整與廣告Leads是不同量測基準，不可互相加總。第27屆廣告花費/CPL已於2026/7/9透過新來源（Google Sheet「廣告成效」）補齊，分級重算為D級。第28屆場地/交通/住宿實際成本(NT$205,690)已於2026/7/9納入。詳細缺口見 Excel 00 分頁。</div></details>
   </div>
 
@@ -234,6 +235,32 @@
       <div class="chart-wrap" style="height:260px;"><canvas id="gradeChart"></canvas></div>
     </section>
   </div>
+
+  <section id="convrate">
+    <h2>💎 房產轉單率（到場→成交，僅第23-28屆有資料）</h2>
+    <div class="info-line">⚠ 僅5場（第23-27屆）能算轉單率，來源「說明會數據」Google Sheet頁簽，此表之「房產到場」為房產場專屬人數，與主表F欄(全場實到，第26/27屆含房產以外場次，數字較大)口徑不同，不可互相替代比較。第28屆(7/11/7/12)為近期活動，成交本需時間，目前皆為0，非資料缺失。第5-22屆及S屆無此資料來源，代表「無法計算」，不是「轉單率0%」。
+    <details class="more" style="margin:0;"><summary>詳情</summary><div class="body">此為目前資料中唯一可信的「到場→成交」轉換指標，優於報名/CPL等前端指標，因為它衡量的是廣告帶來的人到場後有沒有真的簽單，不是只有到場而已。5屆合計：房產到場125人、開單22件，平均轉單率17.6%。個別屆差異大（9.1%~32.1%），樣本數少，暫不做強結論。詳見Excel 01分頁M-O欄、08分頁。</div></details>
+    </div>
+    <div class="kpi-grid" style="margin-bottom:10px;">
+      <div class="kpi-card" style="border-left-color:var(--good);">
+        <div class="label">5屆平均轉單率(第23-27屆)</div>
+        <div class="value" style="color:var(--good);">17.6%</div>
+        <div class="note">＝開單22／到場125，唯一可信的到場→成交轉換指標</div>
+      </div>
+    </div>
+    <table>
+      <thead><tr><th class="left">屆次</th><th class="left">日期</th><th>房產到場</th><th>房產開單</th><th>轉單率</th></tr></thead>
+      <tbody>
+        <tr><td class="left">第23屆</td><td class="left">4/25-26</td><td>51</td><td>8</td><td>15.7%</td></tr>
+        <tr><td class="left">第24屆</td><td class="left">5/9</td><td>2</td><td>0</td><td>0%</td></tr>
+        <tr><td class="left">第25屆</td><td class="left">5/16-17</td><td>22</td><td>3</td><td>13.6%</td></tr>
+        <tr><td class="left">第26屆</td><td class="left">5/30-31</td><td>28</td><td>9</td><td>32.1%</td></tr>
+        <tr><td class="left">第27屆</td><td class="left">6/27-28</td><td>22</td><td>2</td><td>9.1%</td></tr>
+        <tr><td class="left">第28屆</td><td class="left">7/11</td><td>30</td><td>0</td><td>0%</td></tr>
+        <tr><td class="left">第28屆</td><td class="left">7/12</td><td>6</td><td>0</td><td>0%</td></tr>
+      </tbody>
+    </table>
+  </section>
 
   <section id="consultants">
     <h2>👤 業務人員總覽 KPI</h2>
@@ -351,6 +378,16 @@
         <div class="label">高雄7/12 14:00場 單場報名</div>
         <div class="value">—</div>
         <div class="note">左方21為9:30房產場專屬報名數，9:30／14:00個別場次拆分尚無回報</div>
+      </div>
+      <div class="kpi-card">
+        <div class="label">台中7/11 房產開單</div>
+        <div class="value">0</div>
+        <div class="note">轉單率0%(=0/30)，活動剛結束，成交需時間，非資料缺失</div>
+      </div>
+      <div class="kpi-card">
+        <div class="label">高雄7/12 房產開單</div>
+        <div class="value">0</div>
+        <div class="note">轉單率0%(=0/6)，活動進行中，成交需時間，非資料缺失</div>
       </div>
     </div>
     <details class="more"><summary>詳情（廣告Campaign數字／場地交通住宿明細／名單品質備註）</summary>
@@ -488,7 +525,7 @@ renderKpis("kpiGridConv", [
 ]);
 renderKpis("kpiGridGap", [
   {label:"1-on-1/Reserved追蹤", value:"1 / 25", note:"結構性缺口", cls:"bad"},
-  {label:"有收入數據場次", value:"0 / 25", note:"無法算ROI", cls:"bad"},
+  {label:"有轉單率資料場次", value:"5 / 25", note:"僅房產專屬到場→開單，非完整收入ROI", cls:"bad"},
 ]);
 
 const regionGroups = {};
