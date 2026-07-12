@@ -1324,8 +1324,10 @@ function funnelHtml(groupTitle, groupSub, stages){
     </div>`;
     if(i===0) return bar;
     const prev = stages[i-1];
-    const validChain = s.n!=null && prev.n!=null && s.chainOk!==false;
-    const convTxt = validChain ? Math.round(s.n/prev.n*100)+"%" : "—";
+    const sRaw = s.raw!=null ? s.raw : s.n;
+    const prevRaw = prev.raw!=null ? prev.raw : prev.n;
+    const validChain = sRaw!=null && prevRaw!=null && !isNaN(sRaw) && !isNaN(prevRaw) && prevRaw!==0 && s.chainOk!==false;
+    const convTxt = validChain ? Math.round(sRaw/prevRaw*100)+"%" : "—";
     const arrow = `<div class="funnel-arrow">
         <svg width="20" height="14" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 7h16M12 2l6 5-6 5"/></svg>
         <div>${convTxt}</div>
@@ -1341,8 +1343,8 @@ function funnelHtml(groupTitle, groupSub, stages){
 const s27OneSum = s27.reduce((s,x)=>s+x.one,0);
 const opsFunnelHtml =
   funnelHtml("① 廣告轉換漏斗", "25場已完成活動（第5-28屆7/11），來源：主表events", [
-    {n:fmt(totalLeadsAll), label:"Meta Leads／報名", cov:"25場合計", color:"var(--v-blue)", color2:"#1d4ed8", tip:"25場已完成活動的Leads(＝廣告報名)加總。"},
-    {n:fmt(totalAttAll), label:"實到", cov:`到場率${pct(avgRate)}`, color:"var(--v-blue)", color2:"#1d4ed8", tip:"公式＝實到÷Leads，逐場平均"+pct(avgRate)+"。"},
+    {n:fmt(totalLeadsAll), raw:totalLeadsAll, label:"Meta Leads／報名", cov:"25場合計", color:"var(--v-blue)", color2:"#1d4ed8", tip:"25場已完成活動的Leads(＝廣告報名)加總。"},
+    {n:fmt(totalAttAll), raw:totalAttAll, label:"實到", cov:`到場率${pct(avgRate)}`, color:"var(--v-blue)", color2:"#1d4ed8", tip:"公式＝實到÷Leads，逐場平均"+pct(avgRate)+"。"},
   ]) +
   funnelHtml("② 深度轉換漏斗", "僅第27屆(4場次)有完整到場後追蹤，來源：Excel 07分頁", [
     {n:31, label:"實到（4場次合計）", cov:"第27屆專屬", color:"var(--v-purple)", color2:"#5b21b6", tip:"第27屆4個子場次(移民×2、置產×2)實到人數合計。"},
