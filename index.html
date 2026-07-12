@@ -707,8 +707,8 @@ function colorCell(val,avg,text,lowerIsBetter){
   const diff=(val-avg)/avg;
   const good = lowerIsBetter ? diff<0 : diff>=0;
   const cls= good ? "hi":"lo";
-  const icon= Math.abs(diff)>0.4 ? ` <span class="anom" title="偏離平均${Math.round(diff*100)}%">${icon("alert",11,"var(--v-red)")}</span>` : "";
-  return `<span class="${cls}">${text}</span>${icon}`;
+  const anomBadge= Math.abs(diff)>0.4 ? ` <span class="anom" title="偏離平均${Math.round(diff*100)}%">${icon("alert",11,"var(--v-red)")}</span>` : "";
+  return `<span class="${cls}">${text}</span>${anomBadge}`;
 }
 
 function fmt(n){ return n==null ? "—" : Math.round(n).toLocaleString(); }
