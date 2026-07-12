@@ -6,11 +6,73 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <style>
   :root{
-    
+    color-scheme:light;
     --yellow:#FFC72C; --yellow-dark:#e0ac00; --black:#101010; --dark:#1F2937; --grey:#6b7280; --grey-lt:#9ca3af;
     --good:#1a7f37; --warn:#b45309; --bad:#b91c1c; --bg:#f4f5f7; --card:#ffffff; --border:#eceef1;
     --navy:#1a2332; --teal:#2d8b8b; --seafoam:#a8dadc; --cream:#f1faee;
+    --v-blue:#2563eb; --v-blue-soft:#eff4ff; --v-purple:#7c3aed; --v-purple-soft:#f5f0ff;
+    --v-orange:#c2650a; --v-orange-soft:#fff3e0; --v-green:#1a7f37; --v-green-soft:#e8f5ee;
+    --v-red:#b91c1c; --v-red-soft:#fdecec; --v-grey:#9ca3af;
   }
+  @media(prefers-reduced-motion:no-preference){
+    .reveal{opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;}
+    .reveal.in{opacity:1;transform:translateY(0);}
+  }
+  .ic{display:inline-flex;vertical-align:-3px;}
+  .ic svg{display:block;}
+  h2 .ic{margin-right:7px;vertical-align:-4px;}
+  [data-tip]{position:relative;cursor:help;}
+  [data-tip]::after{
+    content:attr(data-tip);position:absolute;left:50%;bottom:calc(100% + 9px);transform:translateX(-50%) translateY(4px);
+    background:#101828;color:#fff;font-size:11px;font-weight:600;line-height:1.5;padding:9px 12px;border-radius:8px;
+    width:max-content;max-width:250px;white-space:normal;box-shadow:0 8px 24px rgba(0,0,0,.25);
+    opacity:0;pointer-events:none;transition:opacity .15s ease,transform .15s ease;z-index:80;text-align:left;
+  }
+  [data-tip]::before{
+    content:"";position:absolute;left:50%;bottom:calc(100% + 4px);transform:translateX(-50%);
+    border:5px solid transparent;border-top-color:#101828;opacity:0;transition:opacity .15s ease;pointer-events:none;z-index:80;
+  }
+  [data-tip]:hover::after,[data-tip]:hover::before{opacity:1;transform:translateX(-50%) translateY(0);}
+  .spark{display:block;margin-top:5px;}
+  .trend-pill{display:inline-flex;align-items:center;gap:2px;font-size:10.5px;font-weight:800;padding:1px 6px 1px 4px;border-radius:20px;margin-left:6px;}
+  .trend-pill.up{color:var(--v-green);background:var(--v-green-soft);}
+  .trend-pill.down{color:var(--v-red);background:var(--v-red-soft);}
+  .trend-pill.flat{color:var(--v-grey);background:#f1f2f4;}
+  .cu{font-variant-numeric:tabular-nums;}
+  .quad-label{font-size:10px;font-weight:800;fill:var(--navy);opacity:.55;}
+  .funnel-stage{display:flex;flex-direction:column;align-items:center;position:relative;flex:1;min-width:118px;}
+  .funnel-bar{width:100%;border-radius:10px;background:linear-gradient(135deg,var(--v-blue),#1d4ed8);color:#fff;padding:14px 8px;text-align:center;box-shadow:0 4px 14px rgba(37,99,235,.25);position:relative;transition:transform .2s ease;}
+  .funnel-bar:hover{transform:translateY(-3px) scale(1.02);}
+  .funnel-bar .n{font-size:22px;font-weight:800;letter-spacing:-.3px;}
+  .funnel-bar .l{font-size:10.5px;font-weight:700;opacity:.9;margin-top:2px;}
+  .funnel-bar .cov{font-size:9px;opacity:.8;margin-top:3px;font-weight:600;}
+  .funnel-arrow{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 6px;color:var(--grey);font-size:10.5px;font-weight:800;min-width:54px;}
+  .funnel-arrow svg{opacity:.5;}
+  .funnel-row{display:flex;align-items:stretch;gap:2px;overflow-x:auto;padding:6px 2px 14px;}
+  .hbar-row{display:grid;grid-template-columns:110px 1fr 64px;align-items:center;gap:10px;margin-bottom:9px;}
+  .hbar-row .hlabel{font-size:11.5px;font-weight:700;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .hbar-row .htrack{background:#eef0f3;border-radius:6px;height:16px;overflow:hidden;position:relative;}
+  .hbar-row .hfill{height:100%;border-radius:6px;transition:width .6s cubic-bezier(.22,1,.36,1);}
+  .hbar-row .hval{font-size:11.5px;font-weight:800;color:var(--navy);text-align:right;}
+  .hbar-row.dim .hlabel,.hbar-row.dim .hval{opacity:.45;}
+  .hbar-row.dim .hfill{opacity:.45;}
+  .cmp-wrap{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center;}
+  .cmp-col{background:linear-gradient(180deg,#fff,var(--cream));border-radius:12px;padding:16px;}
+  .cmp-col h3{margin:0 0 10px;font-size:13px;color:var(--navy);display:flex;align-items:center;gap:6px;}
+  .cmp-row{display:flex;justify-content:space-between;font-size:12px;padding:6px 0;border-bottom:1px dashed var(--border);}
+  .cmp-row .k{color:var(--grey);font-weight:600;}
+  .cmp-row .v{font-weight:800;color:var(--navy);}
+  .cmp-vs{font-size:11px;font-weight:800;color:#fff;background:var(--navy);width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+  .mini-funnel{display:flex;align-items:center;gap:3px;margin-top:4px;}
+  .mini-funnel .mf-seg{height:6px;border-radius:3px;}
+  @media(max-width:640px){
+    .cmp-wrap{grid-template-columns:1fr;}
+    .cmp-vs{margin:0 auto;}
+    .funnel-row{flex-direction:column;}
+    .funnel-arrow{transform:rotate(90deg);padding:4px 0;}
+    .hbar-row{grid-template-columns:84px 1fr 54px;gap:6px;}
+  }
+
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{margin:0;font-family:"Segoe UI","Noto Sans TC","PingFang TC",Arial,sans-serif;background:var(--bg);color:var(--dark);line-height:1.5;-webkit-font-smoothing:antialiased;}
@@ -26,14 +88,15 @@
   .container{max-width:1320px;margin:0 auto;padding:20px 20px 50px;}
   .group-label{font-size:11px;font-weight:700;color:var(--grey);text-transform:uppercase;letter-spacing:.6px;margin:2px 0 8px;}
   .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:12px;margin-bottom:18px;}
-  .kpi-card{background:linear-gradient(180deg,#ffffff,var(--cream));border-radius:12px;padding:14px 16px;box-shadow:0 1px 2px rgba(26,35,50,.08);border-left:4px solid var(--teal);transition:transform .15s,box-shadow .15s;}
+  .kpi-card{background:linear-gradient(180deg,#ffffff,var(--cream));border-radius:12px;padding:18px 20px;box-shadow:0 1px 2px rgba(26,35,50,.08);border-left:4px solid var(--teal);transition:transform .18s cubic-bezier(.22,1,.36,1),box-shadow .18s ease;}
   .kpi-card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(26,35,50,.14);}
   .kpi-card .label{font-size:11px;color:var(--navy);margin-bottom:6px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;opacity:.75;}
   .kpi-card .value{font-size:24px;font-weight:800;color:var(--teal);letter-spacing:-.3px;}
   .kpi-card .note{font-size:11px;color:var(--navy);margin-top:4px;font-weight:600;opacity:.85;}
   .kpi-card.bad{border-left-color:var(--bad);}
   .kpi-card.bad .value{color:var(--bad);}
-  section{background:var(--card);border-radius:12px;padding:18px 20px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,16,16,.05);scroll-margin-top:52px;}
+  section{background:var(--card);border-radius:12px;padding:22px 24px;margin-bottom:18px;box-shadow:0 1px 2px rgba(16,16,16,.05);scroll-margin-top:52px;}
+  @media(min-width:900px){ section{padding:28px 32px;} }
   section h2{font-size:15.5px;margin:0 0 12px;padding-bottom:10px;border-bottom:2px solid var(--yellow);font-weight:700;}
   .charts-row{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;}
   @media(max-width:900px){.charts-row{grid-template-columns:1fr;}}
@@ -122,19 +185,22 @@
   </svg>
 </header>
 <nav class="subnav"><div class="inner">
-  <a href="#kpi">📊 總覽KPI</a>
-  <a href="#costmix">🥧 支出結構</a>
-  <a href="#trend">📈 趨勢</a>
-  <a href="#events">📋 活動總覽</a>
-  <a href="#region">🗺️ 地區分析</a>
-  <a href="#charts">🎯 轉換／分級</a>
-  <a href="#convrate">💎 轉單率</a>
-  <a href="#consultants">👤 業務KPI</a>
-  <a href="#coverage">📁 業務名單彙整</a>
-  <a href="#s27">🔍 第27屆</a>
-  <a href="#s28">🚀 第28屆</a>
-  <a href="#conclusions">📌 結論與建議</a>
-  <a href="#edm">🖼️ EDM影像牆</a>
+  <a href="#kpi"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span> 總覽KPI</a>
+  <a href="#costmix"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg></span> 支出結構</a>
+  <a href="#trend"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></span> 趨勢</a>
+  <a href="#events"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></span> 活動總覽</a>
+  <a href="#matrix"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></svg></span> 效益矩陣</a>
+  <a href="#region"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span> 地區分析</a>
+  <a href="#charts"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span> 轉換／分級</a>
+  <a href="#opsfunnel"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span> 轉換漏斗</a>
+  <a href="#convrate"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 12L2 9Z"/><path d="M11 3 8 9l4 12 4-12-3-6"/><path d="M2 9h20"/></svg></span> 轉單率</a>
+  <a href="#consultants"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span> 業務KPI</a>
+  <a href="#coverage"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></span> 業務名單彙整</a>
+  <a href="#s27"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span> 第27屆</a>
+  <a href="#s27vs28"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="12" r="6"/><circle cx="16" cy="12" r="6"/></svg></span> 27v28對照</a>
+  <a href="#s28"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></span> 第28屆</a>
+  <a href="#conclusions"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></svg></span> 結論與建議</a>
+  <a href="#edm"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg></span> EDM影像牆</a>
 </div></nav>
 <div class="container">
 
@@ -146,7 +212,7 @@
   </div>
 
   <section id="kpi" style="padding-bottom:6px;">
-    <h2>📊 總覽 KPI（25場已完成場次，含28屆7/11台中）</h2>
+    <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span> 總覽 KPI（25場已完成場次，含28屆7/11台中）</h2>
     <div class="group-label">💰 成本指標</div>
     <div class="kpi-grid" id="kpiGridCost"></div>
     <div class="group-label">📡 廣告觸及成效（Meta，第5-26屆，第27/28屆非同一來源暫缺）</div>
@@ -159,12 +225,12 @@
   </section>
 
   <section id="costmix">
-    <h2>🥧 支出結構（僅2類有完整資料，非5類完整結構）</h2>
+    <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg></span> 支出結構（僅2類有完整資料，非5類完整結構）</h2>
     <div class="info-line">⚠ <b>此圖不含人事費</b>——24場歷史資料完全無來源，避免腦補。場地/住宿/交通/餐飲已拆成4個獨立類別，但涵蓋度差異很大：場地10/24場，住宿/交通/餐飲僅2/24場（第23、26屆才有逐項紀錄，其餘場次即使有場地費也未拆分住宿/交通/餐飲），故後3類比例被嚴重低估，不是「這3類真的很小」，是「大部分場次沒拆這麼細」。
     <details class="more" style="margin:0;"><summary>詳情</summary><div class="body">場地/住宿/交通/餐飲來源RW-TW說明會費用.xlsx，依日期比對10場成功匹配(第6,7,8,9,12,13,14,23,25,26屆)。其中僅23、26屆有完整的住宿/交通/餐飲逐項紀錄；其餘8場(6,7,8,9,12,13,14,25屆)只有單一「場地費/活動費」合計數字，無法拆分。廣告費(Meta)來源02分頁，24/24場皆有資料，合計NT$5,913,835(含第27屆固定NT$240,000)。詳見Excel 00分頁第五節。</div></details>
     </div>
     <div class="charts-row">
-      <div class="chart-wrap" style="height:260px;"><canvas id="costMixChart"></canvas></div>
+      <div class="chart-wrap" style="height:300px;"><canvas id="costMixChart"></canvas></div>
       <table>
         <thead><tr><th class="left">類別</th><th>金額(NT$)</th><th>資料涵蓋</th></tr></thead>
         <tbody>
@@ -177,17 +243,28 @@
         </tbody>
       </table>
     </div>
+    <div class="group-label" style="margin-top:6px;">📊 支出結構長條圖＋資料涵蓋度指示（●綠=涵蓋完整　●橘=部分　●紅=嚴重低估/缺）</div>
+    <div id="costBarWrap"></div>
   </section>
 
   <div id="trendInsight"></div>
 
   <section id="trend">
-    <h2>📈 趨勢：CPL／到場率（依時間序，含3場移動平均）</h2>
-    <div class="chart-wrap" style="height:260px;"><canvas id="trendChart"></canvas></div>
+    <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></span> 趨勢：CPL／到場率拆分雙圖（依時間序，含3場移動平均、24場平均基準線、峰值/低點標註）</h2>
+    <div class="charts-row">
+      <div>
+        <div class="group-label">✅ 到場率趨勢（越高越好）</div>
+        <div class="chart-wrap" style="height:260px;"><canvas id="rateTrendChart"></canvas></div>
+      </div>
+      <div>
+        <div class="group-label">💰 CPL趨勢（越低越好）</div>
+        <div class="chart-wrap" style="height:260px;"><canvas id="cplTrendChart"></canvas></div>
+      </div>
+    </div>
   </section>
 
   <section id="events">
-    <h2>📋 活動總覽（26場，最新在最上）</h2>
+    <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></span> 活動總覽（26場，最新在最上）</h2>
     <div class="group-label">🕘 近期活動表現（最新4場）</div>
     <div style="overflow-x:auto;">
     <table style="margin-bottom:10px;">
@@ -214,8 +291,14 @@
     </div>
   </section>
 
+  <section id="matrix">
+    <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></svg></span> 活動效益矩陣（CPL × 到場率 × 成本氣泡）</h2>
+    <div class="info-line">氣泡大小＝該場總成本(廣告+場地)；虛線為24場平均CPL／平均到場率，劃出四象限；氣泡標籤為屆數。與下方「活動總覽」明細表對照使用。</div>
+    <div class="chart-wrap" style="height:400px;"><canvas id="matrixChart"></canvas></div>
+  </section>
+
   <section id="region">
-    <h2>🗺️ 地區表現分析（依場次登記地點分組）</h2>
+    <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span> 地區表現分析（依場次登記地點分組）</h2>
     <div class="info-line">依原始地點標籤分組，聯合場次（如「台北/新竹」）不拆分計入多地區，避免同一場次被重複計算而失真；因此非台北地區樣本數少，數字僅供參考，不做強結論。</div>
     <div style="max-height:280px;overflow:auto;">
     <table>
@@ -223,31 +306,43 @@
       <tbody id="regionTable"></tbody>
     </table>
     </div>
+    <div class="group-label" style="margin-top:14px;">📊 地區到場率排名（樣本數＜3場標示為灰階，僅供參考）</div>
+    <div id="regionBarWrap"></div>
   </section>
 
   <div class="charts-row" id="charts">
     <section>
-      <h2>🎯 Leads → 實到 漏斗轉換率</h2>
-      <div class="chart-wrap" style="height:260px;"><canvas id="funnelChart"></canvas></div>
+      <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span> 各場到場率一覽（依日期排列，非累積漏斗）</h2>
+      <div class="chart-wrap" style="height:300px;"><canvas id="funnelChart"></canvas></div>
     </section>
     <section>
-      <h2>🏆 活動分級分布</h2>
-      <div class="chart-wrap" style="height:260px;"><canvas id="gradeChart"></canvas></div>
+      <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></span> 活動分級分布（含每級平均CPL／到場率）</h2>
+      <div class="chart-wrap" style="height:230px;"><canvas id="gradeChart"></canvas></div>
+      <div id="gradeStatsRow" style="margin-top:10px;"></div>
     </section>
   </div>
 
+  <section id="opsfunnel">
+    <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span> 營運轉換漏斗（三段獨立漏斗，口徑不同不可串接）</h2>
+    <div class="info-line">⚠ 下列三個漏斗來自<b>不同活動子集與不同資料來源</b>，刻意不合併成單一連續漏斗——合併會製造出資料不支持的假轉換率。各漏斗僅在其標示範圍內有效。
+    <details class="more" style="margin:0;"><summary>詳情</summary><div class="body">漏斗①涵蓋25場已完成活動的廣告端表現；漏斗②僅第27屆(4場次)有到場後1-on-1／Reserved追蹤，是全資料集中唯一完整的深度轉換紀錄；漏斗③是「說明會數據」頁簽提供的房產專屬到場→開單數字，僅涵蓋第23-27屆共5場，且此處的「到場」與漏斗①②的「到場」是不同量測基準(房產場專屬 vs 全場)，因此三者不可互相除算出跨漏斗轉換率。</div></details>
+    </div>
+    <div id="opsFunnelWrap"></div>
+  </section>
+
   <section id="convrate">
-    <h2>💎 房產轉單率（到場→成交，僅第23-28屆有資料）</h2>
+    <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 12L2 9Z"/><path d="M11 3 8 9l4 12 4-12-3-6"/><path d="M2 9h20"/></svg></span> 房產轉單率（到場→成交，僅第23-28屆有資料）</h2>
     <div class="info-line">⚠ 僅5場（第23-27屆）能算轉單率，來源「說明會數據」Google Sheet頁簽，此表之「房產到場」為房產場專屬人數，與主表F欄(全場實到，第26/27屆含房產以外場次，數字較大)口徑不同，不可互相替代比較。第28屆(7/11/7/12)為近期活動，成交本需時間，目前皆為0，非資料缺失。第5-22屆及S屆無此資料來源，代表「無法計算」，不是「轉單率0%」。
     <details class="more" style="margin:0;"><summary>詳情</summary><div class="body">此為目前資料中唯一可信的「到場→成交」轉換指標，優於報名/CPL等前端指標，因為它衡量的是廣告帶來的人到場後有沒有真的簽單，不是只有到場而已。5屆合計：房產到場125人、開單22件，平均轉單率17.6%。個別屆差異大（9.1%~32.1%），樣本數少，暫不做強結論。詳見Excel 01分頁M-O欄、08分頁。</div></details>
     </div>
     <div class="kpi-grid" style="margin-bottom:10px;">
-      <div class="kpi-card" style="border-left-color:var(--good);">
-        <div class="label">5屆平均轉單率(第23-27屆)</div>
+      <div class="kpi-card" style="border-left-color:var(--good);" data-tip="公式＝5屆房產開單總數22÷房產到場總數125。來源：說明會數據頁簽，第23-27屆。">
+        <div class="label"><span class="ic" style="width:12px;height:12px;color:currentColor;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 12L2 9Z"/><path d="M11 3 8 9l4 12 4-12-3-6"/><path d="M2 9h20"/></svg></span> 5屆平均轉單率(第23-27屆)</div>
         <div class="value" style="color:var(--good);">17.6%</div>
         <div class="note">＝開單22／到場125，唯一可信的到場→成交轉換指標</div>
       </div>
     </div>
+    <div style="overflow-x:auto;">
     <table>
       <thead><tr><th class="left">屆次</th><th class="left">日期</th><th>房產到場</th><th>房產開單</th><th>轉單率</th></tr></thead>
       <tbody>
@@ -260,27 +355,28 @@
         <tr><td class="left">第28屆</td><td class="left">7/12</td><td>6</td><td>0</td><td>0%</td></tr>
       </tbody>
     </table>
+    </div>
   </section>
 
   <section id="consultants">
-    <h2>👤 業務人員總覽 KPI</h2>
+    <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span> 業務人員總覽 KPI</h2>
     <div class="info-line">業務手動聯繫名單，與廣告Leads不同基準。現職：小白、Amber、Nicole、Bailey、Cathy。
     <details class="more" style="margin:0;"><summary>詳情</summary><div class="body">Chloe/Bob/Tobo為離職或舊格式名單，已排除或另行標註。此區僅供交叉比對業務追蹤覆蓋率，不可與廣告Leads/實到人數加總。邀約率排名採 Wilson score 信心區間下界排序（非原始百分比），避免小樣本業務排名失真；標示🔬者代表樣本數＜20筆，僅供參考。</div></details>
     </div>
     <div id="consultantInsight"></div>
     <div class="charts-row">
-      <div>
+      <div style="overflow-x:auto;">
         <table>
-          <thead><tr><th class="left">業務</th><th>名單筆數</th><th>已加賴</th><th>已加賴率</th><th>會參加意向</th><th>邀約率</th><th>涵蓋場次</th></tr></thead>
+          <thead><tr><th class="left">業務</th><th>名單筆數</th><th>已加賴</th><th>已加賴率</th><th>會參加意向</th><th>邀約率</th><th>涵蓋場次</th><th class="left">轉換走勢</th></tr></thead>
           <tbody id="consultantTable"></tbody>
         </table>
       </div>
-      <div class="chart-wrap" style="height:300px;"><canvas id="consultantChart"></canvas></div>
+      <div class="chart-wrap" style="height:345px;"><canvas id="consultantChart"></canvas></div>
     </div>
   </section>
 
   <section id="coverage">
-    <h2>📁 業務名單彙整（依活動，第5–28屆）</h2>
+    <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></span> 業務名單彙整（依活動，第5–28屆）</h2>
     <div style="max-height:400px;overflow:auto;">
     <table>
       <thead><tr><th class="left">📅 年份／日期</th><th class="left">資料完整度</th><th>名單筆數</th><th>已加賴</th><th>已加賴率</th><th>會參加意向</th><th>不參加</th><th>未定</th></tr></thead>
@@ -290,7 +386,7 @@
   </section>
 
   <section id="conclusions">
-    <h2>📌 管理層結論與建議（來源：Excel 07分頁）</h2>
+    <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></svg></span> 管理層結論與建議（來源：Excel 07分頁）</h2>
     <div class="info-line" style="background:#FFF8E1;border:1px solid #FFE082;border-radius:8px;padding:10px 13px;color:#6b5300;font-weight:600;">
       24場活動廣告帶量能力穩定（平均實到率34.3%），但公司無法回答「這些活動有沒有賺錢」——收入/成交追蹤只覆蓋1場(第27屆)，其餘23場錢花完之後發生什麼，沒人知道。
     </div>
@@ -323,18 +419,46 @@
   </section>
 
   <section id="s27">
-    <h2>🔍 第27屆 (2026/6/27-28) 深度剖析</h2>
+    <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span> 第27屆 (2026/6/27-28) 深度剖析</h2>
     <div class="badge-row" style="margin-bottom:10px;">
       <span class="b-orange">總成本 NT$129,681</span><span>4場合計報名 87</span><span>實到 31（35.6%）</span>
       <span>1-on-1 共17組</span><span>Reserved 1組</span>
       <span>唯一有1-on-1/Reserved完整追蹤</span>
     </div>
-    <div class="chart-wrap" style="height:200px;"><canvas id="s27Chart"></canvas></div>
+    <div class="chart-wrap" style="height:230px;"><canvas id="s27Chart"></canvas></div>
     <div class="gallery" id="s27Gallery" style="margin-top:12px;"></div>
   </section>
 
+  <section id="s27vs28">
+    <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="12" r="6"/><circle cx="16" cy="12" r="6"/></svg></span> 第27屆 vs 第28屆 對照卡</h2>
+    <div class="info-line">⚠ 兩屆計算口徑不同：27屆報名/實到/CPL為Meta廣告Leads基準（主表events統一欄位）；28屆為房產場說明會報名基準（第9次更正後採用），非同一量測方式，此卡呈現活動規模與資料完整度對照，<b>不做同口徑優劣判定</b>。
+    <details class="more" style="margin:0;"><summary>詳情</summary><div class="body">27屆NT$129,681為獨立追蹤之非廣告類完整成本(場地/交通/住宿/人事)，與廣告費NT$240,000分開列示、不加總；28屆NT$63,700為場地/住宿/人事/伙食加總(不含高鐵)，兩屆的成本子項目未必完全對應，比較時請留意。</div></details>
+    </div>
+    <div class="cmp-wrap">
+      <div class="cmp-col">
+        <h3>🔍 第27屆（6/27-28，4場次）</h3>
+        <div class="cmp-row" data-tip="來源：主表events，Meta廣告Leads基準"><span class="k">報名(廣告Leads基準)</span><span class="v">107</span></div>
+        <div class="cmp-row"><span class="k">實到</span><span class="v">25（23.4%）</span></div>
+        <div class="cmp-row"><span class="k">CPL</span><span class="v">NT$3,692</span></div>
+        <div class="cmp-row"><span class="k">廣告花費</span><span class="v">NT$240,000</span></div>
+        <div class="cmp-row" data-tip="場地/交通/住宿/人事，獨立追蹤，未與廣告費加總"><span class="k">非廣告完整成本</span><span class="v">NT$129,681</span></div>
+        <div class="cmp-row" style="border-bottom:none;"><span class="k">1-on-1 ／ Reserved</span><span class="v" style="color:var(--v-purple);">17組 ／ 1組</span></div>
+      </div>
+      <div class="cmp-vs">VS</div>
+      <div class="cmp-col">
+        <h3>🚀 第28屆（7/11台中＋7/12高雄）</h3>
+        <div class="cmp-row" data-tip="來源：說明會數據頁簽，房產場專屬報名基準"><span class="k">報名(房產場基準)</span><span class="v">70（49＋21）</span></div>
+        <div class="cmp-row"><span class="k">實到</span><span class="v">36（51.4%）</span></div>
+        <div class="cmp-row"><span class="k">CPL(混合)</span><span class="v">NT$1,668</span></div>
+        <div class="cmp-row"><span class="k">廣告花費</span><span class="v">NT$116,740</span></div>
+        <div class="cmp-row" data-tip="場地/住宿/人事/伙食，不含共用高鐵NT$25,610"><span class="k">非廣告完整成本</span><span class="v">NT$63,700</span></div>
+        <div class="cmp-row" style="border-bottom:none;"><span class="k">1-on-1 ／ 開單</span><span class="v" style="color:var(--v-orange);">3組安排中 ／ 0（剛結束，非缺失）</span></div>
+      </div>
+    </div>
+  </section>
+
   <section id="s28">
-    <h2>🚀 第28屆 (2026/7/11 台中・7/12 高雄) 籌備中【今日7/12高雄場當天，台中場已於昨日結束(因颱風改線上)】</h2>
+    <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></span> 第28屆 (2026/7/11 台中・7/12 高雄) 籌備中【今日7/12高雄場當天，台中場已於昨日結束(因颱風改線上)】</h2>
     <div class="badge-row" style="margin-bottom:6px;">
       <span class="b-orange">今日7/12高雄場進行中，台中場(7/11)已結束</span>
       <span>台中：原訂李方艾美酒店21F，因颱風改線上</span><span>高雄：萬豪10樓</span>
@@ -344,48 +468,48 @@
       <span class="b-green"><b>兩天合計 NT$206,050</b>（含共用高鐵NT$25,610）</span>
     </div>
     <div class="kpi-grid" style="margin-bottom:10px;">
-      <div class="kpi-card">
-        <div class="label">台中7/11 房產場報名</div>
+      <div class="kpi-card" data-tip="房產(9:30)場專屬報名欄位，非整場總報名，與線上其他時段場次分開計算。">
+        <div class="label"><span class="ic" style="width:12px;height:12px;color:currentColor;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span> 台中7/11 房產場報名</div>
         <div class="value">49</div>
         <div class="note">來源：說明會數據頁簽房產(9:30)場專屬欄位</div>
       </div>
-      <div class="kpi-card">
-        <div class="label">高雄7/12 房產場報名</div>
+      <div class="kpi-card" data-tip="房產(9:30)場專屬報名欄位，14:00場次拆分尚無業務回報。">
+        <div class="label"><span class="ic" style="width:12px;height:12px;color:currentColor;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span> 高雄7/12 房產場報名</div>
         <div class="value">21</div>
         <div class="note">來源：說明會數據頁簽房產(9:30)場專屬欄位</div>
       </div>
-      <div class="kpi-card" style="border-left-color:var(--good);">
-        <div class="label">兩天報名總計</div>
+      <div class="kpi-card" style="border-left-color:var(--good);" data-tip="公式＝台中49＋高雄21，兩地房產場專屬報名加總。">
+        <div class="label"><span class="ic" style="width:12px;height:12px;color:currentColor;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span> 兩天報名總計</div>
         <div class="value" style="color:var(--good);">70</div>
         <div class="note">＝7/11(49)＋7/12(21)，房產場專屬報名數</div>
       </div>
-      <div class="kpi-card">
-        <div class="label">高雄7/12 9:30 場實到</div>
+      <div class="kpi-card" data-tip="到場率公式＝實到9人÷報名21人＝28.6%。與說明會數據頁簽房產到場組數(6組)交叉驗證一致。">
+        <div class="label"><span class="ic" style="width:12px;height:12px;color:currentColor;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span> 高雄7/12 9:30 場實到</div>
         <div class="value">6組(9人)</div>
         <div class="note">使用者回報，與說明會數據頁簽房產到場組數6交叉驗證一致。到場率6/21=28.6%</div>
       </div>
-      <div class="kpi-card">
-        <div class="label">後續1-on-1安排中</div>
+      <div class="kpi-card" data-tip="到場9人中，目前3組已安排後續1-on-1，其餘2組姓名/分級待業務補充回報。">
+        <div class="label"><span class="ic" style="width:12px;height:12px;color:currentColor;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span> 後續1-on-1安排中</div>
         <div class="value">3組</div>
         <div class="note">其餘2組姓名待業務補充</div>
       </div>
-      <div class="kpi-card">
-        <div class="label">台中7/11 房產場實到</div>
+      <div class="kpi-card" data-tip="到場率公式＝實到30人÷報名49人＝61.2%，為第28屆兩場中最高的到場率。">
+        <div class="label"><span class="ic" style="width:12px;height:12px;color:currentColor;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span> 台中7/11 房產場實到</div>
         <div class="value">30人</div>
         <div class="note">2026/7/12使用者提供。到場率30/49=61.2%</div>
       </div>
-      <div class="kpi-card bad">
-        <div class="label">高雄7/12 14:00場 單場報名</div>
+      <div class="kpi-card bad" data-tip="真實資料缺口，非0：9:30與14:00場次尚未由業務拆分回報，不可假設為0。">
+        <div class="label"><span class="ic" style="width:12px;height:12px;color:currentColor;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span> 高雄7/12 14:00場 單場報名</div>
         <div class="value">—</div>
         <div class="note">左方21為9:30房產場專屬報名數，9:30／14:00個別場次拆分尚無回報</div>
       </div>
-      <div class="kpi-card">
-        <div class="label">台中7/11 房產開單</div>
+      <div class="kpi-card" data-tip="0並非資料缺失，是活動剛結束、成交轉換本需時間；對照5屆歷史平均轉單率17.6%需持續追蹤。">
+        <div class="label"><span class="ic" style="width:12px;height:12px;color:currentColor;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 12L2 9Z"/><path d="M11 3 8 9l4 12 4-12-3-6"/><path d="M2 9h20"/></svg></span> 台中7/11 房產開單</div>
         <div class="value">0</div>
         <div class="note">轉單率0%(=0/30)，活動剛結束，成交需時間，非資料缺失</div>
       </div>
-      <div class="kpi-card">
-        <div class="label">高雄7/12 房產開單</div>
+      <div class="kpi-card" data-tip="活動當天進行中，0並非資料缺失；成交追蹤需比照第27屆SOP，於活動後持續追蹤。">
+        <div class="label"><span class="ic" style="width:12px;height:12px;color:currentColor;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 12L2 9Z"/><path d="M11 3 8 9l4 12 4-12-3-6"/><path d="M2 9h20"/></svg></span> 高雄7/12 房產開單</div>
         <div class="value">0</div>
         <div class="note">轉單率0%(=0/6)，活動進行中，成交需時間，非資料缺失</div>
       </div>
@@ -431,7 +555,7 @@
   </section>
 
   <section id="edm">
-    <h2>🖼️ 活動 EDM 影像牆</h2>
+    <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg></span> 活動 EDM 影像牆</h2>
     <div class="info-line">來源：raywhitetw.com 官網 ＋ 使用者提供本機 EDM 素材。</div>
     <div class="gallery" id="edmGallery"></div>
   </section>
@@ -440,6 +564,86 @@
 </div>
 
 <script>
+/* ===== 視覺工具庫（icon / tooltip / sparkline / count-up / reveal） ===== */
+const ICONS = {
+  "trending-up": '<polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>',
+  "trending-down": '<polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/>',
+  "minus": '<line x1="5" y1="12" x2="19" y2="12"/>',
+  "users": '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+  "target": '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>',
+  "dollar": '<line x1="12" y1="2" x2="12" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>',
+  "calendar": '<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
+  "map-pin": '<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>',
+  "award": '<circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>',
+  "alert": '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/>',
+  "check": '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>',
+  "image": '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>',
+  "bars": '<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>',
+  "pie": '<path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/>',
+  "layers": '<path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/>',
+  "briefcase": '<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>',
+  "gem": '<path d="M6 3h12l4 6-10 12L2 9Z"/><path d="M11 3 8 9l4 12 4-12-3-6"/><path d="M2 9h20"/>',
+  "rocket": '<path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>',
+  "folder": '<path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/>',
+  "pin": '<path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/>',
+  "search": '<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
+  "filter": '<polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>',
+  "list": '<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>',
+  "expand": '<path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/>',
+};
+function icon(name, size, color){
+  size = size||14; color = color||"currentColor";
+  const body = ICONS[name] || ICONS["minus"];
+  return `<span class="ic" style="width:${size}px;height:${size}px;color:${color};"><svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${body}</svg></span>`;
+}
+function trendPill(cur, ref, lowerIsBetter, unit){
+  if(cur==null||ref==null||!isFinite(ref)||ref===0) return "";
+  const diff = (cur-ref)/ref;
+  if(Math.abs(diff) < 0.01) return `<span class="trend-pill flat">${icon("minus",9)} 持平</span>`;
+  const good = lowerIsBetter ? diff<0 : diff>0;
+  const cls = good ? "up":"down";
+  const arrow = diff>0 ? "trending-up" : "trending-down";
+  return `<span class="trend-pill ${cls}">${icon(arrow,10)} ${diff>0?"+":""}${(diff*100).toFixed(0)}%</span>`;
+}
+function sparkline(values, opts){
+  opts = opts||{};
+  const w = opts.w||100, h = opts.h||26, color = opts.color||"var(--teal)";
+  const vals = values.filter(v=>v!=null);
+  if(vals.length<2) return "";
+  const min = Math.min(...vals), max = Math.max(...vals);
+  const range = (max-min)||1;
+  const step = w/(values.length-1);
+  let x=0, pts=[];
+  const idxVals = values.map((v,i)=> v==null? null : [i,v]);
+  const valid = idxVals.filter(p=>p!=null);
+  pts = valid.map(([i,v])=> `${(i*step).toFixed(1)},${(h-((v-min)/range)*(h-4)-2).toFixed(1)}`);
+  const lastPt = pts[pts.length-1].split(",");
+  return `<svg class="spark" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" style="overflow:visible;">
+    <polyline points="${pts.join(" ")}" fill="none" stroke="${color}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <circle cx="${lastPt[0]}" cy="${lastPt[1]}" r="2.4" fill="${color}"/>
+  </svg>`;
+}
+function animateCount(el, target, fmt){
+  if(!el || target==null || !isFinite(target)) return;
+  const dur = 900; const t0 = performance.now();
+  function step(t){
+    const p = Math.min(1, (t-t0)/dur);
+    const eased = 1-Math.pow(1-p,3);
+    el.textContent = fmt(target*eased);
+    if(p<1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+const revealIO = ("IntersectionObserver" in window) ? new IntersectionObserver((entries)=>{
+  entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add("in"); revealIO.unobserve(en.target); } });
+}, {threshold:.12}) : null;
+function markReveal(root){
+  (root||document).querySelectorAll(".kpi-card,.exec-card,.insight-card,.funnel-stage,.cmp-col,.hbar-row").forEach(el=>{
+    if(el.classList.contains("reveal")||el.classList.contains("in")) return;
+    el.classList.add("reveal");
+    if(revealIO) revealIO.observe(el); else el.classList.add("in");
+  });
+}
 const RATE = 4.0347;
 function shortDate(d){ const p=(d||"").split("/"); if(p.length<3) return d||""; const day=p[2].split("-")[0]; return p[1]+"/"+day; }
 // completed events (5-27) + prep event (28)
@@ -505,27 +709,60 @@ const withCpl = completed.filter(e=>e.cpl!=null);
 const avgCpl = withCpl.reduce((s,e)=>s+e.cpl,0)/withCpl.length;
 
 function renderKpis(elId, list){
-  document.getElementById(elId).innerHTML = list.map(k=>`
-    <div class="kpi-card ${k.cls||''}">
-      <div class="label">${k.label}</div>
-      <div class="value">${k.value}</div>
+  const el = document.getElementById(elId);
+  el.innerHTML = list.map(k=>`
+    <div class="kpi-card ${k.cls||''}"${k.tip?` data-tip="${k.tip.replace(/"/g,'&quot;')}"`:''}>
+      <div class="label">${k.icon?icon(k.icon,12)+' ':''}${k.label}</div>
+      <div class="value"><span class="cu" data-raw="${k.raw!=null?k.raw:''}">${k.value}</span>${k.trend||''}</div>
+      ${k.spark?sparkline(k.spark,{color:k.cls==='bad'?'var(--v-red)':'var(--teal)'}):''}
       <div class="note">${k.note}</div>
     </div>`).join("");
+  markReveal(el);
+  el.querySelectorAll(".value .cu").forEach(span=>{
+    const raw = span.getAttribute("data-raw");
+    if(raw==="" || raw==null || isNaN(raw)) return;
+    const target = parseFloat(raw);
+    const template = span.textContent;
+    const isPct = template.includes("%");
+    const isMoney = /^[\d,]+$/.test(template.replace(/,/g,"").trim()) && !isPct;
+    const decimals = (template.match(/\.(\d+)/)||[,""])[1].length;
+    span.textContent = isPct ? "0.0%" : "0";
+    animateCount(span, target, v=>{
+      if(isPct) return v.toFixed(decimals||1)+"%";
+      return Math.round(v).toLocaleString();
+    });
+  });
 }
+const _adsSeries = completed.map(e=>e.ads);
+const _cplSeries = completed.map(e=>e.cpl);
+const _rateSeries0 = completed.map(e=>e.rate);
+const _totalSeries = completed.map(e=>(e.ads||0)+(e.venue||0));
+function _last3avg(arr){ const v=arr.slice(-3).filter(x=>x!=null); return v.length? v.reduce((a,b)=>a+b,0)/v.length : null; }
+const _l3Ads = _last3avg(_adsSeries), _l3Cpl = _last3avg(_cplSeries), _l3Rate = _last3avg(_rateSeries0), _l3Total = _last3avg(_totalSeries);
+
 renderKpis("kpiGridCost", [
-  {label:"24場合計廣告花費", value: fmt(totalAds), note:"NT$，總計"},
-  {label:"平均每場廣告花費", value: fmt(avgAds), note:"NT$"},
-  {label:"平均 CPL", value: fmt(avgCpl), note:"NT$／Lead"},
-  {label:"24場合計總成本", value: fmt(totalCost), note:"NT$，下限"},
-  {label:"平均每場總成本", value: fmt(avgCostPerEvent), note:"NT$，下限"},
-  {label:"第27屆完整成本", value:"129,681", note:"NT$，唯一含1-on-1"},
+  {label:"24場合計廣告花費", value: fmt(totalAds), raw:totalAds, note:"NT$，總計", icon:"dollar",
+    tip:"公式＝Σ各場廣告花費(Meta)。來源：02分頁廣告成效原始檔，24/24場皆有資料。"},
+  {label:"平均每場廣告花費", value: fmt(avgAds), raw:avgAds, note:"NT$", icon:"dollar", spark:_adsSeries,
+    trend:trendPill(_l3Ads, avgAds, true), tip:"公式＝合計廣告花費÷有資料場次數。徽章＝近3場均值 vs 24場均值，數字愈低愈好。"},
+  {label:"平均 CPL", value: fmt(avgCpl), raw:avgCpl, note:"NT$／Lead", icon:"target", spark:_cplSeries,
+    trend:trendPill(_l3Cpl, avgCpl, true), tip:"公式＝廣告花費÷Leads數，逐場計算後取平均。CPL愈低代表單一名單成本愈省。"},
+  {label:"24場合計總成本", value: fmt(totalCost), raw:totalCost, note:"NT$，下限", icon:"layers",
+    tip:"公式＝Σ(廣告花費＋場地費)，僅涵蓋有資料欄位，未計入人事/物料，故為成本下限。"},
+  {label:"平均每場總成本", value: fmt(avgCostPerEvent), raw:avgCostPerEvent, note:"NT$，下限", icon:"layers", spark:_totalSeries,
+    trend:trendPill(_l3Total, avgCostPerEvent, true), tip:"公式＝合計總成本÷完成場次數(25場)。同樣為下限估算。"},
+  {label:"第27屆完整成本", value:"129,681", raw:129681, note:"NT$，唯一含1-on-1", icon:"award",
+    tip:"唯一一場有場地+交通+住宿+人事完整憑證的活動，可作為其餘場次成本補全的參考基準。"},
 ]);
 renderKpis("kpiGridConv", [
-  {label:"平均 Leads→實到率", value: pct(avgRate), note:"24場平均"},
+  {label:"平均 Leads→實到率", value: pct(avgRate), raw:avgRate*100, note:"24場平均", icon:"users", spark:_rateSeries0.map(v=>v!=null?v*100:null),
+    trend:trendPill(_l3Rate, avgRate, false), tip:"公式＝實到人數÷Leads數，逐場計算後取平均。徽章＝近3場均值 vs 24場均值，數字愈高愈好。"},
 ]);
 renderKpis("kpiGridGap", [
-  {label:"1-on-1/Reserved追蹤", value:"1 / 25", note:"結構性缺口", cls:"bad"},
-  {label:"有轉單率資料場次", value:"5 / 25", note:"僅房產專屬到場→開單，非完整收入ROI", cls:"bad"},
+  {label:"1-on-1/Reserved追蹤", value:"1 / 25", note:"結構性缺口", cls:"bad", icon:"alert",
+    tip:"僅第27屆(4場次)有完整1-on-1與Reserved紀錄，其餘24場到場後發生什麼事，目前無資料可查。"},
+  {label:"有轉單率資料場次", value:"5 / 25", note:"僅房產專屬到場→開單，非完整收入ROI", cls:"bad", icon:"alert",
+    tip:"來源「說明會數據」頁簽，第23-27屆共5場可計算房產到場→開單轉單率，其餘場次無此資料維度。"},
 ]);
 
 const regionGroups = {};
@@ -553,6 +790,40 @@ document.getElementById("regionTable").innerHTML = regionRows.map(r=>`
   <td>${colorCell(r.avgCpl, tAvgCpl, r.avgCpl!=null?fmt(r.avgCpl):"—", true)}</td>
   <td>${pct(r.avgRate)}</td><td>${fmt(r.avgLeads)}</td><td>${fmt(r.avgCost)}</td></tr>`).join("");
 
+// ---- 地區到場率排名長條（樣本少灰階） ----
+const regionRanked = regionRows.slice().filter(r=>r.avgRate!=null).sort((a,b)=> b.avgRate - a.avgRate);
+const regionMaxRate = Math.max(...regionRanked.map(r=>r.avgRate));
+document.getElementById("regionBarWrap").innerHTML = regionRanked.map(r=>{
+  const dim = r.count<3;
+  const w = Math.max(4, (r.avgRate/regionMaxRate*100)).toFixed(1);
+  return `<div class="hbar-row${dim?' dim':''}" data-tip="${r.loc}：${r.count}場，平均到場率${pct(r.avgRate)}${dim?'（樣本數<3，僅供參考）':''}">
+    <div class="hlabel">${r.loc}</div>
+    <div class="htrack"><div class="hfill" style="width:${w}%;background:${dim?'var(--v-grey)':'var(--v-blue)'};"></div></div>
+    <div class="hval">${pct(r.avgRate)}</div>
+  </div>`;
+}).join("");
+markReveal(document.getElementById("regionBarWrap"));
+
+// ---- 支出結構長條圖＋涵蓋度指示 ----
+const costBarData = [
+  {label:"廣告費(Meta)", val:5913835, cov:"24/24場", covCls:"good"},
+  {label:"場地費", val:1684370, cov:"10/24場", covCls:"warn"},
+  {label:"餐飲費", val:102315, cov:"2/24場", covCls:"bad"},
+  {label:"住宿費", val:31800, cov:"2/24場", covCls:"bad"},
+  {label:"交通費", val:30955, cov:"2/24場", covCls:"bad"},
+];
+const costBarMax = Math.max(...costBarData.map(d=>d.val));
+const covDot = {good:"var(--v-green)", warn:"var(--v-orange)", bad:"var(--v-red)"};
+document.getElementById("costBarWrap").innerHTML = costBarData.map(d=>{
+  const w = Math.max(2, (d.val/costBarMax*100)).toFixed(1);
+  return `<div class="hbar-row" data-tip="${d.label}：NT$${fmt(d.val)}，資料涵蓋${d.cov}">
+    <div class="hlabel"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${covDot[d.covCls]};margin-right:5px;"></span>${d.label}</div>
+    <div class="htrack"><div class="hfill" style="width:${w}%;background:${covDot[d.covCls]};"></div></div>
+    <div class="hval">${fmt(d.val)}</div>
+  </div>`;
+}).join("");
+markReveal(document.getElementById("costBarWrap"));
+
 const rateEvents = completed.filter(e=>e.rate!=null);
 const last3Rate = rateEvents.slice(-3);
 const last3AvgRate = last3Rate.reduce((s,e)=>s+e.rate,0)/last3Rate.length;
@@ -566,25 +837,36 @@ const cplBetter = last3AvgCpl <= avgCpl;
 const totalLeadsAll = completed.reduce((s,e)=>s+(e.leads||0),0);
 const totalAttAll = completed.reduce((s,e)=>s+(e.att||0),0);
 document.getElementById("execSummary").innerHTML = `
-  <div class="exec-card"><div class="ic">📅</div><div class="txt"><div class="v">${completed.length}</div><div class="l">總活動場次（第5-27屆＋28屆7/11已完成）</div></div></div>
-  <div class="exec-card"><div class="ic">👥</div><div class="txt"><div class="v">${fmt(totalLeadsAll)}</div><div class="l">總報名人數</div></div></div>
-  <div class="exec-card"><div class="ic">✅</div><div class="txt"><div class="v">${fmt(totalAttAll)}</div><div class="l">總實到人數（到訪率${pct(avgRate)}）</div></div></div>
-  <div class="exec-card"><div class="ic">💰</div><div class="txt"><div class="v">$${fmt(totalCost)}</div><div class="l">總活動支出（廣告+場地，下限，不含人事/物料）</div></div></div>
+  <div class="exec-card" data-tip="25場已完成活動（第5-27屆全部＋第28屆7/11台中場），不含7/12籌備中場次。"><div class="ic">${icon("calendar",22)}</div><div class="txt"><div class="v cu" data-raw="${completed.length}">0</div><div class="l">總活動場次（第5-27屆＋28屆7/11已完成）</div></div></div>
+  <div class="exec-card" data-tip="公式＝Σ各場Leads(廣告報名數)，25場合計。"><div class="ic">${icon("users",22)}</div><div class="txt"><div class="v cu" data-raw="${totalLeadsAll}">0</div><div class="l">總報名人數</div></div></div>
+  <div class="exec-card" data-tip="公式＝Σ各場實到人數÷Σ各場Leads＝${pct(avgRate)}到訪率。"><div class="ic">${icon("check",22)}</div><div class="txt"><div class="v cu" data-raw="${totalAttAll}">0</div><div class="l">總實到人數（到訪率${pct(avgRate)}）</div></div></div>
+  <div class="exec-card" data-tip="公式＝Σ(廣告花費＋場地費)，僅涵蓋有資料欄位，未計入人事/物料，為成本下限。"><div class="ic">${icon("dollar",22)}</div><div class="txt"><div class="v cu" data-raw="${totalCost}">$0</div><div class="l">總活動支出（廣告+場地，下限，不含人事/物料）</div></div></div>
 `;
+markReveal(document.getElementById("execSummary"));
+document.getElementById("execSummary").querySelectorAll(".v.cu").forEach(el=>{
+  const raw = parseFloat(el.getAttribute("data-raw"));
+  const prefix = el.textContent.trim().startsWith("$") ? "$" : "";
+  animateCount(el, raw, v=> prefix + Math.round(v).toLocaleString());
+});
 
 const deltaHtml = `
-  <div class="insight-card ${rateUp?'up':'down'}"><span class="arrow">${rateUp?'↑':'↓'}</span><div class="txt"><div class="t1">近3場到訪率 vs 24場平均</div><div class="t2">${pct(last3AvgRate)} vs ${pct(avgRate)}</div></div></div>
-  <div class="insight-card ${cplBetter?'up':'down'}"><span class="arrow">${cplBetter?'↑':'↓'}</span><div class="txt"><div class="t1">近3場CPL vs 24場平均</div><div class="t2">NT$${fmt(last3AvgCpl)} vs NT$${fmt(avgCpl)}</div></div></div>
+  <div class="insight-card ${rateUp?'up':'down'}" data-tip="近3場(第${last3Rate.map(e=>e.ord).join('、')}屆)到訪率均值 vs 25場整體均值。"><span class="arrow">${icon(rateUp?"trending-up":"trending-down",18)}</span><div class="txt"><div class="t1">近3場到訪率 vs 24場平均</div><div class="t2">${pct(last3AvgRate)} vs ${pct(avgRate)}</div></div></div>
+  <div class="insight-card ${cplBetter?'up':'down'}" data-tip="近3場(第${last3Cpl.map(e=>e.ord).join('、')}屆)CPL均值 vs 25場整體均值，數字愈低愈好。"><span class="arrow">${icon(cplBetter?"trending-up":"trending-down",18)}</span><div class="txt"><div class="t1">近3場CPL vs 24場平均</div><div class="t2">NT$${fmt(last3AvgCpl)} vs NT$${fmt(avgCpl)}</div></div></div>
 `;
 document.getElementById("execDelta").innerHTML = deltaHtml;
 document.getElementById("convDelta").innerHTML = deltaHtml;
+markReveal(document.getElementById("execDelta"));
+markReveal(document.getElementById("convDelta"));
 
 // ---- Ads reach/impressions/CTR (來源：02分頁，Meta Ads原始檔，第5-26屆範圍) ----
 const totalReach = 3869131, totalImpr = 11242345, totalCtr = 0.00555373456338513;
 renderKpis("kpiGridAds", [
-  {label:"合計 Reach", value: fmt(totalReach), note:"未去重加總，僅供量級參考"},
-  {label:"合計 Impressions", value: fmt(totalImpr), note:"次，第5-26屆"},
-  {label:"平均 CTR", value: pct(totalCtr), note:"=合計Link Clicks/合計Impressions"},
+  {label:"合計 Reach", value: fmt(totalReach), raw:totalReach, note:"未去重加總，僅供量級參考", icon:"users",
+    tip:"Meta廣告後台Reach欄位加總，未去重（同一使用者可能被多場觸及重複計入），僅供量級參考。"},
+  {label:"合計 Impressions", value: fmt(totalImpr), raw:totalImpr, note:"次，第5-26屆", icon:"bars",
+    tip:"Meta廣告後台曝光次數加總，第5-26屆範圍，第27/28屆非同一來源暫缺。"},
+  {label:"平均 CTR", value: pct(totalCtr), raw:totalCtr*100, note:"=合計Link Clicks/合計Impressions", icon:"target",
+    tip:"公式＝合計連結點擊數÷合計曝光次數，反映廣告素材吸引力，與到場率是不同階段的指標。"},
 ]);
 function trailingWorseningStreak(list, key, worseIsHigher){
   const vals = list.map(e=>({ord:e.ord, v:e[key]})).filter(x=>x.v!=null);
@@ -607,9 +889,10 @@ const insights = [
 ];
 document.getElementById("trendInsight").innerHTML = `<div class="insight-row">` + insights.map(i=>`
   <div class="insight-card ${i.up?'up':'down'}">
-    <div class="arrow">${i.up?'▲':'▼'}</div>
+    <div class="arrow">${icon(i.up?"trending-up":"trending-down",16)}</div>
     <div class="txt"><div class="t1">${i.t1}</div><div class="t2">${i.t2}</div></div>
   </div>`).join("") + `</div>`;
+markReveal(document.getElementById("trendInsight"));
 
 function rollingAvg(arr, win){
   return arr.map((_,i)=>{
@@ -619,26 +902,74 @@ function rollingAvg(arr, win){
 }
 const rateSeries = completed.map(e=>e.rate);
 const rateMA3 = rollingAvg(rateSeries,3);
-new Chart(document.getElementById("trendChart"), {
+const cplSeriesForTrend = completed.map(e=>e.cpl);
+const cplMA3 = rollingAvg(cplSeriesForTrend,3);
+
+function avgLinePlugin(avgVal, label, color){
+  return { id:"avgLine_"+label, afterDraw(chart){
+    const {ctx, chartArea:{left,right}, scales:{y}} = chart;
+    const yPix = y.getPixelForValue(avgVal);
+    ctx.save();
+    ctx.strokeStyle = color; ctx.setLineDash([6,4]); ctx.lineWidth=1.4;
+    ctx.beginPath(); ctx.moveTo(left,yPix); ctx.lineTo(right,yPix); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.font = "700 10px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif";
+    ctx.fillStyle = color;
+    ctx.textAlign="right";
+    ctx.fillText(label, right-4, yPix-4);
+    ctx.restore();
+  }};
+}
+function peakLowPlugin(values, labels, fmtFn, higherIsPeakGood){
+  return { id:"peakLow_"+labels.join(""), afterDatasetsDraw(chart){
+    const {ctx} = chart;
+    const meta = chart.getDatasetMeta(0);
+    const valid = values.map((v,i)=>({v,i})).filter(p=>p.v!=null);
+    if(!valid.length) return;
+    const maxP = valid.reduce((a,b)=>b.v>a.v?b:a);
+    const minP = valid.reduce((a,b)=>b.v<a.v?b:a);
+    ctx.save();
+    ctx.font = "800 10px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif";
+    ctx.textAlign="center";
+    const peakEl = meta.data[maxP.i], lowEl = meta.data[minP.i];
+    if(peakEl){ ctx.fillStyle = higherIsPeakGood? "#1a7f37":"#b91c1c"; ctx.fillText("峰值 "+fmtFn(maxP.v), peakEl.x, peakEl.y-12); }
+    if(lowEl && minP.i!==maxP.i){ ctx.fillStyle = higherIsPeakGood? "#b91c1c":"#1a7f37"; ctx.fillText("低點 "+fmtFn(minP.v), lowEl.x, lowEl.y+18); }
+    ctx.restore();
+  }};
+}
+new Chart(document.getElementById("rateTrendChart"), {
   type:"line",
   data:{
-    labels: completed.map(e=>shortDate(e.date)),
+    labels: completed.map(e=>"第"+e.ord+"屆\n"+shortDate(e.date)),
     datasets:[
-      {label:"到場率(%)", data: rateSeries.map(v=>v!=null?+(v*100).toFixed(1):null), borderColor:"#9ca3af", backgroundColor:"#9ca3af", yAxisID:"y", tension:0.25, spanGaps:true, pointRadius:3},
-      {label:"到場率 3場移動平均(%)", data: rateMA3.map(v=>v!=null?+(v*100).toFixed(1):null), borderColor:"#1a7f37", backgroundColor:"#1a7f37", yAxisID:"y", tension:0.25, spanGaps:true, borderDash:[6,4], pointRadius:0, borderWidth:2.5},
-      {label:"CPL(NT$)", data: completed.map(e=>e.cpl), borderColor:"#b91c1c", backgroundColor:"#b91c1c", yAxisID:"y1", tension:0.25, spanGaps:true, pointRadius:3},
+      {label:"到場率(%)", data: rateSeries.map(v=>v!=null?+(v*100).toFixed(1):null), borderColor:"var(--v-blue)", backgroundColor:"var(--v-blue)", tension:0.25, spanGaps:true, pointRadius:3, pointHoverRadius:6},
+      {label:"3場移動平均(%)", data: rateMA3.map(v=>v!=null?+(v*100).toFixed(1):null), borderColor:"var(--v-green)", backgroundColor:"var(--v-green)", tension:0.25, spanGaps:true, borderDash:[6,4], pointRadius:0, borderWidth:2.5},
     ]
   },
   options:{
     responsive:true, maintainAspectRatio:false,
     interaction:{mode:"index",intersect:false},
-    plugins:{legend:{position:"bottom"}},
-    scales:{
-      x:{title:{display:true,text:"日期"}},
-      y:{type:"linear",position:"left",title:{display:true,text:"到場率(%)"},min:0},
-      y1:{type:"linear",position:"right",title:{display:true,text:"CPL(NT$)"},min:0,grid:{drawOnChartArea:false}}
-    }
-  }
+    plugins:{legend:{position:"bottom"}, tooltip:{callbacks:{label:(ctx)=>`${ctx.dataset.label}: ${ctx.parsed.y}%`}}},
+    scales:{ x:{title:{display:true,text:"日期"}}, y:{title:{display:true,text:"到場率(%)"},min:0} }
+  },
+  plugins:[avgLinePlugin(avgRate*100, "24場平均 "+pct(avgRate), "#6b7280"), peakLowPlugin(rateSeries.map(v=>v!=null?v*100:null), ["rate"], v=>v.toFixed(1)+"%", true)]
+});
+new Chart(document.getElementById("cplTrendChart"), {
+  type:"line",
+  data:{
+    labels: completed.map(e=>"第"+e.ord+"屆\n"+shortDate(e.date)),
+    datasets:[
+      {label:"CPL(NT$)", data: cplSeriesForTrend, borderColor:"var(--v-red)", backgroundColor:"var(--v-red)", tension:0.25, spanGaps:true, pointRadius:3, pointHoverRadius:6},
+      {label:"3場移動平均(NT$)", data: cplMA3.map(v=>v!=null?Math.round(v):null), borderColor:"var(--v-purple)", backgroundColor:"var(--v-purple)", tension:0.25, spanGaps:true, borderDash:[6,4], pointRadius:0, borderWidth:2.5},
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    interaction:{mode:"index",intersect:false},
+    plugins:{legend:{position:"bottom"}, tooltip:{callbacks:{label:(ctx)=>`${ctx.dataset.label}: NT$${fmt(ctx.parsed.y)}`}}},
+    scales:{ x:{title:{display:true,text:"日期"}}, y:{title:{display:true,text:"CPL(NT$)"},min:0} }
+  },
+  plugins:[avgLinePlugin(avgCpl, "24場平均 NT$"+fmt(avgCpl), "#6b7280"), peakLowPlugin(cplSeriesForTrend, ["cpl"], v=>"NT$"+fmt(v), false)]
 });
 
 function gradeBadge(e){
@@ -709,14 +1040,100 @@ new Chart(document.getElementById("funnelChart"), {
 
 const gradeCounts = {A:0,B:0,C:0,D:0,N:0};
 completed.forEach(e=>gradeCounts[e.grade]++);
+const gradeColors = {A:"#1a7f37",B:"#2563eb",C:"#FFC72C",D:"#b91c1c",N:"#9ca3af"};
+const gradeOrderList = ["A","B","C","D","N"];
 new Chart(document.getElementById("gradeChart"), {
-  type:"doughnut",
+  type:"bar",
+  indexAxis:"y",
   data:{
     labels:["A級","B級","C級","D級","資料不足"],
-    datasets:[{ data:[gradeCounts.A,gradeCounts.B,gradeCounts.C,gradeCounts.D,gradeCounts.N],
-      backgroundColor:["#1a7f37","#2563eb","#FFC72C","#b91c1c","#9ca3af"] }]
+    datasets:[{ data: gradeOrderList.map(g=>gradeCounts[g]), backgroundColor: gradeOrderList.map(g=>gradeColors[g]) }]
   },
-  options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{position:"bottom"} } }
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{display:false}, tooltip:{callbacks:{label:(ctx)=>`${ctx.parsed.x} 場`}} },
+    scales:{ x:{ title:{display:true,text:"場次數"}, beginAtZero:true, ticks:{stepSize:1} } }
+  }
+});
+const gradeStats = ["A","B","C","D"].map(g=>{
+  const list = completed.filter(e=>e.grade===g);
+  const cplList = list.map(e=>e.cpl).filter(v=>v!=null);
+  const rateList = list.map(e=>e.rate).filter(v=>v!=null);
+  return {g, count:list.length,
+    avgCpl: cplList.length? cplList.reduce((a,b)=>a+b,0)/cplList.length : null,
+    avgRate: rateList.length? rateList.reduce((a,b)=>a+b,0)/rateList.length : null};
+});
+document.getElementById("gradeStatsRow").innerHTML = gradeStats.filter(s=>s.count>0).map(s=>`
+  <div style="display:inline-flex;align-items:center;gap:6px;background:#fafbfc;border:1px solid var(--border);border-radius:8px;padding:6px 10px;margin:0 6px 6px 0;font-size:11px;">
+    <span class="grade g${s.g}" style="width:18px;height:18px;line-height:18px;font-size:10px;">${s.g}</span>
+    <span style="font-weight:700;color:var(--navy);">${s.count}場</span>
+    <span style="color:var(--grey);">CPL ${s.avgCpl!=null?"NT$"+fmt(s.avgCpl):"—"}</span>
+    <span style="color:var(--grey);">到場率 ${pct(s.avgRate)}</span>
+  </div>`).join("");
+markReveal(document.getElementById("gradeStatsRow"));
+
+// ---- Event Performance Matrix：CPL × 到場率 × 成本氣泡 ----
+const matrixData = completed.filter(e=>e.cpl!=null && e.rate!=null).map(e=>({
+  x:e.cpl, y:+(e.rate*100).toFixed(1), r: Math.max(6, Math.sqrt(((e.ads||0)+(e.venue||0))/450)), ord:e.ord, grade:e.grade
+}));
+const quadrantPlugin = {
+  id:"quadrantPlugin",
+  afterDraw(chart){
+    const {ctx, chartArea:{left,right,top,bottom}, scales:{x,y}} = chart;
+    const xAvg = x.getPixelForValue(avgCpl), yAvg = y.getPixelForValue(avgRate*100);
+    ctx.save();
+    ctx.strokeStyle = "#c7cbd1"; ctx.setLineDash([5,4]); ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(xAvg, top); ctx.lineTo(xAvg, bottom); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(left, yAvg); ctx.lineTo(right, yAvg); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.font = "700 10.5px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif";
+    ctx.fillStyle = "#1a7f37";
+    ctx.fillText("★ 優質高效（低CPL・高到場）", left+8, top+14);
+    ctx.fillStyle = "#b45309";
+    ctx.textAlign="right";
+    ctx.fillText("高到場・高成本", right-8, top+14);
+    ctx.fillStyle = "#6b7280";
+    ctx.fillText("低成本・低到場", right-8, bottom-8);
+    ctx.textAlign="left";
+    ctx.fillStyle = "#b91c1c";
+    ctx.fillText("⚠ 雙低警示（高CPL・低到場）", left+8, bottom-8);
+    ctx.restore();
+  }
+};
+const bubbleLabelPlugin = {
+  id:"bubbleLabelPlugin",
+  afterDatasetsDraw(chart){
+    const {ctx} = chart;
+    const meta = chart.getDatasetMeta(0);
+    ctx.save();
+    ctx.font = "800 9.5px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif";
+    ctx.fillStyle = "#101828";
+    ctx.textAlign = "center";
+    meta.data.forEach((el,i)=>{ ctx.fillText(matrixData[i].ord, el.x, el.y+3); });
+    ctx.restore();
+  }
+};
+new Chart(document.getElementById("matrixChart"), {
+  type:"bubble",
+  data:{ datasets:[{
+    label:"活動",
+    data: matrixData,
+    backgroundColor: matrixData.map(d=>({A:"rgba(26,127,55,.55)",B:"rgba(37,99,235,.55)",C:"rgba(255,199,44,.6)",D:"rgba(185,28,28,.55)",N:"rgba(156,163,175,.55)"}[d.grade]||"rgba(156,163,175,.55)")),
+    borderColor: matrixData.map(d=>({A:"#1a7f37",B:"#2563eb",C:"#c99400",D:"#b91c1c",N:"#9ca3af"}[d.grade]||"#9ca3af")),
+    borderWidth:1.5,
+  }]},
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      tooltip:{ callbacks:{ label:(ctx)=>{ const d=matrixData[ctx.dataIndex]; return [`第${d.ord}屆`, `CPL NT$${fmt(d.x)}`, `到場率 ${d.y}%`]; } } }
+    },
+    scales:{
+      x:{ title:{display:true,text:"CPL (NT$，越左越省)"} },
+      y:{ title:{display:true,text:"到場率 (%，越上越好)"} }
+    }
+  },
+  plugins:[quadrantPlugin, bubbleLabelPlugin]
 });
 
 // ---- 支出結構 donut (2類，僅涵蓋有真實資料的部分，見00分頁第五節) ----
@@ -744,9 +1161,19 @@ const consultants = [
  {name:"Cathy", total:16, added:9, attendYes:8, events:2},
  {name:"Chloe(離職/舊格式)", total:62, added:41, attendYes:0, events:4},
 ];
+function miniFunnel(total, added, yes){
+  const wA = Math.max(6,(added/total*100)).toFixed(0);
+  const wY = Math.max(3,(yes/total*100)).toFixed(0);
+  return `<div class="mini-funnel" data-tip="名單${total}→已加賴${added}(${(added/total*100).toFixed(0)}%)→會參加${yes}(${(yes/total*100).toFixed(0)}%)">
+    <div class="mf-seg" style="width:34px;background:var(--v-blue);"></div>
+    <div class="mf-seg" style="width:${wA*0.34}px;background:var(--v-purple);"></div>
+    <div class="mf-seg" style="width:${wY*0.34}px;background:var(--v-orange);"></div>
+  </div>`;
+}
 document.getElementById("consultantTable").innerHTML = consultants.map(c=>`
   <tr><td class="left">${c.name}</td><td>${c.total}</td><td>${c.added}</td><td>${(c.added/c.total*100).toFixed(1)}%</td>
-  <td><b style="color:var(--bad);">${c.attendYes}</b></td><td><b style="color:var(--bad);">${(c.attendYes/c.total*100).toFixed(1)}%</b></td><td>${c.events}</td></tr>`).join("");
+  <td><b style="color:var(--bad);">${c.attendYes}</b></td><td><b style="color:var(--bad);">${(c.attendYes/c.total*100).toFixed(1)}%</b></td><td>${c.events}</td>
+  <td class="left">${miniFunnel(c.total,c.added,c.attendYes)}</td></tr>`).join("");
 
 function wilsonLowerBound(x, n, z){
   z = z || 1.96;
@@ -768,28 +1195,30 @@ const rankValueLabelsPlugin = {
     ctx.save();
     ctx.font = "700 11px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif";
     ctx.fillStyle = "#1a2332";
-    ctx.textAlign = "center";
+    ctx.textAlign = "left";
+    ctx.textBaseline = "middle";
     meta.data.forEach((bar,i)=>{
       const c = consultantsRanked[i];
-      ctx.fillText(`會參加 ${c.attendYes}人`, bar.x, bar.y - 6);
+      ctx.fillText(`會參加 ${c.attendYes}人`, bar.x + 6, bar.y);
     });
     ctx.restore();
   }
 };
 new Chart(document.getElementById("consultantChart"), {
   type:"bar",
+  indexAxis:"y",
   data:{
     labels: consultantsRanked.map((c,i)=>`${rankIcon(i)} ${c.name}${sampleFlag(c.total)}`),
-    datasets:[{ label:"邀約率(%)", data: consultantsRanked.map(c=>+(c.attendYes/c.total*100).toFixed(1)), backgroundColor: consultantsRanked.map((c,i)=> i<3 ? "#FFC72C" : "#a8dadc") }]
+    datasets:[{ label:"邀約率(%)", data: consultantsRanked.map(c=>+(c.attendYes/c.total*100).toFixed(1)), backgroundColor: consultantsRanked.map((c,i)=> i<3 ? "var(--yellow)" : "var(--seafoam)") }]
   },
   options:{
     responsive:true, maintainAspectRatio:false,
-    layout:{ padding:{top:22} },
+    layout:{ padding:{right:70} },
     plugins:{
       legend:{display:false},
-      tooltip:{ callbacks:{ label:(ctx)=>{ const c = consultantsRanked[ctx.dataIndex]; return [`邀約率 ${ctx.parsed.y}%`, `會參加 ${c.attendYes}人 ／ 名單 ${c.total}筆`]; } } }
+      tooltip:{ callbacks:{ label:(ctx)=>{ const c = consultantsRanked[ctx.dataIndex]; return [`邀約率 ${ctx.parsed.x}%`, `會參加 ${c.attendYes}人 ／ 名單 ${c.total}筆`]; } } }
     },
-    scales:{ y:{ beginAtZero:true, max:115, title:{display:true,text:"邀約率(%)"} } }
+    scales:{ x:{ beginAtZero:true, max:115, title:{display:true,text:"邀約率(%)"} } }
   },
   plugins:[rankValueLabelsPlugin]
 });
@@ -801,16 +1230,17 @@ const avgActiveRate = activeConsultants.reduce((sum,c)=>sum+(c.attendYes/c.total
 const topConsultant = consultantsRanked[0];
 const weakestActive = activeConsultants.slice().sort((a,b)=>wilsonLowerBound(a.attendYes,a.total)-wilsonLowerBound(b.attendYes,b.total))[0];
 const consultantInsights = [
-  {icon:"🏆", t1:"邀約率冠軍", t2:`${topConsultant.name}　${(topConsultant.attendYes/topConsultant.total*100).toFixed(1)}%（會參加${topConsultant.attendYes}人）`},
-  {icon:"⚠️", t1:"待加強關注（現職）", t2:`${weakestActive.name}　${(weakestActive.attendYes/weakestActive.total*100).toFixed(1)}%（會參加${weakestActive.attendYes}人）`},
-  {icon:"📊", t1:"現職業務平均邀約率", t2:`${avgActiveRate.toFixed(1)}%（小白／Amber／Nicole／Bailey／Cathy）`},
-  {icon:"👥", t1:"累計會參加意向人數", t2:`${totalAttendYes}人 ／ 總名單${totalListCount}筆`},
+  {icon:"award", t1:"邀約率冠軍", t2:`${topConsultant.name}　${(topConsultant.attendYes/topConsultant.total*100).toFixed(1)}%（會參加${topConsultant.attendYes}人）`},
+  {icon:"alert", t1:"待加強關注（現職）", t2:`${weakestActive.name}　${(weakestActive.attendYes/weakestActive.total*100).toFixed(1)}%（會參加${weakestActive.attendYes}人）`},
+  {icon:"bars", t1:"現職業務平均邀約率", t2:`${avgActiveRate.toFixed(1)}%（小白／Amber／Nicole／Bailey／Cathy）`},
+  {icon:"users", t1:"累計會參加意向人數", t2:`${totalAttendYes}人 ／ 總名單${totalListCount}筆`},
 ];
 document.getElementById("consultantInsight").innerHTML = `<div class="insight-row">` + consultantInsights.map(i=>`
   <div class="insight-card">
-    <div class="arrow" style="color:var(--navy);font-size:18px;">${i.icon}</div>
+    <div class="arrow" style="color:var(--navy);font-size:18px;">${icon(i.icon,18)}</div>
     <div class="txt"><div class="t1">${i.t1}</div><div class="t2">${i.t2}</div></div>
   </div>`).join("") + `</div>`;
+markReveal(document.getElementById("consultantInsight"));
 
 const eventConsultant = [
  {label:"第5-11屆(共7場)",covered:false,note:"雲端客戶進度表無此區間任何業務名單分頁"},
@@ -875,6 +1305,51 @@ const s27 = [
   {s:"6/28 上午\n移民講座", reg:9, att:5, one:4},
   {s:"6/28 下午\n置產講座", reg:25, att:10, one:5},
 ];
+
+// ---- 營運轉換漏斗（三段獨立，不可串接） ----
+function funnelHtml(groupTitle, groupSub, stages){
+  const rows = stages.map((s,i)=>{
+    const bar = `<div class="funnel-stage">
+      <div class="funnel-bar" style="background:linear-gradient(135deg,${s.color||'var(--v-blue)'},${s.color2||'#1d4ed8'});" data-tip="${(s.tip||'').replace(/"/g,'&quot;')}">
+        <div class="n">${s.n}</div>
+        <div class="l">${s.label}</div>
+        <div class="cov">${s.cov||''}</div>
+      </div>
+    </div>`;
+    if(i===0) return bar;
+    const prev = stages[i-1];
+    const validChain = s.n!=null && prev.n!=null && s.chainOk!==false;
+    const convTxt = validChain ? Math.round(s.n/prev.n*100)+"%" : "—";
+    const arrow = `<div class="funnel-arrow">
+        <svg width="20" height="14" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 7h16M12 2l6 5-6 5"/></svg>
+        <div>${convTxt}</div>
+      </div>`;
+    return arrow + bar;
+  }).join("");
+  return `<div style="margin-bottom:18px;">
+    <div style="font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:2px;">${groupTitle}</div>
+    <div style="font-size:11px;color:var(--grey);margin-bottom:6px;">${groupSub}</div>
+    <div class="funnel-row">${rows}</div>
+  </div>`;
+}
+const s27OneSum = s27.reduce((s,x)=>s+x.one,0);
+const opsFunnelHtml =
+  funnelHtml("① 廣告轉換漏斗", "25場已完成活動（第5-28屆7/11），來源：主表events", [
+    {n:fmt(totalLeadsAll), label:"Meta Leads／報名", cov:"25場合計", color:"var(--v-blue)", color2:"#1d4ed8", tip:"25場已完成活動的Leads(＝廣告報名)加總。"},
+    {n:fmt(totalAttAll), label:"實到", cov:`到場率${pct(avgRate)}`, color:"var(--v-blue)", color2:"#1d4ed8", tip:"公式＝實到÷Leads，逐場平均"+pct(avgRate)+"。"},
+  ]) +
+  funnelHtml("② 深度轉換漏斗", "僅第27屆(4場次)有完整到場後追蹤，來源：Excel 07分頁", [
+    {n:31, label:"實到（4場次合計）", cov:"第27屆專屬", color:"var(--v-purple)", color2:"#5b21b6", tip:"第27屆4個子場次(移民×2、置產×2)實到人數合計。"},
+    {n:s27OneSum, label:"1-on-1", cov:"第27屆專屬", color:"var(--v-purple)", color2:"#5b21b6", tip:"公式＝1-on-1組數÷實到人數。這是全資料集唯一可信的到場後深度轉換率。"},
+    {n:1, label:"Reserved", cov:"第27屆專屬", color:"var(--v-purple)", color2:"#5b21b6", tip:"公式＝Reserved組數÷1-on-1組數。樣本極小(僅1組)，僅供參考不做強結論。"},
+  ]) +
+  funnelHtml("③ 房產成交漏斗", "第23-27屆共5場，房產場專屬，來源：說明會數據頁簽（口徑與①②的\u5230\u5834不同，不可比較）", [
+    {n:125, label:"房產到場", cov:"5屆合計", color:"var(--v-orange)", color2:"#9a4c07", tip:"房產(9:30)場專屬到場人數，5屆(第23-27屆)合計125人。"},
+    {n:22, label:"房產開單", cov:"轉單率17.6%", color:"var(--v-orange)", color2:"#9a4c07", tip:"公式＝開單22÷房產到場125＝17.6%，唯一可信的到場→成交指標。"},
+  ]);
+document.getElementById("opsFunnelWrap").innerHTML = opsFunnelHtml;
+markReveal(document.getElementById("opsFunnelWrap"));
+
 new Chart(document.getElementById("s27Chart"), {
   type:"bar",
   data:{
