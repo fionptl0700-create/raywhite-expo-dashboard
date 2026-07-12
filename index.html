@@ -147,6 +147,21 @@
   .exec-card .ic{width:44px;height:44px;border-radius:50%;background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
   .exec-card .txt .v{font-size:26px;font-weight:800;color:var(--navy);letter-spacing:-.4px;}
   .exec-card .txt .l{font-size:11px;color:var(--grey);font-weight:700;margin-top:2px;}
+  .scope-toggle{display:inline-flex;background:#eef0f3;border-radius:9px;padding:3px;gap:2px;}
+  .scope-toggle .scope-btn{border:none;background:transparent;padding:6px 12px;font-size:11.5px;font-weight:700;color:var(--grey);border-radius:7px;cursor:pointer;transition:all .15s ease;font-family:inherit;}
+  .scope-toggle .scope-btn:hover{color:var(--navy);}
+  .scope-toggle .scope-btn.active{background:#fff;color:var(--navy);box-shadow:0 1px 3px rgba(0,0,0,.15);}
+  .day-card{background:linear-gradient(180deg,#fff,var(--cream));border-radius:12px;padding:14px 16px;box-shadow:0 1px 2px rgba(26,35,50,.08);}
+  .day-card h4{margin:0 0 8px;font-size:12.5px;color:var(--navy);display:flex;align-items:center;justify-content:space-between;}
+  .day-card h4 .badge{font-size:9.5px;font-weight:800;padding:2px 7px;border-radius:10px;}
+  .day-card .drow{display:flex;justify-content:space-between;font-size:11.5px;padding:4px 0;border-bottom:1px dashed var(--border);}
+  .day-card .drow:last-child{border-bottom:none;}
+  .day-card .drow .k{color:var(--grey);font-weight:600;}
+  .day-card .drow .v{font-weight:800;color:var(--navy);}
+  .stat-chip-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;}
+  .stat-chip{background:#fff;border:1px solid var(--border);border-radius:10px;padding:8px 13px;display:flex;flex-direction:column;gap:1px;min-width:90px;}
+  .stat-chip .sv{font-size:16px;font-weight:800;color:var(--navy);}
+  .stat-chip .sl{font-size:10px;color:var(--grey);font-weight:700;}
 </style>
 </head>
 <body>
@@ -212,6 +227,15 @@
 
   <section id="kpi" style="padding-bottom:6px;">
     <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span> 總覽 KPI（25場已完成場次，含28屆7/11台中）</h2>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
+      <span style="font-size:11px;font-weight:700;color:var(--grey);">💰／🔄 統計範圍：</span>
+      <div class="scope-toggle" id="costConvScopeToggle" role="tablist">
+        <button type="button" class="scope-btn active" data-scope="all">累計（25場）</button>
+        <button type="button" class="scope-btn" data-scope="month">該月累計</button>
+        <button type="button" class="scope-btn" data-scope="latest">當次（最新一場）</button>
+      </div>
+      <span id="scopeHint" style="font-size:11px;color:var(--grey);"></span>
+    </div>
     <div class="group-label">💰 成本指標</div>
     <div class="kpi-grid" id="kpiGridCost"></div>
     <div class="group-label">🔄 轉換指標</div>
@@ -224,14 +248,14 @@
   <section id="costmix">
     <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg></span> 支出結構（僅2類有完整資料，非5類完整結構）</h2>
     <div class="info-line">⚠ <b>此圖不含人事費</b>——25場歷史資料完全無來源，避免腦補。場地/住宿/交通/餐飲已拆成4個獨立類別，但涵蓋度差異很大：場地10/25場，住宿/交通/餐飲僅2/25場（第23、26屆才有逐項紀錄，其餘場次即使有場地費也未拆分住宿/交通/餐飲），故後3類比例被嚴重低估，不是「這3類真的很小」，是「大部分場次沒拆這麼細」。
-    <details class="more" style="margin:0;"><summary>詳情</summary><div class="body">場地/住宿/交通/餐飲來源RW-TW說明會費用.xlsx，依日期比對10場成功匹配(第6,7,8,9,12,13,14,23,25,26屆)。其中僅23、26屆有完整的住宿/交通/餐飲逐項紀錄；其餘8場(6,7,8,9,12,13,14,25屆)只有單一「場地費/活動費」合計數字，無法拆分。廣告費(Meta)來源02分頁，25/25場皆有資料，合計NT$5,913,835(含第27屆固定NT$240,000)。詳見Excel 00分頁第五節。</div></details>
+    <details class="more" style="margin:0;"><summary>詳情</summary><div class="body">場地/住宿/交通/餐飲來源RW-TW說明會費用.xlsx，依日期比對10場成功匹配(第6,7,8,9,12,13,14,23,25,26屆)。其中僅23、26屆有完整的住宿/交通/餐飲逐項紀錄；其餘8場(6,7,8,9,12,13,14,25屆)只有單一「場地費/活動費」合計數字，無法拆分。廣告費(Meta)來源02分頁，25/25場皆有資料，與上方總覽KPI「累計廣告花費」同一組數即時計算（先前此處曾誤植NT$5,913,835的舊快照，實際少計28屆7/11的NT$93,260，已修正為即時加總值）。詳見Excel 00分頁第五節。</div></details>
     </div>
     <div class="group-label" style="margin-top:6px;">📊 支出結構長條圖＋資料涵蓋度指示（●綠=涵蓋完整　●橘=部分　●紅=嚴重低估/缺）</div>
     <div id="costBarWrap"></div>
     <table style="margin-top:14px;">
       <thead><tr><th class="left">類別</th><th>金額(NT$)</th><th>資料涵蓋</th></tr></thead>
       <tbody>
-        <tr><td class="left">廣告費(Meta)</td><td>5,913,835</td><td>25/25場</td></tr>
+        <tr><td class="left">廣告費(Meta)</td><td>6,007,095</td><td>25/25場</td></tr>
         <tr><td class="left">場地費</td><td>1,684,370</td><td class="lo">僅10/25場（低估）</td></tr>
         <tr><td class="left">住宿費</td><td>31,800</td><td class="lo">僅2/25場（第23、26屆），嚴重低估</td></tr>
         <tr><td class="left">交通費</td><td>30,955</td><td class="lo">僅2/25場（第23、26屆），嚴重低估</td></tr>
@@ -243,13 +267,36 @@
 
   <section id="s28">
     <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></span> 第28屆 (2026/7/11 台中・7/12 高雄) 籌備中【今日7/12高雄場當天，台中場已於昨日結束(因颱風改線上)】</h2>
+    <div class="badge-row" style="margin-bottom:12px;">
+      <span class="b-orange">今日7/12高雄場進行中，台中場(7/11)已結束（因颱風改線上）</span>
+    </div>
+    <div class="stat-chip-row">
+      <div class="stat-chip"><div class="sv">60筆</div><div class="sl">聯繫名單（去重）</div></div>
+      <div class="stat-chip"><div class="sv" style="color:var(--good);">85%</div><div class="sl">已加賴</div></div>
+      <div class="stat-chip"><div class="sv" style="color:var(--bad);">48%</div><div class="sl">明確會參加</div></div>
+    </div>
+    <div class="charts-row" style="margin-bottom:12px;">
+      <div class="day-card">
+        <h4>台中 7/11<span class="badge" style="background:#f1f2f4;color:var(--grey);">已結束・因颱風改線上</span></h4>
+        <div class="drow"><span class="k">場地</span><span class="v">NT$0（改線上）</span></div>
+        <div class="drow"><span class="k">住宿（7/10晚，提前出差）</span><span class="v">NT$1,800</span></div>
+        <div class="drow"><span class="k">人事(PT)</span><span class="v">NT$1,100</span></div>
+        <div class="drow"><span class="k">伙食</span><span class="v">NT$5,800</span></div>
+        <div class="drow"><span class="k">廣告花費（房產場逐日）</span><span class="v">NT$93,260</span></div>
+        <div class="drow" style="border-top:2px solid var(--border);margin-top:4px;padding-top:8px;"><span class="k" style="font-weight:800;color:var(--navy);">小計(不含高鐵)</span><span class="v" style="font-size:13px;">NT$101,960</span></div>
+      </div>
+      <div class="day-card">
+        <h4>高雄 7/12<span class="badge" style="background:var(--v-orange-soft);color:var(--v-orange);">進行中</span></h4>
+        <div class="drow"><span class="k">場地（萬豪10樓）</span><span class="v">NT$35,000</span></div>
+        <div class="drow"><span class="k">住宿（7/11晚德立莊）</span><span class="v">NT$11,500</span></div>
+        <div class="drow"><span class="k">人事(PT)</span><span class="v">NT$2,700</span></div>
+        <div class="drow"><span class="k">伙食</span><span class="v">NT$5,800</span></div>
+        <div class="drow"><span class="k">廣告花費（房產場逐日）</span><span class="v">NT$23,480</span></div>
+        <div class="drow" style="border-top:2px solid var(--border);margin-top:4px;padding-top:8px;"><span class="k" style="font-weight:800;color:var(--navy);">小計(不含高鐵)</span><span class="v" style="font-size:13px;">NT$78,480</span></div>
+      </div>
+    </div>
     <div class="badge-row" style="margin-bottom:6px;">
-      <span class="b-orange">今日7/12高雄場進行中，台中場(7/11)已結束</span>
-      <span>台中：原訂李方艾美酒店21F，因颱風改線上</span><span>高雄：萬豪10樓</span>
-      <span>聯繫名單 60筆</span><span>已加賴 85%</span><span class="b-red">明確會參加 48%</span>
-      <span>7/11場地NT$0(颱風改線上)</span><span>7/11住宿NT$1,800</span><span>7/11人事(PT)NT$1,100</span><span>7/11伙食NT$5,800</span><span>7/12場地NT$35,000</span><span>7/12住宿NT$11,500</span><span>7/12人事(PT)NT$2,700</span><span>7/12伙食NT$5,800</span>
-      <span>廣告花費(房產場逐日真實數字)7/11 NT$93,260／7/12 NT$23,480</span>
-      <span class="b-green"><b>兩天合計 NT$206,050</b>（含共用高鐵NT$25,610）</span>
+      <span class="b-green"><b>兩天合計 NT$206,050</b>（含共用高鐵NT$25,610，7/10-7/12三天共用行程）</span>
     </div>
     <div class="kpi-grid" style="margin-bottom:10px;">
       <div class="kpi-card" data-tip="房產(9:30)場專屬報名欄位，非整場總報名，與線上其他時段場次分開計算。">
@@ -699,24 +746,58 @@ const _totalSeries = completed.map(e=>(e.ads||0)+(e.venue||0));
 function _last3avg(arr){ const v=arr.slice(-3).filter(x=>x!=null); return v.length? v.reduce((a,b)=>a+b,0)/v.length : null; }
 const _l3Ads = _last3avg(_adsSeries), _l3Cpl = _last3avg(_cplSeries), _l3Rate = _last3avg(_rateSeries0), _l3Total = _last3avg(_totalSeries);
 
-renderKpis("kpiGridCost", [
-  {label:"25場合計廣告花費", value: fmt(totalAds), raw:totalAds, note:"NT$，總計", icon:"dollar",
-    tip:"公式＝Σ各場廣告花費(Meta)。來源：02分頁廣告成效原始檔，25/25場皆有資料。"},
-  {label:"平均每場廣告花費", value: fmt(avgAds), raw:avgAds, note:"NT$", icon:"dollar", spark:_adsSeries,
-    trend:trendPill(_l3Ads, avgAds, true), tip:"公式＝合計廣告花費÷有資料場次數。徽章＝近3場均值 vs 25場均值，數字愈低愈好。"},
-  {label:"平均 CPL", value: fmt(avgCpl), raw:avgCpl, note:"NT$／Lead", icon:"target", spark:_cplSeries,
-    trend:trendPill(_l3Cpl, avgCpl, true), tip:"公式＝廣告花費÷Leads數，逐場計算後取平均。CPL愈低代表單一名單成本愈省。"},
-  {label:"25場合計總成本", value: fmt(totalCost), raw:totalCost, note:"NT$，下限", icon:"layers",
-    tip:"公式＝Σ(廣告花費＋場地費)，僅涵蓋有資料欄位，未計入人事/物料，故為成本下限。"},
-  {label:"平均每場總成本", value: fmt(avgCostPerEvent), raw:avgCostPerEvent, note:"NT$，下限", icon:"layers", spark:_totalSeries,
-    trend:trendPill(_l3Total, avgCostPerEvent, true), tip:"公式＝合計總成本÷完成場次數(25場)。同樣為下限估算。"},
-  {label:"第27屆完整成本", value:"129,681", raw:129681, note:"NT$，唯一含1-on-1", icon:"award",
-    tip:"唯一一場有場地+交通+住宿+人事完整憑證的活動，可作為其餘場次成本補全的參考基準。"},
-]);
-renderKpis("kpiGridConv", [
-  {label:"平均 Leads→實到率", value: pct(avgRate), raw:avgRate*100, note:"24場平均", icon:"users", spark:_rateSeries0.map(v=>v!=null?v*100:null),
-    trend:trendPill(_l3Rate, avgRate, false), tip:"公式＝實到人數÷Leads數，逐場計算後取平均。徽章＝近3場均值 vs 24場均值，數字愈高愈好。"},
-]);
+// ---- 成本/轉換指標：累計／該月累計／當次 三段切換 ----
+function scopeEvents(scope){
+  if(scope==="latest") return completed.slice(-1);
+  if(scope==="month"){
+    const latestMonth = completed[completed.length-1].d.slice(0,7);
+    return completed.filter(e=>e.d.slice(0,7)===latestMonth);
+  }
+  return completed;
+}
+function renderCostConvSection(scope){
+  const evs = scopeEvents(scope);
+  const withAds = evs.filter(e=>e.ads!=null);
+  const tAds = withAds.reduce((s,e)=>s+e.ads,0);
+  const aAds = withAds.length? tAds/withAds.length : null;
+  const withCpl = evs.filter(e=>e.cpl!=null);
+  const aCpl = withCpl.length? withCpl.reduce((s,e)=>s+e.cpl,0)/withCpl.length : null;
+  const tCost = evs.reduce((s,e)=>s+(e.ads||0)+(e.venue||0),0);
+  const aCost = evs.length? tCost/evs.length : null;
+  const withRate = evs.filter(e=>e.rate!=null);
+  const aRate = withRate.length? withRate.reduce((s,e)=>s+e.rate,0)/withRate.length : null;
+  const n = evs.length;
+  const scopeLabel = scope==="all" ? `${n}場合計` : scope==="month" ? `當月${n}場合計` : `當次（第${evs[0]?.ord||"—"}屆）`;
+  const isSingle = scope==="latest";
+  document.getElementById("scopeHint").textContent = scope==="all" ? "＝全部25場已完成活動" : scope==="month" ? `＝${evs[0]?evs[0].d.slice(0,7):""}當月已完成場次` : `＝最近一場已完成活動（第${evs[0]?.ord||"—"}屆）`;
+
+  renderKpis("kpiGridCost", [
+    {label:`${scopeLabel}廣告花費`, value: fmt(tAds), raw:tAds, note:"NT$", icon:"dollar",
+      tip:"公式＝Σ各場廣告花費(Meta)。來源：02分頁廣告成效原始檔。"},
+    {label:"平均每場廣告花費", value: fmt(aAds), raw:aAds, note:"NT$", icon:"dollar", spark: isSingle?null:evs.map(e=>e.ads),
+      trend: (scope==="all")? trendPill(_l3Ads, avgAds, true): "", tip:"公式＝範圍內合計廣告花費÷有資料場次數。"},
+    {label:"平均 CPL", value: fmt(aCpl), raw:aCpl, note:"NT$／Lead", icon:"target", spark: isSingle?null:evs.map(e=>e.cpl),
+      trend: (scope==="all")? trendPill(_l3Cpl, avgCpl, true): "", tip:"公式＝廣告花費÷Leads數，逐場計算後取平均。CPL愈低代表單一名單成本愈省。"},
+    {label:`${scopeLabel}總成本`, value: fmt(tCost), raw:tCost, note:"NT$，下限", icon:"layers",
+      tip:"公式＝Σ(廣告花費＋場地費)，僅涵蓋有資料欄位，未計入人事/物料，故為成本下限。"},
+    {label:"平均每場總成本", value: fmt(aCost), raw:aCost, note:"NT$，下限", icon:"layers", spark: isSingle?null:evs.map(e=>(e.ads||0)+(e.venue||0)),
+      trend: (scope==="all")? trendPill(_l3Total, avgCostPerEvent, true): "", tip:"公式＝範圍內合計總成本÷場次數。同樣為下限估算。"},
+  ]);
+  renderKpis("kpiGridConv", [
+    {label:"平均 Leads→實到率", value: pct(aRate), raw:aRate!=null?aRate*100:null, note: scope==="all"?"24場平均（S特別場無到場率資料）":scopeLabel, icon:"users",
+      spark: isSingle?null:evs.map(e=>e.rate!=null?e.rate*100:null),
+      trend: (scope==="all")? trendPill(_l3Rate, avgRate, false): "", tip:"公式＝實到人數÷Leads數，逐場計算後取平均。"},
+  ]);
+}
+document.querySelectorAll("#costConvScopeToggle .scope-btn").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    document.querySelectorAll("#costConvScopeToggle .scope-btn").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    renderCostConvSection(btn.getAttribute("data-scope"));
+  });
+});
+renderCostConvSection("all");
+
 renderKpis("kpiGridGap", [
   {label:"1-on-1/Reserved追蹤", value:"1 / 25", note:"結構性缺口", cls:"bad", icon:"alert",
     tip:"僅第27屆(4場次)有完整1-on-1與Reserved紀錄，其餘24場到場後發生什麼事，目前無資料可查。"},
@@ -751,7 +832,7 @@ document.getElementById("regionTable").innerHTML = regionRows.map(r=>`
 
 // ---- 支出結構長條圖＋涵蓋度指示 ----
 const costBarData = [
-  {label:"廣告費(Meta)", val:5913835, cov:"25/25場", covCls:"good"},
+  {label:"廣告費(Meta)", val:totalAds, cov:"25/25場", covCls:"good"},
   {label:"場地費", val:1684370, cov:"10/25場", covCls:"warn"},
   {label:"餐飲費", val:102315, cov:"2/25場", covCls:"bad"},
   {label:"住宿費", val:31800, cov:"2/25場", covCls:"bad"},
