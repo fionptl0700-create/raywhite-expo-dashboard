@@ -104,7 +104,14 @@
   .status-badge.info .dot{background:#7fb8e8;}
   .exec-signals-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
   @media(max-width:900px){.exec-signals-row{grid-template-columns:1fr;}}
-  .signal-card{border-radius:10px;padding:13px 15px;border:1px solid var(--border-default);background:var(--bg-card);}
+  .actions-preview-card{background:var(--bg-card);border:1px solid var(--border-default);border-radius:12px;padding:14px 16px;margin-bottom:16px;}
+.actions-preview-head{display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:650;color:var(--text-primary);margin-bottom:10px;}
+.actions-preview-link{font-size:12px;font-weight:600;color:var(--v-blue);text-decoration:none;}
+.actions-preview-link:hover{text-decoration:underline;}
+.actions-preview-list{display:flex;flex-direction:column;gap:8px;}
+.actions-preview-item{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--text-secondary);line-height:1.5;}
+.actions-preview-item .api-txt{padding-top:1px;}
+.signal-card{border-radius:10px;padding:13px 15px;border:1px solid var(--border-default);background:var(--bg-card);}
   .signal-card .sig-head{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:750;margin-bottom:7px;color:var(--navy);}
   .signal-card .sig-head .ic{background:var(--bg-subtle);border-radius:6px;padding:4px;width:22px;height:22px;box-sizing:border-box;}
   .signal-card.good{border-left:3px solid var(--v-green);}
@@ -308,6 +315,18 @@
   <div class="insight-row" id="execDelta" style="margin-bottom:16px;"></div>
 
   <div class="exec-signals-row" id="execSignals" style="margin-bottom:16px;"></div>
+
+  <div class="actions-preview-card">
+    <div class="actions-preview-head">
+      <span>優先行動 Top 3</span>
+      <a href="#conclusions" class="actions-preview-link">查看完整清單（共5項）→</a>
+    </div>
+    <div class="actions-preview-list">
+      <div class="actions-preview-item"><span class="pri-badge p0">①</span><span class="api-txt">確認匯率基準並統一全站換算依據</span></div>
+      <div class="actions-preview-item"><span class="pri-badge p0">②</span><span class="api-txt">規定每場活動比照第27屆規格，48小時內產出Event ROI Report</span></div>
+      <div class="actions-preview-item"><span class="pri-badge p1">③</span><span class="api-txt">建立成交／Reserved金額欄位並強制填寫</span></div>
+    </div>
+  </div>
 
   <div class="info-line"><span class="ic" style="width:13px;height:13px;color:var(--v-red);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span> 部分成本與後段轉換資料尚未完整，所有缺失值均未以0代替。
   <details class="more" style="margin:0;"><summary>詳情</summary><div class="body"><b>僅5/26場有房產轉單率資料</b>（第23-27屆，來源「說明會數據」頁簽）；其餘場次仍無成交/收入數據，故無法算完整ROI；1-on-1追蹤僅第27屆。業務名單彙整與廣告Leads是不同量測基準，不可互相加總。第27屆廣告花費/CPL已於2026/7/9透過新來源（Google Sheet「廣告成效」）補齊，分級重算為D級。第28屆場地/住宿/人事/伙食/高鐵(均攤)合計非廣告成本NT$89,310，已於2026/7/12依最新Campaign歸戶與高鐵分攤方式重新計算(詳見#s28與#27v28對照卡)。詳細缺口見 Excel 00 分頁。</div></details>
