@@ -954,6 +954,19 @@ document.getElementById("convDelta").innerHTML = deltaHtml;
 markReveal(document.getElementById("execDelta"));
 markReveal(document.getElementById("convDelta"));
 
+function trailingWorseningStreak(list, key, worseIsHigher){
+  const vals = list.map(e=>({ord:e.ord, v:e[key]})).filter(x=>x.v!=null);
+  let streak = 0;
+  for(let i=vals.length-1;i>0;i--){
+    const worse = worseIsHigher ? vals[i].v > vals[i-1].v : vals[i].v < vals[i-1].v;
+    if(worse){ streak++; } else break;
+  }
+  return {streak, vals};
+}
+const cplStreakInfo = trailingWorseningStreak(completed, "cpl", true);
+const rateStreakInfo = trailingWorseningStreak(completed, "rate", false);
+const cplStreakOrds = cplStreakInfo.streak>0 ? cplStreakInfo.vals.slice(cplStreakInfo.vals.length-1-cplStreakInfo.streak).map(x=>x.ord).join("→") : "";
+const rateStreakOrds = rateStreakInfo.streak>0 ? rateStreakInfo.vals.slice(rateStreakInfo.vals.length-1-rateStreakInfo.streak).map(x=>x.ord).join("→") : "";
 // ---- Executive Signals：表現亮點／主要問題／優先行動（皆為既有資料計算，非假設）----
 const bestCplEvent = cplEvents.slice().sort((a,b)=>a.cpl-b.cpl)[0];
 const bestRateEvent = rateEvents.slice().sort((a,b)=>b.rate-a.rate)[0];
@@ -991,19 +1004,6 @@ if(copyBtn){
   });
 }
 
-function trailingWorseningStreak(list, key, worseIsHigher){
-  const vals = list.map(e=>({ord:e.ord, v:e[key]})).filter(x=>x.v!=null);
-  let streak = 0;
-  for(let i=vals.length-1;i>0;i--){
-    const worse = worseIsHigher ? vals[i].v > vals[i-1].v : vals[i].v < vals[i-1].v;
-    if(worse){ streak++; } else break;
-  }
-  return {streak, vals};
-}
-const cplStreakInfo = trailingWorseningStreak(completed, "cpl", true);
-const rateStreakInfo = trailingWorseningStreak(completed, "rate", false);
-const cplStreakOrds = cplStreakInfo.streak>0 ? cplStreakInfo.vals.slice(cplStreakInfo.vals.length-1-cplStreakInfo.streak).map(x=>x.ord).join("→") : "";
-const rateStreakOrds = rateStreakInfo.streak>0 ? rateStreakInfo.vals.slice(rateStreakInfo.vals.length-1-rateStreakInfo.streak).map(x=>x.ord).join("→") : "";
 const insights = [
   {up:rateUp, t1:"近3場（第"+last3Rate.map(e=>e.ord).join("、")+"屆）到場率 vs 24場平均", t2: pct(last3AvgRate)+" vs "+pct(avgRate)},
   {up:cplBetter, t1:"近3場（第"+last3Cpl.map(e=>e.ord).join("、")+"屆）CPL vs 25場平均", t2: "NT$"+fmt(last3AvgCpl)+" vs NT$"+fmt(avgCpl)},
