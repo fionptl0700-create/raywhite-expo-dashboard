@@ -80,6 +80,39 @@
   header h1{margin:0;font-size:19px;font-weight:700;letter-spacing:.2px;}
   header .tag{background:var(--yellow);color:#000;font-weight:800;padding:4px 11px;border-radius:5px;font-size:11.5px;margin-right:10px;letter-spacing:.5px;}
   header .sub{font-size:11px;color:#c9c9c9;margin-top:4px;}
+  .status-badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;}
+  .status-badge{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:20px;background:rgba(255,255,255,.12);color:#f0f0f0;white-space:nowrap;}
+  .status-badge .dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+  .status-badge.done .dot{background:#3ecf8e;}
+  .status-badge.tracking .dot{background:#FFC72C;}
+  .status-badge.info .dot{background:#7fb8e8;}
+  .exec-signals-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  @media(max-width:900px){.exec-signals-row{grid-template-columns:1fr;}}
+  .signal-card{border-radius:10px;padding:12px 14px;border:1px solid var(--border);background:#fff;}
+  .signal-card .sig-head{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800;margin-bottom:6px;}
+  .signal-card.good{border-left:3px solid var(--v-green);}
+  .signal-card.warn{border-left:3px solid var(--v-orange);}
+  .signal-card.next{border-left:3px solid var(--yellow);}
+  .signal-card .sig-body{font-size:12px;color:var(--navy);line-height:1.5;}
+  .hdr-actions{display:flex;gap:8px;margin-top:8px;}
+  .hdr-btn{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:5px 10px;border-radius:6px;background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.25);cursor:pointer;}
+  .hdr-btn:hover{background:rgba(255,255,255,.2);}
+  #backToTop{position:fixed;right:20px;bottom:24px;width:42px;height:42px;border-radius:50%;background:var(--navy);color:#fff;border:none;display:none;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.25);z-index:60;}
+  #backToTop.show{display:flex;}
+  @media print{ nav.subnav, #backToTop, .hdr-actions, .scope-toggle, select, .search-box{display:none !important;} }
+  @media(max-width:700px){
+    #eventTable thead{display:none;}
+    #eventTable, #eventTable tbody, #eventTable tr, #eventTable td{display:block;width:100%;}
+    #eventTable tr{border:1px solid var(--border);border-radius:10px;margin-bottom:10px;padding:8px 10px;background:#fff;}
+    #eventTable td{border:none;padding:4px 0;text-align:left !important;display:flex;justify-content:space-between;gap:10px;font-size:12.5px;}
+    #eventTable td::before{content:attr(data-label);font-weight:700;color:var(--grey);font-size:11px;flex-shrink:0;}
+    #eventTable td[data-label="EDM"]{justify-content:flex-start;}
+    #eventTable td[data-label="EDM"]::before{display:none;}
+    #eventTable td[data-label="主題"]{flex-direction:column;align-items:flex-start;}
+  }
+
+
+
   .chart-wrap{position:relative;width:100%;}
   nav.subnav{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--border);box-shadow:0 2px 6px rgba(0,0,0,.04);}
   nav.subnav .inner{max-width:1320px;margin:0 auto;padding:0 20px;display:flex;gap:4px;overflow-x:auto;}
@@ -114,7 +147,7 @@
   tbody tr.prep:hover{background:#fff2c2;}
   .grade{display:inline-block;width:22px;height:22px;line-height:22px;border-radius:6px;color:#fff;font-weight:800;text-align:center;font-size:11.5px;}
   .gA{background:var(--good);} .gB{background:#2563eb;} .gC{background:var(--warn);} .gD{background:var(--bad);} .gN{background:#9ca3af;}
-  .prep-badge{display:inline-block;background:var(--yellow);color:#000;font-weight:800;font-size:10.5px;padding:3px 8px;border-radius:5px;}
+  .prep-badge{display:inline-block;background:#eef1f5;color:var(--grey);font-weight:800;font-size:10.5px;padding:3px 8px;border-radius:5px;}
   .thumb{width:56px;height:34px;object-fit:cover;border-radius:5px;display:block;box-shadow:0 1px 3px rgba(0,0,0,.15);}
   .thumb-ph{width:56px;height:34px;border-radius:5px;background:#f0f1f3;color:#c3c6cc;font-size:9px;display:flex;align-items:center;justify-content:center;}
   .info-line{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--navy);margin-bottom:10px;flex-wrap:wrap;font-weight:500;}
@@ -179,10 +212,20 @@
 </svg>
     <div>
       <h1><span class="tag">RAY WHITE TAIWAN</span> <span class="ic" style="width:18px;height:18px;color:var(--yellow);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v18Z"/><path d="M6 12H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h2"/><path d="M18 9h2a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg></span> 活動場次營運效益 Dashboard</h1>
-      <div class="sub">2025/6–2026/7 ｜ 共26場活動紀錄｜25場已完成（含28屆7/11台中）｜1場資料仍在追蹤更新中（28屆7/12高雄，活動已結束）｜全數NT$</div>
+      <div class="sub">2025/6–2026/7 ｜ 全數NT$</div>
+      <div class="status-badges">
+        <span class="status-badge done"><span class="dot"></span>已完成 25 場</span>
+        <span class="status-badge tracking"><span class="dot"></span>追蹤中 1 場（28屆7/12高雄）</span>
+        <span class="status-badge info"><span class="dot"></span>廣告資料截至 2026/7/11</span>
+        <span class="status-badge info"><span class="dot"></span>活動資料截至 2026/7/12</span>
+      </div>
     </div>
   </div>
   <div class="sub" id="updatedAt"></div>
+      <div class="hdr-actions">
+        <button class="hdr-btn" onclick="window.print()"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg> 列印</button>
+        <button class="hdr-btn" id="copySummaryBtn"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> 複製摘要</button>
+      </div>
   <svg class="hero-deco" viewBox="0 0 400 140" preserveAspectRatio="xMaxYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <circle cx="330" cy="40" r="60" fill="none" stroke="#FFC72C" stroke-width="1" opacity=".35"/>
     <circle cx="330" cy="40" r="90" fill="none" stroke="#FFC72C" stroke-width="1" opacity=".2"/>
@@ -206,19 +249,19 @@
 </header>
 <nav class="subnav"><div class="inner">
   <a href="#kpi"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span> 總覽KPI</a>
-  <a href="#costmix"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg></span> 支出結構</a>
   <a href="#s28"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></span> 第28屆</a>
   <a href="#trend"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></span> 趨勢</a>
-  <a href="#events"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></span> 活動總覽</a>
   <a href="#matrix"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></svg></span> 效益矩陣</a>
-  <a href="#region"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span> 地區分析</a>
   <a href="#charts"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span> 轉換／分級</a>
   <a href="#opsfunnel"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span> 轉換漏斗</a>
   <a href="#consultants"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span> 業務KPI</a>
   <a href="#coverage"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></span> 業務名單彙整</a>
+  <a href="#events"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></span> 活動總覽</a>
+  <a href="#region"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span> 地區分析</a>
+  <a href="#costmix"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg></span> 支出結構</a>
+  <a href="#conclusions"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></svg></span> 管理行動</a>
   <a href="#s27"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span> 第27屆</a>
   <a href="#s27vs28"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="12" r="6"/><circle cx="16" cy="12" r="6"/></svg></span> 27v28對照</a>
-  <a href="#conclusions"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></svg></span> 結論與建議</a>
   <a href="#edm"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg></span> EDM影像牆</a>
 </div></nav>
 <div class="container">
@@ -226,8 +269,10 @@
   <div class="exec-grid" id="execSummary"></div>
   <div class="insight-row" id="execDelta" style="margin-bottom:16px;"></div>
 
-  <div class="info-line"><span class="ic" style="width:13px;height:13px;color:var(--v-red);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span> <b>僅5/26場有房產轉單率資料</b>（第23-27屆，來源「說明會數據」頁簽）；其餘場次仍無成交/收入數據，故無法算完整ROI；1-on-1追蹤僅第27屆。
-  <details class="more" style="margin:0;"><summary>詳情</summary><div class="body">業務名單彙整與廣告Leads是不同量測基準，不可互相加總。第27屆廣告花費/CPL已於2026/7/9透過新來源（Google Sheet「廣告成效」）補齊，分級重算為D級。第28屆場地/住宿/人事/伙食/高鐵(均攤)合計非廣告成本NT$89,310，已於2026/7/12依最新Campaign歸戶與高鐵分攤方式重新計算(詳見#s28與#27v28對照卡)。詳細缺口見 Excel 00 分頁。</div></details>
+  <div class="exec-signals-row" id="execSignals" style="margin-bottom:16px;"></div>
+
+  <div class="info-line"><span class="ic" style="width:13px;height:13px;color:var(--v-red);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span> 部分成本與後段轉換資料尚未完整，所有缺失值均未以0代替。
+  <details class="more" style="margin:0;"><summary>詳情</summary><div class="body"><b>僅5/26場有房產轉單率資料</b>（第23-27屆，來源「說明會數據」頁簽）；其餘場次仍無成交/收入數據，故無法算完整ROI；1-on-1追蹤僅第27屆。業務名單彙整與廣告Leads是不同量測基準，不可互相加總。第27屆廣告花費/CPL已於2026/7/9透過新來源（Google Sheet「廣告成效」）補齊，分級重算為D級。第28屆場地/住宿/人事/伙食/高鐵(均攤)合計非廣告成本NT$89,310，已於2026/7/12依最新Campaign歸戶與高鐵分攤方式重新計算(詳見#s28與#27v28對照卡)。詳細缺口見 Excel 00 分頁。</div></details>
   </div>
 
   <section id="kpi" style="padding-bottom:6px;">
@@ -248,26 +293,6 @@
     <div class="insight-row" id="convDelta" style="margin-top:2px;"></div>
     <div class="group-label"><span class="ic" style="width:13px;height:13px;color:var(--v-green);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span> 資料完整度指標</div>
     <div class="kpi-grid" id="kpiGridGap"></div>
-  </section>
-
-  <section id="costmix">
-    <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg></span> 支出結構（僅2類有完整資料，非5類完整結構）</h2>
-    <div class="info-line"><span class="ic" style="width:13px;height:13px;color:var(--v-red);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span> <b>此圖不含人事費</b>——25場歷史資料完全無來源，避免腦補。場地/住宿/交通/餐飲已拆成4個獨立類別，但涵蓋度差異很大：場地10/25場，住宿/交通/餐飲僅2/25場（第23、26屆才有逐項紀錄，其餘場次即使有場地費也未拆分住宿/交通/餐飲），故後3類比例被嚴重低估，不是「這3類真的很小」，是「大部分場次沒拆這麼細」。
-    <details class="more" style="margin:0;"><summary>詳情</summary><div class="body">場地/住宿/交通/餐飲來源RW-TW說明會費用.xlsx，依日期比對10場成功匹配(第6,7,8,9,12,13,14,23,25,26屆)。其中僅23、26屆有完整的住宿/交通/餐飲逐項紀錄；其餘8場(6,7,8,9,12,13,14,25屆)只有單一「場地費/活動費」合計數字，無法拆分。廣告費(Meta)來源02分頁，25/25場皆有資料，與上方總覽KPI「累計廣告花費」同一組數即時計算（先前此處曾誤植NT$5,913,835的舊快照，實際少計28屆7/11的NT$93,260，已修正為即時加總值NT$6,007,095）。詳見Excel 00分頁第五節。</div></details>
-    </div>
-    <div class="group-label" style="margin-top:6px;"><span class="ic" style="width:13px;height:13px;color:var(--v-orange);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span> 支出結構長條圖＋資料涵蓋度指示（●綠=涵蓋完整　●橘=部分　●紅=嚴重低估/缺）</div>
-    <div id="costBarWrap"></div>
-    <table style="margin-top:14px;">
-      <thead><tr><th class="left">類別</th><th>金額(NT$)</th><th>資料涵蓋</th></tr></thead>
-      <tbody>
-        <tr><td class="left">廣告費(Meta)</td><td>6,007,095</td><td>25/25場</td></tr>
-        <tr><td class="left">場地費</td><td>1,684,370</td><td class="lo">僅10/25場（低估）</td></tr>
-        <tr><td class="left">住宿費</td><td>31,800</td><td class="lo">僅2/25場（第23、26屆），嚴重低估</td></tr>
-        <tr><td class="left">交通費</td><td>30,955</td><td class="lo">僅2/25場（第23、26屆），嚴重低估</td></tr>
-        <tr><td class="left">餐飲費</td><td>102,315</td><td class="lo">僅2/25場（第23、26屆），嚴重低估</td></tr>
-        <tr><td class="left">人事費</td><td>—</td><td class="lo">0/25場，無來源</td></tr>
-      </tbody>
-    </table>
   </section>
 
   <section id="s28">
@@ -411,49 +436,10 @@
     </div>
   </section>
 
-  <section id="events">
-    <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></span> 活動總覽（26場，最新在最上）</h2>
-    <div class="group-label"><span class="ic" style="width:13px;height:13px;color:var(--v-blue);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span> 近期活動表現（最新4場）</div>
-    <div style="overflow-x:auto;">
-    <table style="margin-bottom:10px;">
-      <thead><tr><th class="left">屆次</th><th class="left">日期</th><th class="left">主題</th><th>報名</th><th>實到</th><th>實到率</th><th>CPL(NT$)</th><th>總成本(NT$)</th></tr></thead>
-      <tbody id="recentTable"></tbody>
-    </table>
-    </div>
-    <div style="text-align:center;margin-bottom:14px;"><a href="#eventTable" style="font-size:12px;color:var(--teal);font-weight:700;text-decoration:none;">查看所有25場完整明細 ↓</a></div>
-    <div class="filters">
-      <select id="gradeFilter">
-        <option value="">全部分級</option>
-        <option value="A">A級</option><option value="B">B級</option><option value="C">C級</option><option value="D">D級</option><option value="N">資料不足/籌備中</option>
-      </select>
-      <input id="searchBox" placeholder="搜尋主題/地點...">
-    </div>
-    <div style="max-height:560px;overflow:auto;">
-    <table id="eventTable">
-      <thead><tr>
-        <th class="left">EDM</th><th class="left"><span class="ic" style="width:12px;height:12px;color:var(--navy);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span> 年份／日期</th><th class="left">主題</th><th class="left"><span class="ic" style="width:12px;height:12px;color:var(--navy);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span> 地點</th>
-        <th>報名</th><th>實到</th><th>實到率</th><th>CPL(NT$)</th><th>廣告花費(NT$)</th><th>總成本(NT$)</th><th>分級</th>
-      </tr></thead>
-      <tbody></tbody>
-    </table>
-    </div>
-  </section>
-
   <section id="matrix">
     <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></svg></span> 活動效益矩陣（CPL × 到場率 × 成本氣泡）</h2>
     <div class="info-line">氣泡大小＝該場總成本(廣告+場地)；虛線為平均CPL(25場)／平均到場率(24場，不含S特別場)，劃出四象限；氣泡標籤為屆數。與下方「活動總覽」明細表對照使用。</div>
     <div class="chart-wrap" style="height:400px;"><canvas id="matrixChart"></canvas></div>
-  </section>
-
-  <section id="region">
-    <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span> 地區表現分析（依場次登記地點分組）</h2>
-    <div class="info-line">依原始地點標籤分組，聯合場次（如「台北/新竹」）不拆分計入多地區，避免同一場次被重複計算而失真；因此非台北地區樣本數少，數字僅供參考，不做強結論。</div>
-    <div style="max-height:280px;overflow:auto;">
-    <table>
-      <thead><tr><th class="left"><span class="ic" style="width:12px;height:12px;color:var(--navy);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span> 地點</th><th>場次數</th><th>平均CPL(NT$)</th><th>平均實到率</th><th>平均報名數</th><th>平均總成本(NT$)</th></tr></thead>
-      <tbody id="regionTable"></tbody>
-    </table>
-    </div>
   </section>
 
   <section id="charts">
@@ -497,8 +483,67 @@
     </div>
   </section>
 
+  <section id="events">
+    <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></span> 活動總覽（26場，最新在最上）</h2>
+    <div class="group-label"><span class="ic" style="width:13px;height:13px;color:var(--v-blue);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span> 近期活動表現（最新4場）</div>
+    <div style="overflow-x:auto;">
+    <table style="margin-bottom:10px;">
+      <thead><tr><th class="left">屆次</th><th class="left">日期</th><th class="left">主題</th><th>報名</th><th>實到</th><th>實到率</th><th>CPL(NT$)</th><th>總成本(NT$)</th></tr></thead>
+      <tbody id="recentTable"></tbody>
+    </table>
+    </div>
+    <div style="text-align:center;margin-bottom:14px;"><a href="#eventTable" style="font-size:12px;color:var(--teal);font-weight:700;text-decoration:none;">查看所有25場完整明細 ↓</a></div>
+    <div class="filters">
+      <select id="gradeFilter">
+        <option value="">全部分級</option>
+        <option value="A">A級</option><option value="B">B級</option><option value="C">C級</option><option value="D">D級</option><option value="N">資料不足/籌備中</option>
+      </select>
+      <input id="searchBox" placeholder="搜尋主題/地點...">
+    </div>
+    <div style="max-height:560px;overflow:auto;">
+    <table id="eventTable">
+      <thead><tr>
+        <th class="left">EDM</th><th class="left"><span class="ic" style="width:12px;height:12px;color:var(--navy);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span> 年份／日期</th><th class="left">主題</th><th class="left"><span class="ic" style="width:12px;height:12px;color:var(--navy);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span> 地點</th>
+        <th>報名</th><th>實到</th><th>實到率</th><th>CPL(NT$)</th><th>廣告花費(NT$)</th><th>總成本(NT$)</th><th>分級</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+    </div>
+  </section>
+
+  <section id="region">
+    <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span> 地區表現分析（依場次登記地點分組）</h2>
+    <div class="info-line">依原始地點標籤分組，聯合場次（如「台北/新竹」）不拆分計入多地區，避免同一場次被重複計算而失真；因此非台北地區樣本數少，數字僅供參考，不做強結論。</div>
+    <div style="max-height:280px;overflow:auto;">
+    <table>
+      <thead><tr><th class="left"><span class="ic" style="width:12px;height:12px;color:var(--navy);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span> 地點</th><th>場次數</th><th>平均CPL(NT$)</th><th>平均實到率</th><th>平均報名數</th><th>平均總成本(NT$)</th></tr></thead>
+      <tbody id="regionTable"></tbody>
+    </table>
+    </div>
+  </section>
+
+  <section id="costmix">
+    <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg></span> 支出結構（僅2類有完整資料，非5類完整結構）</h2>
+    <div class="info-line"><span class="ic" style="width:13px;height:13px;color:var(--v-red);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span> <b>此圖不含人事費</b>——25場歷史資料完全無來源，避免腦補。場地/住宿/交通/餐飲已拆成4個獨立類別，但涵蓋度差異很大：場地10/25場，住宿/交通/餐飲僅2/25場（第23、26屆才有逐項紀錄，其餘場次即使有場地費也未拆分住宿/交通/餐飲），故後3類比例被嚴重低估，不是「這3類真的很小」，是「大部分場次沒拆這麼細」。
+    <details class="more" style="margin:0;"><summary>詳情</summary><div class="body">場地/住宿/交通/餐飲來源RW-TW說明會費用.xlsx，依日期比對10場成功匹配(第6,7,8,9,12,13,14,23,25,26屆)。其中僅23、26屆有完整的住宿/交通/餐飲逐項紀錄；其餘8場(6,7,8,9,12,13,14,25屆)只有單一「場地費/活動費」合計數字，無法拆分。廣告費(Meta)來源02分頁，25/25場皆有資料，與上方總覽KPI「累計廣告花費」同一組數即時計算（先前此處曾誤植NT$5,913,835的舊快照，實際少計28屆7/11的NT$93,260，已修正為即時加總值NT$6,007,095）。詳見Excel 00分頁第五節。</div></details>
+    </div>
+    <div class="group-label" style="margin-top:6px;"><span class="ic" style="width:13px;height:13px;color:var(--v-orange);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span> 支出結構長條圖＋資料涵蓋度指示（●綠=涵蓋完整　●橘=部分　●紅=嚴重低估/缺）</div>
+    <div id="costBarWrap"></div>
+    <table style="margin-top:14px;">
+      <thead><tr><th class="left">類別</th><th>金額(NT$)</th><th>資料涵蓋</th></tr></thead>
+      <tbody>
+        <tr><td class="left">廣告費(Meta)</td><td>6,007,095</td><td>25/25場</td></tr>
+        <tr><td class="left">場地費</td><td>1,684,370</td><td class="lo">僅10/25場（低估）</td></tr>
+        <tr><td class="left">住宿費</td><td>31,800</td><td class="lo">僅2/25場（第23、26屆），嚴重低估</td></tr>
+        <tr><td class="left">交通費</td><td>30,955</td><td class="lo">僅2/25場（第23、26屆），嚴重低估</td></tr>
+        <tr><td class="left">餐飲費</td><td>102,315</td><td class="lo">僅2/25場（第23、26屆），嚴重低估</td></tr>
+        <tr><td class="left">人事費</td><td>—</td><td class="lo">0/25場，無來源</td></tr>
+      </tbody>
+    </table>
+  </section>
+
   <section id="conclusions">
-    <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></svg></span> 管理層結論與建議（來源：Excel 07分頁）</h2>
+    <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></svg></span> 管理行動 Management Actions（來源：Excel 07分頁）</h2>
     <div class="info-line" style="background:#FFF8E1;border:1px solid #FFE082;border-radius:8px;padding:10px 13px;color:#6b5300;font-weight:600;">
       24場活動廣告帶量能力穩定（平均實到率34.3%），但公司仍無法回答「這些活動有沒有賺錢」——雖有5場（第23-27屆）具備到場→開單轉換率資料，但全體26場均缺成交金額與佣金收入，僅第27屆有完整1-on-1／Reserved全流程追蹤，其餘場次到場後續發生什麼、是否真的成交，仍缺乏數據佐證。
     </div>
@@ -516,16 +561,28 @@
         <div class="insight-card up"><span class="arrow">③</span><div class="txt"><div class="t1">統一Leads口徑即可提升判斷準確度</div><div class="t2">第26、8、10、9、13屆落差最大(35-43%)，統一口徑零成本</div></div></div>
       </div>
     </div>
-    <div class="group-label" style="margin-top:14px;"><span class="ic" style="width:13px;height:13px;color:var(--v-blue);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span> 下一步行動（優先順序）</div>
+    <div class="group-label" style="margin-top:14px;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--v-red);margin-right:6px;"></span>立即處理</div>
     <table>
-      <thead><tr><th style="width:60px;">順序</th><th class="left">行動</th><th class="left">時程</th></tr></thead>
+      <thead><tr><th style="width:44px;">優先級</th><th class="left">問題</th><th class="left">建議行動</th><th class="left">負責角色</th><th class="left">預期影響</th><th style="width:70px;">狀態</th></tr></thead>
       <tbody>
-        <tr><td>①</td><td class="left">確認匯率是否採用公司官方結轉匯率（目前00分頁為市場估算4.0347）</td><td class="left">立即</td></tr>
-        <tr><td>②</td><td class="left">規定每場活動比照第27屆規格，48小時內產出Event ROI Report</td><td class="left">立即</td></tr>
-        <tr><td>③</td><td class="left">建立「成交/Reserved金額」欄位並強制填寫，即使估算值也要有</td><td class="left">一個月內</td></tr>
-        <tr><td>④</td><td class="left">統一Expo客戶進度.xlsx的50+分頁為單一標準模板</td><td class="left">一個月內</td></tr>
-        <tr><td>⑤</td><td class="left">到場率(廣告端KPI)與1-on-1轉換率(業務端KPI)拆開設定</td><td class="left">一季內</td></tr>
-      </tbody>
+        <tr><td>①</td><td class="left">匯率換算是否採用公司官方結轉匯率尚未確認（目前00分頁為市場估算4.0347）</td><td class="left">確認匯率基準並統一全站換算依據</td><td class="left">待指派</td><td class="left">影響所有NT$/外幣換算之財務數字準確性</td><td><span class="prep-badge" style="background:#eef1f5;color:var(--grey);">待處理</span></td></tr>
+        <tr><td>②</td><td class="left">僅第27屆有完整ROI追蹤SOP，其餘場次無法比照複製</td><td class="left">規定每場活動比照第27屆規格，48小時內產出Event ROI Report</td><td class="left">待指派</td><td class="left">補齊24場資料缺口，提升決策依據完整度</td><td><span class="prep-badge" style="background:#eef1f5;color:var(--grey);">待處理</span></td></tr>
+        </tbody>
+    </table>
+    <div class="group-label" style="margin-top:14px;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--v-orange);margin-right:6px;"></span>30天內</div>
+    <table>
+      <thead><tr><th style="width:44px;">優先級</th><th class="left">問題</th><th class="left">建議行動</th><th class="left">負責角色</th><th class="left">預期影響</th><th style="width:70px;">狀態</th></tr></thead>
+      <tbody>
+        <tr><td>③</td><td class="left">無「成交/Reserved金額」欄位，即使估算值也未強制填寫</td><td class="left">建立成交/Reserved金額欄位並強制填寫</td><td class="left">待指派</td><td class="left">使Dashboard能回答「這些活動有沒有賺錢」</td><td><span class="prep-badge" style="background:#eef1f5;color:var(--grey);">待處理</span></td></tr>
+        <tr><td>④</td><td class="left">Expo客戶進度.xlsx的50+分頁格式不一，難以自動化彙整</td><td class="left">統一為單一標準模板</td><td class="left">待指派</td><td class="left">降低人工彙整錯誤與時間成本</td><td><span class="prep-badge" style="background:#eef1f5;color:var(--grey);">待處理</span></td></tr>
+        </tbody>
+    </table>
+    <div class="group-label" style="margin-top:14px;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--yellow);margin-right:6px;"></span>本季</div>
+    <table>
+      <thead><tr><th style="width:44px;">優先級</th><th class="left">問題</th><th class="left">建議行動</th><th class="left">負責角色</th><th class="left">預期影響</th><th style="width:70px;">狀態</th></tr></thead>
+      <tbody>
+        <tr><td>⑤</td><td class="left">到場率(廣告端KPI)與1-on-1轉換率(業務端KPI)目前混用同一組指標</td><td class="left">拆開設定廣告端與業務端KPI</td><td class="left">待指派</td><td class="left">明確劃分廣告與業務團隊績效責任</td><td><span class="prep-badge" style="background:#eef1f5;color:var(--grey);">待處理</span></td></tr>
+        </tbody>
     </table>
     <div class="info-line" style="margin-top:10px;font-size:11px;color:var(--grey);">聲明：本結論僅基於現有資料，未對缺失欄位(收入、成交、1-on-1)做假設性填補。匯率為市場估算，非公司官方結轉匯率。所有「無資料」代表資料不存在，不代表數值為0。</div>
   </section>
@@ -897,6 +954,43 @@ document.getElementById("convDelta").innerHTML = deltaHtml;
 markReveal(document.getElementById("execDelta"));
 markReveal(document.getElementById("convDelta"));
 
+// ---- Executive Signals：表現亮點／主要問題／優先行動（皆為既有資料計算，非假設）----
+const bestCplEvent = cplEvents.slice().sort((a,b)=>a.cpl-b.cpl)[0];
+const bestRateEvent = rateEvents.slice().sort((a,b)=>b.rate-a.rate)[0];
+const execSignalsHtml = `
+  <div class="signal-card good"><div class="sig-head">${icon("trending-up",14,"var(--v-green)")} 表現亮點</div><div class="sig-body">第${bestCplEvent.ord}屆CPL全數據集最低（NT$${fmt(bestCplEvent.cpl)}）；第${bestRateEvent.ord}屆到場率最高（${pct(bestRateEvent.rate)}）。可做為後續活動複製標竿。</div></div>
+  <div class="signal-card warn"><div class="sig-head">${icon("alert",14,"var(--v-red)")} 主要問題</div><div class="sig-body">${(cplStreakInfo.streak>=3||rateStreakInfo.streak>=3) ? ((cplStreakInfo.streak>=3?`CPL連續${cplStreakInfo.streak}場上升（第${cplStreakOrds}屆）。`:"")+(rateStreakInfo.streak>=3?`到場率連續${rateStreakInfo.streak}場下降（第${rateStreakOrds}屆）。`:"")) : "1-on-1／Reserved完整追蹤僅1/25場（第27屆），其餘24場到場後轉換全無資料，無法判斷是否真的成交。"}</div></div>
+  <div class="signal-card next"><div class="sig-head">${icon("target",14,"var(--v-orange)")} 優先行動</div><div class="sig-body">確認匯率是否採用公司官方結轉匯率（目前為市場估算4.0347）；規定每場活動比照第27屆規格，48小時內產出Event ROI Report。<a href="#conclusions" style="color:var(--v-blue);font-weight:700;">查看完整行動清單 →</a></div></div>
+`;
+document.getElementById("execSignals").innerHTML = execSignalsHtml;
+markReveal(document.getElementById("execSignals"));
+
+// ---- 回到頂部按鈕 ----
+window.addEventListener("scroll", ()=>{
+  const btn = document.getElementById("backToTop");
+  if(btn) btn.classList.toggle("show", window.scrollY > 600);
+});
+
+// ---- 複製管理摘要 ----
+const copyBtn = document.getElementById("copySummaryBtn");
+if(copyBtn){
+  copyBtn.addEventListener("click", ()=>{
+    const summary = `Ray White Taiwan 活動效益 Dashboard 管理摘要（${new Date().toLocaleDateString("zh-TW")}）
+已完成 ${completed.length} 場｜追蹤中 1 場（28屆7/12高雄）
+累計報名 ${fmt(totalLeadsAll)}｜累計實到 ${fmt(totalAttAll)}（到訪率${pct(avgRate)}）
+累計廣告花費 NT$${fmt(totalAds)}｜已知總成本 NT$${fmt(totalCost)}（下限）
+平均CPL NT$${fmt(avgCpl)}
+表現亮點：第${bestCplEvent.ord}屆CPL最低(NT$${fmt(bestCplEvent.cpl)})／第${bestRateEvent.ord}屆到場率最高(${pct(bestRateEvent.rate)})
+主要問題：1-on-1／Reserved完整追蹤僅1/25場，其餘24場到場後轉換無資料
+資料來源：Ray White Taiwan 活動效益總表.xlsx，資料截至2026/7/12`;
+    navigator.clipboard.writeText(summary).then(()=>{
+      const orig = copyBtn.innerHTML;
+      copyBtn.innerHTML = "已複製";
+      setTimeout(()=>{ copyBtn.innerHTML = orig; }, 1800);
+    }).catch(()=>{});
+  });
+}
+
 function trailingWorseningStreak(list, key, worseIsHigher){
   const vals = list.map(e=>({ord:e.ord, v:e[key]})).filter(x=>x.v!=null);
   let streak = 0;
@@ -1023,17 +1117,17 @@ function renderTable(list){
     const md = dparts.slice(1).join("/");
     const dateCell = `<b style="color:var(--teal);">${yr}</b><br><span style="font-size:11px;color:var(--navy);">${md}</span>`;
     return `<tr class="${e.prep?'prep':''}">
-      <td class="left">${img}</td>
-      <td class="left">${dateCell}</td>
-      <td class="left">${e.event}</td>
-      <td class="left">${e.loc}</td>
-      <td>${leadsCell}</td>
-      <td>${attCell}</td>
-      <td>${rateCell}</td>
-      <td>${cplCell}</td>
-      <td>${fmt(e.ads)}</td>
-      <td>${totalCell}</td>
-      <td>${gradeBadge(e)}</td>
+      <td class="left" data-label="EDM">${img}</td>
+      <td class="left" data-label="年份/日期">${dateCell}</td>
+      <td class="left" data-label="主題">${e.event}</td>
+      <td class="left" data-label="地點">${e.loc}</td>
+      <td data-label="報名">${leadsCell}</td>
+      <td data-label="實到">${attCell}</td>
+      <td data-label="實到率">${rateCell}</td>
+      <td data-label="CPL(NT$)">${cplCell}</td>
+      <td data-label="廣告花費(NT$)">${fmt(e.ads)}</td>
+      <td data-label="總成本(NT$)">${totalCell}</td>
+      <td data-label="分級">${gradeBadge(e)}</td>
     </tr>`;
   }).join("");
 }
@@ -1384,5 +1478,6 @@ document.getElementById("edmGallery").innerHTML = withImg.map(e=>{
 }).join("");
 document.getElementById("s27Gallery").innerHTML = `<figure><img src="${events.find(e=>e.ord==='27').img}"><figcaption>第27屆 6/27-28 EDM</figcaption></figure>`;
 </script>
+<button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="回到頂部"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg></button>
 </body>
 </html>
