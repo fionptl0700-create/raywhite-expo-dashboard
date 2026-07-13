@@ -1394,10 +1394,9 @@ function wilsonLowerBound(x, n, z){
 const consultantsRanked = consultants.slice().sort((a,b)=> wilsonLowerBound(b.attendYes,b.total) - wilsonLowerBound(a.attendYes,a.total));
 function rankIcon(i){
   if(i>2) return "#"+(i+1);
-  const c = ["#FFC72C","#c0c4cc","#cd7f32"];
-  return `<span style="display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:${c[i]};color:#000;font-size:9px;font-weight:800;">${i+1}</span>`;
+  return ["①","②","③"][i];
 }
-function sampleFlag(n){ return n<20 ? " "+icon("search",10,"var(--grey)") : ""; }
+function sampleFlag(n){ return n<20 ? " *" : ""; }
 const rankValueLabelsPlugin = {
   id:"rankValueLabels",
   afterDatasetsDraw(chart){
