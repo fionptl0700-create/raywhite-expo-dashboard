@@ -149,7 +149,7 @@
   .chart-wrap{position:relative;width:100%;}
   nav.subnav{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--border);box-shadow:0 2px 6px rgba(0,0,0,.04);}
   nav.subnav .inner{max-width:1320px;margin:0 auto;padding:0 20px;display:flex;gap:4px;overflow-x:auto;}
-  nav.subnav a{white-space:nowrap;display:inline-block;padding:13px 14px;font-size:12.5px;color:var(--text-secondary);text-decoration:none;font-weight:600;border-bottom:2px solid transparent;transition:color .15s,border-color .15s,background .15s;min-height:44px;box-sizing:border-box;line-height:18px;}
+  nav.subnav a{white-space:nowrap;display:inline-block;padding:17px 16px;font-size:13px;color:var(--text-secondary);text-decoration:none;font-weight:600;border-bottom:2px solid transparent;transition:color .15s,border-color .15s,background .15s;min-height:52px;box-sizing:border-box;line-height:18px;}
   nav.subnav a:hover{color:var(--navy);border-bottom-color:var(--border-strong);}
   nav.subnav a.active{color:var(--navy);font-weight:700;border-bottom-color:var(--rw-yellow);background:var(--rw-yellow-soft);}
   .container{max-width:1320px;margin:0 auto;padding:20px 20px 50px;}
@@ -171,7 +171,7 @@
   .kpi-card.cost .value{color:var(--v-orange);}
   .kpi-card.conv{border-left-color:var(--v-blue);}
   .kpi-card.conv .value{color:var(--v-blue);}
-  section{background:var(--card);border-radius:10px;padding:22px 24px;margin-bottom:16px;border:1px solid var(--border-default);scroll-margin-top:52px;}
+  section{background:var(--card);border-radius:12px;padding:26px 28px;margin-bottom:24px;border:1px solid var(--border-default);scroll-margin-top:52px;}
   .ia-group{scroll-margin-top:52px;}
   .ia-group-head{margin:56px 0 22px;padding-bottom:14px;border-bottom:2px solid var(--rw-yellow);}
   .ia-group-head h1{font-size:27px;font-weight:800;color:var(--navy);display:flex;align-items:center;gap:9px;margin:0;letter-spacing:-.5px;}
@@ -181,11 +181,11 @@
   .ia-group:first-of-type .ia-group-head{margin-top:6px;}
 
   @media(min-width:900px){ section{padding:28px 32px;} }
-  section h2{font-size:16px;margin:0 0 14px;padding-bottom:11px;border-bottom:1px solid var(--border-default);font-weight:700;color:var(--navy);letter-spacing:-.1px;}
+  section h2{font-size:18px;margin:0 0 18px;padding-bottom:13px;border-bottom:1px solid var(--border-default);font-weight:750;color:var(--navy);letter-spacing:-.2px;}
   .charts-row{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;}
   @media(max-width:900px){.charts-row{grid-template-columns:1fr;}}
   table{width:100%;border-collapse:collapse;font-size:13px;}
-  th,td{padding:10px 10px;text-align:right;border-bottom:1px solid var(--border);white-space:nowrap;font-variant-numeric:tabular-nums;}
+  th,td{padding:13px 14px;text-align:right;border-bottom:1px solid var(--border);white-space:nowrap;font-variant-numeric:tabular-nums;}
   th{background:var(--bg-subtle);color:var(--text-secondary);font-weight:700;position:sticky;top:0;font-size:10.5px;text-transform:uppercase;letter-spacing:.4px;}
   td.left,th.left{text-align:left;white-space:normal;}
   tbody tr{transition:background .1s;}
@@ -495,11 +495,11 @@
     <div class="charts-row">
       <div>
         <div class="group-label"><span class="ic" style="width:13px;height:13px;color:var(--v-blue);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span> 到場率趨勢（越高越好）</div>
-        <div class="chart-wrap" style="height:260px;"><canvas id="rateTrendChart"></canvas></div>
+        <div class="chart-wrap" style="height:300px;"><canvas id="rateTrendChart"></canvas></div>
       </div>
       <div>
         <div class="group-label"><span class="ic" style="width:13px;height:13px;color:var(--v-orange);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span> CPL趨勢（越低越好）</div>
-        <div class="chart-wrap" style="height:260px;"><canvas id="cplTrendChart"></canvas></div>
+        <div class="chart-wrap" style="height:300px;"><canvas id="cplTrendChart"></canvas></div>
       </div>
     </div>
   </section>
