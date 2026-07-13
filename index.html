@@ -92,12 +92,12 @@
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{margin:0;font-family:Inter,"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--dark);line-height:1.55;-webkit-font-smoothing:antialiased;font-feature-settings:"tnum" 1;}
-  header{background:linear-gradient(135deg,#141414,var(--black));color:#fff;padding:20px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;border-bottom:3px solid var(--yellow);}
-  header h1{margin:0;font-size:22px;font-weight:700;letter-spacing:-.2px;}
+  header{background:linear-gradient(135deg,#141414,var(--black));color:#fff;padding:14px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;border-bottom:2px solid var(--rw-yellow);}
+  header h1{margin:0;font-size:20px;font-weight:700;letter-spacing:-.2px;}
   header .tag{background:var(--rw-yellow);color:#000;font-weight:800;padding:4px 10px;border-radius:5px;font-size:10.5px;margin-right:10px;letter-spacing:.6px;vertical-align:2px;}
   header .sub{font-size:12px;color:#c9c9c9;margin-top:5px;font-weight:500;}
   .status-badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;}
-  .status-badge{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:20px;background:rgba(255,255,255,.12);color:#f0f0f0;white-space:nowrap;}
+  .status-badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;padding:3px 8px;border-radius:20px;background:rgba(255,255,255,.08);color:#d8d8d8;white-space:nowrap;}
   .status-badge .dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
   .status-badge.done .dot{background:#3ecf8e;}
   .status-badge.tracking .dot{background:#FFC72C;}
@@ -148,10 +148,15 @@
   .container{max-width:1320px;margin:0 auto;padding:20px 20px 50px;}
   .group-label{font-size:11px;font-weight:700;color:var(--grey);text-transform:uppercase;letter-spacing:.6px;margin:2px 0 8px;}
   .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:12px;margin-bottom:18px;}
+  .kpi-grid.secondary{gap:10px;margin-bottom:14px;}
+  .kpi-grid.secondary .kpi-card{padding:12px 14px;border-left-width:2px;}
+  .kpi-grid.secondary .kpi-card .value{font-size:19px;font-weight:650;}
+  .kpi-grid.secondary .kpi-card .label{font-size:10.5px;}
+  .kpi-grid.secondary .kpi-card .note{font-size:10.5px;}
   .kpi-card{background:var(--bg-card);border-radius:10px;padding:16px 18px;border:1px solid var(--border-default);border-left:3px solid var(--teal);transition:box-shadow .15s ease,border-color .15s ease;}
   .kpi-card:hover{box-shadow:0 2px 10px rgba(16,24,40,.07);border-color:var(--border-strong);}
   .kpi-card .label{font-size:11.5px;color:var(--text-secondary);margin-bottom:7px;font-weight:600;letter-spacing:.2px;}
-  .kpi-card .value{font-size:26px;font-weight:750;color:var(--text-primary);letter-spacing:-.4px;font-variant-numeric:tabular-nums;}
+  .kpi-card .value{font-size:29px;font-weight:750;color:var(--text-primary);letter-spacing:-.5px;font-variant-numeric:tabular-nums;white-space:nowrap;}
   .kpi-card .note{font-size:11px;color:var(--text-tertiary);margin-top:5px;font-weight:500;}
   .kpi-card.bad{border-left-color:var(--bad);}
   .kpi-card.bad .value{color:var(--bad);}
@@ -327,7 +332,7 @@
     <div class="kpi-grid" id="kpiGridConv"></div>
     <div class="insight-row" id="convDelta" style="margin-top:2px;"></div>
     <div class="group-label"><span class="ic" style="width:13px;height:13px;color:var(--v-green);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span> 資料完整度指標</div>
-    <div class="kpi-grid" id="kpiGridGap"></div>
+    <div class="kpi-grid secondary" id="kpiGridGap"></div>
   </section>
 
   <section id="s28">
@@ -344,23 +349,27 @@
     <div class="charts-row" style="margin-bottom:12px;">
       <div class="day-card">
         <h4>台中 7/11<span class="badge" style="background:#f1f2f4;color:var(--grey);">已結束・因颱風改線上</span></h4>
-        <div class="drow"><span class="k">場地</span><span class="v">NT$0（改線上）</span></div>
-        <div class="drow"><span class="k">住宿（7/10晚，提前出差）</span><span class="v">NT$1,800</span></div>
-        <div class="drow"><span class="k">人事(PT)</span><span class="v">NT$1,100</span></div>
-        <div class="drow"><span class="k">伙食</span><span class="v">NT$5,800</span></div>
         <div class="drow" data-tip="Meta Campaign B總花費NT$186,520，其中一半歸屬7/11場次"><span class="k">廣告花費（Campaign B÷2）</span><span class="v">NT$93,260</span></div>
-        <div class="drow"><span class="k">高鐵（7/11）</span><span class="v">NT$12,805</span></div>
         <div class="drow" style="border-top:2px solid var(--border);margin-top:4px;padding-top:8px;"><span class="k" style="font-weight:800;color:var(--navy);">小計</span><span class="v" style="font-size:13px;">NT$114,765</span></div>
+        <details class="more" style="margin:8px 0 0;"><summary>場地／住宿／人事／伙食／高鐵明細</summary><div class="body">
+          <div class="drow"><span class="k">場地</span><span class="v">NT$0（改線上）</span></div>
+          <div class="drow"><span class="k">住宿（7/10晚，提前出差）</span><span class="v">NT$1,800</span></div>
+          <div class="drow"><span class="k">人事(PT)</span><span class="v">NT$1,100</span></div>
+          <div class="drow"><span class="k">伙食</span><span class="v">NT$5,800</span></div>
+          <div class="drow"><span class="k">高鐵（7/11）</span><span class="v">NT$12,805</span></div>
+        </div></details>
       </div>
       <div class="day-card">
         <h4>高雄 7/12<span class="badge" style="background:var(--v-orange-soft);color:var(--v-orange);">資料追蹤中</span></h4>
-        <div class="drow"><span class="k">場地（萬豪10樓）</span><span class="v">NT$35,000</span></div>
-        <div class="drow"><span class="k">住宿（7/11晚德立莊）</span><span class="v">NT$11,500</span></div>
-        <div class="drow"><span class="k">人事(PT)</span><span class="v">NT$2,700</span></div>
-        <div class="drow"><span class="k">伙食</span><span class="v">NT$5,800</span></div>
         <div class="drow" data-tip="Meta Campaign A總花費NT$46,960，其中一半歸屬7/12場次"><span class="k">廣告花費（Campaign A÷2）</span><span class="v">NT$23,480</span></div>
-        <div class="drow"><span class="k">高鐵（7/12）</span><span class="v">NT$12,805</span></div>
         <div class="drow" style="border-top:2px solid var(--border);margin-top:4px;padding-top:8px;"><span class="k" style="font-weight:800;color:var(--navy);">小計</span><span class="v" style="font-size:13px;">NT$91,285</span></div>
+        <details class="more" style="margin:8px 0 0;"><summary>場地／住宿／人事／伙食／高鐵明細</summary><div class="body">
+          <div class="drow"><span class="k">場地（萬豪10樓）</span><span class="v">NT$35,000</span></div>
+          <div class="drow"><span class="k">住宿（7/11晚德立莊）</span><span class="v">NT$11,500</span></div>
+          <div class="drow"><span class="k">人事(PT)</span><span class="v">NT$2,700</span></div>
+          <div class="drow"><span class="k">伙食</span><span class="v">NT$5,800</span></div>
+          <div class="drow"><span class="k">高鐵（7/12）</span><span class="v">NT$12,805</span></div>
+        </div></details>
       </div>
     </div>
     <div class="badge-row" style="margin-bottom:6px;">
@@ -1148,8 +1157,8 @@ new Chart(document.getElementById("rateTrendChart"), {
   data:{
     labels: completed.map(e=>"第"+e.ord+"屆\n"+shortDate(e.date)),
     datasets:[
-      {label:"到場率(%)", data: rateSeries.map(v=>v!=null?+(v*100).toFixed(1):null), borderColor:"#2563eb", backgroundColor:"#2563eb", tension:0.25, spanGaps:true, pointRadius:3, pointHoverRadius:6},
-      {label:"3場移動平均(%)", data: rateMA3.map(v=>v!=null?+(v*100).toFixed(1):null), borderColor:"#1a7f37", backgroundColor:"#1a7f37", tension:0.25, spanGaps:true, borderDash:[6,4], pointRadius:0, borderWidth:2.5},
+      {label:"到場率(%)", data: rateSeries.map(v=>v!=null?+(v*100).toFixed(1):null), borderColor:"#16202E", backgroundColor:"#16202E", tension:0.25, spanGaps:true, pointRadius:3, pointHoverRadius:6},
+      {label:"3場移動平均(%)", data: rateMA3.map(v=>v!=null?+(v*100).toFixed(1):null), borderColor:"#1B5FC4", backgroundColor:"#1B5FC4", tension:0.25, spanGaps:true, borderDash:[6,4], pointRadius:0, borderWidth:2.5},
     ]
   },
   options:{
@@ -1165,8 +1174,8 @@ new Chart(document.getElementById("cplTrendChart"), {
   data:{
     labels: completed.map(e=>"第"+e.ord+"屆\n"+shortDate(e.date)),
     datasets:[
-      {label:"CPL(NT$)", data: cplSeriesForTrend, borderColor:"#b91c1c", backgroundColor:"#b91c1c", tension:0.25, spanGaps:true, pointRadius:3, pointHoverRadius:6},
-      {label:"3場移動平均(NT$)", data: cplMA3.map(v=>v!=null?Math.round(v):null), borderColor:"#7c3aed", backgroundColor:"#7c3aed", tension:0.25, spanGaps:true, borderDash:[6,4], pointRadius:0, borderWidth:2.5},
+      {label:"CPL(NT$)", data: cplSeriesForTrend, borderColor:"#16202E", backgroundColor:"#16202E", tension:0.25, spanGaps:true, pointRadius:3, pointHoverRadius:6},
+      {label:"3場移動平均(NT$)", data: cplMA3.map(v=>v!=null?Math.round(v):null), borderColor:"#1B5FC4", backgroundColor:"#1B5FC4", tension:0.25, spanGaps:true, borderDash:[6,4], pointRadius:0, borderWidth:2.5},
     ]
   },
   options:{
@@ -1307,8 +1316,8 @@ new Chart(document.getElementById("matrixChart"), {
   data:{ datasets:[{
     label:"活動",
     data: matrixData,
-    backgroundColor: matrixData.map(d=>({A:"rgba(26,127,55,.55)",B:"rgba(37,99,235,.55)",C:"rgba(255,199,44,.6)",D:"rgba(185,28,28,.55)",N:"rgba(156,163,175,.55)"}[d.grade]||"rgba(156,163,175,.55)")),
-    borderColor: matrixData.map(d=>({A:"#1a7f37",B:"#2563eb",C:"#c99400",D:"#b91c1c",N:"#9ca3af"}[d.grade]||"#9ca3af")),
+    backgroundColor: matrixData.map(d=>({A:"rgba(21,127,73,.55)",B:"rgba(27,95,196,.55)",C:"rgba(255,199,44,.6)",D:"rgba(185,28,28,.55)",N:"rgba(156,163,175,.55)"}[d.grade]||"rgba(156,163,175,.55)")),
+    borderColor: matrixData.map(d=>({A:"#157F49",B:"#1B5FC4",C:"#9A5B00",D:"#C21F1F",N:"#667085"}[d.grade]||"#9ca3af")),
     borderWidth:1.5,
   }]},
   options:{
