@@ -1651,20 +1651,18 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
       const isActive = p.getAttribute("data-group-panel") === target;
       p.classList.toggle("active", isActive);
       if(isActive){
-        requestAnimationFrame(function(){
-          requestAnimationFrame(function(){
-            const lazyInit = window.__lazyCharts && window.__lazyCharts[target];
-            if(lazyInit){
-              lazyInit();
-              delete window.__lazyCharts[target];
-            } else if(window.Chart){
-              p.querySelectorAll("canvas").forEach(function(cv){
-                const inst = Chart.getChart(cv);
-                if(inst){ inst.resize(); inst.update("none"); }
-              });
-            }
-          });
-        });
+        setTimeout(function(){
+          const lazyInit = window.__lazyCharts && window.__lazyCharts[target];
+          if(lazyInit){
+            lazyInit();
+            delete window.__lazyCharts[target];
+          } else if(window.Chart){
+            p.querySelectorAll("canvas").forEach(function(cv){
+              const inst = Chart.getChart(cv);
+              if(inst){ inst.resize(); inst.update("none"); }
+            });
+          }
+        }, 30);
       }
     });
   });
