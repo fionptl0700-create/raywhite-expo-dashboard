@@ -1294,6 +1294,8 @@ const gradeCounts = {A:0,B:0,C:0,D:0,N:0};
 completed.forEach(e=>gradeCounts[e.grade]++);
 const gradeColors = {A:"#1a7f37",B:"#2563eb",C:"#FFC72C",D:"#b91c1c",N:"#9ca3af"};
 const gradeOrderList = ["A","B","C","D","N"];
+window.__lazyCharts = window.__lazyCharts || {};
+function initGradeChart(){
 new Chart(document.getElementById("gradeChart"), {
   type:"bar",
   indexAxis:"y",
@@ -1307,6 +1309,9 @@ new Chart(document.getElementById("gradeChart"), {
     scales:{ x:{ title:{display:true,text:"場次數"}, beginAtZero:true, ticks:{stepSize:1} } }
   }
 });
+}
+window.__lazyCharts["charts"] = initGradeChart;
+
 const gradeStats = ["A","B","C","D"].map(g=>{
   const list = completed.filter(e=>e.grade===g);
   const cplList = list.map(e=>e.cpl).filter(v=>v!=null);
@@ -1449,6 +1454,8 @@ const rankValueLabelsPlugin = {
     ctx.restore();
   }
 };
+window.__lazyCharts = window.__lazyCharts || {};
+function initConsultantChart(){
 new Chart(document.getElementById("consultantChart"), {
   type:"bar",
   indexAxis:"y",
@@ -1467,6 +1474,9 @@ new Chart(document.getElementById("consultantChart"), {
   },
   plugins:[rankValueLabelsPlugin]
 });
+}
+window.__lazyCharts["consultants"] = initConsultantChart;
+
 
 const activeConsultants = consultants.filter(c=> !/離職/.test(c.name) && c.name!=="Amber/Bailey");
 const totalAttendYes = consultants.reduce((sum,c)=>sum+c.attendYes,0);
@@ -1597,6 +1607,8 @@ const opsFunnelHtml =
 document.getElementById("opsFunnelWrap").innerHTML = opsFunnelHtml;
 markReveal(document.getElementById("opsFunnelWrap"));
 
+window.__lazyCharts = window.__lazyCharts || {};
+function initS27Chart(){
 new Chart(document.getElementById("s27Chart"), {
   type:"bar",
   data:{
@@ -1609,6 +1621,9 @@ new Chart(document.getElementById("s27Chart"), {
   },
   options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{position:"bottom"}}, scales:{ y:{beginAtZero:true} } }
 });
+}
+window.__lazyCharts["s27"] = initS27Chart;
+
 
 const withImg = events.filter(e=>e.img).slice().sort((a,b)=> a.d < b.d ? 1 : -1);
 document.getElementById("edmGallery").innerHTML = withImg.map(e=>{
@@ -1635,14 +1650,19 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
     group.querySelectorAll(".ia-tab-panel").forEach(function(p){
       const isActive = p.getAttribute("data-group-panel") === target;
       p.classList.toggle("active", isActive);
-      if(isActive && window.Chart){
-        const canvases = p.querySelectorAll("canvas");
+      if(isActive){
         requestAnimationFrame(function(){
           requestAnimationFrame(function(){
-            canvases.forEach(function(cv){
-              const inst = Chart.getChart(cv);
-              if(inst){ inst.resize(); inst.update("none"); }
-            });
+            const lazyInit = window.__lazyCharts && window.__lazyCharts[target];
+            if(lazyInit){
+              lazyInit();
+              delete window.__lazyCharts[target];
+            } else if(window.Chart){
+              p.querySelectorAll("canvas").forEach(function(cv){
+                const inst = Chart.getChart(cv);
+                if(inst){ inst.resize(); inst.update("none"); }
+              });
+            }
           });
         });
       }
