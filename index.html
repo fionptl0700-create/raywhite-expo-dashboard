@@ -7,24 +7,27 @@
 <style>
   :root{
     color-scheme:light;
-    /* ---- Design Tokens (canonical) ---- */
-    --rw-yellow:#FFC72C; --rw-yellow-soft:#FFF7CC; --rw-yellow-dark:#8a6d00;
-    --text-primary:#14181F; --text-secondary:#5B6472; --text-tertiary:#6E7480; --text-inverse:#FFFFFF;
-    --bg-page:#F5F6F8; --bg-card:#FFFFFF; --bg-subtle:#F8F9FB;
-    --border-default:#E3E6EA; --border-strong:#CBD1D9;
-    --status-positive:#157F49; --status-positive-bg:#E9F7EF;
-    --status-warning:#9A5B00; --status-warning-bg:#FFF4E5;
-    --status-negative:#C21F1F; --status-negative-bg:#FDECEC;
-    --status-info:#1B5FC4; --status-info-bg:#EAF2FF;
-    --status-missing:#667085; --status-missing-bg:#F1F3F5;
+    /* ---- Design Tokens (canonical, Executive Command Center palette) ---- */
+    --rw-yellow:#F6D500; --rw-yellow-soft:#FDF6CC; --rw-yellow-dark:#8a6d00;
+    --charcoal:#17191C; --warm-white:#F7F7F4;
+    --text-primary:#17191C; --text-secondary:#4A4F56; --text-tertiary:#7B818A; --text-inverse:#FFFFFF;
+    --bg-page:#F7F7F4; --bg-card:#FFFFFF; --bg-subtle:#F1F1EE;
+    --border-default:#E4E4DF; --border-strong:#CBCBC4;
+    --status-positive:#16825D; --status-positive-bg:#E7F5EF;
+    --status-warning:#C98212; --status-warning-bg:#FCF0DC;
+    --status-negative:#D64A4A; --status-negative-bg:#FBEAEA;
+    --status-info:#3977C3; --status-info-bg:#EAF1FB;
+    --status-missing:#7B818A; --status-missing-bg:#EFEFEC;
+    --status-online:#7966B7; --status-online-bg:#F1EEF9;
+    --sidebar-w:252px; --sidebar-w-collapsed:68px;
     /* ---- Legacy variable names aliased to tokens above ---- */
     --yellow:var(--rw-yellow); --yellow-dark:var(--rw-yellow-dark); --black:#101010;
     --dark:var(--text-primary); --grey:var(--text-secondary); --grey-lt:var(--text-tertiary);
     --good:var(--status-positive); --warn:var(--status-warning); --bad:var(--status-negative);
     --bg:var(--bg-page); --card:var(--bg-card); --border:var(--border-default);
-    --navy:#16202E; --teal:#0F6B64; --seafoam:#a8dadc; --cream:var(--bg-subtle);
+    --navy:#17191C; --teal:#16825D; --seafoam:#a8dadc; --cream:var(--bg-subtle);
     --v-blue:var(--status-info); --v-blue-soft:var(--status-info-bg);
-    --v-purple:#7c3aed; --v-purple-soft:#f5f0ff;
+    --v-purple:var(--status-online); --v-purple-soft:var(--status-online-bg);
     --v-orange:var(--status-warning); --v-orange-soft:var(--status-warning-bg);
     --v-green:var(--status-positive); --v-green-soft:var(--status-positive-bg);
     --v-red:var(--status-negative); --v-red-soft:var(--status-negative-bg);
@@ -91,7 +94,7 @@
 
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
-  body{margin:0;font-family:Inter,"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--dark);line-height:1.55;-webkit-font-smoothing:antialiased;font-feature-settings:"tnum" 1;}
+  body{margin:0;font-family:"Noto Sans TC",Inter,"PingFang TC","Microsoft JhengHei",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--dark);line-height:1.55;-webkit-font-smoothing:antialiased;font-feature-settings:"tnum" 1;}
   header{background:linear-gradient(135deg,#141414,var(--black));color:#fff;padding:14px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;border-bottom:2px solid var(--rw-yellow);}
   header h1{margin:0;font-size:23px;font-weight:800;letter-spacing:-.4px;}
   header .tag{background:var(--rw-yellow);color:#000;font-weight:800;padding:4px 10px;border-radius:5px;font-size:10.5px;margin-right:10px;letter-spacing:.6px;vertical-align:2px;}
@@ -275,9 +278,117 @@
   .stat-chip{background:#fff;border:1px solid var(--border);border-radius:10px;padding:8px 13px;display:flex;flex-direction:column;gap:1px;min-width:90px;}
   .stat-chip .sv{font-size:16px;font-weight:800;color:var(--navy);}
   .stat-chip .sl{font-size:10px;color:var(--grey);font-weight:700;}
+
+/* ============ App Shell: Sidebar / Drawer / Topbar / Tab Pages ============ */
+html{scroll-behavior:smooth;}
+body{display:flex;min-height:100vh;}
+.app-main{flex:1 1 auto;min-width:0;margin-left:var(--sidebar-w);transition:margin-left .18s ease;}
+body.sidebar-collapsed .app-main{margin-left:var(--sidebar-w-collapsed);}
+
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:var(--sidebar-w);background:var(--charcoal);color:var(--text-inverse);
+  display:flex;flex-direction:column;z-index:200;transition:width .18s ease;overflow:hidden;}
+body.sidebar-collapsed .sidebar{width:var(--sidebar-w-collapsed);}
+.sidebar-top{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:16px 14px;border-bottom:1px solid rgba(255,255,255,.1);flex-shrink:0;}
+.sidebar-brand{display:flex;align-items:center;gap:10px;min-width:0;overflow:hidden;}
+.sidebar-brand-text{font-size:13px;font-weight:800;letter-spacing:.5px;line-height:1.35;white-space:nowrap;color:#fff;}
+.sidebar-brand-text small{font-size:10px;font-weight:600;color:rgba(255,255,255,.55);letter-spacing:.5px;}
+body.sidebar-collapsed .sidebar-brand-text{display:none;}
+.sidebar-collapse-btn{flex-shrink:0;width:26px;height:26px;border-radius:7px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:rgba(255,255,255,.8);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .18s ease,background .15s;}
+.sidebar-collapse-btn:hover{background:rgba(255,255,255,.14);}
+body.sidebar-collapsed .sidebar-collapse-btn svg{transform:rotate(180deg);}
+.sidebar-nav{flex:1 1 auto;overflow-y:auto;padding:10px 10px;display:flex;flex-direction:column;gap:2px;}
+.sidebar-nav-item{display:flex;align-items:center;gap:11px;padding:10px 11px;border-radius:9px;border:none;background:transparent;color:rgba(255,255,255,.68);font-family:inherit;font-size:13.5px;font-weight:600;cursor:pointer;text-align:left;white-space:nowrap;overflow:hidden;transition:background .15s,color .15s;}
+.sidebar-nav-item .ic{flex-shrink:0;width:18px;height:18px;display:flex;align-items:center;justify-content:center;}
+.sidebar-nav-item-label small{display:block;font-size:10px;font-weight:600;opacity:.55;letter-spacing:.3px;}
+.sidebar-nav-item:hover{background:rgba(255,255,255,.08);color:#fff;}
+.sidebar-nav-item.active{background:var(--rw-yellow);color:var(--charcoal);}
+.sidebar-nav-item.active .sidebar-nav-item-label small{opacity:.65;color:var(--charcoal);}
+body.sidebar-collapsed .sidebar-nav-item{justify-content:center;padding:10px;}
+body.sidebar-collapsed .sidebar-nav-item-label{display:none;}
+.sidebar-foot{flex-shrink:0;padding:12px 14px 16px;border-top:1px solid rgba(255,255,255,.1);font-size:11px;color:rgba(255,255,255,.55);}
+.sidebar-foot-row{display:flex;align-items:center;gap:6px;white-space:nowrap;overflow:hidden;margin-bottom:3px;}
+.sidebar-foot .dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;background:var(--status-positive);}
+body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
+
+.topbar{display:none;position:fixed;top:0;left:0;right:0;height:52px;background:var(--charcoal);color:#fff;align-items:center;gap:10px;padding:0 14px;z-index:210;box-shadow:0 2px 8px rgba(0,0,0,.15);}
+.topbar-menu-btn{width:34px;height:34px;border-radius:8px;border:none;background:rgba(255,255,255,.08);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.topbar-title{font-size:14px;font-weight:800;letter-spacing:.2px;}
+
+.drawer-overlay{display:none;position:fixed;inset:0;background:rgba(15,17,20,.5);z-index:220;opacity:0;transition:opacity .18s ease;}
+.drawer-overlay.open{display:block;opacity:1;}
+.drawer{position:fixed;top:0;bottom:0;left:0;width:78vw;max-width:300px;background:var(--charcoal);color:#fff;z-index:230;
+  transform:translateX(-100%);transition:transform .2s ease;display:flex;flex-direction:column;}
+.drawer.open{transform:translateX(0);}
+.drawer-head{display:flex;align-items:center;justify-content:space-between;padding:16px 14px;border-bottom:1px solid rgba(255,255,255,.1);}
+.drawer-head button{width:30px;height:30px;border-radius:8px;border:none;background:rgba(255,255,255,.08);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.drawer-nav{padding:10px;display:flex;flex-direction:column;gap:2px;overflow-y:auto;}
+.drawer-nav-item{display:flex;align-items:center;gap:11px;padding:12px 11px;border-radius:9px;border:none;background:transparent;color:rgba(255,255,255,.72);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;text-align:left;}
+.drawer-nav-item .ic{flex-shrink:0;width:18px;height:18px;}
+.drawer-nav-item:hover{background:rgba(255,255,255,.08);color:#fff;}
+.drawer-nav-item.active{background:var(--rw-yellow);color:var(--charcoal);}
+
+.tab-page{display:none;}
+.tab-page.active{display:block;}
+
+@media(max-width:900px){
+  body{display:block;}
+  .sidebar{display:none;}
+  .app-main{margin-left:0;padding-top:52px;}
+  .topbar{display:flex;}
+  header{margin-top:0;}
+}
+@media(min-width:901px){
+  .drawer,.drawer-overlay,.topbar{display:none !important;}
+}
 </style>
 </head>
 <body>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-top">
+    <div class="sidebar-brand">
+      <svg width="30" height="30" viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><rect width="46" height="46" rx="10" fill="#ffffff"/><rect x="2" y="2" width="42" height="42" rx="8" fill="none" stroke="var(--rw-yellow)" stroke-width="2"/><text x="23" y="30" font-family="Arial,sans-serif" font-size="17" font-weight="800" fill="var(--navy)" text-anchor="middle">RW</text></svg>
+      <span class="sidebar-brand-text">RAY WHITE<br><small>TAIWAN · EXPO</small></span>
+    </div>
+    <button type="button" class="sidebar-collapse-btn" id="sidebarCollapseBtn" title="收合選單" aria-label="收合側邊欄">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+  </div>
+  <nav class="sidebar-nav">
+      <button type="button" class="sidebar-nav-item active" data-tab="overview"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span><span class="sidebar-nav-item-label">總覽 <small>Overview</small></span></button>
+      <button type="button" class="sidebar-nav-item" data-tab="performance"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></span><span class="sidebar-nav-item-label">成效 <small>Performance</small></span></button>
+      <button type="button" class="sidebar-nav-item" data-tab="conversion"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span><span class="sidebar-nav-item-label">轉換 <small>Conversion</small></span></button>
+      <button type="button" class="sidebar-nav-item" data-tab="sales"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="sidebar-nav-item-label">業務銷售 <small>Sales</small></span></button>
+      <button type="button" class="sidebar-nav-item" data-tab="cost"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span><span class="sidebar-nav-item-label">成本 <small>Cost</small></span></button>
+      <button type="button" class="sidebar-nav-item" data-tab="events"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span><span class="sidebar-nav-item-label">活動明細 <small>Events</small></span></button>
+      <button type="button" class="sidebar-nav-item" data-tab="management"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></svg></span><span class="sidebar-nav-item-label">管理決策 <small>Management</small></span></button>
+  </nav>
+  <div class="sidebar-foot">
+    <div class="sidebar-foot-row"><span class="dot dot-ok"></span><span>資料更新 2026/7/12</span></div>
+    <div class="sidebar-foot-row sidebar-foot-sub">廣告資料截至 2026/7/11</div>
+  </div>
+</aside>
+<div class="topbar">
+  <button type="button" class="topbar-menu-btn" id="drawerOpenBtn" aria-label="開啟選單"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg></button>
+  <span class="topbar-title">RW Taiwan Dashboard</span>
+</div>
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <div class="drawer-head">
+    <span class="sidebar-brand-text">RAY WHITE<br><small>TAIWAN · EXPO</small></span>
+    <button type="button" id="drawerCloseBtn" aria-label="關閉選單"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <nav class="drawer-nav">
+      <button type="button" class="drawer-nav-item active" data-tab="overview"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span><span class="drawer-nav-item-label">總覽 <small>Overview</small></span></button>
+      <button type="button" class="drawer-nav-item" data-tab="performance"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></span><span class="drawer-nav-item-label">成效 <small>Performance</small></span></button>
+      <button type="button" class="drawer-nav-item" data-tab="conversion"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span><span class="drawer-nav-item-label">轉換 <small>Conversion</small></span></button>
+      <button type="button" class="drawer-nav-item" data-tab="sales"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="drawer-nav-item-label">業務銷售 <small>Sales</small></span></button>
+      <button type="button" class="drawer-nav-item" data-tab="cost"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span><span class="drawer-nav-item-label">成本 <small>Cost</small></span></button>
+      <button type="button" class="drawer-nav-item" data-tab="events"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span><span class="drawer-nav-item-label">活動明細 <small>Events</small></span></button>
+      <button type="button" class="drawer-nav-item" data-tab="management"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></svg></span><span class="drawer-nav-item-label">管理決策 <small>Management</small></span></button>
+  </nav>
+</aside>
+<div class="app-main" id="appMain">
+
 <header>
   <div style="display:flex;align-items:center;gap:14px;">
     <svg width="46" height="46" viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
@@ -287,12 +398,11 @@
 </svg>
     <div>
       <h1><span class="tag">RAY WHITE TAIWAN</span> <span class="ic" style="width:18px;height:18px;color:var(--yellow);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v18Z"/><path d="M6 12H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h2"/><path d="M18 9h2a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg></span> 活動場次營運效益 Dashboard</h1>
-      <div class="sub">2025/6–2026/7 ｜ 全數NT$</div>
+      <div class="sub" style="font-weight:600;letter-spacing:.3px;">Event Intelligence Dashboard ｜ 2025/6–2026/7 ｜ 全數NT$</div>
       <div class="status-badges">
-        <span class="status-badge done"><span class="dot"></span>已完成 25 場</span>
-        <span class="status-badge tracking"><span class="dot"></span>追蹤中 1 場（28屆7/12高雄）</span>
-        <span class="status-badge info"><span class="dot"></span>廣告資料截至 2026/7/11</span>
-        <span class="status-badge info"><span class="dot"></span>活動資料截至 2026/7/12</span>
+        <span class="status-badge done"><span class="dot"></span>25 Completed</span>
+        <span class="status-badge tracking"><span class="dot"></span>1 Tracking（28屆7/12高雄）</span>
+        <span class="status-badge info"><span class="dot"></span>Updated 2026/7/12</span>
       </div>
     </div>
   </div>
@@ -302,9 +412,9 @@
         <button class="hdr-btn" id="copySummaryBtn"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> 複製摘要</button>
       </div>
   <svg class="hero-deco" viewBox="0 0 400 140" preserveAspectRatio="xMaxYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <circle cx="330" cy="40" r="60" fill="none" stroke="#FFC72C" stroke-width="1" opacity=".35"/>
-    <circle cx="330" cy="40" r="90" fill="none" stroke="#FFC72C" stroke-width="1" opacity=".2"/>
-    <g fill="#2d8b8b" opacity=".55">
+    <circle cx="330" cy="40" r="60" fill="none" stroke="#F6D500" stroke-width="1" opacity=".35"/>
+    <circle cx="330" cy="40" r="90" fill="none" stroke="#F6D500" stroke-width="1" opacity=".2"/>
+    <g fill="#7966B7" opacity=".45">
       <rect x="150" y="90" width="14" height="50"/>
       <rect x="168" y="70" width="16" height="70"/>
       <rect x="188" y="100" width="12" height="40"/>
@@ -315,21 +425,16 @@
       <rect x="286" y="95" width="12" height="45"/>
       <rect x="302" y="60" width="16" height="80"/>
     </g>
-    <path d="M140 140 Q220 100 400 118" stroke="#FFC72C" stroke-width="2" fill="none" opacity=".5"/>
+    <path d="M140 140 Q220 100 400 118" stroke="#F6D500" stroke-width="2" fill="none" opacity=".5"/>
     <g fill="#fff" opacity=".7">
       <circle cx="30" cy="20" r="1.5"/><circle cx="55" cy="35" r="1.5"/><circle cx="80" cy="15" r="1.5"/>
       <circle cx="20" cy="55" r="1.5"/><circle cx="60" cy="60" r="1.5"/><circle cx="95" cy="45" r="1.5"/>
     </g>
   </svg>
 </header>
-<nav class="subnav"><div class="inner">
-  <a href="#ia-exec"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span> Overview</a>
-  <a href="#ia-perf"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></span> Performance</a>
-  <a href="#ia-conv"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span> Conversion</a>
-  <a href="#ia-actions"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></svg></span> Actions</a>
-  <a href="#ia-notes"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span> Data</a>
-</div></nav>
 <div class="container">
+<div class="tab-page" id="page-overview" data-tab-page="overview">
+
 
   <div class="exec-grid" id="execSummary"></div>
   <div class="insight-row" id="execDelta" style="margin-bottom:16px;"></div>
@@ -516,10 +621,11 @@
     <div class="chart-wrap" style="height:400px;"><canvas id="matrixChart"></canvas></div>
   </section>
 </div>
-
+</div>
+<div class="tab-page" id="page-performance" data-tab-page="performance">
 <div class="ia-group" id="ia-perf">
-  <div class="ia-group-head"><h1><span class="ia-ic"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></span></span>Performance<span class="ia-zh">績效表現</span></h1><div class="ia-sub">CPL／到場率趨勢・地區表現・活動分級・活動總覽明細</div></div>
-<div class="group-tabs"><button type="button" class="group-tab-btn active" data-tab-target="trend">CPL／到場率趨勢</button><button type="button" class="group-tab-btn" data-tab-target="region">地區表現</button><button type="button" class="group-tab-btn" data-tab-target="charts">活動分級</button><button type="button" class="group-tab-btn" data-tab-target="events">活動總覽</button></div>
+  <div class="ia-group-head"><h1><span class="ia-ic"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></span></span>Performance<span class="ia-zh">績效表現</span></h1><div class="ia-sub">CPL／到場率趨勢・地區表現・活動分級（活動總覽明細已移至「活動明細」頁籤）</div></div>
+<div class="group-tabs"><button type="button" class="group-tab-btn active" data-tab-target="trend">CPL／到場率趨勢</button><button type="button" class="group-tab-btn" data-tab-target="region">地區表現</button><button type="button" class="group-tab-btn" data-tab-target="charts">活動分級</button></div>
 
 
 
@@ -558,39 +664,13 @@
     <div id="gradeStatsRow" style="margin-top:10px;"></div>
   </section>
 
-<section id="events" class="ia-tab-panel" data-group-panel="events">
-    <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></span> 活動總覽（26場，最新在最上）</h2>
-    <div class="group-label"><span class="ic" style="width:13px;height:13px;color:var(--v-blue);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span> 近期活動表現（最新4場）</div>
-    <div style="overflow-x:auto;">
-    <table style="margin-bottom:10px;">
-      <thead><tr><th class="left">屆次</th><th class="left">日期</th><th class="left">主題</th><th>報名</th><th>實到</th><th>實到率</th><th>CPL(NT$)</th><th>總成本(NT$)</th></tr></thead>
-      <tbody id="recentTable"></tbody>
-    </table>
-    </div>
-    <div style="text-align:center;margin-bottom:14px;"><a href="#eventTable" style="font-size:12px;color:var(--teal);font-weight:700;text-decoration:none;">查看所有25場完整明細 ↓</a></div>
-    <div class="filters">
-      <select id="gradeFilter">
-        <option value="">全部分級</option>
-        <option value="A">A級</option><option value="B">B級</option><option value="C">C級</option><option value="D">D級</option><option value="N">資料不足/籌備中</option>
-      </select>
-      <input id="searchBox" placeholder="搜尋主題/地點...">
-      <label class="col-toggle"><input type="checkbox" id="eventColToggle"> 顯示完整欄位（含廣告花費／總成本）</label>
-    </div>
-    <div style="max-height:560px;overflow:auto;">
-    <table id="eventTable" class="cols-compact">
-      <thead><tr>
-        <th class="left">EDM</th><th class="left"><span class="ic" style="width:12px;height:12px;color:var(--navy);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span> 年份／日期</th><th class="left">主題</th><th class="left"><span class="ic" style="width:12px;height:12px;color:var(--navy);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span> 地點</th>
-        <th>報名</th><th>實到</th><th>實到率</th><th>CPL(NT$)</th><th>廣告花費(NT$)</th><th>總成本(NT$)</th><th>分級</th>
-      </tr></thead>
-      <tbody></tbody>
-    </table>
-    </div>
-  </section>
-  </div>
 
+  </div>
+</div>
+<div class="tab-page" id="page-conversion" data-tab-page="conversion">
 <div class="ia-group" id="ia-conv">
-  <div class="ia-group-head"><h1><span class="ia-ic"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span></span>Conversion<span class="ia-zh">轉換與業務</span></h1><div class="ia-sub">三段獨立轉換漏斗・業務人員KPI・業務名單彙整・第27屆深度剖析・27v28對照</div></div>
-<div class="group-tabs"><button type="button" class="group-tab-btn active" data-tab-target="opsfunnel">轉換漏斗</button><button type="button" class="group-tab-btn" data-tab-target="consultants">業務KPI</button><button type="button" class="group-tab-btn" data-tab-target="coverage">業務名單彙整</button><button type="button" class="group-tab-btn" data-tab-target="s27">第27屆剖析</button><button type="button" class="group-tab-btn" data-tab-target="s27vs28">27v28對照</button></div>
+  <div class="ia-group-head"><h1><span class="ia-ic"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span></span>Conversion<span class="ia-zh">轉換與業務</span></h1><div class="ia-sub">三段獨立轉換漏斗・第27屆深度剖析・27v28對照（業務KPI／名單彙整已移至「業務銷售」頁籤）</div></div>
+<div class="group-tabs"><button type="button" class="group-tab-btn active" data-tab-target="opsfunnel">轉換漏斗</button><button type="button" class="group-tab-btn" data-tab-target="s27">第27屆剖析</button><button type="button" class="group-tab-btn" data-tab-target="s27vs28">27v28對照</button></div>
 <section id="opsfunnel" class="ia-tab-panel active" data-group-panel="opsfunnel">
     <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span> 營運轉換漏斗（三段獨立漏斗，口徑不同不可串接）</h2>
     <div class="info-line"><span class="ic" style="width:13px;height:13px;color:var(--v-red);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span> 下列三個漏斗來自<b>不同活動子集與不同資料來源</b>，刻意不合併成單一連續漏斗——合併會製造出資料不支持的假轉換率。各漏斗僅在其標示範圍內有效。
@@ -599,32 +679,7 @@
     <div id="opsFunnelWrap"></div>
   </section>
 
-  <section id="consultants" class="ia-tab-panel" data-group-panel="consultants">
-    <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span> 業務人員總覽 KPI</h2>
-    <div class="info-line">業務手動聯繫名單，與廣告Leads不同基準。現職：小白、Amber、Nicole、Bailey、Cathy。
-    <details class="more" style="margin:0;"><summary>詳情</summary><div class="body">Chloe/Bob/Tobo為離職或舊格式名單，已排除或另行標註。此區僅供交叉比對業務追蹤覆蓋率，不可與廣告Leads/實到人數加總。邀約率排名採 Wilson score 信心區間下界排序（非原始百分比），避免小樣本業務排名失真；標示放大鏡圖示者代表樣本數＜20筆，僅供參考。</div></details>
-    </div>
-    <div id="consultantInsight"></div>
-    <div class="charts-row">
-      <div style="overflow-x:auto;">
-        <table>
-          <thead><tr><th class="left">業務</th><th>名單筆數</th><th>已加賴</th><th>已加賴率</th><th>會參加意向</th><th>邀約率</th><th>涵蓋場次</th><th class="left">轉換走勢</th></tr></thead>
-          <tbody id="consultantTable"></tbody>
-        </table>
-      </div>
-      <div class="chart-wrap" style="height:345px;"><canvas id="consultantChart"></canvas></div>
-    </div>
-  </section>
-
-  <section id="coverage" class="ia-tab-panel" data-group-panel="coverage">
-    <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></span> 業務名單彙整（依活動，第5–28屆）</h2>
-    <div style="max-height:400px;overflow:auto;">
-    <table>
-      <thead><tr><th class="left"><span class="ic" style="width:12px;height:12px;color:var(--navy);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span> 年份／日期</th><th class="left">資料完整度</th><th>名單筆數</th><th>已加賴</th><th>已加賴率</th><th>會參加意向</th><th>不參加</th><th>未定</th></tr></thead>
-      <tbody id="eventConsultantTable"></tbody>
-    </table>
-    </div>
-  </section>
+  
 
   <section id="s27" class="ia-tab-panel" data-group-panel="s27">
     <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span> 第27屆 (2026/6/27-28) 深度剖析</h2>
@@ -666,7 +721,96 @@
     </div>
   </section>
 </div>
+</div>
+<div class="tab-page" id="page-sales" data-tab-page="sales">
+<div class="ia-group" id="ia-sales">
+<div class="ia-group-head"><h1><span class="ia-ic"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span></span> 業務銷售 Sales</h1></div>
+<section id="consultants">
+    <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span> 業務人員總覽 KPI</h2>
+    <div class="info-line">業務手動聯繫名單，與廣告Leads不同基準。現職：小白、Amber、Nicole、Bailey、Cathy。
+    <details class="more" style="margin:0;"><summary>詳情</summary><div class="body">Chloe/Bob/Tobo為離職或舊格式名單，已排除或另行標註。此區僅供交叉比對業務追蹤覆蓋率，不可與廣告Leads/實到人數加總。邀約率排名採 Wilson score 信心區間下界排序（非原始百分比），避免小樣本業務排名失真；標示放大鏡圖示者代表樣本數＜20筆，僅供參考。</div></details>
+    </div>
+    <div id="consultantInsight"></div>
+    <div class="charts-row">
+      <div style="overflow-x:auto;">
+        <table>
+          <thead><tr><th class="left">業務</th><th>名單筆數</th><th>已加賴</th><th>已加賴率</th><th>會參加意向</th><th>邀約率</th><th>涵蓋場次</th><th class="left">轉換走勢</th></tr></thead>
+          <tbody id="consultantTable"></tbody>
+        </table>
+      </div>
+      <div class="chart-wrap" style="height:345px;"><canvas id="consultantChart"></canvas></div>
+    </div>
+  </section>
 
+  <section id="coverage">
+    <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></span> 業務名單彙整（依活動，第5–28屆）</h2>
+    <div style="max-height:400px;overflow:auto;">
+    <table>
+      <thead><tr><th class="left"><span class="ic" style="width:12px;height:12px;color:var(--navy);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span> 年份／日期</th><th class="left">資料完整度</th><th>名單筆數</th><th>已加賴</th><th>已加賴率</th><th>會參加意向</th><th>不參加</th><th>未定</th></tr></thead>
+      <tbody id="eventConsultantTable"></tbody>
+    </table>
+    </div>
+  </section>
+</div>
+</div>
+<div class="tab-page" id="page-cost" data-tab-page="cost">
+<div class="ia-group" id="ia-cost">
+<div class="ia-group-head"><h1><span class="ia-ic"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span></span> 成本結構 Cost</h1></div>
+<section id="costmix" class="ia-tab-panel active" data-group-panel="costmix">
+    <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg></span> 支出結構（僅2類有完整資料，非5類完整結構）</h2>
+    <div class="info-line"><span class="ic" style="width:13px;height:13px;color:var(--v-red);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span> <b>此圖不含人事費</b>——25場歷史資料完全無來源，避免腦補。場地/住宿/交通/餐飲已拆成4個獨立類別，但涵蓋度差異很大：場地10/25場，住宿/交通/餐飲僅2/25場（第23、26屆才有逐項紀錄，其餘場次即使有場地費也未拆分住宿/交通/餐飲），故後3類比例被嚴重低估，不是「這3類真的很小」，是「大部分場次沒拆這麼細」。
+    <details class="more" style="margin:0;"><summary>詳情</summary><div class="body">場地/住宿/交通/餐飲來源RW-TW說明會費用.xlsx，依日期比對10場成功匹配(第6,7,8,9,12,13,14,23,25,26屆)。其中僅23、26屆有完整的住宿/交通/餐飲逐項紀錄；其餘8場(6,7,8,9,12,13,14,25屆)只有單一「場地費/活動費」合計數字，無法拆分。廣告費(Meta)來源02分頁，25/25場皆有資料，與上方總覽KPI「累計廣告花費」同一組數即時計算（先前此處曾誤植NT$5,913,835的舊快照，實際少計28屆7/11的NT$93,260，已修正為即時加總值NT$6,007,095）。詳見Excel 00分頁第五節。</div></details>
+    </div>
+    <div class="group-label" style="margin-top:6px;"><span class="ic" style="width:13px;height:13px;color:var(--v-orange);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span> 支出結構長條圖＋資料涵蓋度指示（●綠=涵蓋完整　●橘=部分　●紅=嚴重低估/缺）</div>
+    <div id="costBarWrap"></div>
+    <table style="margin-top:14px;">
+      <thead><tr><th class="left">類別</th><th>金額(NT$)</th><th>資料涵蓋</th></tr></thead>
+      <tbody>
+        <tr><td class="left">廣告費(Meta)</td><td>6,007,095</td><td>25/25場</td></tr>
+        <tr><td class="left">場地費</td><td>1,684,370</td><td class="lo">僅10/25場（低估）</td></tr>
+        <tr><td class="left">住宿費</td><td>31,800</td><td class="lo">僅2/25場（第23、26屆），嚴重低估</td></tr>
+        <tr><td class="left">交通費</td><td>30,955</td><td class="lo">僅2/25場（第23、26屆），嚴重低估</td></tr>
+        <tr><td class="left">餐飲費</td><td>102,315</td><td class="lo">僅2/25場（第23、26屆），嚴重低估</td></tr>
+        <tr><td class="left">人事費</td><td>—</td><td class="lo">0/25場，無來源</td></tr>
+      </tbody>
+    </table>
+  </section>
+</div>
+</div>
+<div class="tab-page" id="page-events" data-tab-page="events">
+<div class="ia-group" id="ia-events">
+<div class="ia-group-head"><h1><span class="ia-ic"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span></span> 活動明細 Events</h1></div>
+<section id="events">
+    <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></span> 活動總覽（26場，最新在最上）</h2>
+    <div class="group-label"><span class="ic" style="width:13px;height:13px;color:var(--v-blue);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span> 近期活動表現（最新4場）</div>
+    <div style="overflow-x:auto;">
+    <table style="margin-bottom:10px;">
+      <thead><tr><th class="left">屆次</th><th class="left">日期</th><th class="left">主題</th><th>報名</th><th>實到</th><th>實到率</th><th>CPL(NT$)</th><th>總成本(NT$)</th></tr></thead>
+      <tbody id="recentTable"></tbody>
+    </table>
+    </div>
+    <div style="text-align:center;margin-bottom:14px;"><a href="#eventTable" style="font-size:12px;color:var(--teal);font-weight:700;text-decoration:none;">查看所有25場完整明細 ↓</a></div>
+    <div class="filters">
+      <select id="gradeFilter">
+        <option value="">全部分級</option>
+        <option value="A">A級</option><option value="B">B級</option><option value="C">C級</option><option value="D">D級</option><option value="N">資料不足/籌備中</option>
+      </select>
+      <input id="searchBox" placeholder="搜尋主題/地點...">
+      <label class="col-toggle"><input type="checkbox" id="eventColToggle"> 顯示完整欄位（含廣告花費／總成本）</label>
+    </div>
+    <div style="max-height:560px;overflow:auto;">
+    <table id="eventTable" class="cols-compact">
+      <thead><tr>
+        <th class="left">EDM</th><th class="left"><span class="ic" style="width:12px;height:12px;color:var(--navy);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span> 年份／日期</th><th class="left">主題</th><th class="left"><span class="ic" style="width:12px;height:12px;color:var(--navy);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span> 地點</th>
+        <th>報名</th><th>實到</th><th>實到率</th><th>CPL(NT$)</th><th>廣告花費(NT$)</th><th>總成本(NT$)</th><th>分級</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+    </div>
+  </section>
+</div>
+</div>
+<div class="tab-page" id="page-management" data-tab-page="management">
 <div class="ia-group" id="ia-actions">
   <div class="ia-group-head"><h1><span class="ia-ic"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></svg></span></span>Management Actions<span class="ia-zh">管理行動</span></h1><div class="ia-sub">立即處理・30天內・本季</div></div>
 <section id="conclusions">
@@ -713,30 +857,10 @@
     </table>
     <div class="info-line" style="margin-top:10px;font-size:11px;color:var(--grey);">聲明：本結論僅基於現有資料，未對缺失欄位(收入、成交、1-on-1)做假設性填補。匯率為市場估算，非公司官方結轉匯率。所有「無資料」代表資料不存在，不代表數值為0。</div>
   </section>
-</div>
-
-<div class="ia-group" id="ia-notes">
+</div><div class="ia-group" id="ia-notes">
   <div class="ia-group-head"><h1><span class="ia-ic"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span></span>Data<span class="ia-zh">資料與成本</span></h1><div class="ia-sub">支出結構・資料來源・口徑限制・EDM影像牆</div></div>
 <div class="group-tabs"><button type="button" class="group-tab-btn active" data-tab-target="costmix">支出結構</button><button type="button" class="group-tab-btn" data-tab-target="edm">EDM影像牆</button><button type="button" class="group-tab-btn" data-tab-target="notesRef">資料口徑</button></div>
-<section id="costmix" class="ia-tab-panel active" data-group-panel="costmix">
-    <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg></span> 支出結構（僅2類有完整資料，非5類完整結構）</h2>
-    <div class="info-line"><span class="ic" style="width:13px;height:13px;color:var(--v-red);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span> <b>此圖不含人事費</b>——25場歷史資料完全無來源，避免腦補。場地/住宿/交通/餐飲已拆成4個獨立類別，但涵蓋度差異很大：場地10/25場，住宿/交通/餐飲僅2/25場（第23、26屆才有逐項紀錄，其餘場次即使有場地費也未拆分住宿/交通/餐飲），故後3類比例被嚴重低估，不是「這3類真的很小」，是「大部分場次沒拆這麼細」。
-    <details class="more" style="margin:0;"><summary>詳情</summary><div class="body">場地/住宿/交通/餐飲來源RW-TW說明會費用.xlsx，依日期比對10場成功匹配(第6,7,8,9,12,13,14,23,25,26屆)。其中僅23、26屆有完整的住宿/交通/餐飲逐項紀錄；其餘8場(6,7,8,9,12,13,14,25屆)只有單一「場地費/活動費」合計數字，無法拆分。廣告費(Meta)來源02分頁，25/25場皆有資料，與上方總覽KPI「累計廣告花費」同一組數即時計算（先前此處曾誤植NT$5,913,835的舊快照，實際少計28屆7/11的NT$93,260，已修正為即時加總值NT$6,007,095）。詳見Excel 00分頁第五節。</div></details>
-    </div>
-    <div class="group-label" style="margin-top:6px;"><span class="ic" style="width:13px;height:13px;color:var(--v-orange);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span> 支出結構長條圖＋資料涵蓋度指示（●綠=涵蓋完整　●橘=部分　●紅=嚴重低估/缺）</div>
-    <div id="costBarWrap"></div>
-    <table style="margin-top:14px;">
-      <thead><tr><th class="left">類別</th><th>金額(NT$)</th><th>資料涵蓋</th></tr></thead>
-      <tbody>
-        <tr><td class="left">廣告費(Meta)</td><td>6,007,095</td><td>25/25場</td></tr>
-        <tr><td class="left">場地費</td><td>1,684,370</td><td class="lo">僅10/25場（低估）</td></tr>
-        <tr><td class="left">住宿費</td><td>31,800</td><td class="lo">僅2/25場（第23、26屆），嚴重低估</td></tr>
-        <tr><td class="left">交通費</td><td>30,955</td><td class="lo">僅2/25場（第23、26屆），嚴重低估</td></tr>
-        <tr><td class="left">餐飲費</td><td>102,315</td><td class="lo">僅2/25場（第23、26屆），嚴重低估</td></tr>
-        <tr><td class="left">人事費</td><td>—</td><td class="lo">0/25場，無來源</td></tr>
-      </tbody>
-    </table>
-  </section>
+
 <section id="edm" class="ia-tab-panel" data-group-panel="edm">
     <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg></span> 活動 EDM 影像牆</h2>
     <div class="info-line">來源：raywhitetw.com 官網 ＋ 使用者提供本機 EDM 素材。</div>
@@ -753,10 +877,12 @@
 
 
 </div>
-
-
-  <div class="foot">Ray White Taiwan 活動效益總表.xlsx／Google Sheet「Expo客戶進度」「廣告成效」／raywhitetw.com　｜　Dashboard更新：2026/7/12　｜　廣告資料截至：2026/7/11　｜　活動報名/實到資料截至：2026/7/12　｜　業務後續追蹤(1-on-1／Reserved／開單)：持續追蹤中</div>
 </div>
+<div class="foot">Ray White Taiwan 活動效益總表.xlsx／Google Sheet「Expo客戶進度」「廣告成效」／raywhitetw.com　｜　Dashboard更新：2026/7/12　｜　廣告資料截至：2026/7/11　｜　活動報名/實到資料截至：2026/7/12　｜　業務後續追蹤(1-on-1／Reserved／開單)：持續追蹤中</div>
+
+</div>
+
+</div><!-- /app-main -->
 
 <script>
 /* ===== 視覺工具庫（icon / tooltip / sparkline / count-up / reveal） ===== */
@@ -1105,20 +1231,106 @@ const execSignalsHtml = `
 document.getElementById("execSignals").innerHTML = execSignalsHtml;
 markReveal(document.getElementById("execSignals"));
 
-// ---- Nav Active State（IntersectionObserver scrollspy）----
+// ---- 7-Tab Router（Sidebar／Drawer／URL Hash）----
 (function(){
-  const navLinks = Array.from(document.querySelectorAll('nav.subnav a[href^="#"]'));
-  const groups = navLinks.map(a=>document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean);
-  if(!groups.length) return;
-  const setActive = (id)=>{
-    navLinks.forEach(a=> a.classList.toggle('active', a.getAttribute('href')==='#'+id));
-  };
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(en=>{
-      if(en.isIntersecting) setActive(en.target.id);
+  const VALID_TABS = ["overview","performance","conversion","sales","cost","events","management"];
+  const sidebarItems = Array.from(document.querySelectorAll(".sidebar-nav-item"));
+  const drawerItems = Array.from(document.querySelectorAll(".drawer-nav-item"));
+  const pages = Array.from(document.querySelectorAll(".tab-page"));
+  const appMain = document.getElementById("appMain");
+  const drawer = document.getElementById("drawer");
+  const drawerOverlay = document.getElementById("drawerOverlay");
+
+  function hashToTab(h){
+    const t = (h || "").replace("#","");
+    return VALID_TABS.indexOf(t) !== -1 ? t : "overview";
+  }
+
+  function closeDrawer(){
+    if(drawer) drawer.classList.remove("open");
+    if(drawerOverlay) drawerOverlay.classList.remove("open");
+    if(drawer) drawer.setAttribute("aria-hidden","true");
+  }
+
+  function switchTab(tab, opts){
+    opts = opts || {};
+    if(VALID_TABS.indexOf(tab) === -1) tab = "overview";
+    pages.forEach(function(p){ p.classList.toggle("active", p.getAttribute("data-tab-page") === tab); });
+    sidebarItems.forEach(function(b){ b.classList.toggle("active", b.getAttribute("data-tab") === tab); });
+    drawerItems.forEach(function(b){ b.classList.toggle("active", b.getAttribute("data-tab") === tab); });
+    if(opts.updateHash !== false && location.hash.replace("#","") !== tab){
+      history.pushState(null, "", "#"+tab);
+    }
+    closeDrawer();
+    setTimeout(function(){
+      const lazyInit = window.__lazyCharts && window.__lazyCharts[tab];
+      if(lazyInit){
+        lazyInit();
+        delete window.__lazyCharts[tab];
+      } else if(window.Chart){
+        const activePage = document.querySelector('.tab-page[data-tab-page="'+tab+'"]');
+        if(activePage){
+          activePage.querySelectorAll("canvas").forEach(function(cv){
+            const inst = Chart.getChart(cv);
+            if(inst){ inst.resize(); inst.update("none"); }
+          });
+        }
+      }
+      if(!opts.noScroll && appMain) appMain.scrollTo({top:0, behavior:"auto"});
+    }, 30);
+  }
+  window.__switchTab = switchTab;
+
+  sidebarItems.forEach(function(b){
+    b.addEventListener("click", function(){ switchTab(b.getAttribute("data-tab")); });
+  });
+  drawerItems.forEach(function(b){
+    b.addEventListener("click", function(){ switchTab(b.getAttribute("data-tab")); });
+  });
+
+  window.addEventListener("popstate", function(){ switchTab(hashToTab(location.hash), {updateHash:false}); });
+  window.addEventListener("hashchange", function(){ switchTab(hashToTab(location.hash), {updateHash:false}); });
+
+  // Sidebar collapse toggle
+  const collapseBtn = document.getElementById("sidebarCollapseBtn");
+  if(collapseBtn){
+    collapseBtn.addEventListener("click", function(){
+      document.body.classList.toggle("sidebar-collapsed");
     });
-  }, {rootMargin:'-56px 0px -70% 0px', threshold:0});
-  groups.forEach(g=>io.observe(g));
+  }
+
+  // Mobile drawer open/close
+  const drawerOpenBtn = document.getElementById("drawerOpenBtn");
+  const drawerCloseBtn = document.getElementById("drawerCloseBtn");
+  if(drawerOpenBtn){
+    drawerOpenBtn.addEventListener("click", function(){
+      if(drawer) drawer.classList.add("open");
+      if(drawerOverlay) drawerOverlay.classList.add("open");
+      if(drawer) drawer.setAttribute("aria-hidden","false");
+    });
+  }
+  if(drawerCloseBtn) drawerCloseBtn.addEventListener("click", closeDrawer);
+  if(drawerOverlay) drawerOverlay.addEventListener("click", closeDrawer);
+
+  // Legacy in-page anchor links (#conclusions, #eventTable, #ia-actions...): route to correct tab first, then scroll
+  document.addEventListener("click", function(e){
+    const a = e.target.closest('a[href^="#"]');
+    if(!a) return;
+    const id = a.getAttribute("href").slice(1);
+    if(!id) return;
+    const el = document.getElementById(id);
+    if(!el) return;
+    const page = el.closest(".tab-page");
+    if(page){
+      e.preventDefault();
+      const tab = page.getAttribute("data-tab-page");
+      switchTab(tab);
+      setTimeout(function(){ el.scrollIntoView({behavior:"smooth", block:"start"}); }, 70);
+    }
+  });
+
+  // Initial load
+  switchTab(hashToTab(location.hash), {updateHash:false, noScroll:true});
 })();
 
 // ---- 回到頂部按鈕 ----
@@ -1203,40 +1415,8 @@ function peakLowPlugin(values, labels, fmtFn, higherIsPeakGood){
     ctx.restore();
   }};
 }
-new Chart(document.getElementById("rateTrendChart"), {
-  type:"line",
-  data:{
-    labels: completed.map(e=>"第"+e.ord+"屆\n"+shortDate(e.date)),
-    datasets:[
-      {label:"到場率(%)", data: rateSeries.map(v=>v!=null?+(v*100).toFixed(1):null), borderColor:"#16202E", backgroundColor:"#16202E", tension:0.25, spanGaps:true, pointRadius:3, pointHoverRadius:6},
-      {label:"3場移動平均(%)", data: rateMA3.map(v=>v!=null?+(v*100).toFixed(1):null), borderColor:"#1B5FC4", backgroundColor:"#1B5FC4", tension:0.25, spanGaps:true, borderDash:[6,4], pointRadius:0, borderWidth:2.5},
-    ]
-  },
-  options:{
-    responsive:true, maintainAspectRatio:false,
-    interaction:{mode:"index",intersect:false},
-    plugins:{legend:{position:"bottom"}, tooltip:{callbacks:{label:(ctx)=>`${ctx.dataset.label}: ${ctx.parsed.y}%`}}},
-    scales:{ x:{title:{display:true,text:"日期"}}, y:{title:{display:true,text:"到場率(%)"},min:0} }
-  },
-  plugins:[avgLinePlugin(avgRate*100, "24場平均 "+pct(avgRate), "#6b7280"), peakLowPlugin(rateSeries.map(v=>v!=null?v*100:null), ["rate"], v=>v.toFixed(1)+"%", true)]
-});
-new Chart(document.getElementById("cplTrendChart"), {
-  type:"line",
-  data:{
-    labels: completed.map(e=>"第"+e.ord+"屆\n"+shortDate(e.date)),
-    datasets:[
-      {label:"CPL(NT$)", data: cplSeriesForTrend, borderColor:"#16202E", backgroundColor:"#16202E", tension:0.25, spanGaps:true, pointRadius:3, pointHoverRadius:6},
-      {label:"3場移動平均(NT$)", data: cplMA3.map(v=>v!=null?Math.round(v):null), borderColor:"#1B5FC4", backgroundColor:"#1B5FC4", tension:0.25, spanGaps:true, borderDash:[6,4], pointRadius:0, borderWidth:2.5},
-    ]
-  },
-  options:{
-    responsive:true, maintainAspectRatio:false,
-    interaction:{mode:"index",intersect:false},
-    plugins:{legend:{position:"bottom"}, tooltip:{callbacks:{label:(ctx)=>`${ctx.dataset.label}: NT$${fmt(ctx.parsed.y)}`}}},
-    scales:{ x:{title:{display:true,text:"日期"}}, y:{title:{display:true,text:"CPL(NT$)"},min:0} }
-  },
-  plugins:[avgLinePlugin(avgCpl, "25場平均 NT$"+fmt(avgCpl), "#6b7280"), peakLowPlugin(cplSeriesForTrend, ["cpl"], v=>"NT$"+fmt(v), false)]
-});
+
+
 
 function gradeBadge(e){
   if (e.prep) return `<span class="prep-badge">追蹤中</span>`;
@@ -1294,6 +1474,66 @@ const gradeCounts = {A:0,B:0,C:0,D:0,N:0};
 completed.forEach(e=>gradeCounts[e.grade]++);
 const gradeColors = {A:"#1a7f37",B:"#2563eb",C:"#FFC72C",D:"#b91c1c",N:"#9ca3af"};
 const gradeOrderList = ["A","B","C","D","N"];
+window.__lazyCharts = window.__lazyCharts || {};
+function __initPerformanceCharts(){
+new Chart(document.getElementById("rateTrendChart"), {
+  type:"line",
+  data:{
+    labels: completed.map(e=>"第"+e.ord+"屆\n"+shortDate(e.date)),
+    datasets:[
+      {label:"到場率(%)", data: rateSeries.map(v=>v!=null?+(v*100).toFixed(1):null), borderColor:"#16202E", backgroundColor:"#16202E", tension:0.25, spanGaps:true, pointRadius:3, pointHoverRadius:6},
+      {label:"3場移動平均(%)", data: rateMA3.map(v=>v!=null?+(v*100).toFixed(1):null), borderColor:"#1B5FC4", backgroundColor:"#1B5FC4", tension:0.25, spanGaps:true, borderDash:[6,4], pointRadius:0, borderWidth:2.5},
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    interaction:{mode:"index",intersect:false},
+    plugins:{legend:{position:"bottom"}, tooltip:{callbacks:{label:(ctx)=>`${ctx.dataset.label}: ${ctx.parsed.y}%`}}},
+    scales:{ x:{title:{display:true,text:"日期"}}, y:{title:{display:true,text:"到場率(%)"},min:0} }
+  },
+  plugins:[avgLinePlugin(avgRate*100, "24場平均 "+pct(avgRate), "#6b7280"), peakLowPlugin(rateSeries.map(v=>v!=null?v*100:null), ["rate"], v=>v.toFixed(1)+"%", true)]
+});
+new Chart(document.getElementById("cplTrendChart"), {
+  type:"line",
+  data:{
+    labels: completed.map(e=>"第"+e.ord+"屆\n"+shortDate(e.date)),
+    datasets:[
+      {label:"CPL(NT$)", data: cplSeriesForTrend, borderColor:"#16202E", backgroundColor:"#16202E", tension:0.25, spanGaps:true, pointRadius:3, pointHoverRadius:6},
+      {label:"3場移動平均(NT$)", data: cplMA3.map(v=>v!=null?Math.round(v):null), borderColor:"#1B5FC4", backgroundColor:"#1B5FC4", tension:0.25, spanGaps:true, borderDash:[6,4], pointRadius:0, borderWidth:2.5},
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    interaction:{mode:"index",intersect:false},
+    plugins:{legend:{position:"bottom"}, tooltip:{callbacks:{label:(ctx)=>`${ctx.dataset.label}: NT$${fmt(ctx.parsed.y)}`}}},
+    scales:{ x:{title:{display:true,text:"日期"}}, y:{title:{display:true,text:"CPL(NT$)"},min:0} }
+  },
+  plugins:[avgLinePlugin(avgCpl, "25場平均 NT$"+fmt(avgCpl), "#6b7280"), peakLowPlugin(cplSeriesForTrend, ["cpl"], v=>"NT$"+fmt(v), false)]
+});
+new Chart(document.getElementById("matrixChart"), {
+  type:"bubble",
+  data:{ datasets:[{
+    label:"活動",
+    data: matrixData,
+    backgroundColor: matrixData.map(d=>({A:"rgba(21,127,73,.55)",B:"rgba(27,95,196,.55)",C:"rgba(255,199,44,.6)",D:"rgba(185,28,28,.55)",N:"rgba(156,163,175,.55)"}[d.grade]||"rgba(156,163,175,.55)")),
+    borderColor: matrixData.map(d=>({A:"#157F49",B:"#1B5FC4",C:"#9A5B00",D:"#C21F1F",N:"#667085"}[d.grade]||"#9ca3af")),
+    borderWidth:1.5,
+  }]},
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      tooltip:{ callbacks:{ label:(ctx)=>{ const d=matrixData[ctx.dataIndex]; return [`第${d.ord}屆`, `CPL NT$${fmt(d.x)}`, `到場率 ${d.y}%`]; } } }
+    },
+    scales:{
+      x:{ title:{display:true,text:"CPL (NT$，越左越省)"} },
+      y:{ title:{display:true,text:"到場率 (%，越上越好)"} }
+    }
+  },
+  plugins:[quadrantPlugin, bubbleLabelPlugin]
+});
+}
+window.__lazyCharts["performance"] = __initPerformanceCharts;
 window.__lazyCharts = window.__lazyCharts || {};
 function initGradeChart(){
 new Chart(document.getElementById("gradeChart"), {
@@ -1370,28 +1610,7 @@ const bubbleLabelPlugin = {
     ctx.restore();
   }
 };
-new Chart(document.getElementById("matrixChart"), {
-  type:"bubble",
-  data:{ datasets:[{
-    label:"活動",
-    data: matrixData,
-    backgroundColor: matrixData.map(d=>({A:"rgba(21,127,73,.55)",B:"rgba(27,95,196,.55)",C:"rgba(255,199,44,.6)",D:"rgba(185,28,28,.55)",N:"rgba(156,163,175,.55)"}[d.grade]||"rgba(156,163,175,.55)")),
-    borderColor: matrixData.map(d=>({A:"#157F49",B:"#1B5FC4",C:"#9A5B00",D:"#C21F1F",N:"#667085"}[d.grade]||"#9ca3af")),
-    borderWidth:1.5,
-  }]},
-  options:{
-    responsive:true, maintainAspectRatio:false,
-    plugins:{
-      legend:{display:false},
-      tooltip:{ callbacks:{ label:(ctx)=>{ const d=matrixData[ctx.dataIndex]; return [`第${d.ord}屆`, `CPL NT$${fmt(d.x)}`, `到場率 ${d.y}%`]; } } }
-    },
-    scales:{
-      x:{ title:{display:true,text:"CPL (NT$，越左越省)"} },
-      y:{ title:{display:true,text:"到場率 (%，越上越好)"} }
-    }
-  },
-  plugins:[quadrantPlugin, bubbleLabelPlugin]
-});
+
 
 // ---- 近期活動表現：最新4場快覽 ----
 const recent4 = events.slice().sort((a,b)=> a.d < b.d ? 1 : -1).slice(0,4);
