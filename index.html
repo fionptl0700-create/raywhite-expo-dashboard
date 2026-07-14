@@ -1231,107 +1231,7 @@ const execSignalsHtml = `
 document.getElementById("execSignals").innerHTML = execSignalsHtml;
 markReveal(document.getElementById("execSignals"));
 
-// ---- 7-Tab Router（Sidebar／Drawer／URL Hash）----
-(function(){
-  const VALID_TABS = ["overview","performance","conversion","sales","cost","events","management"];
-  const sidebarItems = Array.from(document.querySelectorAll(".sidebar-nav-item"));
-  const drawerItems = Array.from(document.querySelectorAll(".drawer-nav-item"));
-  const pages = Array.from(document.querySelectorAll(".tab-page"));
-  const appMain = document.getElementById("appMain");
-  const drawer = document.getElementById("drawer");
-  const drawerOverlay = document.getElementById("drawerOverlay");
 
-  function hashToTab(h){
-    const t = (h || "").replace("#","");
-    return VALID_TABS.indexOf(t) !== -1 ? t : "overview";
-  }
-
-  function closeDrawer(){
-    if(drawer) drawer.classList.remove("open");
-    if(drawerOverlay) drawerOverlay.classList.remove("open");
-    if(drawer) drawer.setAttribute("aria-hidden","true");
-  }
-
-  function switchTab(tab, opts){
-    opts = opts || {};
-    if(VALID_TABS.indexOf(tab) === -1) tab = "overview";
-    pages.forEach(function(p){ p.classList.toggle("active", p.getAttribute("data-tab-page") === tab); });
-    sidebarItems.forEach(function(b){ b.classList.toggle("active", b.getAttribute("data-tab") === tab); });
-    drawerItems.forEach(function(b){ b.classList.toggle("active", b.getAttribute("data-tab") === tab); });
-    if(opts.updateHash !== false && location.hash.replace("#","") !== tab){
-      history.pushState(null, "", "#"+tab);
-    }
-    closeDrawer();
-    setTimeout(function(){
-      const lazyInit = window.__lazyCharts && window.__lazyCharts[tab];
-      if(lazyInit){
-        lazyInit();
-        delete window.__lazyCharts[tab];
-      } else if(window.Chart){
-        const activePage = document.querySelector('.tab-page[data-tab-page="'+tab+'"]');
-        if(activePage){
-          activePage.querySelectorAll("canvas").forEach(function(cv){
-            const inst = Chart.getChart(cv);
-            if(inst){ inst.resize(); inst.update("none"); }
-          });
-        }
-      }
-      if(!opts.noScroll && appMain) appMain.scrollTo({top:0, behavior:"auto"});
-    }, 30);
-  }
-  window.__switchTab = switchTab;
-
-  sidebarItems.forEach(function(b){
-    b.addEventListener("click", function(){ switchTab(b.getAttribute("data-tab")); });
-  });
-  drawerItems.forEach(function(b){
-    b.addEventListener("click", function(){ switchTab(b.getAttribute("data-tab")); });
-  });
-
-  window.addEventListener("popstate", function(){ switchTab(hashToTab(location.hash), {updateHash:false}); });
-  window.addEventListener("hashchange", function(){ switchTab(hashToTab(location.hash), {updateHash:false}); });
-
-  // Sidebar collapse toggle
-  const collapseBtn = document.getElementById("sidebarCollapseBtn");
-  if(collapseBtn){
-    collapseBtn.addEventListener("click", function(){
-      document.body.classList.toggle("sidebar-collapsed");
-    });
-  }
-
-  // Mobile drawer open/close
-  const drawerOpenBtn = document.getElementById("drawerOpenBtn");
-  const drawerCloseBtn = document.getElementById("drawerCloseBtn");
-  if(drawerOpenBtn){
-    drawerOpenBtn.addEventListener("click", function(){
-      if(drawer) drawer.classList.add("open");
-      if(drawerOverlay) drawerOverlay.classList.add("open");
-      if(drawer) drawer.setAttribute("aria-hidden","false");
-    });
-  }
-  if(drawerCloseBtn) drawerCloseBtn.addEventListener("click", closeDrawer);
-  if(drawerOverlay) drawerOverlay.addEventListener("click", closeDrawer);
-
-  // Legacy in-page anchor links (#conclusions, #eventTable, #ia-actions...): route to correct tab first, then scroll
-  document.addEventListener("click", function(e){
-    const a = e.target.closest('a[href^="#"]');
-    if(!a) return;
-    const id = a.getAttribute("href").slice(1);
-    if(!id) return;
-    const el = document.getElementById(id);
-    if(!el) return;
-    const page = el.closest(".tab-page");
-    if(page){
-      e.preventDefault();
-      const tab = page.getAttribute("data-tab-page");
-      switchTab(tab);
-      setTimeout(function(){ el.scrollIntoView({behavior:"smooth", block:"start"}); }, 70);
-    }
-  });
-
-  // Initial load
-  switchTab(hashToTab(location.hash), {updateHash:false, noScroll:true});
-})();
 
 // ---- 回到頂部按鈕 ----
 window.addEventListener("scroll", ()=>{
@@ -1510,6 +1410,10 @@ new Chart(document.getElementById("cplTrendChart"), {
   },
   plugins:[avgLinePlugin(avgCpl, "25場平均 NT$"+fmt(avgCpl), "#6b7280"), peakLowPlugin(cplSeriesForTrend, ["cpl"], v=>"NT$"+fmt(v), false)]
 });
+
+}
+window.__lazyCharts["performance"] = __initPerformanceCharts;
+function __initOverviewCharts(){
 new Chart(document.getElementById("matrixChart"), {
   type:"bubble",
   data:{ datasets:[{
@@ -1533,7 +1437,7 @@ new Chart(document.getElementById("matrixChart"), {
   plugins:[quadrantPlugin, bubbleLabelPlugin]
 });
 }
-window.__lazyCharts["performance"] = __initPerformanceCharts;
+window.__lazyCharts["overview"] = __initOverviewCharts;
 window.__lazyCharts = window.__lazyCharts || {};
 function initGradeChart(){
 new Chart(document.getElementById("gradeChart"), {
@@ -1886,6 +1790,108 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
     });
   });
 });
+
+// ---- 7-Tab Router（Sidebar／Drawer／URL Hash）----
+(function(){
+  const VALID_TABS = ["overview","performance","conversion","sales","cost","events","management"];
+  const sidebarItems = Array.from(document.querySelectorAll(".sidebar-nav-item"));
+  const drawerItems = Array.from(document.querySelectorAll(".drawer-nav-item"));
+  const pages = Array.from(document.querySelectorAll(".tab-page"));
+  const appMain = document.getElementById("appMain");
+  const drawer = document.getElementById("drawer");
+  const drawerOverlay = document.getElementById("drawerOverlay");
+
+  function hashToTab(h){
+    const t = (h || "").replace("#","");
+    return VALID_TABS.indexOf(t) !== -1 ? t : "overview";
+  }
+
+  function closeDrawer(){
+    if(drawer) drawer.classList.remove("open");
+    if(drawerOverlay) drawerOverlay.classList.remove("open");
+    if(drawer) drawer.setAttribute("aria-hidden","true");
+  }
+
+  function switchTab(tab, opts){
+    opts = opts || {};
+    if(VALID_TABS.indexOf(tab) === -1) tab = "overview";
+    pages.forEach(function(p){ p.classList.toggle("active", p.getAttribute("data-tab-page") === tab); });
+    sidebarItems.forEach(function(b){ b.classList.toggle("active", b.getAttribute("data-tab") === tab); });
+    drawerItems.forEach(function(b){ b.classList.toggle("active", b.getAttribute("data-tab") === tab); });
+    if(opts.updateHash !== false && location.hash.replace("#","") !== tab){
+      history.pushState(null, "", "#"+tab);
+    }
+    closeDrawer();
+    setTimeout(function(){
+      const lazyInit = window.__lazyCharts && window.__lazyCharts[tab];
+      if(lazyInit){
+        lazyInit();
+        delete window.__lazyCharts[tab];
+      } else if(window.Chart){
+        const activePage = document.querySelector('.tab-page[data-tab-page="'+tab+'"]');
+        if(activePage){
+          activePage.querySelectorAll("canvas").forEach(function(cv){
+            const inst = Chart.getChart(cv);
+            if(inst){ inst.resize(); inst.update("none"); }
+          });
+        }
+      }
+      if(!opts.noScroll && appMain) appMain.scrollTo({top:0, behavior:"auto"});
+    }, 30);
+  }
+  window.__switchTab = switchTab;
+
+  sidebarItems.forEach(function(b){
+    b.addEventListener("click", function(){ switchTab(b.getAttribute("data-tab")); });
+  });
+  drawerItems.forEach(function(b){
+    b.addEventListener("click", function(){ switchTab(b.getAttribute("data-tab")); });
+  });
+
+  window.addEventListener("popstate", function(){ switchTab(hashToTab(location.hash), {updateHash:false}); });
+  window.addEventListener("hashchange", function(){ switchTab(hashToTab(location.hash), {updateHash:false}); });
+
+  // Sidebar collapse toggle
+  const collapseBtn = document.getElementById("sidebarCollapseBtn");
+  if(collapseBtn){
+    collapseBtn.addEventListener("click", function(){
+      document.body.classList.toggle("sidebar-collapsed");
+    });
+  }
+
+  // Mobile drawer open/close
+  const drawerOpenBtn = document.getElementById("drawerOpenBtn");
+  const drawerCloseBtn = document.getElementById("drawerCloseBtn");
+  if(drawerOpenBtn){
+    drawerOpenBtn.addEventListener("click", function(){
+      if(drawer) drawer.classList.add("open");
+      if(drawerOverlay) drawerOverlay.classList.add("open");
+      if(drawer) drawer.setAttribute("aria-hidden","false");
+    });
+  }
+  if(drawerCloseBtn) drawerCloseBtn.addEventListener("click", closeDrawer);
+  if(drawerOverlay) drawerOverlay.addEventListener("click", closeDrawer);
+
+  // Legacy in-page anchor links (#conclusions, #eventTable, #ia-actions...): route to correct tab first, then scroll
+  document.addEventListener("click", function(e){
+    const a = e.target.closest('a[href^="#"]');
+    if(!a) return;
+    const id = a.getAttribute("href").slice(1);
+    if(!id) return;
+    const el = document.getElementById(id);
+    if(!el) return;
+    const page = el.closest(".tab-page");
+    if(page){
+      e.preventDefault();
+      const tab = page.getAttribute("data-tab-page");
+      switchTab(tab);
+      setTimeout(function(){ el.scrollIntoView({behavior:"smooth", block:"start"}); }, 70);
+    }
+  });
+
+  // Initial load
+  switchTab(hashToTab(location.hash), {updateHash:false, noScroll:true});
+})();
 </script>
 <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="回到頂部"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg></button>
 </body>
