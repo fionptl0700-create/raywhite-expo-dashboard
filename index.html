@@ -1636,9 +1636,14 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
       const isActive = p.getAttribute("data-group-panel") === target;
       p.classList.toggle("active", isActive);
       if(isActive && window.Chart){
-        p.querySelectorAll("canvas").forEach(function(cv){
-          const inst = Chart.getChart(cv);
-          if(inst) inst.resize();
+        const canvases = p.querySelectorAll("canvas");
+        requestAnimationFrame(function(){
+          requestAnimationFrame(function(){
+            canvases.forEach(function(cv){
+              const inst = Chart.getChart(cv);
+              if(inst){ inst.resize(); inst.update("none"); }
+            });
+          });
         });
       }
     });
