@@ -1648,7 +1648,6 @@ window.__lazyCharts["cumulative-overview"] = __initOverviewCharts;
   const tc28 = events.find(e=>e.ord==="28" && e.d==="2026-07-11");
   const kh28 = events.find(e=>e.ord==="28" && e.d==="2026-07-12");
   if(!tc28 || !kh28) return;
-  const lec = window.__latestEventComputed;
   const avgRatePct = (avgRate*100).toFixed(1);
   const avgCostPerEvent = totalCost / completed.length;
   const fmt2 = (v)=> v.toLocaleString("en-US", {maximumFractionDigits:0});
@@ -1760,10 +1759,15 @@ window.__lazyCharts["cumulative-overview"] = __initOverviewCharts;
       <div class="stat-chip"><div class="sv" style="color:var(--v-red);">0</div><div class="sl">目前開單數</div></div>
     </div>
     <div class="info-line">開單為0並非資料缺失——活動剛結束、成交轉換本需時間，對照第27屆歷史轉單率17.6%需持續追蹤。下方名單依7/11台中／7/12高雄拆開列示，與上方「實到人數」為不同資料來源，不可互相加總。</div>
-    ${lec && lec.contactHtml ? lec.contactHtml : ""}
+    <div id="latestConvContactWrap"></div>
   `;
   const convBodyEl = document.getElementById("latestConvBody");
   if(convBodyEl) convBodyEl.innerHTML = convHtml;
+  setTimeout(function(){
+    const lec2 = window.__latestEventComputed;
+    const wrap = document.getElementById("latestConvContactWrap");
+    if(wrap && lec2 && lec2.contactHtml) wrap.innerHTML = lec2.contactHtml;
+  }, 0);
 })();
 
 window.__lazyCharts = window.__lazyCharts || {};
