@@ -695,7 +695,12 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
 <div class="scope-banner scope-latest">資料範圍：第28屆（2026/7/11台中・7/12高雄）</div>
 <div class="ia-group" id="ia-latest-performance">
   <div class="ia-group-head"><h1><span class="ia-ic"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg></span></span>Latest Performance<span class="ia-zh">台中 vs 高雄成效比較</span></h1></div>
-<section id="latestPerf"><h2>本次成效：台中 vs 高雄</h2><div id="latestPerfBody"></div></section>
+<section id="latestPerf"><h2>本次成效：台中 vs 高雄</h2><div id="latestPerfBody"></div>
+<div class="ia-group-head" style="margin-top:16px;"><h1 style="font-size:14px;">CPL × CPA 比較</h1></div>
+<div class="chart-wrap" style="height:220px;margin:10px 0 14px;"><canvas id="latestPerfCplCpaChart"></canvas></div>
+<div id="latestPerfCplCpaConcl"></div>
+<div id="latestPerfTableWrap" style="margin-top:12px;"></div>
+</section>
 </div>
 </div>
 <div class="tab-page" id="page-latest-cost" data-tab-page="latest-cost">
@@ -1241,6 +1246,8 @@ const avgAds = totalAds/withAds.length;
 const avgCostPerEvent = totalCost/completed.length;
 const withCpl = completed.filter(e=>e.cpl!=null);
 const avgCpl = withCpl.reduce((s,e)=>s+e.cpl,0)/withCpl.length;
+const withCpa = completed.filter(e=>e.ads!=null && e.venue!=null && e.att!=null && e.att>0);
+const avgCpa = withCpa.reduce((s,e)=>s+(e.ads+e.venue)/e.att,0)/withCpa.length;
 
 function renderKpis(elId, list){
   const el = document.getElementById(elId);
@@ -1657,21 +1664,30 @@ window.__lazyCharts["cumulative-overview"] = __initOverviewCharts;
   const avgCostPerEvent = totalCost / completed.length;
   const fmt2 = (v)=> v.toLocaleString("en-US", {maximumFractionDigits:0});
 
+  const tcCpa = Math.round((tc28.ads+tc28.venue)/tc28.att);
+  const khCpa = Math.round((kh28.ads+kh28.venue)/kh28.att);
+  const avgCpaR = Math.round(avgCpa);
+  const avgCplR = Math.round(avgCpl);
+
   const perfHtml = `
     <div class="charts-row" style="margin-bottom:14px;">
       <div class="day-card">
         <h4>台中 7/11</h4>
         <div class="drow"><span class="k">報名</span><span class="v">${tc28.leads}</span></div>
-        <div class="drow"><span class="k">實到</span><span class="v">${tc28.att}人</span></div>
+        <div class="drow"><span class="k">實到</span><span class="v" style="color:var(--v-green);">${tc28.att}人</span></div>
         <div class="drow"><span class="k">到場率</span><span class="v" style="color:${tc28.rate<avgRate?'var(--v-red)':'var(--good)'};">${(tc28.rate*100).toFixed(1)}%</span></div>
         <div class="drow"><span class="k">vs 25場歷史平均(${avgRatePct}%)</span><span class="v">${tc28.rate<avgRate?'低於':'高於'}平均 ${Math.abs((tc28.rate-avgRate)*100).toFixed(1)}pt</span></div>
+        <div class="drow"><span class="k">CPL（廣告／報名）</span><span class="v" style="color:${tc28.cpl>avgCplR?'var(--v-red)':'var(--good)'};">NT$${fmt2(tc28.cpl)}</span></div>
+        <div class="drow"><span class="k">CPA（總成本／實到）</span><span class="v" style="color:${tcCpa>avgCpaR?'var(--v-red)':'var(--good)'};">NT$${fmt2(tcCpa)}</span></div>
       </div>
       <div class="day-card">
         <h4>高雄 7/12</h4>
         <div class="drow"><span class="k">報名</span><span class="v">${kh28.leads}</span></div>
-        <div class="drow"><span class="k">實到</span><span class="v">${kh28.att}人(${kh28.attGroups}組)</span></div>
+        <div class="drow"><span class="k">實到</span><span class="v" style="color:var(--v-green);">${kh28.att}人(${kh28.attGroups}組)</span></div>
         <div class="drow"><span class="k">到場率</span><span class="v" style="color:${kh28.rate<avgRate?'var(--v-red)':'var(--good)'};">${(kh28.rate*100).toFixed(1)}%</span></div>
         <div class="drow"><span class="k">vs 25場歷史平均(${avgRatePct}%)</span><span class="v">${kh28.rate<avgRate?'低於':'高於'}平均 ${Math.abs((kh28.rate-avgRate)*100).toFixed(1)}pt</span></div>
+        <div class="drow"><span class="k">CPL（廣告／報名）</span><span class="v" style="color:${kh28.cpl>avgCplR?'var(--v-red)':'var(--good)'};">NT$${fmt2(kh28.cpl)}</span></div>
+        <div class="drow"><span class="k">CPA（總成本／實到）</span><span class="v" style="color:${khCpa>avgCpaR?'var(--v-red)':'var(--good)'};">NT$${fmt2(khCpa)}</span></div>
       </div>
     </div>
     <div class="info-line" style="margin-bottom:6px;"><b>本次優勢：</b>高雄到場率42.9%高於25場歷史平均${avgRatePct}%；高雄CPL(NT$${fmt2(kh28.cpl)})亦優於台中(NT$${fmt2(tc28.cpl)})，兩項指標均為高雄較佳。</div>
@@ -1679,6 +1695,60 @@ window.__lazyCharts["cumulative-overview"] = __initOverviewCharts;
   `;
   const costEl = document.getElementById("latestPerfBody");
   if(costEl) costEl.innerHTML = perfHtml;
+
+  // ---- CPL × CPA 比較表 + 圖表 + 管理層結論（兩指標基準不同：CPL僅計廣告支出，CPA計含場地/住宿/人事/交通/伙食之總成本，故不可互相取代）----
+  const cplCpaTableHtml = `
+    <table style="font-size:12px;">
+      <thead><tr><th class="left">指標</th><th>台中 7/11</th><th>高雄 7/12</th><th>25場歷史平均</th></tr></thead>
+      <tbody>
+        <tr><td class="left">報名</td><td>${tc28.leads}</td><td>${kh28.leads}</td><td>—</td></tr>
+        <tr><td class="left">實到</td><td class="le-green-val">${tc28.att}</td><td class="le-green-val">${kh28.att}</td><td>—</td></tr>
+        <tr><td class="left">到場率</td><td class="le-orange-val">${(tc28.rate*100).toFixed(1)}%</td><td class="le-orange-val">${(kh28.rate*100).toFixed(1)}%</td><td class="le-orange-val">${avgRatePct}%</td></tr>
+        <tr><td class="left">CPL（廣告／報名）</td><td>NT$${fmt2(tc28.cpl)}</td><td>NT$${fmt2(kh28.cpl)}</td><td>NT$${fmt2(avgCplR)}</td></tr>
+        <tr><td class="left">CPA（總成本／實到）</td><td class="le-red-val">NT$${fmt2(tcCpa)}</td><td class="le-red-val">NT$${fmt2(khCpa)}</td><td class="le-red-val">NT$${fmt2(avgCpaR)}</td></tr>
+        <tr style="font-weight:800;"><td class="left">總成本</td><td>NT$${fmt2(tc28.ads+tc28.venue)}</td><td>NT$${fmt2(kh28.ads+kh28.venue)}</td><td>NT$${fmt2(Math.round(avgCostPerEvent))}</td></tr>
+      </tbody>
+    </table>
+    <div class="info-line" style="margin-top:8px;">CPL僅計算廣告花費（不含場地／住宿／人事／交通／伙食），反映純廣告名單取得效率；CPA計入該日全部支出，反映每位實際到場者的總體活動成本，兩者基準不同、不可互相取代或加總。</div>
+  `;
+  const tableWrapEl = document.getElementById("latestPerfTableWrap");
+  if(tableWrapEl) tableWrapEl.innerHTML = cplCpaTableHtml;
+
+  const khCplBetter = kh28.cpl < tc28.cpl;
+  const khCpaBetter = khCpa < tcCpa;
+  let cplCpaConclText;
+  if(khCplBetter && !khCpaBetter){
+    cplCpaConclText = `高雄CPL(NT$${fmt2(kh28.cpl)})低於台中(NT$${fmt2(tc28.cpl)})，廣告取得名單效率較佳；但高雄CPA(NT$${fmt2(khCpa)})反而高於台中(NT$${fmt2(tcCpa)})，主因高雄為實體場地需負擔場地費與住宿等營運成本，台中因颱風改線上場地費歸零。代表：廣告效率與到場成本效率評估基準不同，不應只看CPL判斷單場優劣。`;
+  } else if(khCplBetter && khCpaBetter){
+    cplCpaConclText = `高雄CPL與CPA皆優於台中，兩項指標一致顯示高雄場次整體效率較佳。`;
+  } else if(!khCplBetter && khCpaBetter){
+    cplCpaConclText = `台中CPL優於高雄，但高雄CPA優於台中，代表台中廣告端取得名單較便宜，高雄則在總成本轉化到場人次上效率較佳。`;
+  } else {
+    cplCpaConclText = `台中CPL與CPA皆優於高雄，兩項指標一致顯示台中場次整體效率較佳。`;
+  }
+  const conclEl = document.getElementById("latestPerfCplCpaConcl");
+  if(conclEl) conclEl.innerHTML = `<div class="info-line" style="font-weight:700;">${cplCpaConclText}</div>`;
+
+  window.__lazyCharts = window.__lazyCharts || {};
+  window.__lazyCharts["latest-performance"] = function(){
+    const ctx = document.getElementById("latestPerfCplCpaChart");
+    if(!ctx || !window.Chart) return;
+    new Chart(ctx, {
+      type:"bar",
+      data:{
+        labels:["台中 7/11","高雄 7/12","25場歷史平均"],
+        datasets:[
+          {label:"CPL（廣告／報名）", data:[tc28.cpl, kh28.cpl, avgCplR], backgroundColor:"#3977C3"},
+          {label:"CPA（總成本／實到）", data:[tcCpa, khCpa, avgCpaR], backgroundColor:"#D64A4A"}
+        ]
+      },
+      options:{
+        responsive:true, maintainAspectRatio:false,
+        plugins:{ legend:{position:"bottom"}, tooltip:{callbacks:{label:(c)=>c.dataset.label+"：NT$"+c.parsed.y.toLocaleString()}} },
+        scales:{ y:{ ticks:{callback:(v)=>"NT$"+v.toLocaleString()} } }
+      }
+    });
+  };
 
   const costHtml = `
     <div class="stat-chip-row" style="margin-bottom:12px;">
