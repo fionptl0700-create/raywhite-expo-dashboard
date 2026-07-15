@@ -41,6 +41,17 @@
   .le-city-tc{color:var(--v-blue)!important;font-weight:700;}
   .le-city-kh{color:var(--v-purple)!important;font-weight:700;}
   .le-cat-total{font-weight:800!important;color:var(--navy)!important;background:var(--bg-subtle);}
+  .le-city-tc-cell{background:var(--v-blue-soft)!important;}
+  .le-city-kh-cell{background:var(--v-purple-soft)!important;}
+  .le-city-tc-badge{background:var(--v-blue);color:#fff;padding:4px 10px;border-radius:6px;font-weight:700;display:inline-block;}
+  .le-city-kh-badge{background:var(--v-purple);color:#fff;padding:4px 10px;border-radius:6px;font-weight:700;display:inline-block;}
+  .le-cplcpa-table th,.le-cplcpa-table td{padding:16px 14px!important;line-height:1.5;}
+  .le-cplcpa-table tr:nth-child(even){background:var(--bg-subtle);}
+  .le-trend-arrow{margin-left:6px;font-size:11px;font-weight:800;}
+  .le-kpi-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:8px 2px;border-bottom:1px dashed var(--border);}
+  .le-kpi-row:last-child{border-bottom:none;}
+  .le-kpi-row .k{color:var(--grey);font-weight:600;}
+  .le-kpi-row .v{font-weight:800;color:var(--navy);}
   @media(prefers-reduced-motion:no-preference){
     .reveal{opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;}
     .reveal.in{opacity:1;transform:translateY(0);}
@@ -711,17 +722,17 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
 <div class="ia-group" id="ia-latest-cost">
   <div class="ia-group-head"><h1><span class="ia-ic"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M14 8H8"/><path d="M16 12H8"/><path d="M13 16H8"/></svg></span></span>Latest Cost<span class="ia-zh">本屆成本明細</span></h1></div>
 <section id="latestCost"><h2>本次成本明細</h2><div id="latestCostBody"></div>
-<table style="margin:6px 0 10px;"><thead><tr><th class="left">項目</th><th class="left le-city-tc">7/11 台中</th><th class="left le-city-kh">7/12 高雄</th><th class="left">Total 總計</th></tr></thead><tbody>
-      <tr><td class="left">9:30房產場報名人數</td><td class="left le-city-tc">49（房產場專屬欄位）</td><td class="left le-city-kh">21（房產場專屬欄位）</td><td class="left le-cat-total">70</td></tr>
-      <tr><td class="left">單場次拆分(9:30/14:00)</td><td class="left le-city-tc">已併入總報名(線上單場次，不拆分)</td><td class="left le-city-kh">頁簽不分場次，個別場次人數待業務回報</td><td class="left le-cat-total">—</td></tr>
-      <tr><td class="left">實到人數</td><td class="left le-city-tc">13人（房產場，2026/7/12使用者提供）</td><td class="left le-city-kh">9:30場：6組(9人)｜14:00場：待業務回報</td><td class="left le-cat-total">22人（詳見Latest Event總覽，14:00場待補）</td></tr>
-      <tr><td class="left">場地費(NT$)</td><td class="left le-city-tc">0（因颱風改線上）</td><td class="left le-city-kh">35,000</td><td class="left le-cat-total">35,000</td></tr>
-      <tr><td class="left">住宿費(NT$)</td><td class="left le-city-tc">1,800（7/10晚台中橙居，Amber，提前出差）</td><td class="left le-city-kh">11,500（7/11晚高雄德立莊，為7/12過夜）</td><td class="left le-cat-total">13,300</td></tr>
-      <tr><td class="left">人事(PT)成本(NT$)</td><td class="left le-city-tc">1,100</td><td class="left le-city-kh">2,700</td><td class="left le-cat-total">3,800</td></tr>
-      <tr><td class="left">廣告花費(NT$，各對應Campaign÷2)</td><td class="left le-city-tc">93,260</td><td class="left le-city-kh">23,480</td><td class="left le-cat-total">116,740</td></tr>
-      <tr><td class="left">高鐵票(NT$)</td><td class="left le-city-tc">12,805</td><td class="left le-city-kh">12,805</td><td class="left le-cat-total">25,610</td></tr>
-      <tr><td class="left">伙食費(NT$)</td><td class="left le-city-tc">5,800</td><td class="left le-city-kh">5,800</td><td class="left le-cat-total">11,600</td></tr>
-      <tr style="font-weight:800;"><td class="left">小計</td><td class="left le-city-tc">114,765</td><td class="left le-city-kh">91,285</td><td class="left" style="color:var(--good);background:#eaf7ee;font-weight:800;">206,050</td></tr>
+<table style="margin:6px 0 10px;"><thead><tr><th class="left">項目</th><th class="left"><span class="le-city-tc-badge">7/11 台中</span></th><th class="left"><span class="le-city-kh-badge">7/12 高雄</span></th><th class="left">Total 總計</th></tr></thead><tbody>
+      <tr><td class="left">9:30房產場報名人數</td><td class="left le-city-tc le-city-tc-cell">49（房產場專屬欄位）</td><td class="left le-city-kh le-city-kh-cell">21（房產場專屬欄位）</td><td class="left le-cat-total">70</td></tr>
+      <tr><td class="left">單場次拆分(9:30/14:00)</td><td class="left le-city-tc le-city-tc-cell">已併入總報名(線上單場次，不拆分)</td><td class="left le-city-kh le-city-kh-cell">頁簽不分場次，個別場次人數待業務回報</td><td class="left le-cat-total">—</td></tr>
+      <tr><td class="left">實到人數</td><td class="left le-city-tc le-city-tc-cell">13人（房產場，2026/7/12使用者提供）</td><td class="left le-city-kh le-city-kh-cell">9:30場：6組(9人)｜14:00場：待業務回報</td><td class="left le-cat-total">22人（詳見Latest Event總覽，14:00場待補）</td></tr>
+      <tr><td class="left">場地費(NT$)</td><td class="left le-city-tc le-city-tc-cell">0（因颱風改線上）</td><td class="left le-city-kh le-city-kh-cell">35,000</td><td class="left le-cat-total">35,000</td></tr>
+      <tr><td class="left">住宿費(NT$)</td><td class="left le-city-tc le-city-tc-cell">1,800（7/10晚台中橙居，Amber，提前出差）</td><td class="left le-city-kh le-city-kh-cell">11,500（7/11晚高雄德立莊，為7/12過夜）</td><td class="left le-cat-total">13,300</td></tr>
+      <tr><td class="left">人事(PT)成本(NT$)</td><td class="left le-city-tc le-city-tc-cell">1,100</td><td class="left le-city-kh le-city-kh-cell">2,700</td><td class="left le-cat-total">3,800</td></tr>
+      <tr><td class="left">廣告花費(NT$，各對應Campaign÷2)</td><td class="left le-city-tc le-city-tc-cell">93,260</td><td class="left le-city-kh le-city-kh-cell">23,480</td><td class="left le-cat-total">116,740</td></tr>
+      <tr><td class="left">高鐵票(NT$)</td><td class="left le-city-tc le-city-tc-cell">12,805</td><td class="left le-city-kh le-city-kh-cell">12,805</td><td class="left le-cat-total">25,610</td></tr>
+      <tr><td class="left">伙食費(NT$)</td><td class="left le-city-tc le-city-tc-cell">5,800</td><td class="left le-city-kh le-city-kh-cell">5,800</td><td class="left le-cat-total">11,600</td></tr>
+      <tr style="font-weight:800;"><td class="left">小計</td><td class="left le-city-tc le-city-tc-cell">114,765</td><td class="left le-city-kh le-city-kh-cell">91,285</td><td class="left" style="color:var(--good);background:#eaf7ee;font-weight:800;">206,050</td></tr>
       </tbody></table>
 </section>
 </div>
@@ -1656,6 +1667,7 @@ window.__lazyCharts["cumulative-overview"] = __initOverviewCharts;
   const khCpa = Math.round((kh28.ads+kh28.venue)/kh28.att);
   const avgCpaR = Math.round(avgCpa);
   const avgCplR = Math.round(avgCpl);
+  function trendArrow(isBetter){ return isBetter ? '<span class="le-trend-arrow" style="color:var(--good);">&#9650;</span>' : '<span class="le-trend-arrow" style="color:var(--v-red);">&#9660;</span>'; }
 
   const perfHtml = `
     <div class="charts-row" style="margin-bottom:14px;">
@@ -1663,19 +1675,19 @@ window.__lazyCharts["cumulative-overview"] = __initOverviewCharts;
         <h4>台中 7/11</h4>
         <div class="drow"><span class="k">報名</span><span class="v">${tc28.leads}</span></div>
         <div class="drow"><span class="k">實到</span><span class="v" style="color:var(--v-green);">${tc28.att}人</span></div>
-        <div class="drow"><span class="k">到場率</span><span class="v" style="color:${tc28.rate<avgRate?'var(--v-red)':'var(--good)'};">${(tc28.rate*100).toFixed(1)}%</span></div>
+        <div class="drow"><span class="k">到場率</span><span class="v" style="color:${tc28.rate<avgRate?'var(--v-red)':'var(--good)'};">${(tc28.rate*100).toFixed(1)}%${trendArrow(tc28.rate>=avgRate)}</span></div>
         <div class="drow"><span class="k">vs 25場歷史平均(${avgRatePct}%)</span><span class="v">${tc28.rate<avgRate?'低於':'高於'}平均 ${Math.abs((tc28.rate-avgRate)*100).toFixed(1)}pt</span></div>
-        <div class="drow"><span class="k">CPL（廣告／報名）</span><span class="v" style="color:${tc28.cpl>avgCplR?'var(--v-red)':'var(--good)'};">NT$${fmt2(tc28.cpl)}</span></div>
-        <div class="drow"><span class="k">CPA（總成本／實到）</span><span class="v" style="color:${tcCpa>avgCpaR?'var(--v-red)':'var(--good)'};">NT$${fmt2(tcCpa)}</span></div>
+        <div class="drow"><span class="k">CPL（廣告／報名）</span><span class="v" style="color:${tc28.cpl>avgCplR?'var(--v-red)':'var(--good)'};">NT$${fmt2(tc28.cpl)}${trendArrow(tc28.cpl<=avgCplR)}</span></div>
+        <div class="drow"><span class="k">CPA（總成本／實到）</span><span class="v" style="color:${tcCpa>avgCpaR?'var(--v-red)':'var(--good)'};">NT$${fmt2(tcCpa)}${trendArrow(tcCpa<=avgCpaR)}</span></div>
       </div>
       <div class="day-card">
         <h4>高雄 7/12</h4>
         <div class="drow"><span class="k">報名</span><span class="v">${kh28.leads}</span></div>
         <div class="drow"><span class="k">實到</span><span class="v" style="color:var(--v-green);">${kh28.att}人(${kh28.attGroups}組)</span></div>
-        <div class="drow"><span class="k">到場率</span><span class="v" style="color:${kh28.rate<avgRate?'var(--v-red)':'var(--good)'};">${(kh28.rate*100).toFixed(1)}%</span></div>
+        <div class="drow"><span class="k">到場率</span><span class="v" style="color:${kh28.rate<avgRate?'var(--v-red)':'var(--good)'};">${(kh28.rate*100).toFixed(1)}%${trendArrow(kh28.rate>=avgRate)}</span></div>
         <div class="drow"><span class="k">vs 25場歷史平均(${avgRatePct}%)</span><span class="v">${kh28.rate<avgRate?'低於':'高於'}平均 ${Math.abs((kh28.rate-avgRate)*100).toFixed(1)}pt</span></div>
-        <div class="drow"><span class="k">CPL（廣告／報名）</span><span class="v" style="color:${kh28.cpl>avgCplR?'var(--v-red)':'var(--good)'};">NT$${fmt2(kh28.cpl)}</span></div>
-        <div class="drow"><span class="k">CPA（總成本／實到）</span><span class="v" style="color:${khCpa>avgCpaR?'var(--v-red)':'var(--good)'};">NT$${fmt2(khCpa)}</span></div>
+        <div class="drow"><span class="k">CPL（廣告／報名）</span><span class="v" style="color:${kh28.cpl>avgCplR?'var(--v-red)':'var(--good)'};">NT$${fmt2(kh28.cpl)}${trendArrow(kh28.cpl<=avgCplR)}</span></div>
+        <div class="drow"><span class="k">CPA（總成本／實到）</span><span class="v" style="color:${khCpa>avgCpaR?'var(--v-red)':'var(--good)'};">NT$${fmt2(khCpa)}${trendArrow(khCpa<=avgCpaR)}</span></div>
       </div>
     </div>
     <div class="info-line" style="margin-bottom:6px;"><b>本次優勢：</b>高雄到場率42.9%高於25場歷史平均${avgRatePct}%；高雄CPL(NT$${fmt2(kh28.cpl)})亦優於台中(NT$${fmt2(tc28.cpl)})，兩項指標均為高雄較佳。</div>
@@ -1686,18 +1698,18 @@ window.__lazyCharts["cumulative-overview"] = __initOverviewCharts;
 
   // ---- CPL × CPA 比較表 + 圖表 + 管理層結論（兩指標基準不同：CPL僅計廣告支出，CPA計含場地/住宿/人事/交通/伙食之總成本，故不可互相取代）----
   const cplCpaTableHtml = `
-    <table style="font-size:12px;">
+    <table class="le-cplcpa-table" style="font-size:13px;">
       <thead><tr><th class="left">指標</th><th>台中 7/11</th><th>高雄 7/12</th><th>25場歷史平均</th></tr></thead>
       <tbody>
         <tr><td class="left">報名</td><td>${tc28.leads}</td><td>${kh28.leads}</td><td>—</td></tr>
         <tr><td class="left">實到</td><td class="le-green-val">${tc28.att}</td><td class="le-green-val">${kh28.att}</td><td>—</td></tr>
-        <tr><td class="left">到場率</td><td class="le-orange-val">${(tc28.rate*100).toFixed(1)}%</td><td class="le-orange-val">${(kh28.rate*100).toFixed(1)}%</td><td class="le-orange-val">${avgRatePct}%</td></tr>
-        <tr><td class="left">CPL（廣告／報名）</td><td>NT$${fmt2(tc28.cpl)}</td><td>NT$${fmt2(kh28.cpl)}</td><td>NT$${fmt2(avgCplR)}</td></tr>
-        <tr><td class="left">CPA（總成本／實到）</td><td class="le-red-val">NT$${fmt2(tcCpa)}</td><td class="le-red-val">NT$${fmt2(khCpa)}</td><td class="le-red-val">NT$${fmt2(avgCpaR)}</td></tr>
+        <tr><td class="left">到場率</td><td class="le-orange-val">${(tc28.rate*100).toFixed(1)}%${trendArrow(tc28.rate>=avgRate)}</td><td class="le-orange-val">${(kh28.rate*100).toFixed(1)}%${trendArrow(kh28.rate>=avgRate)}</td><td class="le-orange-val">${avgRatePct}%</td></tr>
+        <tr><td class="left">CPL（廣告／報名）</td><td>NT$${fmt2(tc28.cpl)}${trendArrow(tc28.cpl<=avgCplR)}</td><td>NT$${fmt2(kh28.cpl)}${trendArrow(kh28.cpl<=avgCplR)}</td><td>NT$${fmt2(avgCplR)}</td></tr>
+        <tr><td class="left">CPA（總成本／實到）</td><td class="le-red-val">NT$${fmt2(tcCpa)}${trendArrow(tcCpa<=avgCpaR)}</td><td class="le-red-val">NT$${fmt2(khCpa)}${trendArrow(khCpa<=avgCpaR)}</td><td class="le-red-val">NT$${fmt2(avgCpaR)}</td></tr>
         <tr style="font-weight:800;"><td class="left">總成本</td><td>NT$${fmt2(tc28.ads+tc28.venue)}</td><td>NT$${fmt2(kh28.ads+kh28.venue)}</td><td>NT$${fmt2(Math.round(avgCostPerEvent))}</td></tr>
       </tbody>
     </table>
-    <div class="info-line" style="margin-top:8px;">CPL僅計算廣告花費（不含場地／住宿／人事／交通／伙食），反映純廣告名單取得效率；CPA計入該日全部支出，反映每位實際到場者的總體活動成本，兩者基準不同、不可互相取代或加總。</div>
+    <div class="info-line" style="margin-top:8px;">CPL僅計算廣告花費（不含場地／住宿／人事／交通／伙食），反映純廣告名單取得效率；CPA計入該日全部支出，反映每位實際到場者的總體活動成本，兩者基準不同、不可互相取代或加總。綠色▲代表優於25場歷史平均，紅色▼代表劣於平均。</div>
   `;
   const tableWrapEl = document.getElementById("latestPerfTableWrap");
   if(tableWrapEl) tableWrapEl.innerHTML = cplCpaTableHtml;
