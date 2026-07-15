@@ -29,10 +29,15 @@
     --v-blue:var(--status-info); --v-blue-soft:var(--status-info-bg);
     --v-purple:var(--status-online); --v-purple-soft:var(--status-online-bg);
     --v-orange:var(--status-warning); --v-orange-soft:var(--status-warning-bg);
+    --v-orange-deep:#A35A00;
     --v-green:var(--status-positive); --v-green-soft:var(--status-positive-bg);
     --v-red:var(--status-negative); --v-red-soft:var(--status-negative-bg);
     --v-grey:var(--status-missing);
   }
+  .le-blue-label{color:var(--v-blue);}
+  .le-green-val{color:var(--v-green);}
+  .le-red-val{color:var(--v-red);}
+  .le-orange-val{color:var(--v-orange-deep);}
   @media(prefers-reduced-motion:no-preference){
     .reveal{opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;}
     .reveal.in{opacity:1;transform:translateY(0);}
@@ -2181,38 +2186,32 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
 
   // ---- 6 KPI 卡 ----
   const kpiCards = [
-    {ll:"總報名", lv:fmtOrDash(total.registrations)+"人", ls:d1.dateLabel+"："+fmtOrDash(d1.registrations)+"｜"+d2.dateLabel+"："+fmtOrDash(d2.registrations)},
-    {ll:"總實到", lv:fmtOrDash(total.attendancePeople)+"人", ls:"整體到場率"+fmtPctOrDash(total.attendanceRate)},
-    {ll:"1-on-1", lv:fmtOrDash(total.oneOnOne)+"組", ls:"實到轉1-on-1率"+fmtPctOrDash(oneOnOneRate)},
-    {ll:"Reserved", lv:total.reserved!=null?fmtOrDash(total.reserved)+"組":"待回報", ls:"依業務回報後更新"},
-    {ll:"總成本", lv:fmtMoney(total.totalCost), ls:"廣告"+fmtMoney(total.adCost)+"｜營運"+fmtMoney(total.nonAdCost)},
-    {ll:"每組1-on-1成本", lv:fmtMoney(costPerOneOnOne), ls:"目前最重要的活動效率指標"}
+    {ll:"總報名", lv:fmtOrDash(total.registrations)+"人", ls:d1.dateLabel+"："+fmtOrDash(d1.registrations)+"｜"+d2.dateLabel+"："+fmtOrDash(d2.registrations), cc:""},
+    {ll:"總實到", lv:fmtOrDash(total.attendancePeople)+"人", ls:"整體到場率"+fmtPctOrDash(total.attendanceRate), cc:"le-green-val"},
+    {ll:"1-on-1", lv:fmtOrDash(total.oneOnOne)+"組", ls:"實到轉1-on-1率"+fmtPctOrDash(oneOnOneRate), cc:""},
+    {ll:"Reserved", lv:total.reserved!=null?fmtOrDash(total.reserved)+"組":"待回報", ls:"依業務回報後更新", cc:""},
+    {ll:"總成本", lv:fmtMoney(total.totalCost), ls:"廣告"+fmtMoney(total.adCost)+"｜營運"+fmtMoney(total.nonAdCost), cc:"le-red-val"},
+    {ll:"每組1-on-1成本", lv:fmtMoney(costPerOneOnOne), ls:"目前最重要的活動效率指標", cc:"le-red-val"}
   ];
   const kpiHtml = kpiCards.map(function(k,i){
-    return '<div class="le2-kpi-card'+(i>=3?' tier1':'')+'"><div class="ll">'+k.ll+'</div><div class="lv">'+k.lv+'</div><div class="ls">'+k.ls+'</div></div>';
+    return '<div class="le2-kpi-card'+(i>=3?' tier1':'')+'"><div class="ll">'+k.ll+'</div><div class="lv '+k.cc+'">'+k.lv+'</div><div class="ls">'+k.ls+'</div></div>';
   }).join("");
 
   // ---- Day Comparison ----
   const dcRows = [
-    ["報名", fmtOrDash(d1.registrations), fmtOrDash(d2.registrations)],
-    ["實到", fmtOrDash(d1.attendancePeople), fmtOrDash(d2.attendancePeople)],
-    ["到場率", fmtPctOrDash(d1.attendanceRate), fmtPctOrDash(d2.attendanceRate)],
-    ["1-on-1", fmtOrDash(d1.oneOnOne), fmtOrDash(d2.oneOnOne)],
-    ["總成本", fmtMoney(d1.totalCost), fmtMoney(d2.totalCost)]
+    ["報名", fmtOrDash(d1.registrations), fmtOrDash(d2.registrations), ""],
+    ["實到", fmtOrDash(d1.attendancePeople), fmtOrDash(d2.attendancePeople), "le-green-val"],
+    ["到場率", fmtPctOrDash(d1.attendanceRate), fmtPctOrDash(d2.attendanceRate), "le-orange-val"],
+    ["1-on-1", fmtOrDash(d1.oneOnOne), fmtOrDash(d2.oneOnOne), ""],
+    ["總成本", fmtMoney(d1.totalCost), fmtMoney(d2.totalCost), "le-red-val"]
   ];
-  function dcCol(day, cls, label){
-    const rows = dcRows.map(function(r,i){
-      return '<div class="le2-daycomp-row"><span class="k">'+r[0]+'</span><span class="v">'+r[i===0?1:(cls==="tc"?1:2)]+'</span></div>';
-    });
-    return null; // placeholder, real build below
-  }
-  const tcRowsHtml = dcRows.map(function(r){ return '<div class="le2-daycomp-row"><span class="k">'+r[0]+'</span><span class="v">'+r[1]+'</span></div>'; }).join("");
-  const khRowsHtml = dcRows.map(function(r){ return '<div class="le2-daycomp-row"><span class="k">'+r[0]+'</span><span class="v">'+r[2]+'</span></div>'; }).join("");
+  const tcRowsHtml = dcRows.map(function(r){ return '<div class="le2-daycomp-row"><span class="k">'+r[0]+'</span><span class="v '+r[3]+'">'+r[1]+'</span></div>'; }).join("");
+  const khRowsHtml = dcRows.map(function(r){ return '<div class="le2-daycomp-row"><span class="k">'+r[0]+'</span><span class="v '+r[3]+'">'+r[2]+'</span></div>'; }).join("");
   const dayCompHtml =
     '<div class="le2-daysw" id="leDaySw"><button data-day="tc" class="active">'+d1.dateLabel+'</button><button data-day="kh">'+d2.dateLabel+'</button></div>'+
     '<div class="le2-daycomp">'+
-      '<div class="le2-daycomp-col tc mobile-active" data-day="tc"><div class="dc-head">'+d1.dateLabel+' '+d1.city+'</div>'+tcRowsHtml+'<div class="le2-daycomp-result">'+dayResultText(d1,d2)+'</div></div>'+
-      '<div class="le2-daycomp-col kh" data-day="kh"><div class="dc-head">'+d2.dateLabel+' '+d2.city+'</div>'+khRowsHtml+'<div class="le2-daycomp-result">'+dayResultText(d2,d1)+'</div></div>'+
+      '<div class="le2-daycomp-col tc mobile-active" data-day="tc"><div class="dc-head le-blue-label">'+d1.dateLabel+' '+d1.city+'</div>'+tcRowsHtml+'<div class="le2-daycomp-result">'+dayResultText(d1,d2)+'</div></div>'+
+      '<div class="le2-daycomp-col kh" data-day="kh"><div class="dc-head le-blue-label">'+d2.dateLabel+' '+d2.city+'</div>'+khRowsHtml+'<div class="le2-daycomp-result">'+dayResultText(d2,d1)+'</div></div>'+
     '</div>';
 
   // ---- 單一合計漏斗 ----
@@ -2237,9 +2236,9 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
   // ---- Decision Metrics ----
   const decisionHtml =
     '<div class="le2-decision-grid">'+
-      '<div class="le2-decision-card"><div class="dv">'+fmtPctOrDash(total.attendanceRate)+'</div><div class="dl">到場率</div></div>'+
-      '<div class="le2-decision-card"><div class="dv">'+fmtPctOrDash(oneOnOneRate)+'</div><div class="dl">實到轉1-on-1率</div></div>'+
-      '<div class="le2-decision-card"><div class="dv">'+fmtMoney(costPerOneOnOne)+'</div><div class="dl">每組1-on-1成本</div></div>'+
+      '<div class="le2-decision-card"><div class="dv le-orange-val">'+fmtPctOrDash(total.attendanceRate)+'</div><div class="dl">到場率</div></div>'+
+      '<div class="le2-decision-card"><div class="dv le-orange-val">'+fmtPctOrDash(oneOnOneRate)+'</div><div class="dl">實到轉1-on-1率</div></div>'+
+      '<div class="le2-decision-card"><div class="dv le-red-val">'+fmtMoney(costPerOneOnOne)+'</div><div class="dl">每組1-on-1成本</div></div>'+
     '</div>';
 
   // ---- Next Actions ----
@@ -2319,11 +2318,11 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
   function contactGroup(dayIdx, title, extraCls){
     const rows = contactListRaw.filter(function(r){ return r.dayIndex===dayIdx; });
     const tot = contactAgg(rows);
-    const body = rows.map(function(r){ return '<tr><td class="left">'+r.name+'</td><td>'+r.total+'</td><td>'+r.added+'</td><td>'+r.notAdded+'</td><td>'+r.contacting+'</td><td>'+r.willAttend+'</td><td>'+r.notAttend+'</td><td>'+r.undecided+'</td></tr>'; }).join("");
+    const body = rows.map(function(r){ return '<tr><td class="left">'+r.name+'</td><td>'+r.total+'</td><td>'+r.added+'</td><td>'+r.notAdded+'</td><td>'+r.contacting+'</td><td class="le-red-val">'+r.willAttend+'</td><td>'+r.notAttend+'</td><td>'+r.undecided+'</td></tr>'; }).join("");
     return '<div class="le-col '+extraCls+'" data-day="'+dayIdx+'">'+
       '<div class="le-col-head"><div class="lc-t">'+title+'</div></div>'+
       '<div style="overflow-x:auto;"><table style="font-size:11px;"><thead><tr><th class="left">名單</th><th>總數</th><th>已加賴</th><th>未加賴</th><th>連繫中</th><th>會參加</th><th>不參加</th><th>未定</th></tr></thead><tbody>'+
-      body+'<tr style="font-weight:800;background:var(--bg-subtle);"><td class="left">小計</td><td>'+tot.total+'</td><td>'+tot.added+'</td><td>'+tot.notAdded+'</td><td>'+tot.contacting+'</td><td>'+tot.willAttend+'</td><td>'+tot.notAttend+'</td><td>'+tot.undecided+'</td></tr>'+
+      body+'<tr style="font-weight:800;background:var(--bg-subtle);"><td class="left">小計</td><td>'+tot.total+'</td><td>'+tot.added+'</td><td>'+tot.notAdded+'</td><td>'+tot.contacting+'</td><td class="le-red-val">'+tot.willAttend+'</td><td>'+tot.notAttend+'</td><td>'+tot.undecided+'</td></tr>'+
       '</tbody></table></div></div>';
   }
   function contactTotalGroup(){
@@ -2334,13 +2333,13 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
       '<div class="le-kpi-row"><span class="k">已加賴</span><span class="v">'+tot.added+'</span></div>'+
       '<div class="le-kpi-row"><span class="k">未加賴</span><span class="v">'+tot.notAdded+'</span></div>'+
       '<div class="le-kpi-row"><span class="k">連繫中</span><span class="v">'+tot.contacting+'</span></div>'+
-      '<div class="le-kpi-row"><span class="k">會參加</span><span class="v">'+tot.willAttend+'</span></div>'+
+      '<div class="le-kpi-row"><span class="k">會參加</span><span class="v le-red-val">'+tot.willAttend+'</span></div>'+
       '<div class="le-kpi-row"><span class="k">不參加</span><span class="v">'+tot.notAttend+'</span></div>'+
       '<div class="le-kpi-row"><span class="k">未定</span><span class="v">'+tot.undecided+'</span></div></div>';
   }
   const contactHtml = '<div class="le-exec-grid">'+
-      contactGroup(1, "Day 1 聯繫名單 · "+d1.dateLabel, "")+
-      contactGroup(2, "Day 2 聯繫名單 · "+d2.dateLabel, "le-day2")+
+      contactGroup(1, "Day 1 聯繫名單 · <span class=\"le-blue-label\">"+d1.dateLabel+"</span>", "")+
+      contactGroup(2, "Day 2 聯繫名單 · <span class=\"le-blue-label\">"+d2.dateLabel+"</span>", "le-day2")+
       contactTotalGroup()+
     '</div>'+
     '<div class="le-note-box" style="background:var(--status-warning-bg);color:var(--status-warning);">聯繫名單為業務手動追蹤之聯繫意向，與上方「報名人數」「實到人數」屬不同資料口徑與統計對象，不可直接加總或交叉換算。</div>';
@@ -2353,7 +2352,7 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
 
   const finalHtml =
     '<div class="le2-header"><div class="le2-title">Latest Event｜'+latestEvent.title+'管理總覽</div><div class="le2-updated">Updated '+latestEvent.lastUpdated+'</div></div>'+
-    '<div class="le2-subtitle">'+d1.dateLabel+d1.city+'・'+d2.dateLabel+d2.city+'｜活動已完成・後續轉換追蹤中</div>'+
+    '<div class="le2-subtitle"><span class="le-blue-label">'+d1.dateLabel+d1.city+'</span>・<span class="le-blue-label">'+d2.dateLabel+d2.city+'</span>｜活動已完成・後續轉換追蹤中</div>'+
     '<div class="le2-kpi-grid">'+kpiHtml+'</div>'+
     '<div class="le2-signal"><div class="le2-signal-txt"><b>Executive Signal：</b>'+signalText+'</div><div class="le2-signal-tag '+signal.cls+'">'+signal.label+'</div></div>'+
     '<div class="le2-section-title">Day Comparison｜兩日核心比較</div>'+
@@ -2366,8 +2365,6 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
     '<div class="le2-section-title">Next Actions｜管理層下一步</div>'+
     actionsHtml+
     '<div class="le2-section-title">查看詳細資料</div>'+
-    '<details class="le2-detail-section" id="leAccCost"><summary>查看成本明細</summary><div class="le2-detail-body">'+costCardsHtml+costChartWrapHtml+costTableHtml+'</div></details>'+
-    '<details class="le2-detail-section" id="leAccDays"><summary>查看兩日詳細成效</summary><div class="le2-detail-body"><div id="leDualFunnelWrap"></div>'+eventInfoHtml+'<div style="margin-top:14px;">'+detailAccHtml+'</div><details class="more" style="margin-top:10px;"><summary>第28屆 EDM 主圖（原始資料備查）</summary>'+galleryHtml+'</details></div></details>'+
     '<details class="le2-detail-section" id="leAccContact"><summary>查看業務聯繫名單</summary><div class="le2-detail-body">'+contactHtml+'</div></details>';
 
   const leRootEl = document.getElementById("leRoot");
