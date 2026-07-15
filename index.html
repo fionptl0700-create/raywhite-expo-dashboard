@@ -568,7 +568,6 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
     <div class="slc-status">活動已完成・3組1-on-1追蹤中</div>
   </button>
   <nav class="sidebar-nav">
-      <button type="button" class="sidebar-nav-item active" data-tab="executive" data-nav-group="exec"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/><path d="M3 9h6"/><path d="M3 15h6"/></svg></span><span class="sidebar-nav-item-label">總覽 <small>Executive</small></span></button>
       <div class="sidebar-group-label group-latest"><span>當次活動</span><small>LATEST EVENT</small></div>
       <button type="button" class="sidebar-nav-item" data-tab="latest-overview" data-nav-group="latest"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg></span><span class="sidebar-nav-item-label">當次活動總覽 <small>Latest Event</small></span></button>
       <button type="button" class="sidebar-nav-item" data-tab="latest-performance" data-nav-group="latest"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg></span><span class="sidebar-nav-item-label">本次成效 <small>Latest Performance</small></span></button>
@@ -597,7 +596,6 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
     <button type="button" id="drawerCloseBtn" aria-label="關閉選單"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
   </div>
   <nav class="drawer-nav">
-      <button type="button" class="drawer-nav-item active" data-tab="executive" data-nav-group="exec"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/><path d="M3 9h6"/><path d="M3 15h6"/></svg></span><span class="drawer-nav-item-label">總覽 <small>Executive</small></span></button>
       <div class="sidebar-group-label group-latest"><span>當次活動</span><small>LATEST EVENT</small></div>
       <button type="button" class="drawer-nav-item" data-tab="latest-overview" data-nav-group="latest"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg></span><span class="drawer-nav-item-label">當次活動總覽 <small>Latest Event</small></span></button>
       <button type="button" class="drawer-nav-item" data-tab="latest-performance" data-nav-group="latest"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg></span><span class="drawer-nav-item-label">本次成效 <small>Latest Performance</small></span></button>
@@ -2654,13 +2652,11 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
 // ==== v60: Mobile Sticky Tabs（取代Sidebar縮小/漢堡/Drawer）====
 (function(){
   const GROUPS = [
-    {key:"exec", label:"首頁", tabs:["executive"]},
     {key:"latest", label:"當次活動", tabs:["latest-overview","latest-performance","latest-cost","latest-conversion"]},
     {key:"cumulative", label:"累計分析", tabs:["cumulative-overview","performance","conversion","sales","cost","events"]},
     {key:"mgmt", label:"管理", tabs:["management"]}
   ];
   const SUB_LABELS = {
-    "executive":"總覽",
     "latest-overview":"總覽","latest-performance":"成效","latest-cost":"成本","latest-conversion":"轉換",
     "cumulative-overview":"總覽","performance":"成效","conversion":"轉換","sales":"業務","cost":"成本","events":"資料庫",
     "management":"管理中心"
@@ -2684,11 +2680,11 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
       return '<button type="button" data-tab="'+t+'">'+(SUB_LABELS[t]||t)+'</button>';
     }).join("");
   }
-  renderSubs("exec");
+  renderSubs(GROUPS[0].key);
 
   function groupOfTab(tab){
     for(var i=0;i<GROUPS.length;i++){ if(GROUPS[i].tabs.indexOf(tab)!==-1) return GROUPS[i].key; }
-    return "exec";
+    return GROUPS[0].key;
   }
   function syncActive(tab){
     const gk = groupOfTab(tab);
@@ -2715,7 +2711,7 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
 
 // ---- 11-Tab Router（當次活動／累計分析／管理・Sidebar／Drawer／URL Hash）----
 (function(){
-  const EXEC_TABS = ["executive"];
+  const EXEC_TABS = [];
   const LATEST_TABS = ["latest-overview","latest-performance","latest-cost","latest-conversion"];
   const CUMULATIVE_TABS = ["cumulative-overview","performance","conversion","sales","cost","events","management"];
   const VALID_TABS = EXEC_TABS.concat(LATEST_TABS, CUMULATIVE_TABS);
@@ -2733,8 +2729,8 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
   function hashToTab(h){
     let t = (h || "").replace("#","");
     if(LEGACY_ALIAS[t]) t = LEGACY_ALIAS[t];
-    if(!t) return "executive";
-    return VALID_TABS.indexOf(t) !== -1 ? t : "executive";
+    if(!t) return "latest-overview";
+    return VALID_TABS.indexOf(t) !== -1 ? t : "latest-overview";
   }
 
   function closeDrawer(){
@@ -2746,7 +2742,7 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
   function switchTab(tab, opts){
     opts = opts || {};
     if(LEGACY_ALIAS[tab]) tab = LEGACY_ALIAS[tab];
-    if(VALID_TABS.indexOf(tab) === -1) tab = "executive";
+    if(VALID_TABS.indexOf(tab) === -1) tab = "latest-overview";
     if(LATEST_TABS.indexOf(tab) !== -1) lastLatestTab = tab;
     if(CUMULATIVE_TABS.indexOf(tab) !== -1) lastCumulativeTab = tab;
     pages.forEach(function(p){ p.classList.toggle("active", p.getAttribute("data-tab-page") === tab); });
