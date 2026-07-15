@@ -38,6 +38,9 @@
   .le-green-val{color:var(--v-green)!important;}
   .le-red-val{color:var(--v-red)!important;}
   .le-orange-val{color:var(--v-orange-deep)!important;}
+  .le-city-tc{color:var(--v-blue)!important;font-weight:700;}
+  .le-city-kh{color:var(--v-purple)!important;font-weight:700;}
+  .le-cat-total{font-weight:800!important;color:var(--navy)!important;background:var(--bg-subtle);}
   @media(prefers-reduced-motion:no-preference){
     .reveal{opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;}
     .reveal.in{opacity:1;transform:translateY(0);}
@@ -708,18 +711,17 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
 <div class="ia-group" id="ia-latest-cost">
   <div class="ia-group-head"><h1><span class="ia-ic"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M14 8H8"/><path d="M16 12H8"/><path d="M13 16H8"/></svg></span></span>Latest Cost<span class="ia-zh">本屆成本明細</span></h1></div>
 <section id="latestCost"><h2>本次成本明細</h2><div id="latestCostBody"></div>
-<table style="margin:6px 0 10px;"><thead><tr><th class="left">項目</th><th class="left">7/11 台中</th><th class="left">7/12 高雄</th></tr></thead><tbody>
-      <tr><td class="left">9:30房產場報名人數</td><td class="left">49（房產場專屬欄位）</td><td class="left">21（房產場專屬欄位）</td></tr>
-      <tr><td class="left">單場次拆分(9:30/14:00)</td><td class="left">已併入總報名(線上單場次，不拆分)</td><td class="left">頁簽不分場次，個別場次人數待業務回報</td></tr>
-      <tr><td class="left">實到人數</td><td class="left">13人（房產場，2026/7/12使用者提供）</td><td class="left">9:30場：6組(9人)｜14:00場：待業務回報</td></tr>
-      <tr><td class="left">場地費(NT$)</td><td class="left">0（因颱風改線上）</td><td class="left">35,000</td></tr>
-      <tr><td class="left">住宿費(NT$)</td><td class="left">1,800（7/10晚台中橙居，Amber，提前出差）</td><td class="left">11,500（7/11晚高雄德立莊，為7/12過夜）</td></tr>
-      <tr><td class="left">人事(PT)成本(NT$)</td><td class="left">1,100</td><td class="left">2,700</td></tr>
-      <tr><td class="left">廣告花費(NT$，各對應Campaign÷2)</td><td class="left">93,260</td><td class="left">23,480</td></tr>
-      <tr><td class="left">高鐵票(NT$)</td><td class="left">12,805</td><td class="left">12,805</td></tr>
-      <tr><td class="left">伙食費(NT$)</td><td class="left">5,800</td><td class="left">5,800</td></tr>
-      <tr style="font-weight:800;"><td class="left">小計</td><td class="left">114,765</td><td class="left">91,285</td></tr>
-      <tr style="font-weight:800;color:var(--good);background:#eaf7ee;"><td class="left">兩天合計</td><td class="left" colspan="2">206,050</td></tr>
+<table style="margin:6px 0 10px;"><thead><tr><th class="left">項目</th><th class="left le-city-tc">7/11 台中</th><th class="left le-city-kh">7/12 高雄</th><th class="left">Total 總計</th></tr></thead><tbody>
+      <tr><td class="left">9:30房產場報名人數</td><td class="left le-city-tc">49（房產場專屬欄位）</td><td class="left le-city-kh">21（房產場專屬欄位）</td><td class="left le-cat-total">70</td></tr>
+      <tr><td class="left">單場次拆分(9:30/14:00)</td><td class="left le-city-tc">已併入總報名(線上單場次，不拆分)</td><td class="left le-city-kh">頁簽不分場次，個別場次人數待業務回報</td><td class="left le-cat-total">—</td></tr>
+      <tr><td class="left">實到人數</td><td class="left le-city-tc">13人（房產場，2026/7/12使用者提供）</td><td class="left le-city-kh">9:30場：6組(9人)｜14:00場：待業務回報</td><td class="left le-cat-total">22人（詳見Latest Event總覽，14:00場待補）</td></tr>
+      <tr><td class="left">場地費(NT$)</td><td class="left le-city-tc">0（因颱風改線上）</td><td class="left le-city-kh">35,000</td><td class="left le-cat-total">35,000</td></tr>
+      <tr><td class="left">住宿費(NT$)</td><td class="left le-city-tc">1,800（7/10晚台中橙居，Amber，提前出差）</td><td class="left le-city-kh">11,500（7/11晚高雄德立莊，為7/12過夜）</td><td class="left le-cat-total">13,300</td></tr>
+      <tr><td class="left">人事(PT)成本(NT$)</td><td class="left le-city-tc">1,100</td><td class="left le-city-kh">2,700</td><td class="left le-cat-total">3,800</td></tr>
+      <tr><td class="left">廣告花費(NT$，各對應Campaign÷2)</td><td class="left le-city-tc">93,260</td><td class="left le-city-kh">23,480</td><td class="left le-cat-total">116,740</td></tr>
+      <tr><td class="left">高鐵票(NT$)</td><td class="left le-city-tc">12,805</td><td class="left le-city-kh">12,805</td><td class="left le-cat-total">25,610</td></tr>
+      <tr><td class="left">伙食費(NT$)</td><td class="left le-city-tc">5,800</td><td class="left le-city-kh">5,800</td><td class="left le-cat-total">11,600</td></tr>
+      <tr style="font-weight:800;"><td class="left">小計</td><td class="left le-city-tc">114,765</td><td class="left le-city-kh">91,285</td><td class="left" style="color:var(--good);background:#eaf7ee;font-weight:800;">206,050</td></tr>
       </tbody></table>
 </section>
 </div>
@@ -729,20 +731,6 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
 <div class="ia-group" id="ia-latest-conversion">
   <div class="ia-group-head"><h1><span class="ia-ic"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/></svg></span></span>Latest Conversion<span class="ia-zh">本屆名單與轉換</span></h1></div>
 <section id="latestConv"><h2>本次名單與轉換</h2><div id="latestConvBody"></div>
-<table>
-      <thead><tr><th class="left">名單</th><th>總數</th><th>已加賴</th><th>未加賴</th><th>連繫中</th><th>會參加</th><th>不參加</th><th>未定</th></tr></thead>
-      <tbody>
-        <tr><td class="left">台中7/11 White(房產場)</td><td>10</td><td>10</td><td>0</td><td>0</td><td>8</td><td>1</td><td>1</td></tr>
-        <tr><td class="left">高雄7/12 White(房產場)</td><td>9</td><td>9</td><td>0</td><td>0</td><td>9</td><td>0</td><td>0</td></tr>
-        <tr><td class="left">台中7/11 Nicole名單</td><td>9</td><td>7</td><td>2</td><td>0</td><td>2</td><td>1</td><td>6</td></tr>
-        <tr><td class="left">高雄7/12 Nicole名單</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
-        <tr><td class="left">台中7/11 Amber/Bailey名單</td><td>16</td><td>12</td><td>0</td><td>3</td><td>3</td><td>3</td><td>4</td></tr>
-        <tr><td class="left">高雄7/12 Amber/Bailey名單</td><td>5</td><td>3</td><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td></tr>
-        <tr><td class="left">台中7/11下午 Cathy(房產場)【新增1筆】</td><td>6</td><td>6</td><td>0</td><td>0</td><td>3</td><td>1</td><td>2</td></tr>
-        <tr><td class="left">高雄 Cathy(房產場)</td><td>4</td><td>3</td><td>0</td><td>1</td><td>3</td><td>0</td><td>1</td></tr>
-        <tr style="font-weight:800;color:var(--good);background:#eaf7ee;"><td class="left">合計</td><td>60</td><td>51</td><td>3</td><td>5</td><td>29</td><td>7</td><td>15</td></tr>
-      </tbody>
-    </table>
 </section>
 </div>
 </div>
@@ -1660,6 +1648,7 @@ window.__lazyCharts["cumulative-overview"] = __initOverviewCharts;
   const tc28 = events.find(e=>e.ord==="28" && e.d==="2026-07-11");
   const kh28 = events.find(e=>e.ord==="28" && e.d==="2026-07-12");
   if(!tc28 || !kh28) return;
+  const lec = window.__latestEventComputed;
   const avgRatePct = (avgRate*100).toFixed(1);
   const avgCostPerEvent = totalCost / completed.length;
   const fmt2 = (v)=> v.toLocaleString("en-US", {maximumFractionDigits:0});
@@ -1770,7 +1759,8 @@ window.__lazyCharts["cumulative-overview"] = __initOverviewCharts;
       <div class="stat-chip"><div class="sv">${oneOnOne}組</div><div class="sl">1-on-1安排中(台中1＋高雄3)</div></div>
       <div class="stat-chip"><div class="sv" style="color:var(--v-red);">0</div><div class="sl">目前開單數</div></div>
     </div>
-    <div class="info-line">開單為0並非資料缺失——活動剛結束、成交轉換本需時間，對照第27屆歷史轉單率17.6%需持續追蹤。下表為聯繫名單彙整(60筆去重)，與上方「實到人數」為不同資料來源，不可互相加總。</div>
+    <div class="info-line">開單為0並非資料缺失——活動剛結束、成交轉換本需時間，對照第27屆歷史轉單率17.6%需持續追蹤。下方名單依7/11台中／7/12高雄拆開列示，與上方「實到人數」為不同資料來源，不可互相加總。</div>
+    ${lec && lec.contactHtml ? lec.contactHtml : ""}
   `;
   const convBodyEl = document.getElementById("latestConvBody");
   if(convBodyEl) convBodyEl.innerHTML = convHtml;
@@ -2408,8 +2398,8 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
       '<div class="le-kpi-row"><span class="k">未定</span><span class="v">'+tot.undecided+'</span></div></div>';
   }
   const contactHtml = '<div class="le-exec-grid">'+
-      contactGroup(1, "Day 1 聯繫名單 · <span class=\"le-blue-label\">"+d1.dateLabel+"</span>", "")+
-      contactGroup(2, "Day 2 聯繫名單 · <span class=\"le-blue-label\">"+d2.dateLabel+"</span>", "le-day2")+
+      contactGroup(1, "Day 1 聯繫名單 · <span class=\"le-city-tc\">"+d1.dateLabel+" "+d1.city+"</span>", "")+
+      contactGroup(2, "Day 2 聯繫名單 · <span class=\"le-city-kh\">"+d2.dateLabel+" "+d2.city+"</span>", "le-day2")+
       contactTotalGroup()+
     '</div>'+
     '<div class="le-note-box" style="background:var(--status-warning-bg);color:var(--status-warning);">聯繫名單為業務手動追蹤之聯繫意向，與上方「報名人數」「實到人數」屬不同資料口徑與統計對象，不可直接加總或交叉換算。</div>';
@@ -2493,7 +2483,8 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
     latestEvent: latestEvent, d1: d1, d2: d2, total: total,
     oneOnOneRate: oneOnOneRate, costPerOneOnOne: costPerOneOnOne,
     signal: signal, signalText: signalText, khBetter: khBetter, betterDay: betterDay, weakerDay: weakerDay,
-    fmtMoney: fmtMoney, fmtOrDash: fmtOrDash, fmtPctOrDash: fmtPctOrDash, rateOf: rateOf, perUnit: perUnit, dtag: dtag
+    fmtMoney: fmtMoney, fmtOrDash: fmtOrDash, fmtPctOrDash: fmtPctOrDash, rateOf: rateOf, perUnit: perUnit, dtag: dtag,
+    contactHtml: contactHtml
   };
 })();
 
