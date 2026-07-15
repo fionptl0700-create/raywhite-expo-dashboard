@@ -616,13 +616,12 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
 
 <header>
   <div style="display:flex;align-items:center;gap:14px;">
-    <img src="https://raywhitetw.com/wp-content/themes/A/assets/images/logo_raywhite.svg" alt="Ray White" width="46" height="46" style="flex-shrink:0;border-radius:10px;object-fit:contain;">
     <div>
       <h1><span class="tag">RAY WHITE TAIWAN</span> <span class="ic" style="width:18px;height:18px;color:var(--yellow);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v18Z"/><path d="M6 12H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h2"/><path d="M18 9h2a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg></span> 活動場次營運效益 Dashboard</h1>
       <div class="sub" style="font-weight:600;letter-spacing:.3px;">Event Intelligence Dashboard ｜ 2025/6–2026/7 ｜ 全數NT$</div>
       <div class="status-badges">
         <span class="status-badge done"><span class="dot"></span>25 Completed</span>
-        <span class="status-badge tracking"><span class="dot"></span>1 Tracking（28屆7/12高雄）</span>
+        <span class="status-badge tracking"><span class="dot"></span>3 Tracking（28屆7/12高雄・29屆7/25-26即將舉行）</span>
         <span class="status-badge info"><span class="dot"></span>Updated 2026/7/12</span>
       </div>
     </div>
@@ -1211,6 +1210,8 @@ const events = [
  {ord:"27",d:"2026-06-27",event:"Taiwan 27th EXPO",date:"2026/6/27-28",loc:"台北",leads:107,att:25,rate:0.2336,ads:240000,venue:null,cpl:3692,grade:"D",img:"https://raywhitetw.com/wp-content/uploads/2026/06/WhatsApp-Image-2026-06-10-at-15.34.18.jpeg"},
  {ord:"28",d:"2026-07-11",event:"Taiwan 28th EXPO（7/11台中）",date:"2026/7/11",loc:"台中(線上)",leads:49,att:13,rate:0.26530612244897955,ads:93260,venue:21505,cpl:1903,grade:"N",img:"https://raywhitetw.com/wp-content/uploads/2026/06/Gemini_Generated_Image_z246kuz246kuz246.png"},
  {ord:"28",d:"2026-07-12",event:"Taiwan 28th EXPO（7/12高雄）",date:"2026/7/12",loc:"高雄",leads:21,att:6,attGroups:6,rate:0.2857142857142857,ads:23480,venue:67805,cpl:1118,grade:"N",img:"https://raywhitetw.com/wp-content/uploads/2026/06/Gemini_Generated_Image_z246kuz246kuz246.png",prep:true},
+ {ord:"29",d:"2026-07-25",event:"Taiwan 29th EXPO（7/25新竹）",date:"2026/7/25",loc:"新竹",leads:null,att:null,rate:null,ads:null,venue:81000,cpl:null,grade:"N",img:null,prep:true},
+ {ord:"29",d:"2026-07-26",event:"Taiwan 29th EXPO（7/26台北）",date:"2026/7/26",loc:"台北",leads:null,att:null,rate:null,ads:null,venue:0,cpl:null,grade:"N",img:null,prep:true},
 ];
 const completed = events.filter(e=>!e.prep);
 function tblAvgOf(arr,key){ const v=arr.map(e=>e[key]).filter(x=>x!=null); return v.length? v.reduce((a,b)=>a+b,0)/v.length : null; }
