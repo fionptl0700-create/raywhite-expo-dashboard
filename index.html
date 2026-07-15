@@ -48,6 +48,11 @@
   .le-cplcpa-table th,.le-cplcpa-table td{padding:16px 14px!important;line-height:1.5;}
   .le-cplcpa-table tr:nth-child(even){background:var(--bg-subtle);}
   .le-trend-arrow{margin-left:6px;font-size:11px;font-weight:800;}
+  .le-city-tc-chip{border-left:3px solid var(--v-blue);}
+  .le-city-tc-chip .sv{color:var(--v-blue)!important;}
+  .le-city-kh-chip{border-left:3px solid var(--v-purple);}
+  .le-city-kh-chip .sv{color:var(--v-purple)!important;}
+  .le-kpi-orange .lv{color:var(--v-orange-deep)!important;}
   .le-kpi-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:8px 2px;border-bottom:1px dashed var(--border);}
   .le-kpi-row:last-child{border-bottom:none;}
   .le-kpi-row .k{color:var(--grey);font-weight:600;}
@@ -325,7 +330,7 @@ body.sidebar-collapsed .sidebar-collapse-btn svg{transform:rotate(180deg);}
 .sidebar-group-label small{font-size:9.5px;font-weight:600;letter-spacing:.4px;color:rgba(255,255,255,.24);}
 body.sidebar-collapsed .sidebar-group-label small,body.sidebar-collapsed .sidebar-group-label span{display:none;}
 body.sidebar-collapsed .sidebar-group-label{padding:0;text-align:center;}
-.sidebar-nav-item{display:flex;align-items:center;gap:11px;padding:9px 11px;border-radius:8px;border:none;border-left:3px solid transparent;background:transparent;color:rgba(255,255,255,.86);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;text-align:left;white-space:nowrap;overflow:hidden;transition:background .15s,color .15s,border-color .15s;}
+.sidebar-nav-item{display:flex;align-items:center;gap:11px;padding:9px 11px;min-height:42px;border-radius:8px;border:none;border-left:3px solid transparent;background:transparent;color:rgba(255,255,255,.86);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;text-align:left;white-space:nowrap;overflow:hidden;transition:background .15s,color .15s,border-color .15s;}
 .sidebar-nav-item .ic{flex-shrink:0;width:18px;height:18px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.55);}
 .sidebar-nav-item-label small{display:block;font-size:10.5px;font-weight:600;opacity:.7;letter-spacing:.3px;color:rgba(255,255,255,.85);}
 .sidebar-nav-item:hover{background:rgba(255,255,255,.07);color:#fff;}
@@ -366,7 +371,7 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
 .drawer-head{display:flex;align-items:center;justify-content:space-between;padding:16px 14px;border-bottom:1px solid rgba(255,255,255,.1);}
 .drawer-head button{width:30px;height:30px;border-radius:8px;border:none;background:rgba(255,255,255,.08);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;}
 .drawer-nav{padding:10px;display:flex;flex-direction:column;gap:2px;overflow-y:auto;}
-.drawer-nav-item{display:flex;align-items:center;gap:11px;padding:12px 11px;border-radius:9px;border:none;border-left:3px solid transparent;background:transparent;color:rgba(255,255,255,.86);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;text-align:left;}
+.drawer-nav-item{display:flex;align-items:center;gap:11px;padding:12px 11px;min-height:46px;border-radius:9px;border:none;border-left:3px solid transparent;background:transparent;color:rgba(255,255,255,.86);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;text-align:left;}
 .drawer-nav-item .ic{flex-shrink:0;width:18px;height:18px;color:rgba(255,255,255,.55);}
 .drawer-nav-item-label small{display:block;font-size:10.5px;font-weight:600;opacity:.7;color:rgba(255,255,255,.85);}
 .drawer-nav-item:hover{background:rgba(255,255,255,.08);color:#fff;}
@@ -549,7 +554,7 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-top">
     <div class="sidebar-brand">
-      <svg width="30" height="30" viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><rect width="46" height="46" rx="10" fill="#ffffff"/><rect x="2" y="2" width="42" height="42" rx="8" fill="none" stroke="var(--rw-yellow)" stroke-width="2"/><text x="23" y="30" font-family="Arial,sans-serif" font-size="17" font-weight="800" fill="var(--navy)" text-anchor="middle">RW</text></svg>
+      <img src="https://raywhitetw.com/wp-content/themes/A/assets/images/logo_raywhite.svg" alt="Ray White" width="30" height="30" style="flex-shrink:0;border-radius:8px;object-fit:contain;">
       <span class="sidebar-brand-text">RAY WHITE<br><small>TAIWAN · EXPO</small></span>
     </div>
     <button type="button" class="sidebar-collapse-btn" id="sidebarCollapseBtn" title="收合選單" aria-label="收合側邊欄">
@@ -613,11 +618,7 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
 
 <header>
   <div style="display:flex;align-items:center;gap:14px;">
-    <svg width="46" height="46" viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
-<rect width="46" height="46" rx="10" fill="#ffffff"/>
-<rect x="2" y="2" width="42" height="42" rx="8" fill="none" stroke="var(--yellow)" stroke-width="2"/>
-<text x="23" y="30" font-family="Arial,sans-serif" font-size="17" font-weight="800" fill="var(--navy)" text-anchor="middle">RW</text>
-</svg>
+    <img src="https://raywhitetw.com/wp-content/themes/A/assets/images/logo_raywhite.svg" alt="Ray White" width="46" height="46" style="flex-shrink:0;border-radius:10px;object-fit:contain;">
     <div>
       <h1><span class="tag">RAY WHITE TAIWAN</span> <span class="ic" style="width:18px;height:18px;color:var(--yellow);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v18Z"/><path d="M6 12H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h2"/><path d="M18 9h2a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg></span> 活動場次營運效益 Dashboard</h1>
       <div class="sub" style="font-weight:600;letter-spacing:.3px;">Event Intelligence Dashboard ｜ 2025/6–2026/7 ｜ 全數NT$</div>
@@ -1752,8 +1753,8 @@ window.__lazyCharts["cumulative-overview"] = __initOverviewCharts;
 
   const costHtml = `
     <div class="stat-chip-row" style="margin-bottom:12px;">
-      <div class="stat-chip"><div class="sv">NT$${fmt2(tc28.ads+tc28.venue)}</div><div class="sl">台中7/11總成本</div></div>
-      <div class="stat-chip"><div class="sv">NT$${fmt2(kh28.ads+kh28.venue)}</div><div class="sl">高雄7/12總成本</div></div>
+      <div class="stat-chip le-city-tc-chip"><div class="sv">NT$${fmt2(tc28.ads+tc28.venue)}</div><div class="sl">台中7/11總成本</div></div>
+      <div class="stat-chip le-city-kh-chip"><div class="sv">NT$${fmt2(kh28.ads+kh28.venue)}</div><div class="sl">高雄7/12總成本</div></div>
       <div class="stat-chip"><div class="sv" style="color:var(--good);">NT$${fmt2(tc28.ads+tc28.venue+kh28.ads+kh28.venue)}</div><div class="sl">兩天合計</div></div>
       <div class="stat-chip"><div class="sv">NT$${fmt2(avgCostPerEvent)}</div><div class="sl">25場單場歷史平均成本</div></div>
     </div>
@@ -2262,7 +2263,7 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
 
   // ---- 6 KPI 卡 ----
   const kpiCards = [
-    {ll:"總報名", lv:fmtOrDash(total.registrations)+"人", ls:d1.dateLabel+"："+fmtOrDash(d1.registrations)+"｜"+d2.dateLabel+"："+fmtOrDash(d2.registrations), cc:""},
+    {ll:"總報名", lv:fmtOrDash(total.registrations)+"人", ls:d1.dateLabel+"："+fmtOrDash(d1.registrations)+"｜"+d2.dateLabel+"："+fmtOrDash(d2.registrations), cc:"le-orange-val"},
     {ll:"總實到", lv:fmtOrDash(total.attendancePeople)+"人", ls:"整體到場率"+fmtPctOrDash(total.attendanceRate), cc:"le-green-val"},
     {ll:"1-on-1", lv:fmtOrDash(total.oneOnOne)+"組", ls:"實到轉1-on-1率"+fmtPctOrDash(oneOnOneRate), cc:""},
     {ll:"Reserved", lv:total.reserved!=null?fmtOrDash(total.reserved)+"組":"待回報", ls:"依業務回報後更新", cc:""},
