@@ -2461,12 +2461,13 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
     if(!ctx || !window.Chart) return;
     if(window.Chart.getChart(ctx)) window.Chart.getChart(ctx).destroy();
     new Chart(ctx, {
-      type:"bar", indexAxis:"y",
+      type:"bar",
       data:{
         labels: data.map(function(r,i){ return (i===0?"🥇":i===1?"🥈":i===2?"🥉":"　")+" "+r.name; }),
         datasets:[{ label:"邀約率(%)", data: data.map(function(r){ return +(r.rate*100).toFixed(1); }), backgroundColor: data.map(function(r,i){ return i===0?"#FFC72C":"#a8dadc"; }) }]
       },
       options:{
+        indexAxis:"y",
         responsive:true, maintainAspectRatio:false,
         plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label:function(c){ const r=data[c.dataIndex]; return ["邀約率 "+c.parsed.x+"%", "會參加(邀約數) "+r.willAttend+"人 ／ 名單 "+r.total+"筆"]; } } } },
         scales:{ x:{ beginAtZero:true, max:110, title:{display:true,text:"邀約率(%)"} } }
