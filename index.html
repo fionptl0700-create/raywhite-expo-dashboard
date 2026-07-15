@@ -1943,7 +1943,7 @@ new Chart(document.getElementById("consultantChart"), {
   plugins:[rankValueLabelsPlugin]
 });
 }
-window.__lazyCharts["consultants"] = initConsultantChart;
+window.__lazyCharts["sales"] = initConsultantChart;
 
 
 const activeConsultants = consultants.filter(c=> !/離職/.test(c.name) && c.name!=="Amber/Bailey");
