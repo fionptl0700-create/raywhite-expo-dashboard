@@ -2081,30 +2081,45 @@ const s27 = [
 
 // ---- 營運轉換漏斗（三段獨立，不可串接） ----
 function funnelHtml(groupTitle, groupSub, stages){
+  // 寬度依數值比例縮放（真正的漏斗形狀，基準＝第一階段），待回報以虛線灰塊呈現、不參與比例計算，真實0值以實心紅塊呈現
+  const MIN_PCT = 18;
+  function numOf(s){
+    let v = s.raw!==undefined ? s.raw : s.n;
+    if(typeof v === "string") v = v.trim()==="" ? NaN : parseFloat(v.replace(/,/g,""));
+    return (v==null || isNaN(v)) ? null : v;
+  }
+  const vals = stages.map(numOf);
+  const positives = vals.filter(v=>v!=null && v>0);
+  const maxN = (vals[0]!=null && vals[0]>0) ? vals[0] : (positives.length ? Math.max.apply(null, positives) : 1);
   const rows = stages.map((s,i)=>{
-    const bar = `<div class="funnel-stage">
-      <div class="funnel-bar" style="background:linear-gradient(135deg,${s.color||'var(--v-blue)'},${s.color2||'#1d4ed8'});" data-tip="${(s.tip||'').replace(/"/g,'&quot;')}">
-        <div class="n">${s.n}</div>
-        <div class="l">${s.label}</div>
-        <div class="cov">${s.cov||''}</div>
-      </div>
-    </div>`;
-    if(i===0) return bar;
-    const prev = stages[i-1];
-    const sRaw = s.raw!=null ? s.raw : s.n;
-    const prevRaw = prev.raw!=null ? prev.raw : prev.n;
-    const validChain = sRaw!=null && prevRaw!=null && !isNaN(sRaw) && !isNaN(prevRaw) && prevRaw!==0 && s.chainOk!==false;
-    const convTxt = validChain ? Math.round(sRaw/prevRaw*100)+"%" : "—";
-    const arrow = `<div class="funnel-arrow">
-        <svg width="20" height="14" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 7h16M12 2l6 5-6 5"/></svg>
-        <div>${convTxt}</div>
-      </div>`;
-    return arrow + bar;
+    const val = vals[i];
+    const isPending = val==null;
+    const isZero = !isPending && val===0;
+    const widthPct = isPending ? MIN_PCT : Math.max(MIN_PCT, Math.round(val/maxN*100));
+    const bg = isZero ? "var(--v-red),#8f1d1d" : (s.color||"var(--v-blue)")+","+(s.color2||"#1d4ed8");
+    const barStyle = isPending
+      ? ' style="width:'+widthPct+'%;"'
+      : ' style="width:'+widthPct+'%;background:linear-gradient(135deg,'+bg+');"';
+    let convHtml = "";
+    if(i>0){
+      const prev = stages[i-1];
+      const pn = numOf(prev), sn = val;
+      const validChain = sn!=null && pn!=null && pn!==0 && s.chainOk!==false;
+      convHtml = '<div class="funnel-conv-label">'+
+          '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>'+
+          (validChain ? '<span>'+Math.round(sn/pn*100)+'%</span>' : '<span class="fc-pending">'+(s.chainOk===false?'待追蹤':'—')+'</span>')+
+        '</div>';
+    }
+    return convHtml+
+      '<div class="funnel-stage-v" data-tip="'+(s.tip||'').replace(/"/g,'&quot;')+'">'+
+        '<div class="funnel-bar-v'+(isPending?' pending':'')+'"'+barStyle+'><span class="fn-n">'+(isPending?"待回報":s.n)+'</span></div>'+
+        '<div class="fn-label">'+s.label+(s.cov?'<br><span style="font-weight:500;opacity:.7;">'+s.cov+'</span>':'')+'</div>'+
+      '</div>';
   }).join("");
-  return `<div style="margin-bottom:18px;">
+  return `<div style="margin-bottom:22px;">
     <div style="font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:2px;">${groupTitle}</div>
     <div style="font-size:11px;color:var(--grey);margin-bottom:6px;">${groupSub}</div>
-    <div class="funnel-row">${rows}</div>
+    <div class="funnel-col">${rows}</div>
   </div>`;
 }
 const s27OneSum = s27.reduce((s,x)=>s+x.one,0);
