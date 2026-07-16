@@ -584,7 +584,7 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
       <button type="button" class="sidebar-nav-item" data-tab="management" data-nav-group="mgmt"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-8 8.5-4.5-1-8-3.5-8-8.5V5l8-3 8 3z"/><polyline points="9 12 11 14 15 10"/></svg></span><span class="sidebar-nav-item-label">管理中心 <small>Management Center</small></span></button>
   </nav>
   <div class="sidebar-foot">
-    <div class="sidebar-foot-row"><span class="dot dot-ok"></span><span>資料更新 2026/7/12</span></div>
+    <div class="sidebar-foot-row"><span class="dot dot-ok"></span><span>資料更新 2026/7/15</span></div>
     <div class="sidebar-foot-row sidebar-foot-sub">廣告資料截至 2026/7/11</div>
   </div>
 </aside>
@@ -823,7 +823,15 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
   </section>
 <section id="matrix">
     <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></svg></span> 活動效益矩陣（CPL × 到場率 × 成本氣泡）</h2>
-    <div class="info-line">氣泡大小＝該場總成本(廣告+場地)；虛線為平均CPL(25場)／平均到場率(24場，不含S特別場)，劃出四象限；氣泡標籤為屆數。與下方「活動總覽」明細表對照使用。</div>
+    <div class="info-line">氣泡大小＝該場總成本(廣告+場地)；虛線為平均CPL(25場)／平均到場率(24場，不含S特別場)，劃出四象限；氣泡標籤為屆數（第28屆兩城分開列示，標籤加註中/雄）。與下方「活動總覽」明細表對照使用。</div>
+    <div class="matrix-legend" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:0 0 12px;font-size:11.5px;color:var(--grey);">
+      <span style="font-weight:700;color:var(--navy);">氣泡顏色＝屆別評等：</span>
+      <span style="display:inline-flex;align-items:center;gap:5px;"><span class="grade gA" style="width:17px;height:17px;line-height:17px;font-size:9.5px;">A</span>優質</span>
+      <span style="display:inline-flex;align-items:center;gap:5px;"><span class="grade gB" style="width:17px;height:17px;line-height:17px;font-size:9.5px;">B</span>良好</span>
+      <span style="display:inline-flex;align-items:center;gap:5px;"><span class="grade gC" style="width:17px;height:17px;line-height:17px;font-size:9.5px;">C</span>普通</span>
+      <span style="display:inline-flex;align-items:center;gap:5px;"><span class="grade gD" style="width:17px;height:17px;line-height:17px;font-size:9.5px;">D</span>待改善</span>
+      <span style="display:inline-flex;align-items:center;gap:5px;"><span class="grade gN" style="width:17px;height:17px;line-height:17px;font-size:9.5px;">N</span>資料不足／籌備中</span>
+    </div>
     <div class="chart-wrap" style="height:400px;"><canvas id="matrixChart"></canvas></div>
   </section>
 </div>
@@ -1090,7 +1098,7 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
 
 </div>
 </div>
-<div class="foot">Ray White Taiwan 活動效益總表.xlsx／Google Sheet「Expo客戶進度」「廣告成效」／raywhitetw.com　｜　Dashboard更新：2026/7/12　｜　廣告資料截至：2026/7/11　｜　活動報名/實到資料截至：2026/7/12　｜　業務後續追蹤(1-on-1／Reserved／開單)：持續追蹤中</div>
+<div class="foot">Ray White Taiwan 活動效益總表.xlsx／Google Sheet「Expo客戶進度」「廣告成效」／raywhitetw.com　｜　Dashboard更新：2026/7/15　｜　廣告資料截至：2026/7/11　｜　活動報名/實到資料截至：2026/7/12　｜　業務後續追蹤(1-on-1／Reserved／開單)：持續追蹤中</div>
 
 </div>
 
@@ -1643,7 +1651,7 @@ new Chart(document.getElementById("matrixChart"), {
     responsive:true, maintainAspectRatio:false,
     plugins:{
       legend:{display:false},
-      tooltip:{ callbacks:{ label:(ctx)=>{ const d=matrixData[ctx.dataIndex]; return [`第${d.ord}屆`, `CPL NT$${fmt(d.x)}`, `到場率 ${d.y}%`]; } } }
+      tooltip:{ callbacks:{ label:(ctx)=>{ const d=matrixData[ctx.dataIndex]; return [`第${d.ord}屆${d.loc?"（"+d.loc+"）":""}`, `CPL NT$${fmt(d.x)}`, `到場率 ${d.y}%`]; } } }
     },
     scales:{
       x:{ title:{display:true,text:"CPL (NT$，越左越省)"} },
@@ -1831,10 +1839,19 @@ document.getElementById("gradeStatsRow").innerHTML = gradeStats.filter(s=>s.coun
   </div>`).join("");
 markReveal(document.getElementById("gradeStatsRow"));
 
-// ---- Event Performance Matrix：CPL × 到場率 × 成本氣泡 ----
-const matrixData = completed.filter(e=>e.cpl!=null && e.rate!=null).map(e=>({
-  x:e.cpl, y:+(e.rate*100).toFixed(1), r: Math.max(6, Math.sqrt(((e.ads||0)+(e.venue||0))/450)), ord:e.ord, grade:e.grade
-}));
+// ---- Event Performance Matrix：CPL × 到場率 × 成本氣泡（用全部events，非僅completed，故第28屆兩場皆列入；平均線仍依25場completed計算不變）----
+const matrixSource = events.filter(e=>e.cpl!=null && e.rate!=null);
+const matrixOrdCounts = {};
+matrixSource.forEach(e=>{ matrixOrdCounts[e.ord] = (matrixOrdCounts[e.ord]||0)+1; });
+const matrixCityShort = {"台北":"北","高雄":"雄","台中":"中","台中(線上)":"中","新竹":"竹","台南":"南"};
+const matrixData = matrixSource.map(e=>{
+  const dual = matrixOrdCounts[e.ord] > 1;
+  return {
+    x:e.cpl, y:+(e.rate*100).toFixed(1), r: Math.max(6, Math.sqrt(((e.ads||0)+(e.venue||0))/450)),
+    ord:e.ord, grade:e.grade, loc:e.loc,
+    label: dual ? e.ord+(matrixCityShort[e.loc]||"") : e.ord
+  };
+});
 const quadrantPlugin = {
   id:"quadrantPlugin",
   afterDraw(chart){
@@ -1868,7 +1885,7 @@ const bubbleLabelPlugin = {
     ctx.font = "800 9.5px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif";
     ctx.fillStyle = "#101828";
     ctx.textAlign = "center";
-    meta.data.forEach((el,i)=>{ ctx.fillText(matrixData[i].ord, el.x, el.y+3); });
+    meta.data.forEach((el,i)=>{ ctx.fillText(matrixData[i].label, el.x, el.y+3); });
     ctx.restore();
   }
 };
@@ -2156,7 +2173,7 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
     eventId: 28,
     title: "第28屆",
     dateRangeLabel: "2026/7/11–2026/7/12",
-    lastUpdated: "2026/7/12",
+    lastUpdated: "2026/7/15",
     days: [
       {
         dayIndex: 1, date: "2026-07-11", dateLabel: "7/11", city: "台中",
@@ -2708,7 +2725,7 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
         responsive:true, maintainAspectRatio:false,
         plugins:{
           legend:{display:false},
-          tooltip:{ callbacks:{ label:function(ctx2){ const d=matrixData[ctx2.dataIndex]; return ["第"+d.ord+"屆", "CPL NT$"+fmt(d.x), "到場率 "+d.y+"%"]; } } }
+          tooltip:{ callbacks:{ label:function(ctx2){ const d=matrixData[ctx2.dataIndex]; return ["第"+d.ord+"屆"+(d.loc?"（"+d.loc+"）":""), "CPL NT$"+fmt(d.x), "到場率 "+d.y+"%"]; } } }
         },
         scales:{
           x:{ title:{display:true,text:"CPL (NT$，越左越省)"} },
