@@ -306,6 +306,10 @@
   .stat-chip{background:#fff;border:1px solid var(--border);border-radius:10px;padding:8px 13px;display:flex;flex-direction:column;gap:1px;min-width:90px;}
   .stat-chip .sv{font-size:16px;font-weight:800;color:var(--navy);}
   .stat-chip .sl{font-size:10px;color:var(--grey);font-weight:700;}
+  .cost-row-cell{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .cost-note{color:var(--grey);font-weight:500;font-size:11.5px;}
+  .cost-pct-pill{flex-shrink:0;font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:20px;background:var(--status-info-bg);color:var(--status-info);white-space:nowrap;}
+  .cost-pct-pill.total{background:var(--status-positive-bg);color:var(--status-positive);}
 
 /* ============ App Shell: Sidebar / Drawer / Topbar / Tab Pages ============ */
 html{scroll-behavior:smooth;}
@@ -724,13 +728,13 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
       <tr><td class="left">9:30房產場報名人數</td><td class="left le-city-tc le-city-tc-cell">49（房產場專屬欄位）</td><td class="left le-city-kh le-city-kh-cell">21（房產場專屬欄位）</td><td class="left le-cat-total">70</td></tr>
       <tr><td class="left">單場次拆分(9:30/14:00)</td><td class="left le-city-tc le-city-tc-cell">已併入總報名(線上單場次，不拆分)</td><td class="left le-city-kh le-city-kh-cell">頁簽不分場次，個別場次人數待業務回報</td><td class="left le-cat-total">—</td></tr>
       <tr><td class="left">實到人數</td><td class="left le-city-tc le-city-tc-cell">13人（房產場，2026/7/12使用者提供）</td><td class="left le-city-kh le-city-kh-cell">9:30場：6組(6人)｜14:00場：待業務回報</td><td class="left le-cat-total">19人（詳見Latest Event總覽，14:00場待補）</td></tr>
-      <tr><td class="left">場地費(NT$)</td><td class="left le-city-tc le-city-tc-cell">0（因颱風改線上）（0.0%）</td><td class="left le-city-kh le-city-kh-cell" data-tip="Google Sheet「廣告成效」表格記載為NT$70,000，與戰情室此處NT$35,000有落差，待業務/財務核對來源憑證後再議，暫以戰情室原始記錄為準。">35,000（38.3%）</td><td class="left le-cat-total">35,000（17.0%）</td></tr>
-      <tr><td class="left">住宿費(NT$)</td><td class="left le-city-tc le-city-tc-cell">1,800（7/10晚台中橙居，Amber，提前出差）（1.6%）</td><td class="left le-city-kh le-city-kh-cell">11,500（7/11晚高雄德立莊，為7/12過夜）（12.6%）</td><td class="left le-cat-total">13,300（6.5%）</td></tr>
-      <tr><td class="left">人事(PT)成本(NT$)</td><td class="left le-city-tc le-city-tc-cell">1,100（1.0%）</td><td class="left le-city-kh le-city-kh-cell">2,700（3.0%）</td><td class="left le-cat-total">3,800（1.8%）</td></tr>
-      <tr><td class="left">廣告花費(NT$，各對應Campaign÷2)</td><td class="left le-city-tc le-city-tc-cell">93,260（81.3%）</td><td class="left le-city-kh le-city-kh-cell">23,480（25.7%）</td><td class="left le-cat-total">116,740（56.7%）</td></tr>
-      <tr><td class="left">高鐵票(NT$)</td><td class="left le-city-tc le-city-tc-cell">12,805（11.2%）</td><td class="left le-city-kh le-city-kh-cell">12,805（14.0%）</td><td class="left le-cat-total">25,610（12.4%）</td></tr>
-      <tr><td class="left">伙食費(NT$)</td><td class="left le-city-tc le-city-tc-cell">5,800（5.1%）</td><td class="left le-city-kh le-city-kh-cell">5,800（6.4%）</td><td class="left le-cat-total">11,600（5.6%）</td></tr>
-      <tr style="font-weight:800;"><td class="left">小計</td><td class="left le-city-tc le-city-tc-cell">114,765（100.0%）</td><td class="left le-city-kh le-city-kh-cell">91,285（100.0%）</td><td class="left" style="color:var(--good);background:#eaf7ee;font-weight:800;">206,050（100.0%）</td></tr>
+      <tr><td class="left">場地費(NT$)</td><td class="left le-city-tc le-city-tc-cell"><div class="cost-row-cell"><span>0<span class="cost-note">（因颱風改線上）</span></span><span class="cost-pct-pill">0.0%</span></div></td><td class="left le-city-kh le-city-kh-cell" data-tip="Google Sheet「廣告成效」表格記載為NT$70,000，與戰情室此處NT$35,000有落差，待業務/財務核對來源憑證後再議，暫以戰情室原始記錄為準。"><div class="cost-row-cell"><span>35,000</span><span class="cost-pct-pill">38.3%</span></div></td><td class="left le-cat-total"><div class="cost-row-cell"><span>35,000</span><span class="cost-pct-pill total">17.0%</span></div></td></tr>
+      <tr><td class="left">住宿費(NT$)</td><td class="left le-city-tc le-city-tc-cell"><div class="cost-row-cell"><span>1,800<span class="cost-note">（7/10晚台中橙居，Amber，提前出差）</span></span><span class="cost-pct-pill">1.6%</span></div></td><td class="left le-city-kh le-city-kh-cell"><div class="cost-row-cell"><span>11,500<span class="cost-note">（7/11晚高雄德立莊，為7/12過夜）</span></span><span class="cost-pct-pill">12.6%</span></div></td><td class="left le-cat-total"><div class="cost-row-cell"><span>13,300</span><span class="cost-pct-pill total">6.5%</span></div></td></tr>
+      <tr><td class="left">人事(PT)成本(NT$)</td><td class="left le-city-tc le-city-tc-cell"><div class="cost-row-cell"><span>1,100</span><span class="cost-pct-pill">1.0%</span></div></td><td class="left le-city-kh le-city-kh-cell"><div class="cost-row-cell"><span>2,700</span><span class="cost-pct-pill">3.0%</span></div></td><td class="left le-cat-total"><div class="cost-row-cell"><span>3,800</span><span class="cost-pct-pill total">1.8%</span></div></td></tr>
+      <tr><td class="left">廣告花費(NT$，各對應Campaign÷2)</td><td class="left le-city-tc le-city-tc-cell"><div class="cost-row-cell"><span>93,260</span><span class="cost-pct-pill">81.3%</span></div></td><td class="left le-city-kh le-city-kh-cell"><div class="cost-row-cell"><span>23,480</span><span class="cost-pct-pill">25.7%</span></div></td><td class="left le-cat-total"><div class="cost-row-cell"><span>116,740</span><span class="cost-pct-pill total">56.7%</span></div></td></tr>
+      <tr><td class="left">高鐵票(NT$)</td><td class="left le-city-tc le-city-tc-cell"><div class="cost-row-cell"><span>12,805</span><span class="cost-pct-pill">11.2%</span></div></td><td class="left le-city-kh le-city-kh-cell"><div class="cost-row-cell"><span>12,805</span><span class="cost-pct-pill">14.0%</span></div></td><td class="left le-cat-total"><div class="cost-row-cell"><span>25,610</span><span class="cost-pct-pill total">12.4%</span></div></td></tr>
+      <tr><td class="left">伙食費(NT$)</td><td class="left le-city-tc le-city-tc-cell"><div class="cost-row-cell"><span>5,800</span><span class="cost-pct-pill">5.1%</span></div></td><td class="left le-city-kh le-city-kh-cell"><div class="cost-row-cell"><span>5,800</span><span class="cost-pct-pill">6.4%</span></div></td><td class="left le-cat-total"><div class="cost-row-cell"><span>11,600</span><span class="cost-pct-pill total">5.6%</span></div></td></tr>
+      <tr style="font-weight:800;"><td class="left">小計</td><td class="left le-city-tc le-city-tc-cell"><div class="cost-row-cell"><span>114,765</span><span class="cost-pct-pill total">100.0%</span></div></td><td class="left le-city-kh le-city-kh-cell"><div class="cost-row-cell"><span>91,285</span><span class="cost-pct-pill total">100.0%</span></div></td><td class="left" style="color:var(--good);background:#eaf7ee;font-weight:800;"><div class="cost-row-cell"><span>206,050</span><span class="cost-pct-pill total">100.0%</span></div></td></tr>
       </tbody></table>
 </section>
 </div>
@@ -1770,10 +1774,10 @@ window.__lazyCharts["cumulative-overview"] = __initOverviewCharts;
   const avgCostDeltaPct = (((tc28.ads+tc28.venue+kh28.ads+kh28.venue)/2 - avgCostPerEvent)/avgCostPerEvent*100).toFixed(1);
   const costHtml = `
     <div class="stat-chip-row" style="margin-bottom:12px;">
-      <div class="stat-chip le-city-tc-chip"><div class="sv">NT$${fmt2(tc28.ads+tc28.venue)}</div><div class="sl">台中7/11總成本（${tcCostShare}%）</div></div>
-      <div class="stat-chip le-city-kh-chip"><div class="sv">NT$${fmt2(kh28.ads+kh28.venue)}</div><div class="sl">高雄7/12總成本（${khCostShare}%）</div></div>
-      <div class="stat-chip"><div class="sv" style="color:var(--good);">NT$${fmt2(twoDayTotalCost)}</div><div class="sl">兩天合計（100.0%）</div></div>
-      <div class="stat-chip"><div class="sv">NT$${fmt2(avgCostPerEvent)}</div><div class="sl">25場單場歷史平均成本（本屆單場均值${avgCostDeltaPct>=0?"高":"低"}於平均${Math.abs(avgCostDeltaPct)}%）</div></div>
+      <div class="stat-chip le-city-tc-chip"><div class="sv">NT$${fmt2(tc28.ads+tc28.venue)}</div><div class="sl">台中7/11總成本 <span class="cost-pct-pill" style="margin-left:2px;">${tcCostShare}%</span></div></div>
+      <div class="stat-chip le-city-kh-chip"><div class="sv">NT$${fmt2(kh28.ads+kh28.venue)}</div><div class="sl">高雄7/12總成本 <span class="cost-pct-pill" style="margin-left:2px;">${khCostShare}%</span></div></div>
+      <div class="stat-chip"><div class="sv" style="color:var(--good);">NT$${fmt2(twoDayTotalCost)}</div><div class="sl">兩天合計 <span class="cost-pct-pill total" style="margin-left:2px;">100.0%</span></div></div>
+      <div class="stat-chip"><div class="sv">NT$${fmt2(avgCostPerEvent)}</div><div class="sl">25場單場歷史平均成本 <span class="cost-pct-pill ${avgCostDeltaPct>=0?"":"total"}" style="margin-left:2px;">本屆${avgCostDeltaPct>=0?"高":"低"}${Math.abs(avgCostDeltaPct)}%</span></div></div>
     </div>
     <div class="info-line" style="margin-bottom:12px;">台中7/11單場成本(NT$${fmt2(tc28.ads+tc28.venue)})${(tc28.ads+tc28.venue)>avgCostPerEvent?'高於':'低於'}25場單場歷史平均(NT$${fmt2(avgCostPerEvent)})；高雄7/12單場成本(NT$${fmt2(kh28.ads+kh28.venue)})${(kh28.ads+kh28.venue)>avgCostPerEvent?'高於':'低於'}平均。場地費差異主因：台中因颱風改線上場地費為0，高雄仍為實體場地(萬豪10樓)NT$35,000。</div>
   `;
