@@ -1238,6 +1238,11 @@ const events = [
  {ord:"29",d:"2026-07-26",event:"Taiwan 29th EXPO（7/26台北）",date:"2026/7/26",loc:"台北",leads:null,att:null,rate:null,ads:null,venue:0,cpl:null,grade:"N",img:"https://raywhitetw.com/wp-content/uploads/2026/07/%E5%8F%B0%E7%81%A3%E7%89%88Cavallo.png",prep:true},
 ];
 const completed = events.filter(e=>!e.prep);
+// 7/12高雄(prep:true)但leads/att/rate/cpl皆為定案數字，僅後續1-on-1/Reserved追蹤未完成；
+// 凡只需要活動當日成效欄位(不依賴到場後轉換漏斗)的計算，改用completedForTrend補上7/12，
+// 避免28屆只剩7/11半場代表全屆。completed本身(及沿用它的avgRate/avgCpl等既有平均公式)維持不變。
+const kh28Event = events.find(e=>e.ord==="28" && e.d==="2026-07-12");
+const completedForTrend = kh28Event ? completed.concat([kh28Event]) : completed;
 function tblAvgOf(arr,key){ const v=arr.map(e=>e[key]).filter(x=>x!=null); return v.length? v.reduce((a,b)=>a+b,0)/v.length : null; }
 const tAvgLeads = tblAvgOf(completed,"leads");
 const tAvgAtt = tblAvgOf(completed,"att");
@@ -1306,7 +1311,10 @@ const _l3Ads = _last3avg(_adsSeries), _l3Cpl = _last3avg(_cplSeries), _l3Rate = 
 
 // ---- 成本/轉換指標：累計／該月累計／當次 三段切換 ----
 function scopeEvents(scope){
-  if(scope==="latest") return completed.slice(-1);
+  if(scope==="latest"){
+    const latestOrd = completed[completed.length-1].ord;
+    return events.filter(e=>e.ord===latestOrd);
+  }
   if(scope==="month"){
     const latestMonth = events[events.length-1].d.slice(0,7);
     return events.filter(e=>e.d.slice(0,7)===latestMonth);
@@ -1327,7 +1335,7 @@ function renderCostConvSection(scope){
   const n = evs.length;
   const scopeLabel = scope==="all" ? `${n}場合計` : scope==="month" ? `當月${n}場合計` : `當次（第${evs[0]?.ord||"—"}屆）`;
   const isSingle = scope==="latest";
-  document.getElementById("scopeHint").textContent = scope==="all" ? "＝全部25場已完成活動" : scope==="month" ? `＝${evs[0]?evs[0].d.slice(0,7):""}當月全部活動，共${n}場（含資料仍在追蹤更新中場次）` : `＝最近一場已完成活動（第${evs[0]?.ord||"—"}屆）`;
+  document.getElementById("scopeHint").textContent = scope==="all" ? "＝全部25場已完成活動" : scope==="month" ? `＝${evs[0]?evs[0].d.slice(0,7):""}當月全部活動，共${n}場（含資料仍在追蹤更新中場次）` : `＝最近一屆活動（第${evs[0]?.ord||"—"}屆，共${n}場次，含資料仍在追蹤更新中場次）`;
 
   renderKpis("kpiGridCost", [
     {label:`${scopeLabel}廣告花費`, value: fmt(tAds), raw:tAds, note:"NT$", icon:"dollar", cls:"cost",
@@ -1410,14 +1418,15 @@ document.getElementById("costBarWrap").innerHTML = costBarData.map(d=>{
 }).join("");
 markReveal(document.getElementById("costBarWrap"));
 
-const rateEvents = completed.filter(e=>e.rate!=null);
+const rateEvents = completedForTrend.filter(e=>e.rate!=null);
 const last3Rate = rateEvents.slice(-3);
 const last3AvgRate = last3Rate.reduce((s,e)=>s+e.rate,0)/last3Rate.length;
 const rateUp = last3AvgRate >= avgRate;
-const cplEvents = completed.filter(e=>e.cpl!=null);
+const cplEvents = completedForTrend.filter(e=>e.cpl!=null);
 const last3Cpl = cplEvents.slice(-3);
 const last3AvgCpl = last3Cpl.reduce((s,e)=>s+e.cpl,0)/last3Cpl.length;
 const cplBetter = last3AvgCpl <= avgCpl;
+function uniqOrds(arr){ return Array.from(new Set(arr.map(e=>e.ord))).join("、"); }
 
 // ---- Executive summary strip (4-card headline) ----
 const totalLeadsAll = completed.reduce((s,e)=>s+(e.leads||0),0);
@@ -1439,8 +1448,8 @@ document.getElementById("execSummary").querySelectorAll(".v.cu").forEach(el=>{
 document.getElementById("moreKpiToggleCount").textContent = "總報名 " + totalLeadsAll.toLocaleString() + "・總實到 " + totalAttAll.toLocaleString();
 
 const deltaHtml = `
-  <div class="insight-card ${rateUp?'up':'down'}" data-tip="近3場(第${last3Rate.map(e=>e.ord).join('、')}屆)到訪率均值 vs 24場整體均值。"><span class="arrow">${icon(rateUp?"trending-up":"trending-down",18)}</span><div class="txt"><div class="t1">近3場到訪率 vs 24場平均</div><div class="t2">${pct(last3AvgRate)} vs ${pct(avgRate)}</div></div></div>
-  <div class="insight-card ${cplBetter?'up':'down'}" data-tip="近3場(第${last3Cpl.map(e=>e.ord).join('、')}屆)CPL均值 vs 25場整體均值，數字愈低愈好。"><span class="arrow">${icon(cplBetter?"trending-up":"trending-down",18)}</span><div class="txt"><div class="t1">近3場CPL vs 25場平均</div><div class="t2">NT$${fmt(last3AvgCpl)} vs NT$${fmt(avgCpl)}</div></div></div>
+  <div class="insight-card ${rateUp?'up':'down'}" data-tip="近3場次(第${uniqOrds(last3Rate)}屆，第28屆兩場次分開計入)到訪率均值 vs 24場整體均值。"><span class="arrow">${icon(rateUp?"trending-up":"trending-down",18)}</span><div class="txt"><div class="t1">近3場次到訪率 vs 24場平均</div><div class="t2">${pct(last3AvgRate)} vs ${pct(avgRate)}</div></div></div>
+  <div class="insight-card ${cplBetter?'up':'down'}" data-tip="近3場次(第${uniqOrds(last3Cpl)}屆，第28屆兩場次分開計入)CPL均值 vs 25場整體均值，數字愈低愈好。"><span class="arrow">${icon(cplBetter?"trending-up":"trending-down",18)}</span><div class="txt"><div class="t1">近3場次CPL vs 25場平均</div><div class="t2">NT$${fmt(last3AvgCpl)} vs NT$${fmt(avgCpl)}</div></div></div>
 `;
 document.getElementById("execDelta").innerHTML = deltaHtml;
 document.getElementById("convDelta").innerHTML = deltaHtml;
@@ -1500,8 +1509,8 @@ if(copyBtn){
 }
 
 const insights = [
-  {up:rateUp, t1:"近3場（第"+last3Rate.map(e=>e.ord).join("、")+"屆）到場率 vs 24場平均", t2: pct(last3AvgRate)+" vs "+pct(avgRate)},
-  {up:cplBetter, t1:"近3場（第"+last3Cpl.map(e=>e.ord).join("、")+"屆）CPL vs 25場平均", t2: "NT$"+fmt(last3AvgCpl)+" vs NT$"+fmt(avgCpl)},
+  {up:rateUp, t1:"近3場次（第"+uniqOrds(last3Rate)+"屆，28屆兩場次分開計入）到場率 vs 24場平均", t2: pct(last3AvgRate)+" vs "+pct(avgRate)},
+  {up:cplBetter, t1:"近3場次（第"+uniqOrds(last3Cpl)+"屆，28屆兩場次分開計入）CPL vs 25場平均", t2: "NT$"+fmt(last3AvgCpl)+" vs NT$"+fmt(avgCpl)},
   {up: cplStreakInfo.streak<3, t1:"CPL連續惡化偵測", t2: cplStreakInfo.streak>=3 ? `${icon("alert",12,"var(--v-red)")} 連續${cplStreakInfo.streak}場上升（第${cplStreakOrds}屆）` : "近期無連續3場以上上升"},
   {up: rateStreakInfo.streak<3, t1:"到場率連續惡化偵測", t2: rateStreakInfo.streak>=3 ? `${icon("alert",12,"var(--v-red)")} 連續${rateStreakInfo.streak}場下降（第${rateStreakOrds}屆）` : "近期無連續3場以上下降"},
 ];
@@ -1521,11 +1530,9 @@ function rollingAvg(arr, win){
 // 趨勢圖專用資料源：completed另外補上7/12高雄（prep:true但leads/att/rate/cpl皆為定案數字，
 // 僅後續1-on-1/Reserved追蹤未完成，不影響CPL/到場率繪圖），避免28屆只畫出7/11、7/12在趨勢圖上憑空消失。
 // 不影響avgRate/avgCpl等既有平均公式（仍維持completed口徑，見v73決議）。
-const kh28TrendEvent = events.find(e=>e.ord==="28" && e.d==="2026-07-12");
-const trendEvents = kh28TrendEvent ? completed.concat([kh28TrendEvent]) : completed;
-const rateSeries = trendEvents.map(e=>e.rate);
+const rateSeries = completedForTrend.map(e=>e.rate);
 const rateMA3 = rollingAvg(rateSeries,3);
-const cplSeriesForTrend = trendEvents.map(e=>e.cpl);
+const cplSeriesForTrend = completedForTrend.map(e=>e.cpl);
 const cplMA3 = rollingAvg(cplSeriesForTrend,3);
 
 function avgLinePlugin(avgVal, label, color){
@@ -1624,7 +1631,7 @@ function __initPerformanceCharts(){
 new Chart(document.getElementById("rateTrendChart"), {
   type:"line",
   data:{
-    labels: trendEvents.map(e=>"第"+e.ord+(e.loc==="高雄"&&e.d==="2026-07-12"?"雄":"")+"屆\n"+shortDate(e.date)),
+    labels: completedForTrend.map(e=>"第"+e.ord+(e.loc==="高雄"&&e.d==="2026-07-12"?"雄":"")+"屆\n"+shortDate(e.date)),
     datasets:[
       {label:"到場率(%)", data: rateSeries.map(v=>v!=null?+(v*100).toFixed(1):null), borderColor:"#D64A4A", backgroundColor:"#D64A4A", tension:0.25, spanGaps:true, pointRadius:3, pointHoverRadius:6},
       {label:"3場移動平均(%)", data: rateMA3.map(v=>v!=null?+(v*100).toFixed(1):null), borderColor:"#1B5FC4", backgroundColor:"#1B5FC4", tension:0.25, spanGaps:true, borderDash:[6,4], pointRadius:0, borderWidth:2.5},
@@ -1641,7 +1648,7 @@ new Chart(document.getElementById("rateTrendChart"), {
 new Chart(document.getElementById("cplTrendChart"), {
   type:"line",
   data:{
-    labels: trendEvents.map(e=>"第"+e.ord+(e.loc==="高雄"&&e.d==="2026-07-12"?"雄":"")+"屆\n"+shortDate(e.date)),
+    labels: completedForTrend.map(e=>"第"+e.ord+(e.loc==="高雄"&&e.d==="2026-07-12"?"雄":"")+"屆\n"+shortDate(e.date)),
     datasets:[
       {label:"CPL(NT$)", data: cplSeriesForTrend, borderColor:"#16202E", backgroundColor:"#16202E", tension:0.25, spanGaps:true, pointRadius:3, pointHoverRadius:6},
       {label:"3場移動平均(NT$)", data: cplMA3.map(v=>v!=null?Math.round(v):null), borderColor:"#1B5FC4", backgroundColor:"#1B5FC4", tension:0.25, spanGaps:true, borderDash:[6,4], pointRadius:0, borderWidth:2.5},
