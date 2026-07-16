@@ -1518,9 +1518,14 @@ function rollingAvg(arr, win){
     return s.length ? s.reduce((a,b)=>a+b,0)/s.length : null;
   });
 }
-const rateSeries = completed.map(e=>e.rate);
+// 趨勢圖專用資料源：completed另外補上7/12高雄（prep:true但leads/att/rate/cpl皆為定案數字，
+// 僅後續1-on-1/Reserved追蹤未完成，不影響CPL/到場率繪圖），避免28屆只畫出7/11、7/12在趨勢圖上憑空消失。
+// 不影響avgRate/avgCpl等既有平均公式（仍維持completed口徑，見v73決議）。
+const kh28TrendEvent = events.find(e=>e.ord==="28" && e.d==="2026-07-12");
+const trendEvents = kh28TrendEvent ? completed.concat([kh28TrendEvent]) : completed;
+const rateSeries = trendEvents.map(e=>e.rate);
 const rateMA3 = rollingAvg(rateSeries,3);
-const cplSeriesForTrend = completed.map(e=>e.cpl);
+const cplSeriesForTrend = trendEvents.map(e=>e.cpl);
 const cplMA3 = rollingAvg(cplSeriesForTrend,3);
 
 function avgLinePlugin(avgVal, label, color){
@@ -1619,9 +1624,9 @@ function __initPerformanceCharts(){
 new Chart(document.getElementById("rateTrendChart"), {
   type:"line",
   data:{
-    labels: completed.map(e=>"第"+e.ord+"屆\n"+shortDate(e.date)),
+    labels: trendEvents.map(e=>"第"+e.ord+(e.loc==="高雄"&&e.d==="2026-07-12"?"雄":"")+"屆\n"+shortDate(e.date)),
     datasets:[
-      {label:"到場率(%)", data: rateSeries.map(v=>v!=null?+(v*100).toFixed(1):null), borderColor:"#16202E", backgroundColor:"#16202E", tension:0.25, spanGaps:true, pointRadius:3, pointHoverRadius:6},
+      {label:"到場率(%)", data: rateSeries.map(v=>v!=null?+(v*100).toFixed(1):null), borderColor:"#D64A4A", backgroundColor:"#D64A4A", tension:0.25, spanGaps:true, pointRadius:3, pointHoverRadius:6},
       {label:"3場移動平均(%)", data: rateMA3.map(v=>v!=null?+(v*100).toFixed(1):null), borderColor:"#1B5FC4", backgroundColor:"#1B5FC4", tension:0.25, spanGaps:true, borderDash:[6,4], pointRadius:0, borderWidth:2.5},
     ]
   },
@@ -1636,7 +1641,7 @@ new Chart(document.getElementById("rateTrendChart"), {
 new Chart(document.getElementById("cplTrendChart"), {
   type:"line",
   data:{
-    labels: completed.map(e=>"第"+e.ord+"屆\n"+shortDate(e.date)),
+    labels: trendEvents.map(e=>"第"+e.ord+(e.loc==="高雄"&&e.d==="2026-07-12"?"雄":"")+"屆\n"+shortDate(e.date)),
     datasets:[
       {label:"CPL(NT$)", data: cplSeriesForTrend, borderColor:"#16202E", backgroundColor:"#16202E", tension:0.25, spanGaps:true, pointRadius:3, pointHoverRadius:6},
       {label:"3場移動平均(NT$)", data: cplMA3.map(v=>v!=null?Math.round(v):null), borderColor:"#1B5FC4", backgroundColor:"#1B5FC4", tension:0.25, spanGaps:true, borderDash:[6,4], pointRadius:0, borderWidth:2.5},
