@@ -238,6 +238,14 @@
   .ia-tab-panel.active{display:block;}
   @media (max-width:640px){
     .group-tab-btn{padding:12px 14px;font-size:12.5px;min-height:44px;}
+.event-tabs{border-bottom:none;gap:8px;margin-bottom:16px;}
+.event-tabs .group-tab-btn{border-radius:8px;border-bottom:none;padding:10px 18px;font-weight:700;}
+.event-tabs .etab-29{background:var(--status-warning-bg);color:var(--status-warning);}
+.event-tabs .etab-29.active{background:var(--status-warning);color:#fff;box-shadow:0 2px 8px rgba(201,130,18,.35);}
+.event-tabs .etab-28{background:var(--status-positive-bg);color:var(--status-positive);}
+.event-tabs .etab-28.active{background:var(--status-positive);color:#fff;box-shadow:0 2px 8px rgba(22,130,93,.35);}
+.event-tabs .group-tab-btn:hover{filter:brightness(0.96);color:inherit;}
+
   }
   .ia-group:first-of-type .ia-group-head{margin-top:6px;}
 
@@ -684,8 +692,8 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
 <div class="tab-page" id="page-latest-overview" data-tab-page="latest-overview">
 <div class="ia-group" id="ia-latest-overview">
   <div class="ia-group-head"><h1><span class="ia-ic"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg></span></span>Latest Event<span class="ia-zh" id="leHeadZh">第28屆管理總覽</span></h1></div>
-<div class="group-tabs" role="tablist" aria-label="場次切換"><button type="button" class="group-tab-btn active" data-tab-target="s28">第28屆・已完成（7/11-12）</button><button type="button" class="group-tab-btn" data-tab-target="s29">第29屆・籌備中（7/25-26）</button></div>
-<section id="s28latest" class="ia-tab-panel active" data-group-panel="s28">
+<div class="group-tabs event-tabs" role="tablist" aria-label="場次切換"><button type="button" class="group-tab-btn etab-29 active" data-tab-target="s29">第29屆・籌備中（7/25-26）</button><button type="button" class="group-tab-btn etab-28" data-tab-target="s28">第28屆・已完成（7/11-12）</button></div>
+<section id="s28latest" class="ia-tab-panel" data-group-panel="s28">
 <div id="leRoot"><div style="padding:40px;text-align:center;color:var(--text-tertiary);font-size:12px;">資料載入中…</div></div>
 <div id="leGalleryFrag" style="display:none">
 <div class="gallery" style="margin-top:10px;">
@@ -718,7 +726,7 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
     </details>
 </div>
 </section>
-<section id="s29latest" class="ia-tab-panel" data-group-panel="s29">
+<section id="s29latest" class="ia-tab-panel active" data-group-panel="s29">
 <div class="le2-header"><div class="le2-title">Latest Event｜第29屆籌備中管理總覽</div><div class="le2-updated">Updated 2026/7/20</div></div>
 <div class="le2-subtitle"><span class="le-blue-label">7/25(六) 新竹</span>・<span class="le-blue-label">7/26(日) 台北</span>｜尚未舉行（距今5天）</div>
 <div class="le2-kpi-grid">
@@ -742,14 +750,14 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
 <div class="scope-banner scope-latest">資料範圍：第28-29屆（點選下方分頁切換已完成／籌備中場次）</div>
 <div class="ia-group" id="ia-latest-performance">
   <div class="ia-group-head"><h1><span class="ia-ic"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg></span></span>Latest Performance<span class="ia-zh">台中 vs 高雄成效比較</span></h1></div>
-<div class="group-tabs" role="tablist" aria-label="場次切換"><button type="button" class="group-tab-btn active" data-tab-target="s28">第28屆・已完成（7/11-12）</button><button type="button" class="group-tab-btn" data-tab-target="s29">第29屆・籌備中（7/25-26）</button></div>
-<section id="latestPerf" class="ia-tab-panel active" data-group-panel="s28"><h2>本次成效：台中 vs 高雄</h2><div id="latestPerfBody"></div>
+<div class="group-tabs event-tabs" role="tablist" aria-label="場次切換"><button type="button" class="group-tab-btn etab-29 active" data-tab-target="s29">第29屆・籌備中（7/25-26）</button><button type="button" class="group-tab-btn etab-28" data-tab-target="s28">第28屆・已完成（7/11-12）</button></div>
+<section id="latestPerf" class="ia-tab-panel" data-group-panel="s28"><h2>本次成效：台中 vs 高雄</h2><div id="latestPerfBody"></div>
 <div class="ia-group-head" style="margin-top:16px;"><h1 style="font-size:14px;">CPL × CPA 比較</h1></div>
 <div class="chart-wrap" style="height:220px;margin:10px 0 14px;"><canvas id="latestPerfCplCpaChart"></canvas></div>
 <div id="latestPerfCplCpaConcl"></div>
 <div id="latestPerfTableWrap" style="margin-top:12px;"></div>
 </section>
-<section id="latestPerf29" class="ia-tab-panel" data-group-panel="s29">
+<section id="latestPerf29" class="ia-tab-panel active" data-group-panel="s29">
 <h2>第29屆成效：新竹 vs 台北</h2>
 <div class="info-line" style="margin-bottom:10px;">活動尚未舉行，目前無CPL／到場率／CPA可計算。已知：廣告預算NT$190,000；實際花費、FB名單數、場地成本均缺。</div>
 <table class="le-cplcpa-table" style="font-size:13px;">
@@ -768,8 +776,8 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
 <div class="scope-banner scope-latest">資料範圍：第28-29屆（點選下方分頁切換已完成／籌備中場次）</div>
 <div class="ia-group" id="ia-latest-cost">
   <div class="ia-group-head"><h1><span class="ia-ic"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M14 8H8"/><path d="M16 12H8"/><path d="M13 16H8"/></svg></span></span>Latest Cost<span class="ia-zh">本屆成本明細</span></h1></div>
-<div class="group-tabs" role="tablist" aria-label="場次切換"><button type="button" class="group-tab-btn active" data-tab-target="s28">第28屆・已完成（7/11-12）</button><button type="button" class="group-tab-btn" data-tab-target="s29">第29屆・籌備中（7/25-26）</button></div>
-<section id="latestCost" class="ia-tab-panel active" data-group-panel="s28"><h2>本次成本明細</h2><div id="latestCostBody"></div>
+<div class="group-tabs event-tabs" role="tablist" aria-label="場次切換"><button type="button" class="group-tab-btn etab-29 active" data-tab-target="s29">第29屆・籌備中（7/25-26）</button><button type="button" class="group-tab-btn etab-28" data-tab-target="s28">第28屆・已完成（7/11-12）</button></div>
+<section id="latestCost" class="ia-tab-panel" data-group-panel="s28"><h2>本次成本明細</h2><div id="latestCostBody"></div>
 <table style="margin:6px 0 10px;"><thead><tr><th class="left">項目</th><th class="left"><span class="le-city-tc-badge">7/11 台中</span></th><th class="left"><span class="le-city-kh-badge">7/12 高雄</span></th><th class="left">Total 總計</th></tr></thead><tbody>
       <tr><td class="left">9:30房產場報名人數</td><td class="left le-city-tc le-city-tc-cell">49（房產場專屬欄位）</td><td class="left le-city-kh le-city-kh-cell">21（房產場專屬欄位）</td><td class="left le-cat-total">70</td></tr>
       <tr><td class="left">單場次拆分(9:30/14:00)</td><td class="left le-city-tc le-city-tc-cell">已併入總報名(線上單場次，不拆分)</td><td class="left le-city-kh le-city-kh-cell">頁簽不分場次，個別場次人數待業務回報</td><td class="left le-cat-total">—</td></tr>
@@ -783,7 +791,7 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
       <tr style="font-weight:800;"><td class="left">小計</td><td class="left le-city-tc le-city-tc-cell"><div class="cost-row-cell"><span>114,765</span><span class="cost-pct-pill total">100.0%</span></div></td><td class="left le-city-kh le-city-kh-cell"><div class="cost-row-cell"><span>91,285</span><span class="cost-pct-pill total">100.0%</span></div></td><td class="left" style="color:var(--good);background:#eaf7ee;font-weight:800;"><div class="cost-row-cell"><span>206,050</span><span class="cost-pct-pill total">100.0%</span></div></td></tr>
       </tbody></table>
 </section>
-<section id="latestCost29" class="ia-tab-panel" data-group-panel="s29">
+<section id="latestCost29" class="ia-tab-panel active" data-group-panel="s29">
 <h2>第29屆成本明細</h2>
 <table style="margin:6px 0 10px;"><thead><tr><th class="left">項目</th><th class="left"><span class="le-city-tc-badge">7/25 新竹</span></th><th class="left"><span class="le-city-kh-badge">7/26 台北</span></th><th class="left">Total 總計</th></tr></thead><tbody>
   <tr><td class="left">廣告預算(NT$)</td><td class="left" colspan="2">兩場合一預算</td><td class="left le-cat-total">190,000</td></tr>
@@ -801,10 +809,10 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
 <div class="scope-banner scope-latest">資料範圍：第28-29屆（點選下方分頁切換已完成／籌備中場次）</div>
 <div class="ia-group" id="ia-latest-conversion">
   <div class="ia-group-head"><h1><span class="ia-ic"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/></svg></span></span>Latest Conversion<span class="ia-zh">本屆名單與轉換</span></h1></div>
-<div class="group-tabs" role="tablist" aria-label="場次切換"><button type="button" class="group-tab-btn active" data-tab-target="s28">第28屆・已完成（7/11-12）</button><button type="button" class="group-tab-btn" data-tab-target="s29">第29屆・籌備中（7/25-26）</button></div>
-<section id="latestConv" class="ia-tab-panel active" data-group-panel="s28"><h2>本次名單與轉換</h2><div id="latestConvBody"></div>
+<div class="group-tabs event-tabs" role="tablist" aria-label="場次切換"><button type="button" class="group-tab-btn etab-29 active" data-tab-target="s29">第29屆・籌備中（7/25-26）</button><button type="button" class="group-tab-btn etab-28" data-tab-target="s28">第28屆・已完成（7/11-12）</button></div>
+<section id="latestConv" class="ia-tab-panel" data-group-panel="s28"><h2>本次名單與轉換</h2><div id="latestConvBody"></div>
 </section>
-<section id="latestConv29" class="ia-tab-panel" data-group-panel="s29">
+<section id="latestConv29" class="ia-tab-panel active" data-group-panel="s29">
 <h2>第29屆名單與轉換</h2>
 <div class="stat-chip-row" style="margin-bottom:12px;">
   <div class="stat-chip"><div class="sv">15筆</div><div class="sl">聯繫名單合計(Amber+Bailey)</div></div>
