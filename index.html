@@ -688,6 +688,18 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
 </section>
 </div>
 </div>
+<!-- ===================================================================
+STANDING RULE（2026/7/20新增，每逢新屆別上線時必讀，避免重蹈28→29屆的格式漂移）：
+「當次活動」四個分頁（latest-overview／latest-performance／latest-cost／latest-conversion）
+新增下一屆（如第30屆）籌備中資料時，一律沿用本頁既有的視覺元件類別，不可另創新版面：
+  - KPI卡片彙總 → .le2-kpi-card / .le2-kpi-grid（latest-overview）
+  - 日別比較卡 → .day-card / .drow（latest-performance，k/v列）
+  - 成本明細表 → .cost-row-cell + .cost-pct-pill（latest-cost，欄位順序：報名/實到/場地/住宿/PT/廣告/交通/伙食/小計）
+  - 聯繫名單彙總 → .le-exec-grid + .le-col + .le-kpi-row（latest-conversion，Day1/Day2/合計三欄，8個KPI欄位）
+  - 彙總卡片 → .stat-chip-row / .stat-chip
+籌備中屆別若某些指標尚未發生（報名/實到/CPL/CPA等），比照本次29屆做法：保留同一表格/卡片結構，
+儲存格內容改為「尚無資料（活動未舉行）」或「無法計算（花費未知）」等口徑一致的說明文字，而非省略欄位或另建新表。
+=================================================================== -->
 <div class="tab-page" id="page-latest-overview" data-tab-page="latest-overview">
 <div class="ia-group" id="ia-latest-overview">
   <div class="ia-group-head"><h1><span class="ia-ic"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg></span></span>Latest Event<span class="ia-zh" id="leHeadZh">第28屆管理總覽</span></h1></div>
@@ -758,16 +770,38 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
 </section>
 <section id="latestPerf29" class="ia-tab-panel active" data-group-panel="s29">
 <h2>第29屆成效：新竹 vs 台北</h2>
-<div class="info-line" style="margin-bottom:10px;">活動尚未舉行，目前無CPL／到場率／CPA可計算。已知：廣告預算NT$95,000（房產份額，總預算190,000跟移民對半均攤）；實際花費、FB名單數、場地成本均缺。</div>
+<div class="info-line" style="margin-bottom:10px;">格式與下方「第28屆・已完成」分頁統一（同一day-card版面），僅欄位內容不同：活動尚未舉行，報名／實到／到場率／CPL／CPA等成效指標尚無法計算，以下先列出目前可得的籌備期指標。</div>
+<div class="charts-row" style="margin-bottom:14px;">
+  <div class="day-card">
+    <h4>新竹 7/25</h4>
+    <div class="drow"><span class="k">聯繫名單(Amber+Bailey)</span><span class="v">6筆</span></div>
+    <div class="drow"><span class="k">已加賴</span><span class="v" style="color:var(--v-green);">5筆(83%，含已開群1)</span></div>
+    <div class="drow"><span class="k">會參加意向</span><span class="v">1筆</span></div>
+    <div class="drow"><span class="k">報名 ／ 實到</span><span class="v" style="color:var(--v-grey);">尚無資料（活動未舉行）</span></div>
+    <div class="drow"><span class="k">CPL（廣告／報名）</span><span class="v" style="color:var(--v-grey);">無法計算（尚無報名數）</span></div>
+    <div class="drow"><span class="k">CPA（總成本／實到）</span><span class="v" style="color:var(--v-grey);">無法計算（尚無實到數）</span></div>
+  </div>
+  <div class="day-card">
+    <h4>台北 7/26</h4>
+    <div class="drow"><span class="k">聯繫名單(Amber+Bailey)</span><span class="v">9筆</span></div>
+    <div class="drow"><span class="k">已加賴</span><span class="v" style="color:var(--v-green);">5筆(56%)</span></div>
+    <div class="drow"><span class="k">會參加意向</span><span class="v">1筆</span></div>
+    <div class="drow"><span class="k">報名 ／ 實到</span><span class="v" style="color:var(--v-grey);">尚無資料（活動未舉行）</span></div>
+    <div class="drow"><span class="k">CPL（廣告／報名）</span><span class="v" style="color:var(--v-grey);">無法計算（尚無報名數）</span></div>
+    <div class="drow"><span class="k">CPA（總成本／實到）</span><span class="v" style="color:var(--v-grey);">無法計算（尚無實到數）</span></div>
+  </div>
+</div>
 <table class="le-cplcpa-table" style="font-size:13px;">
   <thead><tr><th class="left">指標</th><th>新竹 7/25</th><th>台北 7/26</th><th>25場歷史平均</th></tr></thead>
   <tbody>
     <tr><td class="left">聯繫名單（業務CRM，非廣告報名）</td><td>6筆</td><td>9筆</td><td>—</td></tr>
-    <tr><td class="left">已加賴</td><td>4筆</td><td>5筆</td><td>—</td></tr>
+    <tr><td class="left">已加賴</td><td>5筆</td><td>5筆</td><td>—</td></tr>
+    <tr><td class="left">廣告預算（房產份額）</td><td>NT$47,500</td><td>NT$47,500</td><td>—</td></tr>
     <tr><td class="left">報名／實到</td><td colspan="3" class="left">尚無資料（活動尚未舉行）</td></tr>
     <tr><td class="left">CPL（廣告／報名）</td><td colspan="3" class="left">無法計算（花費未知）</td></tr>
   </tbody>
 </table>
+<div class="info-line" style="margin-top:6px;">聯繫名單為業務CRM追蹤之聯繫意向，與正式「報名人數」（廣告表單填寫）屬不同資料口徑，不可直接換算或比較，比照第28屆分頁上方註記同一原則。</div>
 </section>
 </div>
 </div>
@@ -792,31 +826,19 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
 </section>
 <section id="latestCost29" class="ia-tab-panel active" data-group-panel="s29">
 <h2>第29屆成本明細</h2>
+<div class="info-line" style="margin-bottom:8px;">格式與下方「第28屆・已完成」分頁統一（同一欄位順序／同一cost-pct-pill佔比呈現方式），僅數字性質不同：本表為審批表核准之預估金額，非活動結束後之實報實銷數字，活動尚未舉行(7/25-26)。</div>
 <table style="margin:6px 0 10px;"><thead><tr><th class="left">項目</th><th class="left"><span class="le-city-tc-badge">7/25 新竹</span></th><th class="left"><span class="le-city-kh-badge">7/26 台北</span></th><th class="left">Total 總計</th></tr></thead><tbody>
-  <tr><td class="left">廣告預算(NT$，房產份額)</td><td class="left" colspan="2">兩場合一預算，跟移民對半均攤</td><td class="left le-cat-total">95,000</td></tr>
-  <tr><td class="left">廣告實際花費(NT$)</td><td class="left" colspan="3">缺（來源表該欄位空白）</td></tr>
-  <tr><td class="left">場地費(NT$)</td><td class="left" colspan="3">尚無使用者提供之實際數字</td></tr>
-  <tr><td class="left">住宿費(NT$)</td><td class="left" colspan="3">尚無使用者提供之實際數字</td></tr>
-  <tr><td class="left">交通費(NT$)</td><td class="left" colspan="3">尚無使用者提供之實際數字</td></tr>
-  <tr style="font-weight:800;"><td class="left">小計</td><td class="left" colspan="3">尚無法計算（多項成本缺失，不腦補為0）</td></tr>
-</tbody></table>
-<div class="info-line">如業務／使用者在對話中提供實際成本數字，排程將於下次更新补齊。</div>
-<div style="position:relative;border:2px solid var(--status-positive);background:var(--status-positive-bg);border-radius:12px;padding:18px 18px 16px;margin:6px 0 4px;">
-  <div style="position:absolute;top:-14px;left:16px;background:var(--status-positive);color:#fff;font-weight:800;font-size:12px;letter-spacing:.5px;padding:4px 14px;border-radius:999px;box-shadow:0 2px 6px rgba(22,130,93,.4);">✓ 已核准 APPROVED（仍為預估金額，非實報實銷）</div>
-  <div class="le2-section-title" style="margin-top:6px;color:var(--status-positive);">預算審批（董事長已核准）</div>
-  <table style="margin:6px 0 10px;font-size:13px;background:#fff;border-radius:8px;overflow:hidden;"><thead><tr style="background:var(--status-warning);"><th class="left" style="color:#fff;">成本項目</th><th class="left" style="color:#fff;">7/25 新竹</th><th class="left" style="color:#fff;">7/26 台北</th><th class="left" style="color:#fff;">Total</th><th class="left" style="color:#fff;">備註</th></tr></thead><tbody>
-    <tr><td class="left">Meta Ads 投廣</td><td class="left">47,500</td><td class="left">47,500</td><td class="left le-cat-total">95,000</td><td class="left">官方總預算190,000，房產與移民團隊均攤各半(95,000)，再依兩場平均分攤(47,500/場)</td></tr>
-    <tr><td class="left">場地費</td><td class="left">40,500</td><td class="left">0</td><td class="left">40,500</td><td class="left">7/25以估算值81,000跟移民均攤；7/26台北場地費0，另有預期收入NT$50,000(性質待確認)</td></tr>
-    <tr><td class="left">住宿費</td><td class="left">0</td><td class="left">0</td><td class="left">0</td><td class="left"></td></tr>
-    <tr><td class="left">交通／高鐵</td><td class="left">12,000</td><td class="left">0</td><td class="left">12,000</td><td class="left">7/25包車</td></tr>
-    <tr><td class="left">餐飲／點心</td><td class="left">4,600</td><td class="left">0</td><td class="left">4,600</td><td class="left">7/25員工餐費</td></tr>
-    <tr><td class="left">PT／工讀</td><td class="left">0</td><td class="left">1,400</td><td class="left">1,400</td><td class="left">7/26可能C兒子or Sam弟</td></tr>
-    <tr><td class="left">講師費</td><td class="left">0</td><td class="left">0</td><td class="left">0</td><td class="left"></td></tr>
-    <tr><td class="left">其他成本</td><td class="left">0</td><td class="left">0</td><td class="left">0</td><td class="left"></td></tr>
-    <tr style="font-weight:800;background:var(--status-positive-bg);"><td class="left">預估總成本</td><td class="left">104,600</td><td class="left">48,900</td><td class="left" style="color:var(--status-positive);font-size:15px;">NT$153,500</td><td class="left">來源：RayWhite_活動預算審批表.xlsx；7/25新竹已於7/17 18:15由Justin核准，7/26台北已於7/20 15:22由Justin核准（本次排程新確認）</td></tr>
-  </tbody></table>
-  <div class="info-line" style="background:#fff;border-radius:6px;padding:8px 10px;"><b style="color:var(--status-positive);">✓ 兩場皆已由董事長Justin核准（新竹7/17 18:15／台北7/20 15:22）。</b>惟仍為申請人核准當下之預估金額，非活動結束後之實報實銷/發票核銷數字。Meta Ads依「與移民團隊均攤190,000預算之房產份額」邏輯計算(190,000/2/2=47,500/場)；場地費40,500(新竹)已與Google Sheet「說明會數據」頁簽獨立來源(81,000/2)交叉驗證一致；交通/餐飲/PT目前僅有審批表單一來源。待29屆實際發生後，將以正式實報數字覆蓋本區塊。</div>
-</div>
+      <tr><td class="left">9:30房產場報名人數</td><td class="left le-city-tc le-city-tc-cell">尚無資料（活動未舉行）</td><td class="left le-city-kh le-city-kh-cell">尚無資料（活動未舉行）</td><td class="left le-cat-total">—</td></tr>
+      <tr><td class="left">實到人數</td><td class="left le-city-tc le-city-tc-cell">尚無資料（活動未舉行）</td><td class="left le-city-kh le-city-kh-cell">尚無資料（活動未舉行）</td><td class="left le-cat-total">—</td></tr>
+      <tr><td class="left">場地費(NT$)</td><td class="left le-city-tc le-city-tc-cell" data-tip="新竹喜來登場地費全額NT$81,000，跟移民對半均攤後房產份額40,500，已與Google Sheet「說明會數據」頁簽獨立來源交叉驗證一致。"><div class="cost-row-cell"><span>40,500</span><span class="cost-pct-pill">38.7%</span></div></td><td class="left le-city-kh le-city-kh-cell" data-tip="台北Ray White台灣總部自有場地，場地費0；申請人備註另有預期收入NT$50,000(性質待確認)。"><div class="cost-row-cell"><span>0</span><span class="cost-pct-pill">0.0%</span></div></td><td class="left le-cat-total"><div class="cost-row-cell"><span>40,500</span><span class="cost-pct-pill total">26.4%</span></div></td></tr>
+      <tr><td class="left">住宿費(NT$)</td><td class="left le-city-tc le-city-tc-cell"><div class="cost-row-cell"><span>0</span><span class="cost-pct-pill">0.0%</span></div></td><td class="left le-city-kh le-city-kh-cell"><div class="cost-row-cell"><span>0</span><span class="cost-pct-pill">0.0%</span></div></td><td class="left le-cat-total"><div class="cost-row-cell"><span>0</span><span class="cost-pct-pill total">0.0%</span></div></td></tr>
+      <tr><td class="left">人事(PT)成本(NT$)</td><td class="left le-city-tc le-city-tc-cell"><div class="cost-row-cell"><span>0</span><span class="cost-pct-pill">0.0%</span></div></td><td class="left le-city-kh le-city-kh-cell" data-tip="申請人備註：可能C兒子or Sam弟"><div class="cost-row-cell"><span>1,400</span><span class="cost-pct-pill">2.9%</span></div></td><td class="left le-cat-total"><div class="cost-row-cell"><span>1,400</span><span class="cost-pct-pill total">0.9%</span></div></td></tr>
+      <tr><td class="left">廣告花費(NT$，Meta Ads份額，非實際花費)</td><td class="left le-city-tc le-city-tc-cell"><div class="cost-row-cell"><span>47,500</span><span class="cost-pct-pill">45.4%</span></div></td><td class="left le-city-kh le-city-kh-cell"><div class="cost-row-cell"><span>47,500</span><span class="cost-pct-pill">97.1%</span></div></td><td class="left le-cat-total"><div class="cost-row-cell"><span>95,000</span><span class="cost-pct-pill total">61.9%</span></div></td></tr>
+      <tr><td class="left">交通費(NT$)</td><td class="left le-city-tc le-city-tc-cell" data-tip="新竹包車費用"><div class="cost-row-cell"><span>12,000</span><span class="cost-pct-pill">11.5%</span></div></td><td class="left le-city-kh le-city-kh-cell"><div class="cost-row-cell"><span>0</span><span class="cost-pct-pill">0.0%</span></div></td><td class="left le-cat-total"><div class="cost-row-cell"><span>12,000</span><span class="cost-pct-pill total">7.8%</span></div></td></tr>
+      <tr><td class="left">伙食費(NT$)</td><td class="left le-city-tc le-city-tc-cell" data-tip="新竹員工餐費"><div class="cost-row-cell"><span>4,600</span><span class="cost-pct-pill">4.4%</span></div></td><td class="left le-city-kh le-city-kh-cell"><div class="cost-row-cell"><span>0</span><span class="cost-pct-pill">0.0%</span></div></td><td class="left le-cat-total"><div class="cost-row-cell"><span>4,600</span><span class="cost-pct-pill total">3.0%</span></div></td></tr>
+      <tr style="font-weight:800;"><td class="left">小計（預估已核准，NT$）</td><td class="left le-city-tc le-city-tc-cell"><div class="cost-row-cell"><span>104,600</span><span class="cost-pct-pill total">100.0%</span></div></td><td class="left le-city-kh le-city-kh-cell"><div class="cost-row-cell"><span>48,900</span><span class="cost-pct-pill total">100.0%</span></div></td><td class="left" style="color:var(--status-positive);background:var(--status-positive-bg);font-weight:800;"><div class="cost-row-cell"><span>153,500</span><span class="cost-pct-pill total">100.0%</span></div></td></tr>
+      </tbody></table>
+<div class="info-line"><b style="color:var(--status-positive);">✓ 兩場皆已由董事長Justin核准</b>（新竹7/17 18:15／台北7/20 15:22）。來源：RayWhite_活動預算審批表.xlsx。惟仍為申請人核准當下之預估金額，非活動結束後之實報實銷/發票核銷數字；場地費已與「說明會數據」頁簽獨立來源交叉驗證，交通/餐飲/PT目前僅有審批表單一來源。待29屆實際發生後，將以正式實報數字覆蓋本表。</div>
 </section>
 </div>
 </div>
@@ -850,18 +872,36 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
   <div class="stat-chip"><div class="sv">2筆</div><div class="sl">會參加意向</div></div>
   <div class="stat-chip"><div class="sv" style="color:var(--v-grey);">4筆</div><div class="sl">尚未詢問參加意願（出席欄位空白）</div></div>
 </div>
-<table style="margin:6px 0 10px;font-size:13px;">
-  <thead><tr><th class="left">名單</th><th>總數</th><th>已加賴</th><th>連繫中</th><th>會參加</th><th>未定</th><th>未詢問</th></tr></thead>
-  <tbody>
-    <tr><td class="left">新竹7/25 Amber名單</td><td>4</td><td>2(含已開群1)</td><td>1</td><td>0</td><td>0</td><td>4</td></tr>
-    <tr><td class="left">台北7/26 Amber名單</td><td>6</td><td>3</td><td>3</td><td>1</td><td>0</td><td>0</td></tr>
-    <tr><td class="left">新竹7/25 Bailey名單</td><td>2</td><td>2</td><td>0</td><td>1</td><td>0</td><td>0</td></tr>
-    <tr><td class="left">台北7/26 Bailey名單</td><td>3</td><td>2</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
-    <tr style="font-weight:800;"><td class="left">合計</td><td>15</td><td>9</td><td>5</td><td>2</td><td>0</td><td>4</td></tr>
-  </tbody>
-</table>
-<div class="info-line">僅Amber、Bailey建立名單，小白、Nicole、Cathy尚未建立。未定欄位目前均為0，但另有4筆出席欄位空白（尚未詢問），不等於「未定」。與第28屆同期(7個有效分頁、8組分組)相比，涵蓋業務明顯較少。</div>
-</section>
+<div class="le2-section-title" style="margin-top:0;">聯繫名單彙整（格式與下方「第28屆・已完成」分頁統一：Day1／Day2／合計三欄，同一組8個KPI欄位）</div>
+<div class="le-exec-grid">
+<div class="le-col" data-day="1">
+  <div class="le-col-head"><div class="lc-t">Day 1 聯繫名單 · <span class="le-city-tc">7/25 新竹</span></div></div>
+  <div style="overflow-x:auto;"><table style="font-size:11px;"><thead><tr><th class="left">名單</th><th>總數</th><th>已加賴</th><th>未加賴</th><th>連繫中</th><th>會參加</th><th>不參加</th><th>未定</th></tr></thead><tbody>
+  <tr><td class="left">新竹7/25 Amber名單</td><td>4</td><td>3</td><td>0</td><td>1</td><td class="le-red-val">0</td><td>0</td><td>4</td></tr>
+  <tr><td class="left">新竹7/25 Bailey名單</td><td>2</td><td>2</td><td>0</td><td>0</td><td class="le-red-val">1</td><td>0</td><td>1</td></tr>
+  <tr style="font-weight:800;background:var(--bg-subtle);"><td class="left">小計</td><td>6</td><td>5</td><td>0</td><td>1</td><td class="le-red-val">1</td><td>0</td><td>5</td></tr>
+  </tbody></table></div>
+</div>
+<div class="le-col le-day2" data-day="2">
+  <div class="le-col-head"><div class="lc-t">Day 2 聯繫名單 · <span class="le-city-kh">7/26 台北</span></div></div>
+  <div style="overflow-x:auto;"><table style="font-size:11px;"><thead><tr><th class="left">名單</th><th>總數</th><th>已加賴</th><th>未加賴</th><th>連繫中</th><th>會參加</th><th>不參加</th><th>未定</th></tr></thead><tbody>
+  <tr><td class="left">台北7/26 Amber名單</td><td>6</td><td>3</td><td>0</td><td>3</td><td class="le-red-val">1</td><td>0</td><td>5</td></tr>
+  <tr><td class="left">台北7/26 Bailey名單</td><td>3</td><td>2</td><td>0</td><td>1</td><td class="le-red-val">0</td><td>0</td><td>3</td></tr>
+  <tr style="font-weight:800;background:var(--bg-subtle);"><td class="left">小計</td><td>9</td><td>5</td><td>0</td><td>4</td><td class="le-red-val">1</td><td>0</td><td>8</td></tr>
+  </tbody></table></div>
+</div>
+<div class="le-col le-total" data-day="total">
+  <div class="le-col-head"><div class="lc-t">合計（去重）</div></div>
+  <div class="le-kpi-row"><span class="k">聯繫名單總數</span><span class="v">15</span></div>
+  <div class="le-kpi-row"><span class="k">已加賴</span><span class="v">10</span></div>
+  <div class="le-kpi-row"><span class="k">未加賴</span><span class="v">0</span></div>
+  <div class="le-kpi-row"><span class="k">連繫中</span><span class="v">5</span></div>
+  <div class="le-kpi-row"><span class="k">會參加</span><span class="v le-red-val">2</span></div>
+  <div class="le-kpi-row"><span class="k">不參加</span><span class="v">0</span></div>
+  <div class="le-kpi-row"><span class="k">未定</span><span class="v">13</span></div>
+</div>
+</div>
+<div class="le-note-box" style="background:var(--status-warning-bg);color:var(--status-warning);">「已加賴」欄位含1筆「已開群」(新竹Amber名單，非標準已加賴，本表併入已加賴計算)；「未定」欄位含9筆明確回覆未定＋4筆出席欄位空白尚未詢問參加意願(本表併入未定計算，與Excel 08分頁「未詢問」細分欄位口徑一致，僅本表7欄格式無法單獨呈現，如需細分請查Excel)。僅Amber、Bailey兩位業務建立名單，小白、Nicole、Cathy尚未建立，與第28屆同期(7個有效分頁、8組分組)相比涵蓋業務明顯較少。</div></section>
 </div>
 </div>
 <div class="tab-page" id="page-cumulative-overview" data-tab-page="cumulative-overview">
