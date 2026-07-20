@@ -684,7 +684,8 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
 <div class="tab-page" id="page-latest-overview" data-tab-page="latest-overview">
 <div class="ia-group" id="ia-latest-overview">
   <div class="ia-group-head"><h1><span class="ia-ic"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg></span></span>Latest Event<span class="ia-zh" id="leHeadZh">第28屆管理總覽</span></h1></div>
-<section id="s28latest">
+<div class="group-tabs" role="tablist" aria-label="場次切換"><button type="button" class="group-tab-btn active" data-tab-target="s28">第28屆・已完成（7/11-12）</button><button type="button" class="group-tab-btn" data-tab-target="s29">第29屆・籌備中（7/25-26）</button></div>
+<section id="s28latest" class="ia-tab-panel active" data-group-panel="s28">
 <div id="leRoot"><div style="padding:40px;text-align:center;color:var(--text-tertiary);font-size:12px;">資料載入中…</div></div>
 <div id="leGalleryFrag" style="display:none">
 <div class="gallery" style="margin-top:10px;">
@@ -717,25 +718,58 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
     </details>
 </div>
 </section>
+<section id="s29latest" class="ia-tab-panel" data-group-panel="s29">
+<div class="le2-header"><div class="le2-title">Latest Event｜第29屆籌備中管理總覽</div><div class="le2-updated">Updated 2026/7/20</div></div>
+<div class="le2-subtitle"><span class="le-blue-label">7/25(六) 新竹</span>・<span class="le-blue-label">7/26(日) 台北</span>｜尚未舉行（距今5天）</div>
+<div class="le2-kpi-grid">
+  <div class="le2-kpi-card"><div class="ll">聯繫名單（Amber+Bailey）</div><div class="lv">15筆</div><div class="ls">業務CRM追蹤，非廣告報名數</div></div>
+  <div class="le2-kpi-card"><div class="ll">已加賴</div><div class="lv">9筆(60%)</div><div class="ls">另1筆為已開群非標準已加賴</div></div>
+  <div class="le2-kpi-card"><div class="ll">會參加意向</div><div class="lv">2筆</div><div class="ls">9筆未定、4筆尚未詢問</div></div>
+  <div class="le2-kpi-card tier1"><div class="ll">報名／實到</div><div class="lv le-red-val">尚無資料</div><div class="ls">活動尚未舉行</div></div>
+  <div class="le2-kpi-card tier1"><div class="ll">廣告預算</div><div class="lv">NT$190,000</div><div class="ls">實際花費／FB名單仍空白</div></div>
+  <div class="le2-kpi-card tier1"><div class="ll">總成本</div><div class="lv le-red-val">尚無資料</div><div class="ls">場地／交通／住宿成本尚缺</div></div>
+</div>
+<div class="le2-signal"><div class="le2-signal-txt"><b>Executive Signal：</b>目前僅Amber、Bailey兩位業務建立名單，小白、Nicole、Cathy尚未建立；名單量體(15筆)明顯低於歷屆同期。距活動5天，需加快追蹤。</div><div class="le2-signal-tag warn">需追蹤</div></div>
+<div class="le2-section-title">EDM 文宣</div>
+<div class="gallery" style="margin-bottom:16px;">
+  <figure><img src="https://raywhitetw.com/wp-content/uploads/2026/06/WhatsApp-Image-2026-07-13-at-17.40.12.jpeg" loading="lazy" alt="第29屆EDM主圖" onerror="this.parentElement.style.display=\'none\'"><figcaption>第29屆 EDM 主圖</figcaption></figure>
+</div>
+<div class="info-line">官網頁面：https://raywhitetw.com/events/taiwan-hsinchu-taipei-expo-25-26-jul-2026/。場地：新竹喜來登西館4F小宴會廳（房產9:00／移民13:30）、台北Ray White台灣總部（移民11:00／房產14:00）。場地／交通／住宿成本尚無使用者提供之實際數字，如實標示缺失，不腦補為0。</div>
+</section>
 </div>
 </div>
 <div class="tab-page" id="page-latest-performance" data-tab-page="latest-performance">
-<div class="scope-banner scope-latest">資料範圍：第28屆（2026/7/11台中・7/12高雄）</div>
+<div class="scope-banner scope-latest">資料範圍：第28-29屆（點選下方分頁切換已完成／籌備中場次）</div>
 <div class="ia-group" id="ia-latest-performance">
   <div class="ia-group-head"><h1><span class="ia-ic"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg></span></span>Latest Performance<span class="ia-zh">台中 vs 高雄成效比較</span></h1></div>
-<section id="latestPerf"><h2>本次成效：台中 vs 高雄</h2><div id="latestPerfBody"></div>
+<div class="group-tabs" role="tablist" aria-label="場次切換"><button type="button" class="group-tab-btn active" data-tab-target="s28">第28屆・已完成（7/11-12）</button><button type="button" class="group-tab-btn" data-tab-target="s29">第29屆・籌備中（7/25-26）</button></div>
+<section id="latestPerf" class="ia-tab-panel active" data-group-panel="s28"><h2>本次成效：台中 vs 高雄</h2><div id="latestPerfBody"></div>
 <div class="ia-group-head" style="margin-top:16px;"><h1 style="font-size:14px;">CPL × CPA 比較</h1></div>
 <div class="chart-wrap" style="height:220px;margin:10px 0 14px;"><canvas id="latestPerfCplCpaChart"></canvas></div>
 <div id="latestPerfCplCpaConcl"></div>
 <div id="latestPerfTableWrap" style="margin-top:12px;"></div>
 </section>
+<section id="latestPerf29" class="ia-tab-panel" data-group-panel="s29">
+<h2>第29屆成效：新竹 vs 台北</h2>
+<div class="info-line" style="margin-bottom:10px;">活動尚未舉行，目前無CPL／到場率／CPA可計算。已知：廣告預算NT$190,000；實際花費、FB名單數、場地成本均缺。</div>
+<table class="le-cplcpa-table" style="font-size:13px;">
+  <thead><tr><th class="left">指標</th><th>新竹 7/25</th><th>台北 7/26</th><th>25場歷史平均</th></tr></thead>
+  <tbody>
+    <tr><td class="left">聯繫名單（業務CRM，非廣告報名）</td><td>6筆</td><td>9筆</td><td>—</td></tr>
+    <tr><td class="left">已加賴</td><td>4筆</td><td>5筆</td><td>—</td></tr>
+    <tr><td class="left">報名／實到</td><td colspan="3" class="left">尚無資料（活動尚未舉行）</td></tr>
+    <tr><td class="left">CPL（廣告／報名）</td><td colspan="3" class="left">無法計算（花費未知）</td></tr>
+  </tbody>
+</table>
+</section>
 </div>
 </div>
 <div class="tab-page" id="page-latest-cost" data-tab-page="latest-cost">
-<div class="scope-banner scope-latest">資料範圍：第28屆（2026/7/11台中・7/12高雄）</div>
+<div class="scope-banner scope-latest">資料範圍：第28-29屆（點選下方分頁切換已完成／籌備中場次）</div>
 <div class="ia-group" id="ia-latest-cost">
   <div class="ia-group-head"><h1><span class="ia-ic"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M14 8H8"/><path d="M16 12H8"/><path d="M13 16H8"/></svg></span></span>Latest Cost<span class="ia-zh">本屆成本明細</span></h1></div>
-<section id="latestCost"><h2>本次成本明細</h2><div id="latestCostBody"></div>
+<div class="group-tabs" role="tablist" aria-label="場次切換"><button type="button" class="group-tab-btn active" data-tab-target="s28">第28屆・已完成（7/11-12）</button><button type="button" class="group-tab-btn" data-tab-target="s29">第29屆・籌備中（7/25-26）</button></div>
+<section id="latestCost" class="ia-tab-panel active" data-group-panel="s28"><h2>本次成本明細</h2><div id="latestCostBody"></div>
 <table style="margin:6px 0 10px;"><thead><tr><th class="left">項目</th><th class="left"><span class="le-city-tc-badge">7/11 台中</span></th><th class="left"><span class="le-city-kh-badge">7/12 高雄</span></th><th class="left">Total 總計</th></tr></thead><tbody>
       <tr><td class="left">9:30房產場報名人數</td><td class="left le-city-tc le-city-tc-cell">49（房產場專屬欄位）</td><td class="left le-city-kh le-city-kh-cell">21（房產場專屬欄位）</td><td class="left le-cat-total">70</td></tr>
       <tr><td class="left">單場次拆分(9:30/14:00)</td><td class="left le-city-tc le-city-tc-cell">已併入總報名(線上單場次，不拆分)</td><td class="left le-city-kh le-city-kh-cell">頁簽不分場次，個別場次人數待業務回報</td><td class="left le-cat-total">—</td></tr>
@@ -749,13 +783,46 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
       <tr style="font-weight:800;"><td class="left">小計</td><td class="left le-city-tc le-city-tc-cell"><div class="cost-row-cell"><span>114,765</span><span class="cost-pct-pill total">100.0%</span></div></td><td class="left le-city-kh le-city-kh-cell"><div class="cost-row-cell"><span>91,285</span><span class="cost-pct-pill total">100.0%</span></div></td><td class="left" style="color:var(--good);background:#eaf7ee;font-weight:800;"><div class="cost-row-cell"><span>206,050</span><span class="cost-pct-pill total">100.0%</span></div></td></tr>
       </tbody></table>
 </section>
+<section id="latestCost29" class="ia-tab-panel" data-group-panel="s29">
+<h2>第29屆成本明細</h2>
+<table style="margin:6px 0 10px;"><thead><tr><th class="left">項目</th><th class="left"><span class="le-city-tc-badge">7/25 新竹</span></th><th class="left"><span class="le-city-kh-badge">7/26 台北</span></th><th class="left">Total 總計</th></tr></thead><tbody>
+  <tr><td class="left">廣告預算(NT$)</td><td class="left" colspan="2">兩場合一預算</td><td class="left le-cat-total">190,000</td></tr>
+  <tr><td class="left">廣告實際花費(NT$)</td><td class="left" colspan="3">缺（來源表該欄位空白）</td></tr>
+  <tr><td class="left">場地費(NT$)</td><td class="left" colspan="3">尚無使用者提供之實際數字</td></tr>
+  <tr><td class="left">住宿費(NT$)</td><td class="left" colspan="3">尚無使用者提供之實際數字</td></tr>
+  <tr><td class="left">交通費(NT$)</td><td class="left" colspan="3">尚無使用者提供之實際數字</td></tr>
+  <tr style="font-weight:800;"><td class="left">小計</td><td class="left" colspan="3">尚無法計算（多項成本缺失，不腦補為0）</td></tr>
+</tbody></table>
+<div class="info-line">如業務／使用者在對話中提供實際成本數字，排程將於下次更新补齊。</div>
+</section>
 </div>
 </div>
 <div class="tab-page" id="page-latest-conversion" data-tab-page="latest-conversion">
-<div class="scope-banner scope-latest">資料範圍：第28屆（2026/7/11台中・7/12高雄）</div>
+<div class="scope-banner scope-latest">資料範圍：第28-29屆（點選下方分頁切換已完成／籌備中場次）</div>
 <div class="ia-group" id="ia-latest-conversion">
   <div class="ia-group-head"><h1><span class="ia-ic"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/></svg></span></span>Latest Conversion<span class="ia-zh">本屆名單與轉換</span></h1></div>
-<section id="latestConv"><h2>本次名單與轉換</h2><div id="latestConvBody"></div>
+<div class="group-tabs" role="tablist" aria-label="場次切換"><button type="button" class="group-tab-btn active" data-tab-target="s28">第28屆・已完成（7/11-12）</button><button type="button" class="group-tab-btn" data-tab-target="s29">第29屆・籌備中（7/25-26）</button></div>
+<section id="latestConv" class="ia-tab-panel active" data-group-panel="s28"><h2>本次名單與轉換</h2><div id="latestConvBody"></div>
+</section>
+<section id="latestConv29" class="ia-tab-panel" data-group-panel="s29">
+<h2>第29屆名單與轉換</h2>
+<div class="stat-chip-row" style="margin-bottom:12px;">
+  <div class="stat-chip"><div class="sv">15筆</div><div class="sl">聯繫名單合計(Amber+Bailey)</div></div>
+  <div class="stat-chip"><div class="sv">9筆(60%)</div><div class="sl">已加賴</div></div>
+  <div class="stat-chip"><div class="sv">2筆</div><div class="sl">會參加意向</div></div>
+  <div class="stat-chip"><div class="sv" style="color:var(--v-grey);">4筆</div><div class="sl">尚未詢問參加意願（出席欄位空白）</div></div>
+</div>
+<table style="margin:6px 0 10px;font-size:13px;">
+  <thead><tr><th class="left">名單</th><th>總數</th><th>已加賴</th><th>連繫中</th><th>會參加</th><th>未定</th><th>未詢問</th></tr></thead>
+  <tbody>
+    <tr><td class="left">新竹7/25 Amber名單</td><td>4</td><td>2(含已開群1)</td><td>1</td><td>0</td><td>0</td><td>4</td></tr>
+    <tr><td class="left">台北7/26 Amber名單</td><td>6</td><td>3</td><td>3</td><td>1</td><td>0</td><td>0</td></tr>
+    <tr><td class="left">新竹7/25 Bailey名單</td><td>2</td><td>2</td><td>0</td><td>1</td><td>0</td><td>0</td></tr>
+    <tr><td class="left">台北7/26 Bailey名單</td><td>3</td><td>2</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr style="font-weight:800;"><td class="left">合計</td><td>15</td><td>9</td><td>5</td><td>2</td><td>0</td><td>4</td></tr>
+  </tbody>
+</table>
+<div class="info-line">僅Amber、Bailey建立名單，小白、Nicole、Cathy尚未建立。未定欄位目前均為0，但另有4筆出席欄位空白（尚未詢問），不等於「未定」。與第28屆同期(7個有效分頁、8組分組)相比，涵蓋業務明顯較少。</div>
 </section>
 </div>
 </div>
