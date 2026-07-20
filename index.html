@@ -645,7 +645,7 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
       <div class="status-badges">
         <span class="status-badge done"><span class="dot"></span>25 Completed</span>
         <span class="status-badge tracking"><span class="dot"></span>3 Tracking（28屆7/12高雄・29屆7/25-26即將舉行）</span>
-        <span class="status-badge info"><span class="dot"></span>Updated 2026/7/15</span>
+        <span class="status-badge info"><span class="dot"></span>Updated 2026/7/20</span>
       </div>
     </div>
   </div>
@@ -2298,6 +2298,10 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
     group.querySelectorAll(".group-tab-btn").forEach(function(b){ b.classList.remove("active"); });
     btn.classList.add("active");
     const target = btn.getAttribute("data-tab-target");
+    if(target === "s28" || target === "s29"){
+      const hz = document.getElementById("leHeadZh");
+      if(hz) hz.textContent = (target === "s28" ? "第28屆" : "第29屆") + (target === "s28" ? "管理總覽" : "籌備中管理總覽");
+    }
     group.querySelectorAll(".ia-tab-panel").forEach(function(p){
       const isActive = p.getAttribute("data-group-panel") === target;
       p.classList.toggle("active", isActive);
@@ -2416,7 +2420,10 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
 
   // ---- Header ----
   const headZhEl = document.getElementById("leHeadZh");
-  if(headZhEl) headZhEl.textContent = latestEvent.title+"管理總覽";
+  if(headZhEl){
+    const s29PanelActive = document.querySelector('[data-group-panel="s29"]')?.classList.contains("active");
+    headZhEl.textContent = s29PanelActive ? "第29屆籌備中管理總覽" : (latestEvent.title+"管理總覽");
+  }
 
   // ---- Executive Signal 判斷邏輯 ----
   function computeSignal(){
