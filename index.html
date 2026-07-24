@@ -529,15 +529,15 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
 }
 /* ==== v60: Mobile Sticky Tabs (取代 Hamburger/Drawer) ==== */
 @media(max-width:900px){
-  .topbar{position:sticky;height:auto;flex-direction:column;align-items:stretch;padding:0;gap:0;top:0;}
+  .topbar{position:sticky;height:auto;width:100%;flex-direction:column;align-items:stretch;padding:0;gap:0;top:0;left:0;right:0;box-sizing:border-box;}
   .app-main{padding-top:0 !important;}
   .ia-group,.tab-page{scroll-margin-top:calc(var(--topbar-h,96px) + 10px);}
 }
-.mnav-groups{display:flex;overflow-x:auto;gap:2px;padding:8px 10px 6px;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.mnav-groups{display:flex;width:100%;min-width:0;box-sizing:border-box;overflow-x:auto;gap:2px;padding:8px 10px 6px;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
 .mnav-groups::-webkit-scrollbar{display:none;}
 .mnav-groups button{flex:0 0 auto;font-family:inherit;font-size:12.5px;font-weight:700;color:rgba(255,255,255,.65);background:transparent;border:none;border-bottom:2px solid transparent;padding:7px 12px 8px;white-space:nowrap;cursor:pointer;}
 .mnav-groups button.active{color:#fff;border-bottom-color:var(--rw-yellow);}
-.mnav-subs{display:flex;overflow-x:auto;gap:6px;padding:0 10px 9px;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.mnav-subs{display:flex;width:100%;min-width:0;box-sizing:border-box;overflow-x:auto;gap:6px;padding:0 10px 9px;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
 .mnav-subs::-webkit-scrollbar{display:none;}
 .mnav-subs.empty{display:none;}
 .mnav-subs button{flex:0 0 auto;font-family:inherit;font-size:11px;font-weight:600;color:rgba(255,255,255,.6);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:5px 12px;white-space:nowrap;cursor:pointer;}
