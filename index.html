@@ -3040,13 +3040,15 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
 
   function renderSubs(groupKey){
     const g = GROUPS.filter(function(x){ return x.key===groupKey; })[0];
-    if(!g || g.tabs.length<=1){ subsEl.innerHTML=""; subsEl.classList.add("empty"); return; }
+    if(!g || g.tabs.length<=1){ subsEl.innerHTML=""; subsEl.classList.add("empty"); subsEl.scrollLeft=0; return; }
     subsEl.classList.remove("empty");
     subsEl.innerHTML = g.tabs.map(function(t){
       return '<button type="button" data-tab="'+t+'">'+(SUB_LABELS[t]||t)+'</button>';
     }).join("");
+    subsEl.scrollLeft = 0;
   }
   renderSubs(GROUPS[0].key);
+  groupsEl.scrollLeft = 0;
 
   function groupOfTab(tab){
     for(var i=0;i<GROUPS.length;i++){ if(GROUPS[i].tabs.indexOf(tab)!==-1) return GROUPS[i].key; }
