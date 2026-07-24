@@ -495,8 +495,10 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
   .le2-actions-grid{grid-template-columns:1fr;}
 }
 @media(max-width:640px){
-  .tab-page table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:nowrap;}
-  .tab-page table thead,.tab-page table tbody,.tab-page table tr{display:table;width:max-content;min-width:100%;table-layout:auto;}
+  .tab-page table:not(.no-scroll-wrap){display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .tab-page div.tbl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .tab-page div.tbl-scroll table{width:max-content;min-width:100%;}
+  .tab-page table th,.tab-page table td{white-space:nowrap;}
   #page-latest-overview .funnel-row{flex-direction:column;align-items:stretch;overflow-x:visible;}
   #page-latest-overview .funnel-stage{min-width:0;}
   #page-latest-overview .funnel-arrow{flex-direction:row;min-width:0;padding:6px 0;justify-content:center;}
@@ -806,7 +808,7 @@ STANDING RULE（2026/7/20新增，每逢新屆別上線時必讀，避免重蹈2
     <div class="drow"><span class="k">CPA（總成本／實到）</span><span class="v" style="color:var(--v-grey);">無法計算（尚無實到數）</span></div>
   </div>
 </div>
-<table class="le-cplcpa-table" style="font-size:13px;">
+<div class="tbl-scroll"><table class="le-cplcpa-table" style="font-size:13px;">
   <thead><tr><th class="left">指標</th><th>新竹 7/25</th><th>台北 7/26</th><th>25場歷史平均</th></tr></thead>
   <tbody>
     <tr><td class="left">聯繫名單（業務CRM，非廣告報名）</td><td>19筆</td><td>28筆</td><td>—</td></tr>
@@ -815,7 +817,7 @@ STANDING RULE（2026/7/20新增，每逢新屆別上線時必讀，避免重蹈2
     <tr><td class="left">報名／實到</td><td colspan="3" class="left">尚無資料（活動尚未舉行）</td></tr>
     <tr><td class="left">CPL（廣告／報名）</td><td colspan="3" class="left">無法計算（花費未知）</td></tr>
   </tbody>
-</table>
+</table></div>
 <div class="info-line" style="margin-top:6px;">聯繫名單為業務CRM追蹤之聯繫意向，與正式「報名人數」（廣告表單填寫）屬不同資料口徑，不可直接換算或比較，比照第28屆分頁上方註記同一原則。</div>
 </section>
 </div>
@@ -826,7 +828,7 @@ STANDING RULE（2026/7/20新增，每逢新屆別上線時必讀，避免重蹈2
   <div class="ia-group-head"><h1><span class="ia-ic"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M14 8H8"/><path d="M16 12H8"/><path d="M13 16H8"/></svg></span></span>Latest Cost<span class="ia-zh">本屆成本明細</span></h1></div>
 <div class="group-tabs event-tabs" role="tablist" aria-label="場次切換"><button type="button" class="group-tab-btn etab-29 active" data-tab-target="s29">第29屆・籌備中（7/25-26）</button><button type="button" class="group-tab-btn etab-28" data-tab-target="s28">第28屆・已完成（7/11-12）</button></div>
 <section id="latestCost" class="ia-tab-panel" data-group-panel="s28"><h2>本次成本明細</h2><div id="latestCostBody"></div>
-<table style="margin:6px 0 10px;"><thead><tr><th class="left">項目</th><th class="left"><span class="le-city-tc-badge">7/11 台中</span></th><th class="left"><span class="le-city-kh-badge">7/12 高雄</span></th><th class="left">Total 總計</th></tr></thead><tbody>
+<div class="tbl-scroll"><table style="margin:6px 0 10px;"><thead><tr><th class="left">項目</th><th class="left"><span class="le-city-tc-badge">7/11 台中</span></th><th class="left"><span class="le-city-kh-badge">7/12 高雄</span></th><th class="left">Total 總計</th></tr></thead><tbody>
       <tr><td class="left">9:30房產場報名人數</td><td class="left le-city-tc le-city-tc-cell">49（房產場專屬欄位）</td><td class="left le-city-kh le-city-kh-cell">21（房產場專屬欄位）</td><td class="left le-cat-total">70</td></tr>
       <tr><td class="left">單場次拆分(9:30/14:00)</td><td class="left le-city-tc le-city-tc-cell">已併入總報名(線上單場次，不拆分)</td><td class="left le-city-kh le-city-kh-cell">頁簽不分場次，個別場次人數待業務回報</td><td class="left le-cat-total">—</td></tr>
       <tr><td class="left">實到人數</td><td class="left le-city-tc le-city-tc-cell">13人（房產場，2026/7/12使用者提供）</td><td class="left le-city-kh le-city-kh-cell">9:30場：6組(6人)｜14:00場：待業務回報</td><td class="left le-cat-total">19人（詳見Latest Event總覽，14:00場待補）</td></tr>
@@ -837,12 +839,12 @@ STANDING RULE（2026/7/20新增，每逢新屆別上線時必讀，避免重蹈2
       <tr><td class="left">高鐵票(NT$)</td><td class="left le-city-tc le-city-tc-cell"><div class="cost-row-cell"><span>12,805</span><span class="cost-pct-pill hot">11.2%</span></div></td><td class="left le-city-kh le-city-kh-cell"><div class="cost-row-cell"><span>12,805</span><span class="cost-pct-pill hot">14.0%</span></div></td><td class="left le-cat-total"><div class="cost-row-cell"><span>25,610</span><span class="cost-pct-pill hot">12.4%</span></div></td></tr>
       <tr><td class="left">伙食費(NT$)</td><td class="left le-city-tc le-city-tc-cell"><div class="cost-row-cell"><span>5,800</span><span class="cost-pct-pill hot">5.1%</span></div></td><td class="left le-city-kh le-city-kh-cell"><div class="cost-row-cell"><span>5,800</span><span class="cost-pct-pill">6.4%</span></div></td><td class="left le-cat-total"><div class="cost-row-cell"><span>11,600</span><span class="cost-pct-pill">5.6%</span></div></td></tr>
       <tr style="font-weight:800;"><td class="left">小計</td><td class="left le-city-tc-cell"><div class="cost-row-cell"><span style="color:#8B1E1E;">114,765</span></div></td><td class="left le-city-kh-cell"><div class="cost-row-cell"><span style="color:#8B1E1E;">91,285</span></div></td><td class="left" style="background:#eaf7ee;font-weight:800;"><div class="cost-row-cell"><span style="color:#8B1E1E;">206,050</span></div></td></tr>
-      </tbody></table>
+      </tbody></table></div>
 </section>
 <section id="latestCost29" class="ia-tab-panel active" data-group-panel="s29">
 <h2>第29屆成本明細</h2>
 <div class="info-line" style="margin-bottom:8px;">格式與下方「第28屆・已完成」分頁統一（同一欄位順序／同一cost-pct-pill佔比呈現方式），僅數字性質不同：本表為審批表核准之預估金額，非活動結束後之實報實銷數字，活動尚未舉行(7/25-26)。</div>
-<table style="margin:6px 0 10px;"><thead><tr><th class="left">項目</th><th class="left"><span class="le-city-tc-badge">7/25 新竹</span></th><th class="left"><span class="le-city-kh-badge">7/26 台北</span></th><th class="left">Total 總計</th></tr></thead><tbody>
+<div class="tbl-scroll"><table style="margin:6px 0 10px;"><thead><tr><th class="left">項目</th><th class="left"><span class="le-city-tc-badge">7/25 新竹</span></th><th class="left"><span class="le-city-kh-badge">7/26 台北</span></th><th class="left">Total 總計</th></tr></thead><tbody>
       <tr><td class="left">9:30房產場報名人數</td><td class="left le-city-tc le-city-tc-cell">尚無資料（活動未舉行）</td><td class="left le-city-kh le-city-kh-cell">尚無資料（活動未舉行）</td><td class="left le-cat-total">—</td></tr>
       <tr><td class="left">實到人數</td><td class="left le-city-tc le-city-tc-cell">尚無資料（活動未舉行）</td><td class="left le-city-kh le-city-kh-cell">尚無資料（活動未舉行）</td><td class="left le-cat-total">—</td></tr>
       <tr><td class="left">場地費(NT$)</td><td class="left le-city-tc le-city-tc-cell" data-tip="新竹喜來登場地費全額NT$81,000，跟移民對半均攤後房產份額40,500，已與Google Sheet「說明會數據」頁簽獨立來源交叉驗證一致。"><div class="cost-row-cell"><span>40,500</span><span class="cost-pct-pill hot">38.7%</span></div></td><td class="left le-city-kh le-city-kh-cell" data-tip="台北Ray White台灣總部自有場地，場地費0；申請人備註另有預期收入NT$50,000(性質待確認)。"><div class="cost-row-cell"><span>0</span><span class="cost-pct-pill">0.0%</span></div></td><td class="left le-cat-total"><div class="cost-row-cell"><span>40,500</span><span class="cost-pct-pill hot">22.9%</span></div></td></tr>
@@ -852,7 +854,7 @@ STANDING RULE（2026/7/20新增，每逢新屆別上線時必讀，避免重蹈2
       <tr><td class="left">交通費(NT$)</td><td class="left le-city-tc le-city-tc-cell" data-tip="新竹包車費用"><div class="cost-row-cell"><span>12,000</span><span class="cost-pct-pill hot">11.5%</span></div></td><td class="left le-city-kh le-city-kh-cell" data-tip="辦公室to餐廳(2026/7/21新增，審批狀態待確認)"><div class="cost-row-cell"><span>500</span><span class="cost-pct-pill">0.7%</span></div></td><td class="left le-cat-total"><div class="cost-row-cell"><span>12,500</span><span class="cost-pct-pill">7.1%</span></div></td></tr>
       <tr><td class="left">伙食費(NT$)</td><td class="left le-city-tc le-city-tc-cell" data-tip="新竹員工餐費"><div class="cost-row-cell"><span>4,600</span><span class="cost-pct-pill">4.4%</span></div></td><td class="left le-city-kh le-city-kh-cell" data-tip="45000/2，sales*5(2026/7/21新增，審批狀態待確認)"><div class="cost-row-cell"><span>22,500</span><span class="cost-pct-pill hot">31.3%</span></div></td><td class="left le-cat-total"><div class="cost-row-cell"><span>27,100</span><span class="cost-pct-pill hot">15.3%</span></div></td></tr>
       <tr style="font-weight:800;"><td class="left">小計（預估已核准，NT$）</td><td class="left le-city-tc-cell"><div class="cost-row-cell"><span style="color:#8B1E1E;">104,600</span></div></td><td class="left le-city-kh-cell"><div class="cost-row-cell"><span style="color:#8B1E1E;">71,900</span></div></td><td class="left" style="background:var(--status-positive-bg);font-weight:800;"><div class="cost-row-cell"><span style="color:#8B1E1E;">176,500</span></div></td></tr>
-      </tbody></table>
+      </tbody></table></div>
 <div class="info-line"><b style="color:var(--status-positive);">✓ 兩場預算皆已正式核准</b>：新竹由董事長Justin核准（7/17 18:15，NT$104,600）；台北原核准金額NT$48,900（7/20 15:22），業務於複本分頁新增交通NT$500＋餐飲NT$22,500後，Justin已於7/21 15:22對含新增項目之版本重新正式核准（2026/7/22經使用者確認），台北最終核准總額為NT$71,900。來源：RayWhite_活動預算審批表.xlsx／分頁「0726活動預算審批 (2)」。場地費已與「說明會數據」頁簽獨立來源交叉驗證，交通/餐飲/PT目前僅有審批表單一來源。待29屆實際發生後，將以正式實報數字覆蓋本表。</div>
 </section>
 </div>
@@ -879,31 +881,31 @@ STANDING RULE（2026/7/20新增，每逢新屆別上線時必讀，避免重蹈2
   <div class="le-col le-total" data-day="rank1">
     <div class="le-col-head"><div class="lc-t">🥇 White</div></div>
     <div class="le-kpi-row"><span class="k">邀約率</span><span class="v le-red-val">100.0%</span></div>
-    <div class="le-kpi-row"><span class="k">會參加(邀約數)</span><span class="v">14人</span></div>
+    <div class="le-kpi-row"><span class="k">會參加(邀約數)</span><span class="v">14組</span></div>
     <div class="le-kpi-row"><span class="k">名單</span><span class="v">14筆</span></div>
   </div>
   <div class="le-col le-total" data-day="rank2">
     <div class="le-col-head"><div class="lc-t">🥈 Cathy</div></div>
     <div class="le-kpi-row"><span class="k">邀約率</span><span class="v le-red-val">66.7%</span></div>
-    <div class="le-kpi-row"><span class="k">會參加(邀約數)</span><span class="v">4人</span></div>
+    <div class="le-kpi-row"><span class="k">會參加(邀約數)</span><span class="v">4組</span></div>
     <div class="le-kpi-row"><span class="k">名單</span><span class="v">6筆</span></div>
   </div>
   <div class="le-col le-total" data-day="rank3">
     <div class="le-col-head"><div class="lc-t">🥉 Nicole</div></div>
     <div class="le-kpi-row"><span class="k">邀約率</span><span class="v le-red-val">33.3%</span></div>
-    <div class="le-kpi-row"><span class="k">會參加(邀約數)</span><span class="v">2人</span></div>
+    <div class="le-kpi-row"><span class="k">會參加(邀約數)</span><span class="v">2組</span></div>
     <div class="le-kpi-row"><span class="k">名單</span><span class="v">6筆</span></div>
   </div>
   <div class="le-col le-total" data-day="rank4">
     <div class="le-col-head"><div class="lc-t">4. Amber</div></div>
     <div class="le-kpi-row"><span class="k">邀約率</span><span class="v le-red-val">21.4%</span></div>
-    <div class="le-kpi-row"><span class="k">會參加(邀約數)</span><span class="v">3人</span></div>
+    <div class="le-kpi-row"><span class="k">會參加(邀約數)</span><span class="v">3組</span></div>
     <div class="le-kpi-row"><span class="k">名單</span><span class="v">14筆</span></div>
   </div>
   <div class="le-col le-total" data-day="rank5">
     <div class="le-col-head"><div class="lc-t">5. Bailey</div></div>
     <div class="le-kpi-row"><span class="k">邀約率</span><span class="v le-red-val">14.3%</span></div>
-    <div class="le-kpi-row"><span class="k">會參加(邀約數)</span><span class="v">1人</span></div>
+    <div class="le-kpi-row"><span class="k">會參加(邀約數)</span><span class="v">1組</span></div>
     <div class="le-kpi-row"><span class="k">名單</span><span class="v">7筆</span></div>
   </div>
 </div>
