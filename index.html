@@ -3057,6 +3057,7 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
   function syncActive(tab){
     const gk = groupOfTab(tab);
     Array.prototype.forEach.call(groupsEl.querySelectorAll("button"), function(b){ b.classList.toggle("active", b.getAttribute("data-group")===gk); });
+    groupsEl.scrollLeft = 0;
     renderSubs(gk);
     Array.prototype.forEach.call(subsEl.querySelectorAll("button"), function(b){ b.classList.toggle("active", b.getAttribute("data-tab")===tab); });
   }
