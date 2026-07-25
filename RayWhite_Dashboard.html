@@ -3870,7 +3870,7 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
       '<button type="button" class="anomaly-filter-btn" data-filter-status="待處理">待處理</button>'+
       '<button type="button" class="anomaly-filter-btn" data-filter-status="已完成">已完成</button>'+
     '</div>';
-  const fullListHtml = '<div id="anomalyFullList">'+anomalyItems.map(anomalyCardHtml).join("")+'</div>';
+  const fullListHtml = '<div id="anomalyFullList">'+anomalyItems.map(function(a,i){ return anomalyCardHtml(a, i, false); }).join("")+'</div>';
   const anomalyCenterHtml =
     '<div class="eh-section-title">異常與待處理中心｜共'+anomalyItems.length+'項（'+anomalyItems.filter(function(a){return a.severity==="高"&&a.status!=="已完成";}).length+'項高風險待處理）</div>'+
     '<div class="eh-section-sub">規則門檻集中管理於單一設定物件(window.__anomalyRulesConfig)，涵蓋當次活動即時檢查與26場歷史掃描，缺少必要資料時不強行判定。</div>'+
