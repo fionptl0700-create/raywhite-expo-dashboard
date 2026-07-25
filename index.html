@@ -3203,6 +3203,55 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
     });
   }
 
+  // ---- Section 四：活動達標預估 Event Goal Forecast（2026/7/25新增）----
+  // 治理規則（window.__forecastRulesConfig，集中管理，供未來各屆沿用）：
+  // 1.CRM聯繫名單≠正式報名 2.已加LINE≠自動正式報名 3.會參加/未定/不參加/1-on-1維持原定義不合併
+  // 4.核准預算≠實際支出 5.缺資料顯示「無法預估」非0 6.樣本不足時信心度標示為低
+  // 7.預估結果一律呈現範圍非單一精確數字 8.成交預估需足夠同方法論歷史轉換資料，樣本不足時標示「資料不足無法預估」
+  // 9.優先採用同城市歷史場次比較，非全體平均 10.預估結果需同步顯示計算公式與使用資料
+  window.__forecastRulesConfig = window.__forecastRulesConfig || {
+    crmNotFormal:{label:"CRM聯繫名單≠正式報名名單，不可互換作為報名基礎"},
+    lineNotFormal:{label:"已加LINE≠自動正式報名"},
+    attendDefinitionLocked:{label:"會參加/未定/不參加/1-on-1維持原定義，不可合併簡化"},
+    approvedNotActual:{label:"核准預算≠實際支出，需分別呈現"},
+    missingAsNA:{label:"缺少必要資料顯示「無法預估」，不得以0代替"},
+    lowSampleLowConfidence:{label:"樣本數不足(<5場同城市可比較)時，信心度標示為低"},
+    rangeNotPoint:{label:"預估結果一律以範圍呈現，不提供單一精確數字"},
+    dealForecastGate:{label:"成交預估需有足夠同方法論歷史轉換資料；全站僅第27屆有完整Reserved/成交追蹤(樣本=1)，一律標示「資料不足無法預估」"},
+    preferSimilarHistorical:{label:"優先採用同城市歷史場次作為比較基礎，非全體平均"},
+    showFormulaAndData:{label:"預估結果需同步顯示計算公式與使用資料"}
+  };
+  function cityRateStats(evs, city){
+    const matches = (evs||[]).filter(function(e){ return e.loc && e.loc.split("/").indexOf(city) !== -1 && e.rate!=null; });
+    if(!matches.length) return null;
+    const rates = matches.map(function(e){ return e.rate; });
+    const mean = rates.reduce(function(a,b){ return a+b; },0)/rates.length;
+    return {n:matches.length, mean:mean, min:Math.min.apply(null,rates), max:Math.max.apply(null,rates)};
+  }
+  function confLabel(n){ return n==null ? "無法計算" : (n>=10?"中":(n>=5?"中低":"低")); }
+  const histEvs = (typeof completed !== "undefined") ? completed : [];
+  const taipeiRateStats = cityRateStats(histEvs, d2.city);
+  const d2RateLow = taipeiRateStats ? taipeiRateStats.min : null;
+  const d2RateHigh = taipeiRateStats ? taipeiRateStats.max : null;
+  const d2AttLow = (d2RateLow!=null && d2.registrations!=null) ? Math.round(d2.registrations*d2RateLow) : null;
+  const d2AttHigh = (d2RateHigh!=null && d2.registrations!=null) ? Math.round(d2.registrations*d2RateHigh) : null;
+  const d1OneRate = rateOf(d1.oneOnOne, d1.attendancePeople);
+  const d2OneLow = (d1OneRate!=null && d2AttLow!=null) ? Math.round(d2AttLow*d1OneRate) : null;
+  const d2OneHigh = (d1OneRate!=null && d2AttHigh!=null) ? Math.round(d2AttHigh*d1OneRate) : null;
+  function forecastCard(label, value, formula){
+    return '<div class="le2-kpi-card"><div class="v">'+value+'</div><div class="l">'+label+'</div>'+
+      '<div style="font-size:10px;color:var(--text-tertiary);margin-top:4px;line-height:1.4;">'+formula+'</div></div>';
+  }
+  const forecastHtml =
+    '<div class="le2-section-sub">目前尚無任何屆別設定正式目標值，本區塊僅呈現「預估範圍」，達成率／缺口待設定目標後啟用（見'+d2.dateLabel+d2.city+'場個案）。缺資料一律顯示「無法預估」，不以0代替；範圍非單一數字；完整10項治理規則見 window.__forecastRulesConfig。</div>'+
+    '<div class="le2-kpi-grid">'+
+      forecastCard(d2.dateLabel+d2.city+'場 到場率預估', d2RateLow!=null?(pct(d2RateLow)+'–'+pct(d2RateHigh)):'無法預估（無同城市歷史資料）', '公式：'+d2.city+'歷史'+(taipeiRateStats?taipeiRateStats.n:0)+'場到場率最小–最大值區間｜資料：completed歷史事件(loc='+d2.city+')｜信心度：'+confLabel(taipeiRateStats?taipeiRateStats.n:null))+
+      forecastCard(d2.dateLabel+d2.city+'場 實到人數預估', d2AttLow!=null?(d2AttLow+'–'+d2AttHigh+'人'):'無法預估', '公式：報名'+fmtOrDash(d2.registrations)+'人 × 到場率預估區間｜信心度：'+confLabel(taipeiRateStats?taipeiRateStats.n:null))+
+      forecastCard(d2.dateLabel+d2.city+'場 1-on-1組數預估', d2OneLow!=null?(d2OneLow+'–'+d2OneHigh+'組'):'無法預估', '公式：預估實到區間 × '+d1.city+'房產場實到轉1-on-1率'+fmtPctOrDash(d1OneRate)+'(樣本僅'+fmtOrDash(d1.attendancePeople)+'人)｜信心度：低（跨城市套用單場比率，屬假設非實證，非同方法論歷史數據）')+
+      forecastCard('Reserved／成交預估', '資料不足無法預估', '全26場歷史活動僅第27屆具備完整Reserved／成交追蹤(樣本數=1)，未達建立轉換率方法論之最低樣本需求，依治理規則不予估算')+
+    '</div>'+
+    '<div class="le2-section-sub" style="margin-top:8px;">預算：核准總額'+fmtMoney(total.totalCost)+'（廣告'+fmtMoney(total.adCost)+'＋營運'+fmtMoney(total.nonAdCost)+'，2026/7/21審批核准）已全數認列；此為核准金額而非另行推估之實際支出，活動進行中無需追加預算，兩者如有差異將另行標註於本次成本頁。</div>';
+
   // ---- 組裝 ----
   const finalHtml =
     '<div class="le2-header"><div class="le2-title">Latest Event｜'+latestEvent29.title+'管理總覽</div><div class="le2-updated">Updated '+latestEvent29.lastUpdated+'</div></div>'+
@@ -3221,6 +3270,8 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
     singleFunnelHtml()+
     '<div class="le2-section-title">Decision Metrics｜決策指標</div>'+
     decisionHtml+
+    '<div class="le2-section-title">活動達標預估｜Event Goal Forecast</div>'+
+    forecastHtml+
     '<div class="le2-section-title">Next Actions｜管理層下一步</div>'+
     actionsHtml+
     '<div class="le2-section-title">Sales Ranking｜業務邀約率排名</div>'+
