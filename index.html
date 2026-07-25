@@ -308,6 +308,19 @@
   .col-toggle input{cursor:pointer;}
   #eventTable.cols-compact th:nth-child(9),#eventTable.cols-compact td:nth-child(9),
   #eventTable.cols-compact th:nth-child(10),#eventTable.cols-compact td:nth-child(10){display:none;}
+  #eventTable .col-adv{display:none;}
+  #eventTable.show-adv .col-adv{display:table-cell;}
+  #eventTable tbody tr.ev-row{cursor:pointer;}
+  #eventTable tbody tr.ev-row:hover{background:var(--bg-subtle);}
+  #eventTable tr.ev-detail-row td{background:var(--bg-subtle);padding:12px 14px;}
+  #eventTable tr.ev-detail-row{display:none;}
+  #eventTable tr.ev-detail-row.open{display:table-row;}
+  .ev-detail-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;font-size:12px;}
+  .ev-detail-col{background:#fff;border:1px solid var(--border-default);border-radius:8px;padding:8px 10px;}
+  .ev-detail-col .edt{font-weight:700;color:var(--navy);font-size:11px;margin-bottom:6px;}
+  .ev-detail-col .edr{display:flex;justify-content:space-between;padding:2px 0;color:var(--text-secondary);}
+  .ev-anom-tag{display:inline-block;background:var(--status-negative-bg);color:var(--status-negative);font-size:10.5px;font-weight:700;border-radius:5px;padding:2px 6px;margin:2px 4px 0 0;}
+  .ev-na{color:var(--text-tertiary);}
   .insight-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin-bottom:16px;}
   .insight-card{background:var(--bg-card);border-radius:10px;padding:13px 16px;border:1px solid var(--border-default);border-left:3px solid var(--navy);display:flex;align-items:center;gap:10px;}
   .insight-card .arrow{font-size:20px;font-weight:800;line-height:1;}
@@ -1259,15 +1272,25 @@ STANDING RULE（2026/7/20新增，每逢新屆別上線時必讀，避免重蹈2
         <option value="A">A級</option><option value="B">B級</option><option value="C">C級</option><option value="D">D級</option><option value="N">資料不足/籌備中</option>
       </select>
       <input id="searchBox" placeholder="搜尋主題/地點...">
+      <select id="statusFilter">
+        <option value="">全部狀態</option>
+        <option value="done">已完成</option>
+        <option value="prep">籌備中</option>
+      </select>
+      <select id="cityFilter"><option value="">全部城市</option></select>
+      <label class="col-toggle"><input type="checkbox" id="anomalyFilter"> 僅顯示有異常</label>
+      <label class="col-toggle"><input type="checkbox" id="incompleteFilter"> 僅顯示資料不完整</label>
       <label class="col-toggle"><input type="checkbox" id="eventColToggle"> 顯示完整欄位（含廣告花費／總成本）</label>
+      <label class="col-toggle"><input type="checkbox" id="advColToggle"> 顯示進階欄位（CPA／資料完整度／異常數量）</label>
     </div>
+    <div class="le2-section-sub" style="margin:-4px 0 8px;">預設排序：異常項目多者優先 → 籌備中／即將舉行優先 → 資料不完整優先 → 日期新到舊。點擊列可展開查看成本結構／轉換漏斗／異常明細／資料來源等詳情（含活動類型／活動負責人／1-on-1／Reserved／成交／收入／ROI狀態等目前無資料之欄位，一律標示「尚無資料」不以0代替）。</div>
     <div style="max-height:560px;overflow:auto;">
     <table id="eventTable" class="cols-compact">
       <thead><tr>
         <th class="left">EDM</th><th class="left"><span class="ic" style="width:12px;height:12px;color:var(--navy);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span> 年份／日期</th><th class="left">主題</th><th class="left"><span class="ic" style="width:12px;height:12px;color:var(--navy);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span> 地點</th>
-        <th>報名</th><th>實到</th><th>實到率</th><th>CPL(NT$)</th><th>廣告花費(NT$)</th><th>總成本(NT$)</th><th>分級</th>
+        <th>報名</th><th>實到</th><th>實到率</th><th>CPL(NT$)</th><th>廣告花費(NT$)</th><th>總成本(NT$)</th><th>分級</th><th class="col-adv">CPA(NT$)</th><th class="col-adv">資料完整度</th><th class="col-adv">異常</th>
       </tr></thead>
-      <tbody></tbody>
+      <tbody id="eventTableBody"></tbody>
     </table>
     </div>
   </section>
@@ -1489,6 +1512,49 @@ function colorCell(val,avg,text,lowerIsBetter){
 
 function fmt(n){ return n==null ? "—" : Math.round(n).toLocaleString(); }
 function pct(n){ return n==null ? "—" : (n*100).toFixed(1)+"%"; }
+
+// ---- 全站共用門檻設定（2026/7/25新增，供「活動資料庫」與「執行總覽異常中心」共同引用，避免同一指標於兩處各自硬編碼一份）----
+window.__sharedThresholds = window.__sharedThresholds || { lowAttendanceRate: 0.25, cplCityAvgMultiplier: 1.20 };
+function cityAvgCplMap(evs){
+  const map = {};
+  (evs||[]).forEach(function(e){
+    if(e.cpl==null || !e.loc) return;
+    e.loc.split("/").forEach(function(c){
+      if(!map[c]) map[c] = [];
+      map[c].push(e.cpl);
+    });
+  });
+  const out = {};
+  Object.keys(map).forEach(function(c){
+    out[c] = { n: map[c].length, avg: map[c].reduce(function(a,b){return a+b;},0)/map[c].length };
+  });
+  return out;
+}
+const __cityCplAvg = cityAvgCplMap(completed);
+function eventAnomalyList(e){
+  const list = [];
+  if(e.prep) return list;
+  if(e.rate!=null && e.rate < window.__sharedThresholds.lowAttendanceRate){
+    list.push("到場率偏低("+pct(e.rate)+" < "+pct(window.__sharedThresholds.lowAttendanceRate)+")");
+  }
+  if(e.cpl!=null && e.loc){
+    const cities = e.loc.split("/");
+    for(let i=0;i<cities.length;i++){
+      const stat = __cityCplAvg[cities[i]];
+      if(stat && stat.n>=2 && e.cpl > stat.avg*window.__sharedThresholds.cplCityAvgMultiplier){
+        list.push("CPL高於"+cities[i]+"歷史均值20%以上(NT$"+fmt(e.cpl)+" vs 均值NT$"+fmt(stat.avg)+"，"+stat.n+"場可比較)");
+        break;
+      }
+    }
+  }
+  return list;
+}
+function eventDataCompleteness(e){
+  if(e.prep) return null;
+  const fields = [e.leads,e.att,e.rate,e.cpl,e.ads];
+  const filled = fields.filter(function(v){ return v!=null; }).length;
+  return filled/fields.length;
+}
 
 document.getElementById("updatedAt").textContent = "產出時間：" + new Date().toLocaleString('zh-TW');
 
@@ -1803,9 +1869,20 @@ function gradeBadge(e){
   const label = e.grade==="N" ? "-" : e.grade;
   return `<span class="grade ${cls}">${label}</span>`;
 }
+function eventRowKey(e){ return e.ord+"_"+e.d; }
 function renderTable(list){
-  const sorted = list.slice().sort((a,b)=> a.d < b.d ? 1 : -1);
-  const tbody = document.querySelector("#eventTable tbody");
+  // 預設排序（2026/7/25升級）：異常項目多者優先 → 籌備中優先 → 資料不完整優先 → 日期新到舊
+  const sorted = list.slice().sort((a,b)=>{
+    const anomA = eventAnomalyList(a).length, anomB = eventAnomalyList(b).length;
+    if(anomA !== anomB) return anomB - anomA;
+    const prepA = a.prep?1:0, prepB = b.prep?1:0;
+    if(prepA !== prepB) return prepB - prepA;
+    const compA = eventDataCompleteness(a), compB = eventDataCompleteness(b);
+    const cA = compA==null ? 1 : compA, cB = compB==null ? 1 : compB;
+    if(cA !== cB) return cA - cB;
+    return a.d < b.d ? 1 : -1;
+  });
+  const tbody = document.getElementById("eventTableBody");
   tbody.innerHTML = sorted.map(e=>{
     const total = (e.ads||0)+(e.venue||0);
     const img = e.img ? `<img class="thumb" src="${e.img}" loading="lazy" onerror="this.style.display='none'">` : `<div class="thumb-ph">${e.prep?"資料追蹤中":"無圖"}</div>`;
@@ -1818,7 +1895,13 @@ function renderTable(list){
     const yr = dparts[0];
     const md = dparts.slice(1).join("/");
     const dateCell = `<b style="color:var(--teal);">${yr}</b><br><span style="font-size:11px;color:var(--navy);">${md}</span>`;
-    return `<tr class="${e.prep?'prep':''}">
+    const cpa = (e.att!=null && e.att>0 && total>0) ? Math.round(total/e.att) : null;
+    const completeness = eventDataCompleteness(e);
+    const anomList = eventAnomalyList(e);
+    const key = eventRowKey(e);
+    const completenessCell = completeness==null ? `<span class="ev-na">籌備中</span>` : (completeness<1 ? `<span class="lo">${Math.round(completeness*100)}%</span>` : `<span class="hi">100%</span>`);
+    const anomCell = e.prep ? `<span class="ev-na">—</span>` : (anomList.length ? `<span class="lo">${anomList.length}項</span>` : `<span class="hi">0</span>`);
+    return `<tr class="ev-row ${e.prep?'prep':''}" data-key="${key}">
       <td class="left" data-label="EDM">${img}</td>
       <td class="left" data-label="年份/日期">${dateCell}</td>
       <td class="left" data-label="主題">${e.event}</td>
@@ -1830,23 +1913,100 @@ function renderTable(list){
       <td data-label="廣告花費(NT$)">${fmt(e.ads)}</td>
       <td data-label="總成本(NT$)">${totalCell}</td>
       <td data-label="分級">${gradeBadge(e)}</td>
-    </tr>`;
+      <td class="col-adv" data-label="CPA(NT$)">${cpa==null?'<span class="ev-na">無法計算</span>':fmt(cpa)}</td>
+      <td class="col-adv" data-label="資料完整度">${completenessCell}</td>
+      <td class="col-adv" data-label="異常">${anomCell}</td>
+    </tr>
+    <tr class="ev-detail-row" data-detail-for="${key}"><td colspan="14">${eventDetailHtml(e, cpa, completeness, anomList)}</td></tr>`;
   }).join("");
+  Array.from(tbody.querySelectorAll("tr.ev-row")).forEach(function(tr){
+    tr.addEventListener("click", function(ev){
+      if(ev.target.closest("a")) return;
+      const key = tr.getAttribute("data-key");
+      const detailRow = tbody.querySelector('tr.ev-detail-row[data-detail-for="'+key+'"]');
+      if(detailRow) detailRow.classList.toggle("open");
+    });
+  });
 }
+function eventDetailHtml(e, cpa, completeness, anomList){
+  const total = (e.ads||0)+(e.venue||0);
+  const na = '<span class="ev-na">尚無資料</span>';
+  const anomHtml = e.prep ? na : (anomList.length ? anomList.map(function(a){ return '<span class="ev-anom-tag">'+a+'</span>'; }).join("") : '<span class="hi" style="padding:2px 6px;">無異常</span>');
+  return '<div class="ev-detail-grid">'+
+    '<div class="ev-detail-col"><div class="edt">核心績效</div>'+
+      '<div class="edr"><span>報名</span><span>'+fmtOrDashG(e.leads)+'</span></div>'+
+      '<div class="edr"><span>實到</span><span>'+fmtOrDashG(e.att)+'</span></div>'+
+      '<div class="edr"><span>到場率</span><span>'+(e.rate!=null?pct(e.rate):'—')+'</span></div>'+
+      '<div class="edr"><span>CPL</span><span>'+(e.cpl!=null?'NT$'+fmt(e.cpl):'—')+'</span></div>'+
+      '<div class="edr"><span>CPA</span><span>'+(cpa!=null?'NT$'+fmt(cpa):'無法計算')+'</span></div>'+
+    '</div>'+
+    '<div class="ev-detail-col"><div class="edt">成本結構</div>'+
+      '<div class="edr"><span>廣告花費</span><span>'+fmtMoneyG(e.ads)+'</span></div>'+
+      '<div class="edr"><span>場地費</span><span>'+fmtMoneyG(e.venue)+'</span></div>'+
+      '<div class="edr"><span>總成本</span><span>'+(total?fmtMoneyG(total):'—')+'</span></div>'+
+      '<div class="edr"><span>每組實到成本</span><span>'+(e.attGroups!=null&&total?fmtMoneyG(Math.round(total/e.attGroups)):na)+'</span></div>'+
+    '</div>'+
+    '<div class="ev-detail-col"><div class="edt">轉換漏斗／業務績效</div>'+
+      '<div class="edr"><span>1-on-1組數</span><span>'+na+'</span></div>'+
+      '<div class="edr"><span>Reserved</span><span>'+na+'</span></div>'+
+      '<div class="edr"><span>成交／開單</span><span>'+na+'</span></div>'+
+      '<div class="edr"><span>活動負責人</span><span>'+na+'</span></div>'+
+      '<div class="edr"><span>活動類型</span><span>'+na+'</span></div>'+
+    '</div>'+
+    '<div class="ev-detail-col"><div class="edt">達標與ROI</div>'+
+      '<div class="edr"><span>資料完整度</span><span>'+(completeness!=null?Math.round(completeness*100)+'%（5項關鍵欄位）':'籌備中')+'</span></div>'+
+      '<div class="edr"><span>實際收入／佣金</span><span>'+na+'</span></div>'+
+      '<div class="edr"><span>ROI狀態</span><span>'+na+'（缺Reserved／成交／收入資料，依治理規則不得宣稱完整ROI）</span></div>'+
+    '</div>'+
+    '<div class="ev-detail-col" style="grid-column:1/-1;"><div class="edt">異常明細</div>'+anomHtml+'</div>'+
+    '<div class="ev-detail-col" style="grid-column:1/-1;font-size:11px;color:var(--text-tertiary);"><div class="edt">資料來源／更新時間</div>RayWhite_活動效益總表.xlsx／raywhitetw.com｜本頁最後更新2026/7/25（沿用全站更新時間，非個別活動獨立時間戳，目前系統未記錄逐場更新歷程）</div>'+
+    '</div>';
+}
+function fmtOrDashG(v){ return v==null ? "—" : fmt(v); }
+function fmtMoneyG(v){ return v==null ? "—" : "NT$"+fmt(v); }
 renderTable(events);
+
+(function populateCityFilter(){
+  const sel = document.getElementById("cityFilter");
+  const cities = {};
+  events.forEach(function(e){ (e.loc||"").split("/").forEach(function(c){ if(c) cities[c]=true; }); });
+  Object.keys(cities).sort().forEach(function(c){
+    const opt = document.createElement("option"); opt.value = c; opt.textContent = c; sel.appendChild(opt);
+  });
+})();
 
 document.getElementById("gradeFilter").addEventListener("change", applyFilter);
 document.getElementById("searchBox").addEventListener("input", applyFilter);
+document.getElementById("statusFilter").addEventListener("change", applyFilter);
+document.getElementById("cityFilter").addEventListener("change", applyFilter);
+document.getElementById("anomalyFilter").addEventListener("change", applyFilter);
+document.getElementById("incompleteFilter").addEventListener("change", applyFilter);
 document.getElementById("eventColToggle").addEventListener("change", function(){
   document.getElementById("eventTable").classList.toggle("cols-compact", !this.checked);
+});
+document.getElementById("advColToggle").addEventListener("change", function(){
+  document.getElementById("eventTable").classList.toggle("show-adv", this.checked);
 });
 function applyFilter(){
   const g = document.getElementById("gradeFilter").value;
   const q = document.getElementById("searchBox").value.trim().toLowerCase();
-  renderTable(events.filter(e=>
-    (!g || e.grade===g) &&
-    (!q || e.event.toLowerCase().includes(q) || e.loc.toLowerCase().includes(q))
-  ));
+  const st = document.getElementById("statusFilter").value;
+  const city = document.getElementById("cityFilter").value;
+  const onlyAnom = document.getElementById("anomalyFilter").checked;
+  const onlyIncomplete = document.getElementById("incompleteFilter").checked;
+  renderTable(events.filter(e=>{
+    if(g && e.grade!==g) return false;
+    if(q && !e.event.toLowerCase().includes(q) && !e.loc.toLowerCase().includes(q)) return false;
+    if(st==="done" && e.prep) return false;
+    if(st==="prep" && !e.prep) return false;
+    if(city && (e.loc||"").split("/").indexOf(city)===-1) return false;
+    if(onlyAnom && eventAnomalyList(e).length===0) return false;
+    if(onlyIncomplete){
+      const c = eventDataCompleteness(e);
+      if(c==null || c>=1) return false;
+    }
+    return true;
+  }));
 }
 
 const gradeCounts = {A:0,B:0,C:0,D:0,N:0};
@@ -3375,8 +3535,8 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
     undecidedRatioPre3d:  {label:"未定名單比例過高(活動前3天內)", threshold:0.30, severity:"高"},
     undecidedCountPre1d:  {label:"未定名單數過多(活動前1天內)", threshold:10, severity:"高"},
     attendanceGap:        {label:"實到資料尚未完整", severity:"中"},
-    lowAttendanceRate:    {label:"到場率偏低(低於25%)", threshold:0.25, severity:"高"},
-    highCplVsCityAvg:     {label:"CPL高於同城市歷史平均20%以上", threshold:1.20, severity:"中"},
+    lowAttendanceRate:    {label:"到場率偏低(低於25%)", threshold:window.__sharedThresholds.lowAttendanceRate, severity:"高"},
+    highCplVsCityAvg:     {label:"CPL高於同城市歷史平均20%以上", threshold:window.__sharedThresholds.cplCityAvgMultiplier, severity:"中"},
     staleConsultantList:  {label:"業務名單逾48小時未更新", thresholdHours:48, severity:"中"},
     lowInviteRate:        {label:"業務邀約率明顯偏低(需同步檢視樣本數)", threshold:0.30, severity:"低"},
     roiDataGap:           {label:"Reserved／成交資料結構性缺失", severity:"中"},
