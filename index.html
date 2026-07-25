@@ -610,11 +610,19 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
 .eh-health-note{background:var(--status-warning-bg);color:var(--status-warning);border-radius:8px;padding:10px 13px;font-size:11.5px;line-height:1.6;margin-top:10px;font-weight:600;}.le-note-box{font-size:11.5px;line-height:1.6;padding:10px 13px;border-radius:8px;font-weight:600;margin-top:10px;}
 .eh-full-link{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:26px;padding:12px;border-radius:10px;background:var(--bg-subtle);border:1px dashed var(--border-strong);font-size:12px;font-weight:700;color:var(--text-secondary);cursor:pointer;}
 .eh-full-link:hover{background:var(--bg-card);color:var(--navy);}
+.ai-block-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:6px;}
+.ai-block-card{background:var(--bg-subtle);border-radius:12px;padding:14px 16px;border:1px dashed var(--border-strong);}
+.ai-block-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+.ai-block-title{font-size:12.5px;font-weight:800;color:var(--navy);}
+.ai-block-status{font-size:10px;font-weight:700;color:var(--text-tertiary);background:var(--bg-card);border-radius:5px;padding:2px 7px;}
+.ai-block-desc{font-size:11px;color:var(--text-secondary);line-height:1.6;margin-bottom:8px;}
+.ai-block-empty{font-size:10.5px;color:var(--text-tertiary);border-top:1px solid var(--border-default);padding-top:8px;}
 @media(max-width:1100px){
   .eh-kpi-grid{grid-template-columns:repeat(2,1fr);}
   .eh-signal-grid{grid-template-columns:1fr;}
   .eh-actions-grid{grid-template-columns:1fr;}
   .eh-health-grid{grid-template-columns:repeat(2,1fr);}
+  .ai-block-grid{grid-template-columns:1fr;}
   .eh-latest-grid{grid-template-columns:repeat(2,1fr);}
 }
 </style>
@@ -1244,6 +1252,7 @@ STANDING RULE（2026/7/20新增，每逢新屆別上線時必讀，避免重蹈2
 <div class="scope-banner scope-cumulative">資料範圍：2025/6–2026/7（累計26場已完成活動）</div>
 <div class="ia-group" id="ia-cost">
 <div class="ia-group-head"><h1><span class="ia-ic"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span></span> 成本結構 Cost</h1></div>
+<div class="group-tabs"><button type="button" class="group-tab-btn active" data-tab-target="costmix">支出結構</button><button type="button" class="group-tab-btn" data-tab-target="creative">廣告素材品質分析</button></div>
 <section id="costmix" class="ia-tab-panel active" data-group-panel="costmix">
     <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg></span> 支出結構（僅2類有完整資料，非5類完整結構）</h2>
     <div class="info-line"><span class="ic" style="width:13px;height:13px;color:var(--v-red);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span> <b>此圖不含人事費</b>——第28屆以外的24場歷史資料完全無來源，避免腦補（第28屆兩場已補齊，見下方表格）。場地/住宿/交通/餐飲已拆成4個獨立類別，但涵蓋度差異很大：場地12/26場，住宿/交通/餐飲僅4/26場（第23、26、28屆才有逐項紀錄，其餘場次即使有場地費也未拆分住宿/交通/餐飲），故後3類比例被嚴重低估，不是「這3類真的很小」，是「大部分場次沒拆這麼細」。
@@ -1262,6 +1271,19 @@ STANDING RULE（2026/7/20新增，每逢新屆別上線時必讀，避免重蹈2
         <tr><td class="left">人事費</td><td>3,800</td><td class="lo">僅2/26場（第28屆兩場），嚴重低估</td></tr>
       </tbody>
     </table>
+  </section>
+  <section id="creative" class="ia-tab-panel" data-group-panel="creative">
+    <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg></span> 廣告素材品質分析（規劃中，尚無素材層級資料）</h2>
+    <div class="info-line" style="background:var(--status-warning-bg);color:var(--status-warning);">目前廣告成效資料僅追蹤至「活動屆次」層級（每屆一組彙總花費／Leads／CPL），Meta後台尚未接入逐張素材(Ad Creative)層級的曝光／點擊／CTR／Leads拆分。以下為資料格式與呈現框架，供未來素材級資料接入後直接啟用；本區塊目前不含任何推測性或示範性數字，避免與正式資料混淆。</div>
+    <div class="ev-detail-grid" style="margin:12px 0;">
+      <div class="ev-detail-col"><div class="edt">未來將追蹤欄位</div><div style="font-size:12px;color:var(--text-secondary);line-height:1.7;">縮圖／名稱／主題／城市／屆次／Campaign／花費／曝光／點擊／CTR／Leads／CPL／正式報名／實到／到場率／1-on-1／Reserved／成交／最終實到CPA／資料追蹤完整度</div></div>
+      <div class="ev-detail-col"><div class="edt">未來將提供排行榜</div><div style="font-size:12px;color:var(--text-secondary);line-height:1.7;">最低CPL／最高正式報名率／最高到場率／最多1-on-1／最多Reserved／綜合品質最佳。綜合品質不得單憑CPL判定；後段轉換(到場／1-on-1／Reserved)資料不足者一律標示「後段轉換資料不足」，不得列入「最佳」。</div></div>
+      <div class="ev-detail-col"><div class="edt">資料介接規格（供未來Meta API／Google Sheet串接參考）</div><div style="font-size:12px;color:var(--text-secondary);line-height:1.7;">單一素材需綁定：素材ID、所屬屆次(對應events陣列ord欄位)、專屬UTM或Campaign子代碼(供與正式報名名單交叉比對追蹤至到場/1-on-1/Reserved)。</div></div>
+    </div>
+    <div style="text-align:center;padding:36px 20px;color:var(--text-tertiary);border:1px dashed var(--border-default);border-radius:10px;">
+      <div style="font-size:13px;font-weight:700;margin-bottom:6px;color:var(--text-secondary);">尚無素材層級資料</div>
+      <div style="font-size:12px;">待Meta Ads素材報表或Google Sheet逐素材資料接入後，此區塊將自動顯示完整表格與排行榜，不會以佔位假數字顯示。</div>
+    </div>
   </section>
 </div>
 </div>
@@ -1358,10 +1380,10 @@ STANDING RULE（2026/7/20新增，每逢新屆別上線時必讀，避免重蹈2
     <div class="info-line" style="margin-top:10px;font-size:11px;color:var(--grey);">聲明：本結論僅基於現有資料，未對缺失欄位(收入、成交、1-on-1)做假設性填補。匯率為市場估算，非公司官方結轉匯率。所有「無資料」代表資料不存在，不代表數值為0。</div>
   </section>
 </div><div class="ia-group" id="ia-notes">
-  <div class="ia-group-head"><h1><span class="ia-ic"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span></span>Data<span class="ia-zh">資料與成本</span></h1><div class="ia-sub">支出結構・資料來源・口徑限制・EDM影像牆</div></div>
-<div class="group-tabs"><button type="button" class="group-tab-btn active" data-tab-target="costmix">支出結構</button><button type="button" class="group-tab-btn" data-tab-target="edm">EDM影像牆</button><button type="button" class="group-tab-btn" data-tab-target="notesRef">資料口徑</button></div>
+  <div class="ia-group-head"><h1><span class="ia-ic"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span></span>Data<span class="ia-zh">資料與成本</span></h1><div class="ia-sub">資料來源・口徑限制・EDM影像牆（完整支出結構請見「成本效益」頁籤，不重複顯示）</div></div>
+<div class="group-tabs"><button type="button" class="group-tab-btn active" data-tab-target="edm">EDM影像牆</button><button type="button" class="group-tab-btn" data-tab-target="notesRef">資料口徑</button></div>
 
-<section id="edm" class="ia-tab-panel" data-group-panel="edm">
+<section id="edm" class="ia-tab-panel active" data-group-panel="edm">
     <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg></span> 活動 EDM 影像牆</h2>
     <div class="info-line">來源：raywhitetw.com 官網 ＋ 使用者提供本機 EDM 素材。</div>
     <div class="gallery" id="edmGallery"></div>
@@ -3766,6 +3788,32 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
     '<div class="eh-health-card"><div class="hv '+healthCls(adsHealth)+'">'+adsHealth+'%</div><div class="hl">廣告成本完整度</div></div>'+
     '<div class="eh-health-card"><div class="hv '+healthCls(roiHealth)+'">'+roiHealth+'%</div><div class="hl">Reserved／成交追蹤完整度</div></div>';
 
+  // ---- Section 九：AI功能預留與整併（2026/7/25新增）----
+  // 本輪僅建置UI佔位／loading-error-empty狀態／結構化資料格式，不串接真實AI、不放API金鑰於前端或repo。
+  // 既有人工摘要(Executive Signals／Top 3 Actions／異常與待處理中心)保留不變，AI區塊為「未來擴充位」，
+  // 與人工摘要並存但不重複顯示同一結論，避免「人工摘要+近似AI摘要」同時出現造成資訊重複。
+  const AI_BLOCKS = [
+    {key:"chairman", title:"董事長AI摘要", desc:"整體狀況／成本效率／最大風險／需授權決策"},
+    {key:"salesManager", title:"業務主管AI摘要", desc:"待追蹤業務／未定逾期名單／漏斗異常點／今日管理行動"},
+    {key:"anomalySummary", title:"AI異常摘要", desc:"今日新增異常／高風險異常／已改善異常／待覆核原始資料"},
+    {key:"forecastJudgement", title:"AI達標判斷", desc:"預估結果／達成機率／主要影響因素／資料信心與限制"},
+    {key:"actionTop3", title:"AI主管行動Top3", desc:"行動／負責人／建議期限／判斷依據"}
+  ];
+  window.__aiBlocksConfig = {
+    blocks: AI_BLOCKS,
+    dataFormat: "每個區塊未來預期回傳 {key, generatedAt, basisDataRefs:[], content:string, confidence:'高|中|低', limitations:string}，basisDataRefs需可回溯至Excel分頁或Google Sheet來源，不得無依據生成。",
+    safeguards: ["不得於前端或repository存放API金鑰","不得由AI直接修改原始資料","不得由AI捏造不存在的數字","不得由AI重新定義既有指標口徑","不得由AI自行做出人員汰換或考核等結論性判斷"]
+  };
+  function aiBlockCardHtml(b){
+    return '<div class="ai-block-card"><div class="ai-block-head"><span class="ai-block-title">'+b.title+'</span><span class="ai-block-status">尚未串接</span></div>'+
+      '<div class="ai-block-desc">'+b.desc+'</div>'+
+      '<div class="ai-block-empty">未來AI摘要功能預留位置，目前為空狀態，不產生推測性文字。</div></div>';
+  }
+  const aiSectionHtml =
+    '<div class="eh-section-title">AI功能（規劃中）｜AI Features Reserved</div>'+
+    '<div class="eh-section-sub">本區塊僅建置UI佔位、loading／error／empty狀態與結構化資料格式(window.__aiBlocksConfig)，尚未串接真實AI；不放API金鑰於前端或repository，AI不得自行捏造數字、重新定義指標或做出人員汰換等結論性判斷。與上方人工摘要(Executive Signals／異常中心)並存但不重複顯示同一結論。</div>'+
+    '<div class="ai-block-grid">'+AI_BLOCKS.map(aiBlockCardHtml).join("")+'</div>';
+
   // ---- 組裝 ----
   const finalHtml =
     '<div class="eh-toggle" id="ehViewToggle"><button data-view="exec" class="active">Executive</button><button data-view="full">Full Analysis</button></div>'+
@@ -3784,6 +3832,7 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
     '<div class="eh-section-title">Data Health｜資料健康度</div>'+
     '<div class="eh-health-grid">'+healthHtml+'</div>'+
     '<div class="eh-health-note">Reserved／成交資料覆蓋率過低，目前無法完整計算全數活動ROI。</div>'+
+    aiSectionHtml+
     '<div class="eh-full-link" id="ehFullLink">查看完整Dashboard（Full Analysis）→</div>';
 
   const ehRoot = document.getElementById("ehRoot");
