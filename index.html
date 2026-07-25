@@ -1104,7 +1104,15 @@ STANDING RULE（2026/7/20新增，每逢新屆別上線時必讀，避免重蹈2
   <div id="trendInsight" class="ia-tab-panel active" data-group-panel="trend"></div>
 
   <section id="trend" class="ia-tab-panel active" data-group-panel="trend">
-    <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></span> 趨勢：CPL／到場率拆分雙圖（依時間序，含3場移動平均、平均基準線、峰值/低點標註；CPL基準為26場均值，到場率基準為25場均值〔S特別場無到場率資料〕）</h2>
+    <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></span> 趨勢：到場率／CPL／CPA三圖（依時間序，含3場移動平均、平均基準線、峰值/低點標註、異常點標記〔紅框＝觸發到場率<25%或CPL高於同城市均值20%規則，門檻沿用window.__sharedThresholds〕）</h2>
+    <div class="filters" style="margin-bottom:10px;">
+      <select id="trendPeriodFilter">
+        <option value="all">全部26場</option>
+        <option value="10">近10場</option>
+        <option value="5">近5場</option>
+      </select>
+      <select id="trendCityFilter"><option value="">全部城市</option></select>
+    </div>
     <div class="charts-row">
       <div>
         <div class="group-label"><span class="ic" style="width:13px;height:13px;color:var(--v-blue);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span> 到場率趨勢（越高越好）</div>
@@ -1114,7 +1122,12 @@ STANDING RULE（2026/7/20新增，每逢新屆別上線時必讀，避免重蹈2
         <div class="group-label"><span class="ic" style="width:13px;height:13px;color:var(--v-orange);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span> CPL趨勢（越低越好）</div>
         <div class="chart-wrap" style="height:300px;"><canvas id="cplTrendChart"></canvas></div>
       </div>
+      <div>
+        <div class="group-label"><span class="ic" style="width:13px;height:13px;color:var(--v-purple, #5b3fa0);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v12"/><path d="M15.5 9.5c0-1.5-1.5-2.5-3.5-2.5s-3.5 1-3.5 2.5 1.5 2 3.5 2.5 3.5 1 3.5 2.5-1.5 2.5-3.5 2.5-3.5-1-3.5-2.5"/></svg></span> CPA趨勢（每位實到成本，越低越好；＝總成本÷實到人數，與「每組實到成本」同一口徑，本站無獨立「組」計量單位，兩者不重複繪製）</div>
+        <div class="chart-wrap" style="height:300px;"><canvas id="cpaTrendChart"></canvas></div>
+      </div>
     </div>
+    <div class="info-line" style="margin-top:10px;">1-on-1率／Reserved率／成交率趨勢：目前尚無法繪製。全站26場歷史活動中，僅第27屆具備完整1-on-1／Reserved／成交追蹤，其餘場次(含28/29屆)僅有零星單場數字，未達建立趨勢線之最低樣本需求(依治理規則，樣本不足不強行繪圖以免造成假性下降或上升的錯誤觀感)。待累積至少5場同口徑資料後，將於本區塊新增對應趨勢圖。</div>
   </section>
 
   
@@ -2014,42 +2027,103 @@ completed.forEach(e=>gradeCounts[e.grade]++);
 const gradeColors = {A:"#1a7f37",B:"#2563eb",C:"#FFC72C",D:"#b91c1c",N:"#9ca3af"};
 const gradeOrderList = ["A","B","C","D","N"];
 window.__lazyCharts = window.__lazyCharts || {};
-function __initPerformanceCharts(){
-new Chart(document.getElementById("rateTrendChart"), {
-  type:"line",
-  data:{
-    labels: completedForTrend.map(e=>"第"+e.ord+(e.loc==="高雄"&&e.d==="2026-07-12"?"雄":"")+"屆\n"+shortDate(e.date)),
-    datasets:[
-      {label:"到場率(%)", data: rateSeries.map(v=>v!=null?+(v*100).toFixed(1):null), borderColor:"#D64A4A", backgroundColor:"#D64A4A", tension:0.25, spanGaps:true, pointRadius:3, pointHoverRadius:6},
-      {label:"3場移動平均(%)", data: rateMA3.map(v=>v!=null?+(v*100).toFixed(1):null), borderColor:"#1B5FC4", backgroundColor:"#1B5FC4", tension:0.25, spanGaps:true, borderDash:[6,4], pointRadius:0, borderWidth:2.5},
-    ]
-  },
-  options:{
-    responsive:true, maintainAspectRatio:false,
-    interaction:{mode:"index",intersect:false},
-    plugins:{legend:{position:"bottom"}, tooltip:{callbacks:{label:(ctx)=>`${ctx.dataset.label}: ${ctx.parsed.y}%`}}},
-    scales:{ x:{title:{display:true,text:"日期"}}, y:{title:{display:true,text:"到場率(%)"},min:0} }
-  },
-  plugins:[avgLinePlugin(avgRate*100, "25場平均 "+pct(avgRate), "#6b7280"), peakLowPlugin(rateSeries.map(v=>v!=null?v*100:null), ["rate"], v=>v.toFixed(1)+"%", true)]
+// ---- CPA序列（=(廣告+場地)÷實到人數，與活動資料庫頁CPA同一公式）----
+const cpaSeriesForTrend = completedForTrend.map(e=>{
+  const tot = (e.ads||0)+(e.venue||0);
+  return (e.att!=null && e.att>0 && tot>0) ? Math.round(tot/e.att) : null;
 });
-new Chart(document.getElementById("cplTrendChart"), {
-  type:"line",
-  data:{
-    labels: completedForTrend.map(e=>"第"+e.ord+(e.loc==="高雄"&&e.d==="2026-07-12"?"雄":"")+"屆\n"+shortDate(e.date)),
-    datasets:[
-      {label:"CPL(NT$)", data: cplSeriesForTrend, borderColor:"#16202E", backgroundColor:"#16202E", tension:0.25, spanGaps:true, pointRadius:3, pointHoverRadius:6},
-      {label:"3場移動平均(NT$)", data: cplMA3.map(v=>v!=null?Math.round(v):null), borderColor:"#1B5FC4", backgroundColor:"#1B5FC4", tension:0.25, spanGaps:true, borderDash:[6,4], pointRadius:0, borderWidth:2.5},
-    ]
-  },
-  options:{
-    responsive:true, maintainAspectRatio:false,
-    interaction:{mode:"index",intersect:false},
-    plugins:{legend:{position:"bottom"}, tooltip:{callbacks:{label:(ctx)=>`${ctx.dataset.label}: NT$${fmt(ctx.parsed.y)}`}}},
-    scales:{ x:{title:{display:true,text:"日期"}}, y:{title:{display:true,text:"CPL(NT$)"},min:0} }
-  },
-  plugins:[avgLinePlugin(avgCpl, "26場平均 NT$"+fmt(avgCpl), "#6b7280"), peakLowPlugin(cplSeriesForTrend, ["cpl"], v=>"NT$"+fmt(v), false)]
-});
+const cpaMA3 = rollingAvg(cpaSeriesForTrend,3);
+// avgCpa／withCpa沿用既有全域變數(第1584-1585行，公式完全相同)，不重複計算
 
+function trendTooltipLines(ctx, evs, unitFmt){
+  const e = evs[ctx.dataIndex];
+  if(!e) return [`${ctx.dataset.label}: ${unitFmt(ctx.parsed.y)}`];
+  const anoms = eventAnomalyList(e);
+  const lines = [
+    `${ctx.dataset.label}: ${unitFmt(ctx.parsed.y)}`,
+    `第${e.ord}屆｜${e.loc}｜${e.date}`,
+    `花費 NT$${fmt((e.ads||0)+(e.venue||0))}｜報名 ${fmtOrDashG(e.leads)}｜實到 ${fmtOrDashG(e.att)}`
+  ];
+  if(anoms.length) lines.push("⚠ "+anoms.join("；"));
+  return lines;
+}
+function anomalyPointColors(evs, baseColor){
+  return evs.map(e=> eventAnomalyList(e).length>0 ? "#C21F1F" : baseColor);
+}
+function anomalyPointRadii(evs, base){
+  return evs.map(e=> eventAnomalyList(e).length>0 ? base+2 : base);
+}
+
+let __rateChart=null, __cplChart=null, __cpaChart=null;
+function renderTrendCharts(evs){
+  const labels = evs.map(e=>"第"+e.ord+(e.loc==="高雄"&&e.d==="2026-07-12"?"雄":"")+"屆\n"+shortDate(e.date));
+  const rSeries = evs.map(e=>e.rate);
+  const rMA3 = rollingAvg(rSeries,3);
+  const cSeries = evs.map(e=>e.cpl);
+  const cMA3 = rollingAvg(cSeries,3);
+  const pSeries = evs.map(e=>{ const tot=(e.ads||0)+(e.venue||0); return (e.att!=null&&e.att>0&&tot>0)?Math.round(tot/e.att):null; });
+  const pMA3 = rollingAvg(pSeries,3);
+
+  if(__rateChart) __rateChart.destroy();
+  if(__cplChart) __cplChart.destroy();
+  if(__cpaChart) __cpaChart.destroy();
+
+  __rateChart = new Chart(document.getElementById("rateTrendChart"), {
+    type:"line",
+    data:{ labels: labels, datasets:[
+      {label:"到場率(%)", data: rSeries.map(v=>v!=null?+(v*100).toFixed(1):null), borderColor:"#D64A4A", backgroundColor:"#D64A4A", tension:0.25, spanGaps:true, pointRadius:anomalyPointRadii(evs,3), pointHoverRadius:6, pointBackgroundColor:anomalyPointColors(evs,"#D64A4A")},
+      {label:"3場移動平均(%)", data: rMA3.map(v=>v!=null?+(v*100).toFixed(1):null), borderColor:"#1B5FC4", backgroundColor:"#1B5FC4", tension:0.25, spanGaps:true, borderDash:[6,4], pointRadius:0, borderWidth:2.5},
+    ]},
+    options:{ responsive:true, maintainAspectRatio:false, interaction:{mode:"index",intersect:false},
+      plugins:{legend:{position:"bottom"}, tooltip:{callbacks:{label:(ctx)=> ctx.datasetIndex===0 ? trendTooltipLines(ctx,evs,v=>v+"%") : `${ctx.dataset.label}: ${ctx.parsed.y}%`}}},
+      scales:{ x:{title:{display:true,text:"日期"}}, y:{title:{display:true,text:"到場率(%)"},min:0} }
+    },
+    plugins:[avgLinePlugin(avgRate*100, "歷史平均 "+pct(avgRate), "#6b7280"), peakLowPlugin(rSeries.map(v=>v!=null?v*100:null), ["rate"], v=>v.toFixed(1)+"%", true)]
+  });
+  __cplChart = new Chart(document.getElementById("cplTrendChart"), {
+    type:"line",
+    data:{ labels: labels, datasets:[
+      {label:"CPL(NT$)", data: cSeries, borderColor:"#16202E", backgroundColor:"#16202E", tension:0.25, spanGaps:true, pointRadius:anomalyPointRadii(evs,3), pointHoverRadius:6, pointBackgroundColor:anomalyPointColors(evs,"#16202E")},
+      {label:"3場移動平均(NT$)", data: cMA3.map(v=>v!=null?Math.round(v):null), borderColor:"#1B5FC4", backgroundColor:"#1B5FC4", tension:0.25, spanGaps:true, borderDash:[6,4], pointRadius:0, borderWidth:2.5},
+    ]},
+    options:{ responsive:true, maintainAspectRatio:false, interaction:{mode:"index",intersect:false},
+      plugins:{legend:{position:"bottom"}, tooltip:{callbacks:{label:(ctx)=> ctx.datasetIndex===0 ? trendTooltipLines(ctx,evs,v=>"NT$"+fmt(v)) : `${ctx.dataset.label}: NT$${fmt(ctx.parsed.y)}`}}},
+      scales:{ x:{title:{display:true,text:"日期"}}, y:{title:{display:true,text:"CPL(NT$)"},min:0} }
+    },
+    plugins:[avgLinePlugin(avgCpl, "歷史平均 NT$"+fmt(avgCpl), "#6b7280"), peakLowPlugin(cSeries, ["cpl"], v=>"NT$"+fmt(v), false)]
+  });
+  __cpaChart = new Chart(document.getElementById("cpaTrendChart"), {
+    type:"line",
+    data:{ labels: labels, datasets:[
+      {label:"CPA(NT$)", data: pSeries, borderColor:"#5b3fa0", backgroundColor:"#5b3fa0", tension:0.25, spanGaps:true, pointRadius:anomalyPointRadii(evs,3), pointHoverRadius:6, pointBackgroundColor:anomalyPointColors(evs,"#5b3fa0")},
+      {label:"3場移動平均(NT$)", data: pMA3.map(v=>v!=null?Math.round(v):null), borderColor:"#1B5FC4", backgroundColor:"#1B5FC4", tension:0.25, spanGaps:true, borderDash:[6,4], pointRadius:0, borderWidth:2.5},
+    ]},
+    options:{ responsive:true, maintainAspectRatio:false, interaction:{mode:"index",intersect:false},
+      plugins:{legend:{position:"bottom"}, tooltip:{callbacks:{label:(ctx)=> ctx.datasetIndex===0 ? trendTooltipLines(ctx,evs,v=>"NT$"+fmt(v)) : `${ctx.dataset.label}: NT$${fmt(ctx.parsed.y)}`}}},
+      scales:{ x:{title:{display:true,text:"日期"}}, y:{title:{display:true,text:"CPA(NT$)"},min:0} }
+    },
+    plugins: avgCpa!=null ? [avgLinePlugin(avgCpa, "歷史平均 NT$"+fmt(avgCpa), "#6b7280"), peakLowPlugin(pSeries, ["cpa"], v=>"NT$"+fmt(v), false)] : [peakLowPlugin(pSeries, ["cpa"], v=>"NT$"+fmt(v), false)]
+  });
+}
+function currentTrendFilteredEvents(){
+  const period = document.getElementById("trendPeriodFilter").value;
+  const city = document.getElementById("trendCityFilter").value;
+  let evs = completedForTrend.slice();
+  if(city) evs = evs.filter(e=> (e.loc||"").split("/").indexOf(city)!==-1 );
+  if(period!=="all"){ const n = parseInt(period,10); evs = evs.slice(-n); }
+  return evs;
+}
+function __initPerformanceCharts(){
+  (function populateTrendCityFilter(){
+    const sel = document.getElementById("trendCityFilter");
+    if(sel.options.length>1) return;
+    const cities = {};
+    completedForTrend.forEach(function(e){ (e.loc||"").split("/").forEach(function(c){ if(c) cities[c]=true; }); });
+    Object.keys(cities).sort().forEach(function(c){ const opt=document.createElement("option"); opt.value=c; opt.textContent=c; sel.appendChild(opt); });
+  })();
+  renderTrendCharts(currentTrendFilteredEvents());
+  document.getElementById("trendPeriodFilter").addEventListener("change", function(){ renderTrendCharts(currentTrendFilteredEvents()); });
+  document.getElementById("trendCityFilter").addEventListener("change", function(){ renderTrendCharts(currentTrendFilteredEvents()); });
 }
 window.__lazyCharts["performance"] = __initPerformanceCharts;
 function __initOverviewCharts(){
