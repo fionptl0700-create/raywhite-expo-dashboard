@@ -204,6 +204,8 @@
     #eventTable td[data-label="EDM"]{justify-content:flex-start;}
     #eventTable td[data-label="EDM"]::before{display:none;}
     #eventTable td[data-label="主題"]{flex-direction:column;align-items:flex-start;}
+    .col-toggle{min-height:44px;padding:10px 6px;box-sizing:border-box;}
+    .filters select, .filters input{min-height:44px;box-sizing:border-box;}
   }
 
 
@@ -218,7 +220,7 @@
   .group-label{font-size:11px;font-weight:700;color:var(--grey);text-transform:uppercase;letter-spacing:.6px;margin:2px 0 8px;}
   .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:28px;}
   .more-kpi-details{margin-top:4px;}
-  .more-kpi-summary{cursor:pointer;list-style:none;font-size:13px;font-weight:650;color:var(--text-secondary);padding:10px 12px;border:1px solid var(--border-default);border-radius:10px;background:var(--bg-subtle);display:flex;align-items:center;gap:6px;user-select:none;}
+  .more-kpi-summary{cursor:pointer;list-style:none;font-size:13px;font-weight:650;color:var(--text-secondary);padding:10px 12px;border:1px solid var(--border-default);border-radius:10px;background:var(--bg-subtle);display:flex;align-items:center;gap:6px;user-select:none;min-height:44px;box-sizing:border-box;}
   .more-kpi-summary::-webkit-details-marker{display:none;}
   .more-kpi-summary::after{content:"\25be";margin-left:auto;font-size:11px;color:var(--text-tertiary);transition:transform .15s ease;}
   .more-kpi-details[open] .more-kpi-summary::after{transform:rotate(180deg);}
@@ -230,7 +232,8 @@
   .kpi-grid.secondary .kpi-card .value{font-size:18px;font-weight:600;color:var(--text-secondary);}
   .kpi-grid.secondary .kpi-card .label{font-size:10.5px;}
   .kpi-grid.secondary .kpi-card .note{font-size:10.5px;}
-  .kpi-card{background:var(--bg-card);border-radius:12px;padding:22px 24px;border:1px solid var(--border-default);border-left:3px solid var(--teal);transition:box-shadow .15s ease,border-color .15s ease;}
+  .kpi-card{background:linear-gradient(165deg,rgba(22,130,93,.07) 0%,var(--bg-card) 55%);border-radius:12px;padding:22px 24px;border:1px solid var(--border-default);border-left:3px solid var(--teal);transition:box-shadow .15s ease,border-color .15s ease;}
+  .kpi-grid.secondary .kpi-card{background:var(--bg-card);}
   .kpi-card:hover{box-shadow:0 2px 10px rgba(16,24,40,.07);border-color:var(--border-strong);}
   .kpi-card .label{font-size:11.5px;color:var(--text-secondary);margin-bottom:7px;font-weight:600;letter-spacing:.2px;}
   .kpi-card .value{font-size:36px;font-weight:800;color:var(--text-primary);letter-spacing:-.8px;font-variant-numeric:tabular-nums;white-space:nowrap;line-height:1.1;}
@@ -272,6 +275,8 @@
   .charts-row{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;}
   @media(max-width:900px){.charts-row{grid-template-columns:1fr;}}
   table{width:100%;border-collapse:collapse;font-size:13px;}
+  #eventTable thead th{position:sticky;top:0;background:var(--bg-card);z-index:5;box-shadow:0 1px 0 var(--border-default);}
+  #eventTable tbody tr:hover{background:var(--bg-subtle);}
   th,td{padding:13px 14px;text-align:right;border-bottom:1px solid var(--border);white-space:nowrap;font-variant-numeric:tabular-nums;}
   th{background:var(--bg-subtle);color:var(--text-secondary);font-weight:700;position:sticky;top:0;font-size:10.5px;text-transform:uppercase;letter-spacing:.4px;}
   td.left,th.left{text-align:left;white-space:normal;}
@@ -514,7 +519,7 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
 .le2-action-card .ac-desc{font-size:11px;color:var(--text-secondary);line-height:1.6;margin-bottom:8px;}
 .le2-action-card .ac-meta{font-size:10px;color:var(--text-tertiary);font-weight:600;}
 .le2-detail-section{margin-bottom:10px;}
-.le2-detail-section summary{cursor:pointer;font-size:12.5px;font-weight:800;color:var(--navy);padding:12px 16px;background:var(--bg-subtle);border:1px solid var(--border-default);border-radius:10px;user-select:none;list-style:none;display:flex;align-items:center;gap:8px;}
+.le2-detail-section summary{cursor:pointer;font-size:12.5px;font-weight:800;color:var(--navy);padding:12px 16px;background:var(--bg-subtle);border:1px solid var(--border-default);border-radius:10px;user-select:none;list-style:none;display:flex;align-items:center;gap:8px;min-height:44px;box-sizing:border-box;}
 .le2-detail-section summary::-webkit-details-marker{display:none;}
 .le2-detail-section summary::before{content:"▸";font-size:11px;color:var(--grey);transition:transform .15s ease;}
 .le2-detail-section[open] summary::before{transform:rotate(90deg);}
@@ -809,7 +814,7 @@ STANDING RULE（2026/7/20新增，每逢新屆別上線時必讀，避免重蹈2
 </div>
 </div>
 <div class="tab-page" id="page-latest-performance" data-tab-page="latest-performance">
-<div class="scope-banner scope-latest">資料範圍：第28-29屆（點選下方分頁切換已完成／籌備中場次）</div>
+<div class="scope-banner scope-latest">資料範圍：第28-29屆（下方分頁：第28屆已完成／第29屆進行中）</div>
 <div class="ia-group" id="ia-latest-performance">
   <div class="ia-group-head"><h1><span class="ia-ic"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg></span></span>Latest Performance<span class="ia-zh">台中 vs 高雄成效比較</span></h1></div>
 <div class="group-tabs event-tabs" role="tablist" aria-label="場次切換"><button type="button" class="group-tab-btn etab-29 active" data-tab-target="s29">第29屆・籌備中（7/25-26）</button><button type="button" class="group-tab-btn etab-28" data-tab-target="s28">第28屆・已完成（7/11-12）</button></div>
@@ -857,7 +862,7 @@ STANDING RULE（2026/7/20新增，每逢新屆別上線時必讀，避免重蹈2
 </div>
 </div>
 <div class="tab-page" id="page-latest-cost" data-tab-page="latest-cost">
-<div class="scope-banner scope-latest">資料範圍：第28-29屆（點選下方分頁切換已完成／籌備中場次）</div>
+<div class="scope-banner scope-latest">資料範圍：第28-29屆（下方分頁：第28屆已完成／第29屆進行中）</div>
 <div class="ia-group" id="ia-latest-cost">
   <div class="ia-group-head"><h1><span class="ia-ic"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M14 8H8"/><path d="M16 12H8"/><path d="M13 16H8"/></svg></span></span>Latest Cost<span class="ia-zh">本屆成本明細</span></h1></div>
 <div class="group-tabs event-tabs" role="tablist" aria-label="場次切換"><button type="button" class="group-tab-btn etab-29 active" data-tab-target="s29">第29屆・籌備中（7/25-26）</button><button type="button" class="group-tab-btn etab-28" data-tab-target="s28">第28屆・已完成（7/11-12）</button></div>
@@ -894,7 +899,7 @@ STANDING RULE（2026/7/20新增，每逢新屆別上線時必讀，避免重蹈2
 </div>
 </div>
 <div class="tab-page" id="page-latest-conversion" data-tab-page="latest-conversion">
-<div class="scope-banner scope-latest">資料範圍：第28-29屆（點選下方分頁切換已完成／籌備中場次）</div>
+<div class="scope-banner scope-latest">資料範圍：第28-29屆（下方分頁：第28屆已完成／第29屆進行中）</div>
 <div class="ia-group" id="ia-latest-conversion">
   <div class="ia-group-head"><h1><span class="ia-ic"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/></svg></span></span>Latest Conversion<span class="ia-zh">本屆名單與轉換</span></h1></div>
 <div class="group-tabs event-tabs" role="tablist" aria-label="場次切換"><button type="button" class="group-tab-btn etab-29 active" data-tab-target="s29">第29屆・籌備中（7/25-26）</button><button type="button" class="group-tab-btn etab-28" data-tab-target="s28">第28屆・已完成（7/11-12）</button></div>
@@ -1275,14 +1280,14 @@ STANDING RULE（2026/7/20新增，每逢新屆別上線時必讀，避免重蹈2
     <div class="info-line"><span class="ic" style="width:13px;height:13px;color:var(--v-red);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span> <b>此圖不含人事費</b>——第28屆以外的24場歷史資料完全無來源，避免腦補（第28屆兩場已補齊，見下方表格）。場地/住宿/交通/餐飲已拆成4個獨立類別，但涵蓋度差異很大：場地12/26場，住宿/交通/餐飲僅4/26場（第23、26、28屆才有逐項紀錄，其餘場次即使有場地費也未拆分住宿/交通/餐飲），故後3類比例被嚴重低估，不是「這3類真的很小」，是「大部分場次沒拆這麼細」。
     <details class="more" style="margin:0;"><summary>詳情</summary><div class="body">場地/住宿/交通/餐飲來源RW-TW說明會費用.xlsx，依日期比對10場成功匹配(第6,7,8,9,12,13,14,23,25,26屆)。其中僅23、26屆有完整的住宿/交通/餐飲逐項紀錄；其餘8場(6,7,8,9,12,13,14,25屆)只有單一「場地費/活動費」合計數字，無法拆分。廣告費(Meta)來源02分頁，26/26場皆有資料，與上方總覽KPI「累計廣告花費」同一組數即時計算（2026/7/24再次更正：先前僅計入28屆7/11台中場NT$93,260，7/12高雄場NT$23,480漏未併入，即時加總值已更正為NT$6,030,575）。詳見Excel 00分頁第五節。</div></details>
     </div>
-    <div class="info-line" style="background:var(--status-warning-bg);color:var(--status-warning);margin-top:6px;">⚠ Data Health Warning：本表「場地費」僅計入12/26場有明確單據來源記錄的活動，合計NT$1,719,370；「執行總覽」KPI卡「累計總成本」則採用資料庫全26場記錄之場地費欄位加總，合計NT$2,012,156（含來源記錄較粗略/推估之場次）。兩者口徑不同、非數字錯誤，差額不可直接比較，待場地費來源全數補齊單據後再行核對統一。</div>
+    <div class="info-line" style="background:var(--status-info-bg);color:var(--status-info);margin-top:6px;">ℹ 口徑說明：場地費正式採用數字為資料庫全26場記錄加總NT$2,012,156（與「執行總覽」KPI卡「累計總成本」一致，已於2026/7/25確認）。下表「場地費（單據明確者）」NT$1,719,370僅為其中12/26場有逐筆單據來源可追溯之子集，供追溯查核用，非另一組平行數字。</div>
     <div class="group-label" style="margin-top:6px;"><span class="ic" style="width:13px;height:13px;color:var(--v-orange);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span> 支出結構長條圖＋資料涵蓋度指示（●綠=涵蓋完整　●橘=部分　●紅=嚴重低估/缺）</div>
     <div id="costBarWrap"></div>
     <table style="margin-top:14px;">
       <thead><tr><th class="left">類別</th><th>金額(NT$)</th><th>資料涵蓋</th></tr></thead>
       <tbody>
         <tr><td class="left">廣告費(Meta)</td><td>6,030,575</td><td>26/26場</td></tr>
-        <tr><td class="left">場地費（單據明確者）</td><td>1,719,370</td><td class="lo">僅12/26場（低估，見上方Data Health Warning）</td></tr>
+        <tr><td class="left">場地費（單據明確者，子集）</td><td>1,719,370</td><td class="lo-mild">僅12/26場，正式數字見上方口徑說明</td></tr>
         <tr><td class="left">住宿費</td><td>45,100</td><td class="lo">僅4/26場（第23、26、28屆兩場），嚴重低估</td></tr>
         <tr><td class="left">交通費</td><td>43,455</td><td class="lo">僅4/26場（第23、26、28屆兩場），嚴重低估</td></tr>
         <tr><td class="left">餐飲費</td><td>113,915</td><td class="lo">僅4/26場（第23、26、28屆兩場），嚴重低估</td></tr>
