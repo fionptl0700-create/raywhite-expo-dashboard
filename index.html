@@ -551,6 +551,9 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
 .eh-toggle{display:inline-flex;background:#eef0f3;border-radius:9px;padding:3px;gap:2px;margin-bottom:16px;}
 .eh-toggle button{border:none;background:transparent;padding:7px 16px;font-size:12px;font-weight:700;color:var(--grey);border-radius:7px;cursor:pointer;font-family:inherit;}
 .eh-toggle button.active{background:#fff;color:var(--navy);box-shadow:0 1px 3px rgba(0,0,0,.15);}
+.anomaly-filter-btn{border:1px solid var(--border-default);background:var(--bg-card);padding:5px 12px;font-size:11px;font-weight:700;color:var(--text-secondary);border-radius:20px;cursor:pointer;font-family:inherit;}
+.anomaly-filter-btn.active{background:var(--navy);color:#fff;border-color:var(--navy);}
+.anomaly-card{margin-bottom:10px;}
 .eh-kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px;}
 .eh-kpi-card{background:var(--bg-card);border-radius:12px;padding:16px 18px;border:1px solid var(--border-default);border-left:3px solid var(--rw-yellow-dark);}
 .eh-kpi-card .ll{font-size:11px;color:var(--text-secondary);font-weight:700;margin-bottom:6px;}
@@ -3310,14 +3313,152 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
   const matrixConclText = "最近五場：CPL"+(cplTrendUp?"上升":"持平或下降")+"，但到場率"+(rateTrendUp?"同步提升":"未同步改善")+"。代表"+(cplTrendUp&&rateTrendUp?"成本增加，但名單品質改善，建議持續觀察":(cplTrendUp&&!rateTrendUp?"成本增加且轉換未見改善，建議檢討投放策略":"整體趨勢穩定，可維持現行做法"))+"。";
 
   // ---- 3 Decision Metrics 沿用latest-overview邏輯，取代為Top 3 Actions（來源：管理中心「立即處理」table Excel 07分頁）----
-  const actions = [
-    {tag:"P0", title:"確認匯率換算基準", desc:"匯率換算是否採用公司官方結轉匯率尚未確認（目前為市場估算4.0347），需確認基準並統一全站換算依據。", owner:"待指派", due:"立即處理"},
-    {tag:"P0", title:"複製第27屆ROI追蹤SOP", desc:"僅第27屆有完整ROI追蹤SOP，其餘場次無法比照複製，建議每場活動比照規格，48小時內產出Event ROI Report。", owner:"待指派", due:"立即處理"},
-    {tag:"P1", title:"建立成交／Reserved金額欄位", desc:"目前無「成交/Reserved金額」欄位，即使估算值也未強制填寫，使Dashboard無法回答活動是否賺錢。", owner:"待指派", due:"30天內"}
-  ];
-  const actionsHtml = actions.map(function(a){
-    return '<div class="eh-action-card"><div class="ac-tag">'+a.tag+'</div><div class="ac-title">'+a.title+'</div><div class="ac-desc">'+a.desc+'</div><div class="ac-meta">Owner：'+a.owner+'｜Due：'+a.due+'</div></div>';
-  }).join("");
+
+  // ==== v61: 異常與待處理中心（集中規則設定，取代原「Top 3 Actions」靜態清單，升級自既有Executive Hub）====
+  // 規則門檻集中於單一設定物件，未來調整只改這裡，不散落於各頁面程式碼中
+  const ANOMALY_RULES = {
+    undecidedRatioPre3d:  {label:"未定名單比例過高(活動前3天內)", threshold:0.30, severity:"高"},
+    undecidedCountPre1d:  {label:"未定名單數過多(活動前1天內)", threshold:10, severity:"高"},
+    attendanceGap:        {label:"實到資料尚未完整", severity:"中"},
+    lowAttendanceRate:    {label:"到場率偏低(低於25%)", threshold:0.25, severity:"高"},
+    highCplVsCityAvg:     {label:"CPL高於同城市歷史平均20%以上", threshold:1.20, severity:"中"},
+    staleConsultantList:  {label:"業務名單逾48小時未更新", thresholdHours:48, severity:"中"},
+    lowInviteRate:        {label:"業務邀約率明顯偏低(需同步檢視樣本數)", threshold:0.30, severity:"低"},
+    roiDataGap:           {label:"Reserved／成交資料結構性缺失", severity:"中"},
+    fxBasisUnconfirmed:   {label:"匯率換算基準未確認", severity:"高"}
+  };
+  window.__anomalyRulesConfig = ANOMALY_RULES;
+
+  const anomalyItems = [];
+  function addAnomaly(o){
+    anomalyItems.push(Object.assign({status:"待處理", foundAt:"2026/7/25", updatedAt:"2026/7/25"}, o));
+  }
+
+  (function computeLatestEventAnomalies(){
+    const lec29 = window.__latestEventComputed29;
+    if(!lec29) return;
+    const d1 = lec29.d1, d2 = lec29.d2, ev29 = lec29.latestEvent;
+    // 29屆聯繫名單：48筆／未定16筆（來源latestConv29，與本頁Sales Ranking/名單彙整同一份資料）
+    const contactTotal = 48, undecidedTotal = 16;
+    const undecidedRatio = undecidedTotal / contactTotal;
+    // 距台北場(d2)天數：以2026/7/25為NOW基準（本頁資料快照時間）
+    const daysToD2 = 1; // 7/26 - 7/25
+    if(daysToD2 <= 3 && undecidedRatio > ANOMALY_RULES.undecidedRatioPre3d.threshold){
+      addAnomaly({rule:"undecidedRatioPre3d", severity:"高", eventLabel:ev29.title, city:d2.city, type:"名單治理",
+        issue:"距"+d2.city+"場僅剩"+daysToD2+"天，聯繫名單未定比例"+(undecidedRatio*100).toFixed(1)+"%，超過30%門檻",
+        metric:undecidedTotal+"筆未定／"+contactTotal+"筆總數", action:"5位業務加速確認未定名單意向，優先處理一對一名單",
+        owner:"Amber／Bailey／Cathy／Nicole／White", due:d2.dateLabel+" 前", source:"latestConv29聯繫名單彙整"});
+    }
+    if(daysToD2 <= 1 && undecidedTotal > ANOMALY_RULES.undecidedCountPre1d.threshold){
+      addAnomaly({rule:"undecidedCountPre1d", severity:"高", eventLabel:ev29.title, city:d2.city, type:"名單治理",
+        issue:"距"+d2.city+"場僅剩"+daysToD2+"天，未定名單仍有"+undecidedTotal+"筆，超過10筆門檻",
+        metric:undecidedTotal+"筆未定", action:"業務主管介入，逐筆確認意向", owner:"Sales Manager",
+        due:d2.dateLabel+" 前", source:"latestConv29聯繫名單彙整"});
+    }
+    if(d1.attendancePeople != null){
+      addAnomaly({rule:"attendanceGap", severity:"中", eventLabel:ev29.title, city:d1.city, type:"資料缺口",
+        issue:d1.city+"場僅房產9:00場已回報實到，移民13:30場報名／實到仍缺",
+        metric:"房產9:00：報名"+d1.registrations+"／實到"+d1.attendancePeople, action:"向業務確認移民13:30場數字",
+        owner:"Sales Manager", due:"儘速", source:"08分頁"});
+    }
+    if(d1.attendanceRate != null && d1.attendanceRate < ANOMALY_RULES.lowAttendanceRate.threshold){
+      addAnomaly({rule:"lowAttendanceRate", severity:"高", eventLabel:ev29.title, city:d1.city, type:"成效異常",
+        issue:d1.city+"場到場率"+(d1.attendanceRate*100).toFixed(1)+"%，低於25%門檻",
+        metric:"到場率"+(d1.attendanceRate*100).toFixed(1)+"%", action:"檢討名單品質與邀約方式",
+        owner:"Sales Manager", due:"活動結束後檢討", source:"08分頁"});
+    }
+    // 業務邀約率偏低（含樣本數揭露）
+    if(lec29.salesRanking && lec29.salesRanking.length){
+      lec29.salesRanking.forEach(function(r){
+        if(r.rate < ANOMALY_RULES.lowInviteRate.threshold){
+          addAnomaly({rule:"lowInviteRate", severity:"低", eventLabel:ev29.title, city:"—", type:"業務績效",
+            issue:r.name+"邀約率"+(r.rate*100).toFixed(1)+"%，低於30%門檻（樣本數n="+r.total+"，樣本較小時單筆變動即可能大幅影響比例，僅供參考）",
+            metric:"邀約率"+(r.rate*100).toFixed(1)+"%（n="+r.total+"）", action:"與業務本人核實名單品質及邀約紀錄習慣",
+            owner:r.name, due:"下次覆核時", source:"latestConv29 Sales Ranking"});
+        }
+      });
+    }
+  })();
+
+  (function computeHistoricalAnomalies(){
+    if(typeof completed === "undefined" || !completed.length) return;
+    // 到場率<25%（全26場歷史掃描，真實逐場檢查而非抽樣）
+    completed.forEach(function(e){
+      if(e.rate != null && e.rate < ANOMALY_RULES.lowAttendanceRate.threshold){
+        addAnomaly({rule:"lowAttendanceRate", severity:"高", eventLabel:"第"+e.ord+"屆", city:e.loc, type:"成效異常",
+          issue:e.date+" "+e.loc+"場到場率"+(e.rate*100).toFixed(1)+"%，低於25%門檻",
+          metric:"到場率"+(e.rate*100).toFixed(1)+"%", action:"納入歷史複盤，比對同城市/同類型後續場次是否改善",
+          owner:"Marketing", due:"下次同城市活動前", source:"01分頁events"});
+      }
+    });
+    // CPL高於同城市歷史平均20%以上（僅城市出現2場以上才有比較基準，避免樣本過小誤判）
+    const byCity = {};
+    completed.forEach(function(e){ if(e.cpl!=null){ (byCity[e.loc]=byCity[e.loc]||[]).push(e); } });
+    Object.keys(byCity).forEach(function(city){
+      const arr = byCity[city];
+      if(arr.length < 2) return;
+      const avg = arr.reduce(function(s,e){ return s+e.cpl; },0)/arr.length;
+      arr.forEach(function(e){
+        if(e.cpl > avg * ANOMALY_RULES.highCplVsCityAvg.threshold){
+          addAnomaly({rule:"highCplVsCityAvg", severity:"中", eventLabel:"第"+e.ord+"屆", city:e.loc, type:"成本異常",
+            issue:e.date+" "+e.loc+"場CPL NT$"+Math.round(e.cpl).toLocaleString()+"，高於"+e.loc+"歷史平均NT$"+Math.round(avg).toLocaleString()+"逾20%（該城市共"+arr.length+"場可比較）",
+            metric:"CPL NT$"+Math.round(e.cpl).toLocaleString()+"（城市均值NT$"+Math.round(avg).toLocaleString()+"）",
+            action:"檢討該場素材／受眾設定是否為主因", owner:"Marketing", due:"下次同城市投放前", source:"01分頁events"});
+        }
+      });
+    });
+  })();
+
+  // 全域性結構缺口（非單場異常，來源07分頁既有結論，改列入同一異常清單以統一管理介面，不維持兩套平行清單）
+  addAnomaly({rule:"roiDataGap", severity:"中", eventLabel:"全26場（除第27屆）", city:"—", type:"資料治理",
+    issue:"僅第27屆具備完整1-on-1／Reserved／成交追蹤SOP，其餘25場到場後續數據缺失，Dashboard無法完整回答「活動有沒有賺錢」",
+    metric:"ROI追蹤完整度約4%(1/26)", action:"比照第27屆規格建立標準SOP並回溯補值",
+    owner:"待指派", due:"30天內", source:"07分頁管理行動"});
+  addAnomaly({rule:"fxBasisUnconfirmed", severity:"高", eventLabel:"全站", city:"—", type:"資料治理",
+    issue:"匯率換算基準尚未確認是否採用公司官方結轉匯率（目前為市場估算4.0347）",
+    metric:"估算匯率4.0347", action:"確認基準並統一全站換算依據", owner:"待指派", due:"立即處理", source:"07分頁管理行動"});
+  addAnomaly({rule:"staleConsultantList", severity:"低", eventLabel:"29屆", city:"—", type:"資料新鮮度",
+    issue:"「Expo客戶進度」業務聯繫名單CRM表最後修改時間2026/7/25 14:27，距本頁資料快照時間在48小時內，資料新鮮度正常",
+    metric:"最後修改：2026/7/25 14:27", action:"（無需行動，正常狀態，供稽核追蹤用）", owner:"—",
+    due:"—", source:"Google Sheet metadata", status:"已完成"});
+
+  const SEV_ORDER = {"高":0,"中":1,"低":2};
+  anomalyItems.sort(function(a,b){
+    if(a.status==="已完成" && b.status!=="已完成") return 1;
+    if(b.status==="已完成" && a.status!=="已完成") return -1;
+    return (SEV_ORDER[a.severity]||9) - (SEV_ORDER[b.severity]||9);
+  });
+  window.__anomalyItems = anomalyItems;
+
+  const SEV_CLS = {"高":"bad","中":"action","低":"good"};
+  function anomalyCardHtml(a, idx){
+    return '<div class="eh-action-card anomaly-card" data-severity="'+a.severity+'" data-status="'+a.status+'" data-city="'+a.city+'" data-type="'+a.type+'" data-owner="'+a.owner+'" style="border-left-color:'+(a.severity==="高"?"var(--status-negative)":a.severity==="中"?"var(--rw-yellow-dark)":"var(--status-positive)")+';">'+
+      '<div class="ac-tag" style="background:'+(a.severity==="高"?"var(--status-negative)":a.severity==="中"?"var(--rw-yellow-dark)":"var(--status-positive)")+';">'+a.severity+'風險・'+a.status+'</div>'+
+      '<div class="ac-title">'+a.eventLabel+(a.city!=="—"?"・"+a.city:"")+'｜'+a.type+'</div>'+
+      '<div class="ac-desc">'+a.issue+'</div>'+
+      '<div class="ac-desc" style="font-weight:700;">指標：'+a.metric+'　建議行動：'+a.action+'</div>'+
+      '<div class="ac-meta">Owner：'+a.owner+'｜Due：'+a.due+'｜來源：'+a.source+'｜發現：'+a.foundAt+'</div></div>';
+  }
+
+  const topAnomalies = anomalyItems.filter(function(a){ return a.status!=="已完成"; }).slice(0,3);
+  const actionsHtml = topAnomalies.map(anomalyCardHtml).join("");
+
+  const allSeverities = ["全部","高","中","低"];
+  const allCities = ["全部"].concat(Array.from(new Set(anomalyItems.map(function(a){return a.city;}).filter(function(c){return c!=="—";}))));
+  const filterBarHtml =
+    '<div class="anomaly-filter-bar" style="display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 12px;">'+
+      allSeverities.map(function(s){ return '<button type="button" class="anomaly-filter-btn'+(s==="全部"?" active":"")+'" data-filter-sev="'+s+'">'+(s==="全部"?"全部":s+"風險")+'</button>'; }).join("")+
+      '<span style="width:1px;background:var(--border-default);margin:0 4px;"></span>'+
+      '<button type="button" class="anomaly-filter-btn active" data-filter-status="ALL">全部狀態</button>'+
+      '<button type="button" class="anomaly-filter-btn" data-filter-status="待處理">待處理</button>'+
+      '<button type="button" class="anomaly-filter-btn" data-filter-status="已完成">已完成</button>'+
+    '</div>';
+  const fullListHtml = '<div id="anomalyFullList">'+anomalyItems.map(anomalyCardHtml).join("")+'</div>';
+  const anomalyCenterHtml =
+    '<div class="eh-section-title">異常與待處理中心｜共'+anomalyItems.length+'項（'+anomalyItems.filter(function(a){return a.severity==="高"&&a.status!=="已完成";}).length+'項高風險待處理）</div>'+
+    '<div class="eh-section-sub">規則門檻集中管理於單一設定物件(window.__anomalyRulesConfig)，涵蓋當次活動即時檢查與26場歷史掃描，缺少必要資料時不強行判定。</div>'+
+    '<details class="le2-detail-section" id="anomalyCenterAcc"><summary>查看完整異常與待處理清單（'+anomalyItems.length+'項）</summary><div class="le2-detail-body">'+filterBarHtml+fullListHtml+'</div></details>';
+
 
   // ---- Data Health（依completed events實際null-rate計算，非假設值）----
   function completeness(field){
@@ -3350,6 +3491,7 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
     '<div class="eh-matrix-concl">'+matrixConclText+'</div>'+
     '<div class="eh-section-title">Top 3 Actions｜管理層下一步</div>'+
     '<div class="eh-actions-grid">'+actionsHtml+'</div>'+
+    anomalyCenterHtml+
     '<div class="eh-section-title">Data Health｜資料健康度</div>'+
     '<div class="eh-health-grid">'+healthHtml+'</div>'+
     '<div class="eh-health-note">Reserved／成交資料覆蓋率過低，目前無法完整計算全數活動ROI。</div>'+
@@ -3374,6 +3516,34 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
             window.__switchTab("cumulative-overview");
             setTimeout(function(){ btn.classList.remove("active"); viewToggle.querySelector('button[data-view="exec"]').classList.add("active"); }, 60);
           }
+        });
+      });
+    }
+
+    // 異常與待處理中心：篩選按鈕（風險等級 × 狀態，可同時套用）
+    const filterBar = ehRoot.querySelector(".anomaly-filter-bar");
+    const fullList = document.getElementById("anomalyFullList");
+    if(filterBar && fullList){
+      let curSev = "全部", curStatus = "ALL";
+      function applyFilter(){
+        Array.prototype.forEach.call(fullList.children, function(card){
+          const sevOk = curSev==="全部" || card.getAttribute("data-severity")===curSev;
+          const statusOk = curStatus==="ALL" || card.getAttribute("data-status")===curStatus;
+          card.style.display = (sevOk && statusOk) ? "" : "none";
+        });
+      }
+      Array.prototype.forEach.call(filterBar.querySelectorAll("button[data-filter-sev]"), function(btn){
+        btn.addEventListener("click", function(){
+          Array.prototype.forEach.call(filterBar.querySelectorAll("button[data-filter-sev]"), function(b){ b.classList.toggle("active", b===btn); });
+          curSev = btn.getAttribute("data-filter-sev");
+          applyFilter();
+        });
+      });
+      Array.prototype.forEach.call(filterBar.querySelectorAll("button[data-filter-status]"), function(btn){
+        btn.addEventListener("click", function(){
+          Array.prototype.forEach.call(filterBar.querySelectorAll("button[data-filter-status]"), function(b){ b.classList.toggle("active", b===btn); });
+          curStatus = btn.getAttribute("data-filter-status");
+          applyFilter();
         });
       });
     }
