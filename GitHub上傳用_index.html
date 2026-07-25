@@ -1418,8 +1418,8 @@ STANDING RULE（2026/7/20新增，每逢新屆別上線時必讀，避免重蹈2
     <h2>資料口徑與方法論摘要</h2>
     <div class="info-line">部分成本與後段轉換資料尚未完整，所有缺失值均未以0代替。<b>僅5/26場有房產轉單率資料</b>（第23-27屆，來源「說明會數據」頁簽）；其餘場次仍無成交/收入數據，故無法算完整ROI；1-on-1追蹤僅第27屆。業務名單彙整與廣告Leads是不同量測基準，不可互相加總。</div>
     <div class="info-line">匯率 <code>RATE = 4.0347</code>（市場估算，非公司官方結轉匯率，頁面內JS常數供任何NT$/外幣換算使用）。</div>
-    <div class="info-line">28屆廣告花費歸戶：Meta後台實際為2檔獨立Campaign，因無法依日拆分，取兩檔各半歸戶：7/11=NT$93,260、7/12=NT$23,480，合計NT$116,740。詳見DATA_DICTIONARY.md。</div>
-    <div class="info-line">歷史修正紀錄：完整三輪稽核紀錄（colorCell自遮蔽/NaN%漏斗/28屆人組混算/TDZ執行順序等修正）詳見交付物 DATA_AUDIT_REPORT.md、QA_CHECKLIST.md。</div>
+    <div class="info-line">28屆廣告花費歸戶：Meta後台實際為2檔獨立Campaign，因無法依日拆分，取兩檔各半歸戶：7/11=NT$93,260、7/12=NT$23,480，合計NT$116,740。</div>
+    <div class="info-line">本站數據已經歷三輪完整稽核，修正項目包含計算顯示、漏斗百分比、屆別人數統計等錯誤，詳細修正歷程保留於內部稽核紀錄供追溯。</div>
   </section>
 
 
@@ -3584,7 +3584,7 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
       '<div style="font-size:10px;color:var(--text-tertiary);margin-top:4px;line-height:1.4;">'+formula+'</div></div>';
   }
   const forecastHtml =
-    '<div class="le2-section-sub">目前尚無任何屆別設定正式目標值，本區塊僅呈現「預估範圍」，達成率／缺口待設定目標後啟用（見'+d2.dateLabel+d2.city+'場個案）。缺資料一律顯示「無法預估」，不以0代替；範圍非單一數字；完整10項治理規則見 window.__forecastRulesConfig。</div>'+
+    '<div class="le2-section-sub">目前尚無任何屆別設定正式目標值，本區塊僅呈現「預估範圍」，達成率／缺口待設定目標後啟用（見'+d2.dateLabel+d2.city+'場個案）。缺資料一律顯示「無法預估」，不以0代替；範圍非單一數字。</div>'+
     '<div class="le2-kpi-grid">'+
       forecastCard(d2.dateLabel+d2.city+'場 到場率預估', d2RateLow!=null?(pct(d2RateLow)+'–'+pct(d2RateHigh)):'無法預估（無同城市歷史資料）', '公式：'+d2.city+'歷史'+(taipeiRateStats?taipeiRateStats.n:0)+'場到場率最小–最大值區間｜資料：completed歷史事件(loc='+d2.city+')｜信心度：'+confLabel(taipeiRateStats?taipeiRateStats.n:null))+
       forecastCard(d2.dateLabel+d2.city+'場 實到人數預估', d2AttLow!=null?(d2AttLow+'–'+d2AttHigh+'人'):'無法預估', '公式：報名'+fmtOrDash(d2.registrations)+'人 × 到場率預估區間｜信心度：'+confLabel(taipeiRateStats?taipeiRateStats.n:null))+
@@ -3878,7 +3878,7 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
   const fullListHtml = '<div id="anomalyFullList">'+anomalyItems.map(function(a,i){ return anomalyCardHtml(a, i, false); }).join("")+'</div>';
   const anomalyCenterHtml =
     '<div class="eh-section-title">異常與待處理中心｜共'+anomalyItems.length+'項（'+anomalyItems.filter(function(a){return a.severity==="高"&&a.status!=="已完成";}).length+'項高風險待處理）</div>'+
-    '<div class="eh-section-sub">規則門檻集中管理於單一設定物件(window.__anomalyRulesConfig)，涵蓋當次活動即時檢查與26場歷史掃描，缺少必要資料時不強行判定。</div>'+
+    '<div class="eh-section-sub">門檻規則集中管理，涵蓋當次活動即時檢查與26場歷史掃描，缺少必要資料時不強行判定。</div>'+
     '<details class="le2-detail-section" id="anomalyCenterAcc"><summary>查看完整異常與待處理清單（'+anomalyItems.length+'項）</summary><div class="le2-detail-body">'+filterBarHtml+fullListHtml+'</div></details>';
 
 
@@ -3922,7 +3922,7 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
   }
   const aiSectionHtml =
     '<div class="eh-section-title">AI功能（規劃中）｜AI Features Reserved</div>'+
-    '<div class="eh-section-sub">本區塊僅建置UI佔位、loading／error／empty狀態與結構化資料格式(window.__aiBlocksConfig)，尚未串接真實AI；不放API金鑰於前端或repository，AI不得自行捏造數字、重新定義指標或做出人員汰換等結論性判斷。與上方人工摘要(Executive Signals／異常中心)並存但不重複顯示同一結論。</div>'+
+    '<div class="eh-section-sub">本區塊為未來擴充位，尚未串接真實AI；AI不得自行捏造數字、重新定義指標或做出人員汰換等結論性判斷，且不會與上方人工摘要重複顯示同一結論。</div>'+
     '<details class="le2-detail-section" id="aiBlocksAcc"><summary>查看規劃中AI功能（共'+AI_BLOCKS.length+'項）</summary><div class="le2-detail-body"><div class="ai-block-grid">'+AI_BLOCKS.map(aiBlockCardHtml).join("")+'</div></div></details>';
 
   // ---- 組裝 ----
