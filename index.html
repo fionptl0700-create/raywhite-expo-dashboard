@@ -105,6 +105,13 @@
   .funnel-conv-label svg{opacity:.45;}
   .funnel-conv-label .fc-pending{color:var(--grey);font-weight:700;font-size:10px;}
   @media(max-width:640px){ .funnel-col{max-width:100%;} }
+  .funnel-v2-col{display:flex;flex-direction:column;align-items:center;gap:0;padding:10px 4px 4px;max-width:420px;margin:0 auto;}
+  .funnel-v2-shape{position:relative;width:100%;height:64px;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,.1);}
+  .funnel-v2-shape.pending{background:repeating-linear-gradient(135deg,#e2e5e9,#e2e5e9 7px,#eef0f3 7px,#eef0f3 14px)!important;clip-path:none!important;border:1.5px dashed #b7bcc4;box-shadow:none;}
+  .funnel-v2-shape.pending .fn-n{color:var(--grey);font-size:12px;font-weight:800;}
+  .funnel-v2-shape .fn-n{font-size:19px;font-weight:800;letter-spacing:-.3px;font-variant-numeric:tabular-nums;text-shadow:0 1px 3px rgba(0,0,0,.25);}
+  .funnel-v2-label-row{display:flex;flex-direction:column;align-items:center;margin:5px 0 8px;}
+  @media(max-width:640px){ .funnel-v2-col{max-width:100%;} }
   .hbar-row{display:grid;grid-template-columns:110px 1fr 64px;align-items:center;gap:10px;margin-bottom:9px;}
   .hbar-row .hlabel{font-size:11.5px;font-weight:700;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   .hbar-row .htrack{background:#eef0f3;border-radius:6px;height:16px;overflow:hidden;position:relative;}
@@ -624,13 +631,18 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
 .ai-block-status{font-size:10px;font-weight:700;color:var(--text-tertiary);background:var(--bg-card);border-radius:5px;padding:2px 7px;}
 .ai-block-desc{font-size:11px;color:var(--text-secondary);line-height:1.6;margin-bottom:8px;}
 .ai-block-empty{font-size:10.5px;color:var(--text-tertiary);border-top:1px solid var(--border-default);padding-top:8px;}
+.eh-kpi-grid-5{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:18px;}
 @media(max-width:1100px){
   .eh-kpi-grid{grid-template-columns:repeat(2,1fr);}
+  .eh-kpi-grid-5{grid-template-columns:repeat(3,1fr);}
   .eh-signal-grid{grid-template-columns:1fr;}
   .eh-actions-grid{grid-template-columns:1fr;}
   .eh-health-grid{grid-template-columns:repeat(2,1fr);}
   .ai-block-grid{grid-template-columns:1fr;}
   .eh-latest-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:700px){
+  .eh-kpi-grid-5{grid-template-columns:repeat(2,1fr);}
 }
 </style>
 </head>
@@ -885,7 +897,7 @@ STANDING RULE（2026/7/20新增，每逢新屆別上線時必讀，避免重蹈2
 <div class="info-line" style="margin-bottom:8px;">本表為審批表核准之預估金額，非活動結束後之實報實銷數字，活動尚未舉行(7/25-26)。</div>
 <div class="tbl-scroll"><table style="margin:6px 0 10px;"><thead><tr><th class="left">項目</th><th class="left"><span class="le-city-tc-badge">7/25 新竹</span></th><th class="left"><span class="le-city-kh-badge">7/26 台北</span></th><th class="left">Total 總計</th></tr></thead><tbody>
       <tr><td class="left">房產報名組數</td><td class="left le-city-tc le-city-tc-cell">25（9:00場）</td><td class="left le-city-kh le-city-kh-cell">尚無資料（活動未舉行）</td><td class="left le-cat-total">—</td></tr>
-      <tr><td class="left">實到組數</td><td class="left le-city-tc le-city-tc-cell">8人（32.0%，Jason1/小白3/Bailey2/Nicole1/Cathy1/Amber0）</td><td class="left le-city-kh le-city-kh-cell">尚無資料（活動未舉行）</td><td class="left le-cat-total">—</td></tr>
+      <tr><td class="left">實到組數</td><td class="left le-city-tc le-city-tc-cell" data-tip="業務逐一回報：Jason1／小白3／Bailey2／Nicole1／Cathy1／Amber0＝8人。與下方「業務聯繫名單彙總」表兩天合計7人（無Jason）為不同來源，尚未核對一致，以此處業務即時回報為準。">8人（32.0%）<span style="cursor:help;border-bottom:1px dotted var(--grey);">&#9432;</span></td><td class="left le-city-kh le-city-kh-cell">尚無資料（活動未舉行）</td><td class="left le-cat-total">—</td></tr>
       <tr><td class="left">場地費</td><td class="left le-city-tc le-city-tc-cell" data-tip="新竹喜來登場地費全額NT$81,000，跟移民對半均攤後房產份額40,500，已與Google Sheet「說明會數據」頁簽獨立來源交叉驗證一致。"><div class="cost-row-cell"><span>40,500</span><span class="cost-pct-pill hot">38.7%</span></div></td><td class="left le-city-kh le-city-kh-cell" data-tip="台北Ray White台灣總部自有場地，場地費0；申請人備註另有預期收入NT$50,000(性質待確認)。"><div class="cost-row-cell"><span>0</span><span class="cost-pct-pill">0.0%</span></div></td><td class="left le-cat-total"><div class="cost-row-cell"><span>40,500</span><span class="cost-pct-pill hot">22.9%</span></div></td></tr>
       <tr><td class="left">住宿費</td><td class="left le-city-tc le-city-tc-cell"><div class="cost-row-cell"><span>0</span><span class="cost-pct-pill">0.0%</span></div></td><td class="left le-city-kh le-city-kh-cell"><div class="cost-row-cell"><span>0</span><span class="cost-pct-pill">0.0%</span></div></td><td class="left le-cat-total"><div class="cost-row-cell"><span>0</span><span class="cost-pct-pill">0.0%</span></div></td></tr>
       <tr><td class="left">人事費用</td><td class="left le-city-tc le-city-tc-cell"><div class="cost-row-cell"><span>0</span><span class="cost-pct-pill">0.0%</span></div></td><td class="left le-city-kh le-city-kh-cell" data-tip="申請人備註：可能C兒子or Sam弟"><div class="cost-row-cell"><span>1,400</span><span class="cost-pct-pill hot">1.9%</span></div></td><td class="left le-cat-total"><div class="cost-row-cell"><span>1,400</span><span class="cost-pct-pill">0.8%</span></div></td></tr>
@@ -907,12 +919,12 @@ STANDING RULE（2026/7/20新增，每逢新屆別上線時必讀，避免重蹈2
 </section>
 <section id="latestConv29" class="ia-tab-panel active" data-group-panel="s29">
 <h2>第29屆名單與轉換</h2>
-<div class="stat-chip-row" style="margin-bottom:12px;">
-  <div class="stat-chip"><div class="sv">48</div><div class="sl">兩天聯繫名單合計(5位業務)</div></div>
-  <div class="stat-chip"><div class="sv">28筆(58%)</div><div class="sl">兩天已加賴合計</div></div>
-  <div class="stat-chip"><div class="sv">25筆</div><div class="sl">會參加意向</div></div>
-  <div class="stat-chip"><div class="sv" style="color:var(--v-green);">8人<span style="color:var(--v-green);">(32.0%)</span></div><div class="sl">實到（新竹9:00場，台北未舉行）</div></div>
-  <div class="stat-chip"><div class="sv" style="color:var(--v-red);">尚無資料</div><div class="sl">目前開單數（活動未舉行）</div></div>
+<div class="eh-kpi-grid-5" style="margin-bottom:12px;">
+  <div class="eh-kpi-card"><div class="ll">兩天聯繫名單合計</div><div class="lv" style="font-size:22px;">48</div><div class="ls">5位業務彙總</div></div>
+  <div class="eh-kpi-card"><div class="ll">兩天已加賴合計</div><div class="lv" style="font-size:22px;">28筆</div><div class="ls">佔名單 58%</div></div>
+  <div class="eh-kpi-card"><div class="ll">會參加意向</div><div class="lv" style="font-size:22px;">25筆</div><div class="ls">CRM賽前追蹤，非正式報名</div></div>
+  <div class="eh-kpi-card" style="border-left-color:var(--status-positive);"><div class="ll">實到</div><div class="lv" style="font-size:22px;color:var(--status-positive);">8人<span style="font-size:14px;">(32.0%)</span></div><div class="ls"><span class="tr down">▼ 低於26場歷史平均35.1%</span></div></div>
+  <div class="eh-kpi-card" style="background:var(--bg-subtle);border-left-color:var(--border-default);"><div class="ll">目前開單數</div><div class="lv" style="font-size:22px;color:var(--text-tertiary);">尚無資料</div><div class="ls">活動未舉行，非缺失</div></div>
 </div>
 <div class="info-line">活動尚未舉行，聯繫名單為業務CRM賽前追蹤數字，與正式「報名／實到人數」屬不同資料口徑，不可直接加總或交叉換算。下方名單依7/25新竹／7/26台北拆開列示，兩天數字各自獨立計算，不相加總為單一天的數字。</div>
 <div class="le2-section-title" style="margin-top:16px;">Sales Ranking｜業務邀約率排名</div>
@@ -1023,12 +1035,8 @@ STANDING RULE（2026/7/20新增，每逢新屆別上線時必讀，避免重蹈2
 <div class="scope-banner scope-cumulative">資料範圍：2025/6–2026/7（累計26場已完成活動）</div>
 
 
-  <div class="ai-block-card" style="margin-bottom:16px;border-style:solid;">
-    <div class="ai-block-head"><span class="ai-block-title">核心KPI／Executive Signals／CPL×到場率矩陣，請至「執行總覽」查看</span></div>
-    <div class="ai-block-desc">核心指標已整併至「執行總覽」，該頁會動態反映最新屆別，並額外提供異常中心與資料健康度，本頁不再重複顯示，改為導覽入口。原內容未刪除，僅停用顯示，供日後追溯查核。</div>
-    <div class="ai-block-empty"><a href="#executive" style="color:var(--v-blue);font-weight:700;">→ 前往執行總覽查看KPI／Signals／矩陣／異常中心／資料健康度</a></div>
-  </div>
-  <div id="legacyExecOverview" style="display:none;">
+  <div class="info-line" style="margin-bottom:12px;">以下KPI／Signals／矩陣與「執行總覽」同一組公式與資料即時運算，非獨立版本；異常中心與資料健康度明細請至<a href="#executive" style="color:var(--v-blue);font-weight:700;">執行總覽</a>查看。</div>
+  <div id="legacyExecOverview">
   <div class="exec-grid" id="execSummary"></div>
   <div class="insight-row" id="execDelta" style="margin-bottom:16px;"></div>
 
@@ -1054,7 +1062,7 @@ STANDING RULE（2026/7/20新增，每逢新屆別上線時必讀，避免重蹈2
   <div class="ia-group" id="ia-exec">
   <div class="ia-group-head"><h1><span class="ia-ic"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span></span>Overview<span class="ia-zh">總覽</span></h1><div class="ia-sub">成本／轉換／資料完整度全指標明細（KPI摘要與Executive Signals請見「執行總覽」）</div></div>
 <section id="kpi" style="padding-bottom:6px;">
-    <details class="more-kpi-details">
+    <details class="more-kpi-details" open>
     <summary class="more-kpi-summary"><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span> 更多 KPI（成本／轉換／資料完整度全指標，含<span id="moreKpiToggleCount"></span>）</summary>
     <div class="more-kpi-body">
     <div style="font-size:11px;color:var(--text-tertiary);margin-bottom:8px;">詳細逐項版：可切換統計範圍（累計／該月／當次）逐一查看每項指標；「執行總覽」的4張KPI卡為固定累計範圍之全局摘要版，兩者角色不同、不重複計算。</div>
@@ -1078,7 +1086,7 @@ STANDING RULE（2026/7/20新增，每逢新屆別上線時必讀，避免重蹈2
     </details>
   </section>
 
-  <div id="legacyExecOverview2" style="display:none;">
+  <div id="legacyExecOverview2">
   <section id="s28spot">
     <h2><span class="ic" style="width:16px;height:16px;color:var(--v-amber,#C98212);"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg></span> 第28屆重點摘要（2026/7/11台中・7/12高雄，已過時，保留供追溯）</h2>
     <div class="badge-row" style="margin-bottom:12px;">
@@ -1262,7 +1270,7 @@ STANDING RULE（2026/7/20新增，每逢新屆別上線時必讀，避免重蹈2
     <h2><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></span> 業務名單彙整（依活動，第5–28屆）</h2>
     <div style="max-height:400px;overflow:auto;">
     <table>
-      <thead><tr><th class="left"><span class="ic" style="width:12px;height:12px;color:var(--navy);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span> 年份／日期</th><th class="left">資料完整度</th><th>名單筆數</th><th>已加賴</th><th>已加賴率</th><th>會參加意向</th><th>不參加</th><th>未定</th></tr></thead>
+      <thead><tr><th class="left"><span class="ic" style="width:12px;height:12px;color:var(--navy);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span> 年份／日期</th><th class="left">資料完整度</th><th>名單筆數</th><th>已加賴</th><th>已加賴率</th><th>會參加意向</th><th>不參加</th><th>未定</th><th>實到</th></tr></thead>
       <tbody id="eventConsultantTable"></tbody>
     </table>
     </div>
@@ -1806,8 +1814,8 @@ const totalAttAll = completed.reduce((s,e)=>s+(e.att||0),0);
 document.getElementById("execSummary").innerHTML = `
   <div class="exec-card" data-tip="26場已完成活動（第5-27屆全部＋第28屆兩場〔7/11台中・7/12高雄〕），高雄場當日成效數字已定案並併入計算，僅後續1-on-1／Reserved業務追蹤尚未完成。"><div class="ic">${icon("calendar",22)}</div><div class="txt"><div class="v cu" data-raw="${completed.length}">0</div><div class="l">已完成活動場次</div></div></div>
   <div class="exec-card" data-tip="公式＝Σ(廣告花費＋場地費)，僅涵蓋有資料欄位，未計入人事/物料，為成本下限。"><div class="ic">${icon("dollar",22)}</div><div class="txt"><div class="v cu" data-raw="${totalCost}">$0</div><div class="l">已知總成本（下限）</div></div></div>
-  <div class="exec-card" data-tip="公式＝Σ各場CPL(有CPL資料的場次)平均，CPL=廣告花費÷Leads。"><div class="ic">${icon("target",22)}</div><div class="txt"><div class="v cu" data-raw="${Math.round(avgCpl)}">0</div><div class="l">平均 CPL</div></div></div>
-  <div class="exec-card" data-tip="公式＝Σ各場實到人數÷Σ各場Leads＝${pct(avgRate)}到訪率。"><div class="ic">${icon("check",22)}</div><div class="txt"><div class="v cu" data-raw="${Math.round(avgRate*1000)}">0%</div><div class="l">平均到場率</div></div></div>
+  <div class="exec-card" data-tip="公式＝Σ各場CPL(有CPL資料的場次)平均，CPL=廣告花費÷Leads。近3場均值${cplBetter?'優於':'劣於'}此累計平均。"><div class="ic">${icon("target",22)}</div><div class="txt"><div class="v cu" data-raw="${Math.round(avgCpl)}">0</div><div class="l">平均 CPL <span style="color:${cplBetter?'var(--status-positive)':'var(--status-negative)'};font-weight:800;">${cplBetter?'▲':'▼'}</span></div></div></div>
+  <div class="exec-card" data-tip="公式＝Σ各場實到人數÷Σ各場Leads＝${pct(avgRate)}到訪率。近3場均值${rateUp?'優於':'劣於'}此累計平均。"><div class="ic">${icon("check",22)}</div><div class="txt"><div class="v cu" data-raw="${Math.round(avgRate*1000)}">0%</div><div class="l">平均到場率 <span style="color:${rateUp?'var(--status-positive)':'var(--status-negative)'};font-weight:800;">${rateUp?'▲':'▼'}</span></div></div></div>
 `;
 markReveal(document.getElementById("execSummary"));
 document.getElementById("execSummary").querySelectorAll(".v.cu").forEach(el=>{
@@ -2519,6 +2527,16 @@ function wilsonLowerBound(x, n, z){
   return (center - margin) / denom;
 }
 const consultantsRanked = consultants.slice().sort((a,b)=> wilsonLowerBound(b.attendYes,b.total) - wilsonLowerBound(a.attendYes,a.total));
+(function markTopConsultants(){
+  const medals = {};
+  consultantsRanked.slice(0,3).forEach(function(c,i){ medals[c.name] = ["🥇","🥈","🥉"][i]; });
+  document.querySelectorAll("#consultantTable tr").forEach(function(tr){
+    const nameCell = tr.querySelector("td.left");
+    if(!nameCell) return;
+    const m = medals[nameCell.textContent.trim()];
+    if(m){ nameCell.innerHTML = m+" "+nameCell.textContent.trim(); tr.style.background = "var(--status-positive-bg)"; }
+  });
+})();
 function rankIcon(i){
   if(i>2) return "#"+(i+1);
   return ["①","②","③"][i];
@@ -2614,12 +2632,23 @@ function ordDateLabel(label){
   const rest = label.slice(m[0].length);
   return `<b style="color:var(--teal);">${yr}</b> <span style="color:var(--navy);">${md}</span>${rest}`;
 }
+function attSumOf(label){
+  const m = label.match(/^第(\d+)屆/);
+  if(!m) return null;
+  const matches = events.filter(x=>x.ord===m[1]);
+  if(!matches.length) return null;
+  const vals = matches.map(x=>x.att);
+  if(vals.every(v=>v==null)) return null;
+  return vals.reduce((s,v)=>s+(v||0),0);
+}
 document.getElementById("eventConsultantTable").innerHTML = eventConsultant.map(e=>{
+  const attN = attSumOf(e.label);
+  const attCell = `<td class="le-red-val">${attN==null?"—":attN}</td>`;
   if (e.covered===false) {
-    return `<tr><td class="left">${ordDateLabel(e.label)}</td><td colspan="7" style="text-align:left;color:#999;">${e.note}</td></tr>`;
+    return `<tr><td class="left">${ordDateLabel(e.label)}</td><td colspan="7" style="text-align:left;color:#999;">${e.note}</td>${attCell}</tr>`;
   }
   const qlabel = e.quality==="部分" ? `${icon("alert",11,"var(--v-red)")} 部分${e.note?" ("+e.note+")":""}` : "完整";
-  return `<tr><td class="left">${ordDateLabel(e.label)}</td><td class="left" style="white-space:normal;font-size:11px;">${qlabel}</td><td>${e.total}</td><td>${e.added}</td><td>${(e.rate*100).toFixed(1)}%</td><td>${e.yes}</td><td>${e.no}</td><td>${e.undecided}</td></tr>`;
+  return `<tr><td class="left">${ordDateLabel(e.label)}</td><td class="left" style="white-space:normal;font-size:11px;">${qlabel}</td><td>${e.total}</td><td>${e.added}</td><td>${(e.rate*100).toFixed(1)}%</td><td>${e.yes}</td><td>${e.no}</td><td>${e.undecided}</td>${attCell}</tr>`;
 }).join("") + (function(){
   const valid = eventConsultant.filter(e=>e.covered!==false);
   const sumTotal = valid.reduce((s,e)=>s+e.total,0);
@@ -2628,6 +2657,8 @@ document.getElementById("eventConsultantTable").innerHTML = eventConsultant.map(
   const sumNo = valid.reduce((s,e)=>s+e.no,0);
   const sumUndecided = valid.reduce((s,e)=>s+e.undecided,0);
   const sumRate = sumTotal ? (sumAdded/sumTotal*100).toFixed(1) : "0.0";
+  const attVals = eventConsultant.map(e=>attSumOf(e.label)).filter(v=>v!=null);
+  const sumAtt = attVals.reduce((s,v)=>s+v,0);
   const oc = "color:#c2650a;font-weight:800;background:#fff3e0;";
   return `<tr style="border-top:2px solid #c2650a;">
     <td class="left" style="${oc}">加總</td>
@@ -2638,6 +2669,7 @@ document.getElementById("eventConsultantTable").innerHTML = eventConsultant.map(
     <td style="${oc}">${sumYes}</td>
     <td style="${oc}">${sumNo}</td>
     <td style="${oc}">${sumUndecided}</td>
+    <td style="${oc}color:#8B1E1E;">${sumAtt}</td>
   </tr>`;
 })();
 
@@ -2660,15 +2692,20 @@ function funnelHtml(groupTitle, groupSub, stages){
   const vals = stages.map(numOf);
   const positives = vals.filter(v=>v!=null && v>0);
   const maxN = (vals[0]!=null && vals[0]>0) ? vals[0] : (positives.length ? Math.max.apply(null, positives) : 1);
+  const MAXW = 96, MINW = 30;
   const rows = stages.map((s,i)=>{
     const val = vals[i];
     const isPending = val==null;
     const isZero = !isPending && val===0;
-    const widthPct = isPending ? MIN_PCT : Math.max(MIN_PCT, Math.round(val/maxN*100));
+    const widthPct = isPending ? MINW : Math.max(MINW, Math.round(MINW + (val/maxN)*(MAXW-MINW)));
+    const prevWidthPct = i===0 ? widthPct : (isPending ? MINW : Math.max(MINW, Math.round(MINW + ((vals[i-1]==null?0:vals[i-1])/maxN)*(MAXW-MINW))));
+    const topW = i===0 ? widthPct : prevWidthPct;
+    const botW = widthPct;
     const bg = isZero ? "var(--v-red),#8f1d1d" : (s.color||"var(--v-blue)")+","+(s.color2||"#1d4ed8");
-    const barStyle = isPending
-      ? ' style="width:'+widthPct+'%;"'
-      : ' style="width:'+widthPct+'%;background:linear-gradient(135deg,'+bg+');"';
+    const clip = 'polygon('+(50-topW/2)+'% 0%, '+(50+topW/2)+'% 0%, '+(50+botW/2)+'% 100%, '+(50-botW/2)+'% 100%)';
+    const shapeStyle = isPending
+      ? ''
+      : ' style="clip-path:'+clip+';background:linear-gradient(180deg,'+bg+');"';
     let convHtml = "";
     if(i>0){
       const prev = stages[i-1];
@@ -2680,15 +2717,15 @@ function funnelHtml(groupTitle, groupSub, stages){
         '</div>';
     }
     return convHtml+
-      '<div class="funnel-stage-v" data-tip="'+(s.tip||'').replace(/"/g,'&quot;')+'">'+
-        '<div class="funnel-bar-v'+(isPending?' pending':'')+'"'+barStyle+'><span class="fn-n">'+(isPending?"待回報":s.n)+'</span></div>'+
+      '<div class="funnel-v2-label-row" data-tip="'+(s.tip||'').replace(/"/g,'&quot;')+'">'+
+        '<div class="funnel-v2-shape'+(isPending?' pending':'')+'"'+shapeStyle+'><span class="fn-n">'+(isPending?"待回報":s.n)+'</span></div>'+
         '<div class="fn-label">'+s.label+(s.cov?'<br><span style="font-weight:500;opacity:.7;">'+s.cov+'</span>':'')+'</div>'+
       '</div>';
   }).join("");
   return `<div style="margin-bottom:22px;">
     <div style="font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:2px;">${groupTitle}</div>
     <div style="font-size:11px;color:var(--grey);margin-bottom:6px;">${groupSub}</div>
-    <div class="funnel-col">${rows}</div>
+    <div class="funnel-v2-col">${rows}</div>
   </div>`;
 }
 const s27OneSum = s27.reduce((s,x)=>s+x.one,0);
@@ -3503,19 +3540,21 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
 
   // ---- Accordion 3：業務聯繫名單（CRM兩天合併追蹤，非分日資料，依業務彙總）----
   function contactTotalGroup29(){
-    const tot = consultantAgg29.reduce(function(a,r){ a.total+=r.total; a.willAttend+=r.willAttend; return a; }, {total:0,willAttend:0});
+    const tot = consultantAgg29.reduce(function(a,r){ a.total+=r.total; a.willAttend+=r.willAttend; a.attended+=r.attended; return a; }, {total:0,willAttend:0,attended:0});
     const body = consultantAgg29.map(function(r){
       const rate = r.total? r.willAttend/r.total : 0;
-      return '<tr><td class="left">'+r.name+'</td><td>'+r.total+'</td><td class="le-red-val">'+r.willAttend+'</td><td>'+(rate*100).toFixed(1)+'%</td></tr>';
+      const attRate = r.total? r.attended/r.total : 0;
+      return '<tr><td class="left">'+r.name+'</td><td>'+r.total+'</td><td class="le-red-val">'+r.willAttend+'</td><td>'+(rate*100).toFixed(1)+'%</td><td class="le-red-val">'+r.attended+'</td><td class="le-red-val">'+(attRate*100).toFixed(1)+'%</td></tr>';
     }).join("");
     return '<div class="le-col le-total" data-day="total">'+
-      '<div class="le-col-head"><div class="lc-t">業務聯繫名單彙總（兩天合併，非分日）</div></div>'+
-      '<div style="overflow-x:auto;"><table style="font-size:11px;"><thead><tr><th class="left">業務</th><th>名單數</th><th>會參加</th><th>邀約率</th></tr></thead><tbody>'+
-      body+'<tr style="font-weight:800;background:var(--bg-subtle);"><td class="left">合計</td><td>'+tot.total+'</td><td class="le-red-val">'+tot.willAttend+'</td><td>'+(tot.total?(tot.willAttend/tot.total*100).toFixed(1):"0.0")+'%</td></tr>'+
+      '<div class="le-col-head"><div><div class="lc-t">業務聯繫名單彙總（兩天合併，非分日）</div><div class="lc-s">報到＝現場簽到確認，非會參加意向</div></div></div>'+
+      '<div style="overflow-x:auto;"><table style="font-size:11px;"><thead><tr><th class="left">業務</th><th>名單數</th><th>會參加</th><th>邀約率</th><th>報到</th><th>報到%</th></tr></thead><tbody>'+
+      body+'<tr style="font-weight:800;background:var(--bg-subtle);"><td class="left">合計</td><td>'+tot.total+'</td><td class="le-red-val">'+tot.willAttend+'</td><td>'+(tot.total?(tot.willAttend/tot.total*100).toFixed(1):"0.0")+'%</td><td class="le-red-val">'+tot.attended+'</td><td class="le-red-val">'+(tot.total?(tot.attended/tot.total*100).toFixed(1):"0.0")+'%</td></tr>'+
       '</tbody></table></div></div>';
   }
   const contactHtml29 = contactTotalGroup29()+
-    '<div class="le-note-box" style="background:var(--status-warning-bg);color:var(--status-warning);">此聯繫名單為業務CRM賽前追蹤之聯繫意向（兩天合併統計，無法拆分新竹／台北），與上方「報名人數」「實到人數」屬不同資料口徑與統計對象，不可直接加總或交叉換算。</div>';
+    '<div class="le-note-box" style="background:var(--status-warning-bg);color:var(--status-warning);">此聯繫名單為業務CRM賽前追蹤之聯繫意向（兩天合併統計，無法拆分新竹／台北），與上方「報名人數」「實到人數」屬不同資料口徑與統計對象，不可直接加總或交叉換算。</div>'+
+    '<div class="le-note-box" style="background:var(--status-info-bg);color:var(--status-info);">ℹ 資料新鮮度：雲端「Expo客戶進度」表最後已知更新為2026/7/25 06:27，7/26當天業務最新回報可能尚未反映於本表；獨立的「客戶報到彙整」數位簽到表目前僅1筆確認報到，多數欄位業務尚未即時填寫。本站為靜態頁面無法自動連線Google Sheet，以上為最近一次人工核對結果，下次核對時將覆蓋本表。</div>';
 
   // ---- 業務邀約率排名（主要排序依據＝實到率；實到才是主要的成績，邀約率僅供參考）----
   const salesRanking29 = consultantAgg29.map(function(d){
