@@ -1012,6 +1012,12 @@ STANDING RULE（2026/7/20新增，每逢新屆別上線時必讀，避免重蹈2
 <div class="scope-banner scope-cumulative">資料範圍：2025/6–2026/7（累計26場已完成活動）</div>
 
 
+  <div class="ai-block-card" style="margin-bottom:16px;border-style:solid;">
+    <div class="ai-block-head"><span class="ai-block-title">核心KPI／Executive Signals／CPL×到場率矩陣，請至「執行總覽」查看</span></div>
+    <div class="ai-block-desc">2026/7/25彙整稽核：本頁原本的KPI卡片／Executive Signals三張卡／Top行動清單／CPL×到場率矩陣圖，與「執行總覽」頁內容重複計算同一組指標；「執行總覽」為較新版本、動態反映當前最新屆別(29屆)並額外含異常中心／資料健康度，故本頁不再重複顯示，改為導覽入口。原內容(含已過時的「第28屆重點摘要」，29屆已是最新屆)保留於原始碼中(id=legacyExecOverview，display:none)供追溯，未刪除任何底層資料或計算邏輯。</div>
+    <div class="ai-block-empty"><a href="#executive" style="color:var(--v-blue);font-weight:700;">→ 前往執行總覽查看KPI／Signals／矩陣／異常中心／資料健康度</a></div>
+  </div>
+  <div id="legacyExecOverview" style="display:none;">
   <div class="exec-grid" id="execSummary"></div>
   <div class="insight-row" id="execDelta" style="margin-bottom:16px;"></div>
 
@@ -1028,13 +1034,14 @@ STANDING RULE（2026/7/20新增，每逢新屆別上線時必讀，避免重蹈2
       <div class="actions-preview-item"><span class="pri-badge p1">③</span><span class="api-txt">建立成交／Reserved金額欄位並強制填寫</span></div>
     </div>
   </div>
+  </div>
 
   <div class="info-line"><span class="ic" style="width:13px;height:13px;color:var(--v-red);vertical-align:-2px;"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span> 部分成本與後段轉換資料尚未完整，所有缺失值均未以0代替。
   <details class="more" style="margin:0;"><summary>詳情</summary><div class="body"><b>僅5/26場有房產轉單率資料</b>（第23-27屆，來源「說明會數據」頁簽）；其餘場次仍無成交/收入數據，故無法算完整ROI；1-on-1追蹤僅第27屆。業務名單彙整與廣告Leads是不同量測基準，不可互相加總。第27屆廣告花費/CPL已於2026/7/9透過新來源（Google Sheet「廣告成效」）補齊，分級重算為D級。第28屆場地/住宿/人事/伙食/高鐵(均攤)合計非廣告成本NT$89,310，已於2026/7/12依最新Campaign歸戶與高鐵分攤方式重新計算(詳見#s28與#27v28對照卡)。詳細缺口見 Excel 00 分頁。</div></details>
   </div>
 
   <div class="ia-group" id="ia-exec">
-  <div class="ia-group-head"><h1><span class="ia-ic"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span></span>Overview<span class="ia-zh">總覽</span></h1><div class="ia-sub">核心KPI・Executive Signals・第28屆最新快照・Event Performance Matrix</div></div>
+  <div class="ia-group-head"><h1><span class="ia-ic"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span></span>Overview<span class="ia-zh">總覽</span></h1><div class="ia-sub">成本／轉換／資料完整度全指標明細（KPI摘要與Executive Signals請見「執行總覽」）</div></div>
 <section id="kpi" style="padding-bottom:6px;">
     <details class="more-kpi-details">
     <summary class="more-kpi-summary"><span class="ic" style="width:16px;height:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span> 更多 KPI（成本／轉換／資料完整度全指標，含<span id="moreKpiToggleCount"></span>）</summary>
@@ -1059,8 +1066,9 @@ STANDING RULE（2026/7/20新增，每逢新屆別上線時必讀，避免重蹈2
     </details>
   </section>
 
+  <div id="legacyExecOverview2" style="display:none;">
   <section id="s28spot">
-    <h2><span class="ic" style="width:16px;height:16px;color:var(--v-amber,#C98212);"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg></span> 第28屆重點摘要（2026/7/11台中・7/12高雄）</h2>
+    <h2><span class="ic" style="width:16px;height:16px;color:var(--v-amber,#C98212);"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg></span> 第28屆重點摘要（2026/7/11台中・7/12高雄，已過時，保留供追溯）</h2>
     <div class="badge-row" style="margin-bottom:12px;">
       <span class="b-orange">高雄場(7/12)資料仍在追蹤更新中；台中場(7/11)已完成（因颱風改線上）</span>
     </div>
@@ -1099,6 +1107,7 @@ STANDING RULE（2026/7/20新增，每逢新屆別上線時必讀，避免重蹈2
     </div>
     <div class="chart-wrap" style="height:400px;"><canvas id="matrixChart"></canvas></div>
   </section>
+  </div>
 </div>
 </div>
 <div class="tab-page" id="page-performance" data-tab-page="performance">
