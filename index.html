@@ -958,6 +958,7 @@ v65補充：活動「已舉行」但部分欄位(1-on-1/Reserved/成交/收入)�
 <section id="latestCost29" class="ia-tab-panel active" data-group-panel="s29">
 <h2>第29屆成本明細</h2>
 <div class="info-line" style="margin-bottom:8px;">本表為審批表核准之預估金額，非活動結束後之實報實銷數字；活動已完成(7/25-26)，實報實銷數字待業務回報核銷。</div>
+<div id="latestCost29Kpi" style="margin-bottom:12px;"></div>
 <div class="tbl-scroll"><table style="margin:6px 0 10px;"><thead><tr><th class="left">項目</th><th class="left"><span class="le-city-tc-badge">7/25 新竹</span></th><th class="left"><span class="le-city-kh-badge">7/26 台北</span></th><th class="left">Total 總計</th></tr></thead><tbody>
       <tr><td class="left">房產報名組數</td><td class="left le-city-tc le-city-tc-cell">25（9:00場）</td><td class="left le-city-kh le-city-kh-cell">26（14:00場）</td><td class="left le-cat-total">51</td></tr>
       <tr><td class="left">實到組數</td><td class="left le-city-tc le-city-tc-cell" data-tip="業務逐一回報：Jason1／小白3／Bailey2／Nicole1／Cathy1／Amber0＝8人。與下方「業務聯繫名單彙總」表兩天合計7人（無Jason）為不同來源，尚未核對一致，以此處業務即時回報為準。">8人（32.0%）<span style="cursor:help;border-bottom:1px dotted var(--grey);">&#9432;</span></td><td class="left le-city-kh le-city-kh-cell" data-tip="房產14:00場4人(小白3/Amber1)，官方報名與簽到表(2026/7/26，v66更新)。台北全日(移民11:00＋房產14:00＋一對一)去重後實到8人，詳見Latest Event總覽。">4人（15.4%）</td><td class="left le-cat-total">12人（房產場官方口徑；同場地移民場次另計不列入，詳Latest Event總覽）</td></tr>
@@ -970,6 +971,8 @@ v65補充：活動「已舉行」但部分欄位(1-on-1/Reserved/成交/收入)�
       <tr style="font-weight:800;"><td class="left">小計(已核准)</td><td class="left le-city-tc-cell"><div class="cost-row-cell"><span style="color:#8B1E1E;">104,600</span></div></td><td class="left le-city-kh-cell"><div class="cost-row-cell"><span style="color:#8B1E1E;">71,900</span></div></td><td class="left" style="background:var(--status-positive-bg);font-weight:800;"><div class="cost-row-cell"><span style="color:#8B1E1E;">176,500</span></div></td></tr>
       </tbody></table></div>
 <div class="info-line"><b style="color:var(--status-positive);">✓ 兩場預算皆已正式核准</b>：新竹由董事長Justin核准（7/17 18:15，NT$104,600）；台北原核准金額NT$48,900（7/20 15:22），業務於複本分頁新增交通NT$500＋餐飲NT$22,500後，Justin已於7/21 15:22對含新增項目之版本重新正式核准（2026/7/22經使用者確認），台北最終核准總額為NT$71,900。來源：RayWhite_活動預算審批表.xlsx／分頁「0726活動預算審批 (2)」。場地費已與「說明會數據」頁簽獨立來源交叉驗證，交通/餐飲/PT目前僅有審批表單一來源。待29屆實際發生後，將以正式實報數字覆蓋本表。</div>
+<div class="le2-section-title" style="margin-top:16px;">結案Checklist｜本屆成本與轉換資料回報進度</div>
+<div id="latestCost29Checklist"></div>
 </section>
 </div>
 </div>
@@ -3595,6 +3598,52 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
     const gapPt = Math.abs((d1.attendanceRate - d2.attendanceRate)*100).toFixed(1);
     const concl = hcCityBetter+"到場率("+fmtPctOrDash(hcBetter.attendanceRate)+")優於"+hcWorseCity+"("+fmtPctOrDash(hcWorse.attendanceRate)+")，差距"+gapPt+"個百分點；兩場皆低於26場歷史平均("+avgRatePct+"%)。差距可能來自場地類型與成本結構差異（新竹為付費場地且與移民場對半分攤場地費，台北為自有場地免場地費）與名單品質／邀約方式差異，惟n=2單場比較樣本數過小，不足以判斷是否為系統性差異，需累積更多同口徑場次後才能下結論。";
     if(conclEl) conclEl.innerHTML = '<div class="info-line" style="font-weight:700;"><b>管理判斷：</b>'+concl+'</div>';
+  })();
+
+  // ---- v71新增：Cost頁重整 — 首層KPI化＋結案Checklist（沿用既有d1/d2/total/ED29欄位，不新增資料，只是換一種呈現方式）----
+  (function renderLatestCost29(){
+    const kpiEl = document.getElementById("latestCost29Kpi");
+    const checklistEl = document.getElementById("latestCost29Checklist");
+    if(!kpiEl && !checklistEl) return;
+
+    const adSharePct = total.totalCost ? (total.adCost/total.totalCost*100).toFixed(1) : null;
+
+    if(kpiEl){
+      const kpiItems = [
+        {ll:"核准總金額", lv:fmtMoney(ED29.approvedCost), ls:"新竹NT$104,600＋台北NT$71,900（審批表核准）"},
+        {ll:"實報實銷金額", lv: ED29.actualCost!=null ? fmtMoney(ED29.actualCost) : "待業務回報", ls: ED29.actualCost!=null ? "已核銷" : "目前仍以核准預估金額計算，非實報數字"},
+        {ll:"廣告占比", lv: adSharePct!=null ? adSharePct+"%" : "—", ls:"廣告費／總成本"},
+        {ll:"場地費", lv:fmtMoney(total.venueCost), ls:"僅新竹（新竹NT$40,500，台北自有場地0）"}
+      ];
+      kpiEl.innerHTML = '<div class="eh-kpi-grid-5">'+kpiItems.map(function(k){
+        return '<div class="eh-kpi-card"><div class="ll">'+k.ll+'</div><div class="lv" style="font-size:20px;">'+k.lv+'</div><div class="ls">'+k.ls+'</div></div>';
+      }).join("")+'</div>';
+    }
+
+    if(checklistEl){
+      const oneOnOneBothDone = (d1.oneOnOne!=null && d2.oneOnOne!=null);
+      const checklist = [
+        { done:(d1.attendancePeople!=null && d2.attendancePeople!=null), label:"新竹／台北正式報名與實到人數已依官方簽到表確認", note:"房產口徑（v67），已完成" },
+        { done:true, label:"新竹／台北場地費已正式核准，且新竹場地費已與「說明會數據」頁簽獨立來源交叉驗證", note:"已完成" },
+        { done:oneOnOneBothDone, label:"新竹／台北1-on-1組數已由業務逐一回報", note: oneOnOneBothDone ? "已完成" : (d1.oneOnOne!=null ? "新竹已回報(4組)，台北待業務回報" : "兩場皆待業務回報") },
+        { done:(total.reserved!=null), label:"Reserved（保留）組數已由業務回報", note: total.reserved!=null ? "已完成" : "待業務回報" },
+        { done:(total.deals!=null && ED29.revenue!=null), label:"成交組數與成交金額已回報", note: (total.deals!=null && ED29.revenue!=null) ? "已完成" : "待業務回報，暫無法計算完整ROI" },
+        { done:(ED29.actualCost!=null), label:"總成本已由審批核准預估金額轉為實報實銷數字", note: ED29.actualCost!=null ? "已核銷完成" : "尚未核銷，目前以核准金額為推估基準" }
+      ];
+      const doneCount = checklist.filter(function(c){ return c.done; }).length;
+      const pendingCount = checklist.length - doneCount;
+      const summaryHtml = '<div class="info-line" style="margin-bottom:8px;">共'+checklist.length+'項結案追蹤項目，其中'+doneCount+'項已完成、'+pendingCount+'項待補（依實際回報狀態自動更新，非固定文案）。</div>';
+      const itemsHtml = checklist.map(function(c){
+        const color = c.done ? 'var(--status-positive)' : 'var(--status-warning)';
+        const bg = c.done ? 'var(--status-positive-bg)' : 'var(--status-warning-bg)';
+        const icon = c.done ? '&#10003;' : '&#9675;';
+        return '<div style="display:flex;align-items:flex-start;gap:8px;padding:8px 10px;border-radius:8px;background:'+bg+';margin-bottom:6px;">'+
+          '<span style="color:'+color+';font-weight:800;font-size:13px;line-height:1.4;">'+icon+'</span>'+
+          '<div style="flex:1;"><div style="font-size:12.5px;font-weight:700;color:var(--text-primary);">'+c.label+'</div><div style="font-size:11px;color:'+color+';margin-top:2px;">'+c.note+'</div></div>'+
+        '</div>';
+      }).join("");
+      checklistEl.innerHTML = summaryHtml + itemsHtml;
+    }
   })();
 
   // ---- Executive Signal（活動進行中：一天尚未舉行時，不強行做兩日比較）----
