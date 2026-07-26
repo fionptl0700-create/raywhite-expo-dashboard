@@ -434,6 +434,19 @@ body.sidebar-collapsed .sidebar-latest-card .slc-title,body.sidebar-collapsed .s
 .sidebar-foot .dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;background:var(--status-positive);}
 body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
 
+/* v73新增：EVENT INTELLIGENCE 品牌卡（純裝飾附加元素，不影響導覽功能/項目） */
+.sidebar-intel-card{position:relative;overflow:hidden;margin:8px 10px 4px;padding:16px 14px;border-radius:14px;
+  background:linear-gradient(155deg,#1c1a12 0%,#241f10 55%,#2b230d 100%);
+  border:1px solid rgba(246,213,0,.22);}
+.sidebar-intel-card::before{content:"";position:absolute;inset:-40% -20% auto auto;width:140px;height:140px;
+  background:radial-gradient(circle, rgba(246,213,0,.16) 0%, rgba(246,213,0,0) 70%);pointer-events:none;}
+.sidebar-intel-icon{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;
+  background:linear-gradient(150deg,var(--rw-yellow) 0%,#C79E00 100%);color:#1c1a12;position:relative;z-index:1;}
+.sidebar-intel-icon svg{width:17px;height:17px;}
+.sidebar-intel-title{font-size:11.5px;font-weight:800;letter-spacing:.6px;color:var(--rw-yellow);position:relative;z-index:1;}
+.sidebar-intel-sub{font-size:11.5px;font-weight:700;color:rgba(255,255,255,.85);margin-top:2px;position:relative;z-index:1;}
+body.sidebar-collapsed .sidebar-intel-card{display:none;}
+
 .topbar{display:none;position:fixed;top:0;left:0;right:0;height:52px;background:var(--charcoal);color:#fff;align-items:center;gap:10px;padding:0 14px;z-index:210;box-shadow:0 2px 8px rgba(0,0,0,.15);}
 .topbar-menu-btn{width:34px;height:34px;border-radius:8px;border:none;background:rgba(255,255,255,.08);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;}
 .topbar-title{font-size:14px;font-weight:800;letter-spacing:.2px;}
@@ -688,8 +701,18 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
 .badge-na{background:var(--status-missing-bg); color:var(--status-missing);}
 
 /* Hero KPI（5張，中性背景，取代原eh-kpi-card大面積品牌黃背景） */
+/* v73新增：icon徽章+柔和hover浮起，僅表層視覺升級，不動版面結構/欄位數量 */
 .eh-hero-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-bottom:8px;}
-.eh-hero-card{background:var(--bg-card); border:1px solid var(--border-default); border-radius:12px; padding:16px; display:flex; flex-direction:column; gap:8px; min-height:128px;}
+.eh-hero-card{background:var(--bg-card); border:1px solid var(--border-default); border-radius:14px; padding:16px; display:flex; flex-direction:column; gap:8px; min-height:128px;
+  box-shadow:0 1px 2px rgba(23,25,28,.04); transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;}
+.eh-hero-card:hover{transform:translateY(-2px); box-shadow:0 8px 20px rgba(23,25,28,.08); border-color:var(--border-strong);}
+.ehc-icon{width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-bottom:2px;}
+.ehc-icon svg{width:17px; height:17px;}
+.ehc-icon.ic-people{background:linear-gradient(150deg,#EDE9FE 0%,#DDD6FE 100%); color:#7C5CD6;}
+.ehc-icon.ic-rate{background:linear-gradient(150deg,#DCFCE7 0%,#BBF7D0 100%); color:#189F63;}
+.ehc-icon.ic-handshake{background:linear-gradient(150deg,var(--rw-yellow-soft) 0%,#FBEBA6 100%); color:#9A7A00;}
+.ehc-icon.ic-coin{background:linear-gradient(150deg,#DBEAFE 0%,#BFDBFE 100%); color:#3977C3;}
+.ehc-icon.ic-wallet{background:linear-gradient(150deg,#F1F2F4 0%,#E4E6E9 100%); color:#4A4F56;}
 .ehc-top{display:flex; justify-content:space-between; align-items:flex-start; gap:6px;}
 .ehc-ll{font-size:11px; font-weight:700; color:var(--text-secondary); line-height:1.4;}
 .ehc-lv{font-size:26px; font-weight:800; color:var(--text-primary); font-variant-numeric:tabular-nums; letter-spacing:-.4px; line-height:1.1;}
@@ -769,6 +792,11 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
       <div class="sidebar-group-label group-mgmt"><span>管理</span><small>MANAGEMENT</small></div>
       <button type="button" class="sidebar-nav-item" data-tab="management" data-nav-group="mgmt"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-8 8.5-4.5-1-8-3.5-8-8.5V5l8-3 8 3z"/><polyline points="9 12 11 14 15 10"/></svg></span><span class="sidebar-nav-item-label">管理中心 <small>Management Center</small></span></button>
   </nav>
+  <div class="sidebar-intel-card">
+    <div class="sidebar-intel-icon"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 12L2 9Z"/><path d="M11 3 8 9l4 12 4-12-3-6"/><path d="M2 9h20"/></svg></div>
+    <div class="sidebar-intel-title">EVENT INTELLIGENCE</div>
+    <div class="sidebar-intel-sub">活動營運戰情中心</div>
+  </div>
   <div class="sidebar-foot">
     <div class="sidebar-foot-row"><span class="dot dot-ok"></span><span>資料更新 2026/7/26</span></div>
     <div class="sidebar-foot-row sidebar-foot-sub">廣告資料截至 2026/7/25</div>
@@ -4190,15 +4218,23 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
   const rateDeltaTxt = (ED29.attendanceRate < avgRate)
     ? '<span class="tr down">&#9660; 低於26場歷史平均'+((avgRate-ED29.attendanceRate)*100).toFixed(1)+'個百分點</span>'
     : '<span class="tr up">&#9650; 高於26場歷史平均'+((ED29.attendanceRate-avgRate)*100).toFixed(1)+'個百分點</span>';
+  const heroKpiIcons = {
+    people:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+    rate:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg>',
+    handshake:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.24"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/></svg>',
+    coin:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18"/><path d="M7 6h1v4"/><path d="m16.71 13.88.7.71-2.82 2.82"/></svg>',
+    wallet:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>'
+  };
   const heroKpis = [
-    {ll:"正式報名（官方）", lv:fmt(ED29.officialRegistrations), ls:"CRM聯繫名單另計"+ED29.crmContacts+"筆，口徑不同不可加總", badge:"actual"},
-    {ll:"到場率（官方，房產場次）", lv:pct(ED29.attendanceRate), ls:rateDeltaTxt, badge:"actual"},
-    {ll:"1-on-1（已回報組數）", lv:(total.oneOnOne!=null?fmtOrDash(total.oneOnOne)+"組":"待補"), ls:(oneOnOneScopeOK?("實到轉1-on-1率"+fmtPctOrDash(oneOnOneRate)):(oneOnOneScopeNote||"雙場皆待業務回報")), badge:(oneOnOneScopeOK?"actual":(total.oneOnOne!=null?"partial":"pending"))},
-    {ll:"每位實到成本（CPA）", lv:(cpaApprox!=null?("NT$"+fmt(cpaApprox)):"—"), ls:"依核准成本"+fmtMoney(costApproved29)+"估算，非最終決算", badge:"estimate"},
-    {ll:"核准總成本（房產團隊）", lv:fmtMoney(costApproved29), ls:"廣告份額"+fmtMoney(total.adCost)+"＋場地交通餐飲PT，2026/7/21已核准", badge:"approved"}
+    {ll:"正式報名（官方）", lv:fmt(ED29.officialRegistrations), ls:"CRM聯繫名單另計"+ED29.crmContacts+"筆，口徑不同不可加總", badge:"actual", ic:"people"},
+    {ll:"到場率（官方，房產場次）", lv:pct(ED29.attendanceRate), ls:rateDeltaTxt, badge:"actual", ic:"rate"},
+    {ll:"1-on-1（已回報組數）", lv:(total.oneOnOne!=null?fmtOrDash(total.oneOnOne)+"組":"待補"), ls:(oneOnOneScopeOK?("實到轉1-on-1率"+fmtPctOrDash(oneOnOneRate)):(oneOnOneScopeNote||"雙場皆待業務回報")), badge:(oneOnOneScopeOK?"actual":(total.oneOnOne!=null?"partial":"pending")), ic:"handshake"},
+    {ll:"每位實到成本（CPA）", lv:(cpaApprox!=null?("NT$"+fmt(cpaApprox)):"—"), ls:"依核准成本"+fmtMoney(costApproved29)+"估算，非最終決算", badge:"estimate", ic:"coin"},
+    {ll:"核准總成本（房產團隊）", lv:fmtMoney(costApproved29), ls:"廣告份額"+fmtMoney(total.adCost)+"＋場地交通餐飲PT，2026/7/21已核准", badge:"approved", ic:"wallet"}
   ];
+  const heroKpiIconCls = {people:"ic-people", rate:"ic-rate", handshake:"ic-handshake", coin:"ic-coin", wallet:"ic-wallet"};
   const heroKpiHtml = heroKpis.map(function(k){
-    return '<div class="eh-hero-card"><div class="ehc-top"><span class="ehc-ll">'+k.ll+'</span>'+badgeHtml(k.badge)+'</div>'+
+    return '<div class="eh-hero-card"><div class="ehc-icon '+heroKpiIconCls[k.ic]+'">'+heroKpiIcons[k.ic]+'</div><div class="ehc-top"><span class="ehc-ll">'+k.ll+'</span>'+badgeHtml(k.badge)+'</div>'+
       '<div class="ehc-lv">'+k.lv+'</div><div class="ehc-ls">'+k.ls+'</div></div>';
   }).join("");
 
