@@ -3880,8 +3880,8 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
     });
     const sidebarStatus = document.querySelector(".slc-status");
     if(sidebarStatus){
-      const d1Txt = d1.attendancePeople!=null ? ("新竹場已於"+d1.dateLabel+"完成，實到"+d1.attendancePeople+"人") : ("新竹場"+d1.dateLabel+"尚未舉行");
-      const d2Txt = d2.attendancePeople!=null ? ("台北場已於"+d2.dateLabel+"完成，實到"+d2.attendancePeople+"人（1-on-1／Reserved待回填）") : ("台北場"+d2.dateLabel+"尚未舉行");
+      const d1Txt = d1.attendancePeople!=null ? ("新竹房產場已於"+d1.dateLabel+"完成，實到"+d1.attendancePeople+"人") : ("新竹房產場"+d1.dateLabel+"尚未舉行");
+      const d2Txt = d2.attendancePeople!=null ? ("台北房產場已於"+d2.dateLabel+"完成，實到"+d2.attendancePeople+"人（1-on-1／Reserved待回填）") : ("台北房產場"+d2.dateLabel+"尚未舉行");
       sidebarStatus.textContent = d1Txt+"・"+d2Txt+"・"+ED29.crmContacts+"筆聯繫名單";
     }
   })();
