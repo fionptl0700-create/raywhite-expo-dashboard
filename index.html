@@ -918,7 +918,7 @@ v65補充：活動「已舉行」但部分欄位(1-on-1/Reserved/成交/收入)�
 <div class="tab-page" id="page-latest-performance" data-tab-page="latest-performance">
 <div class="scope-banner scope-latest">資料範圍：第28-29屆（下方分頁：第28屆已完成／第29屆追蹤中）</div>
 <div class="ia-group" id="ia-latest-performance">
-  <div class="ia-group-head"><h1><span class="ia-ic"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg></span></span>Latest Performance<span class="ia-zh">台中 vs 高雄成效比較</span></h1></div>
+  <div class="ia-group-head"><h1><span class="ia-ic"><span class="ic" style="width:14px;height:14px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg></span></span>Latest Performance<span class="ia-zh" id="lpHeadZh">新竹 vs 台北成效比較</span></h1></div>
 <div class="group-tabs event-tabs" role="tablist" aria-label="場次切換"><button type="button" class="group-tab-btn etab-29 active" data-tab-target="s29">第29屆・追蹤中（7/25-26）</button><button type="button" class="group-tab-btn etab-28" data-tab-target="s28">第28屆・已完成（7/11-12）</button></div>
 <section id="latestPerf" class="ia-tab-panel" data-group-panel="s28"><h2>本次成效：台中 vs 高雄</h2><div id="latestPerfBody"></div>
 <div class="ia-group-head" style="margin-top:16px;"><h1 style="font-size:14px;">CPL × CPA 比較</h1></div>
@@ -2877,15 +2877,21 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
     btn.classList.add("active");
     const target = btn.getAttribute("data-tab-target");
     if(target === "s28" || target === "s29"){
+      // v68修正(使用者2026/7/27指定)：原本切換分頁時改用window.__eventLifecycleState(日期窗口判斷)覆蓋標題，
+      // 與頁首/側欄/Decision Bar所用的ED29.editionStatus(單一來源)不同步，導致切換分頁後標題又跳回過期的「進行中」。
+      // 現統一改讀ED29.editionStatus，與全站其他第29屆狀態文字完全同一份資料。
       const hz = document.getElementById("leHeadZh");
       if(hz){
         if(target === "s28"){ hz.textContent = "第28屆管理總覽"; }
         else {
           const lec29 = window.__latestEventComputed29;
-          const st = (lec29 && window.__eventLifecycleState) ? window.__eventLifecycleState(lec29.latestEvent) : "prep";
-          hz.textContent = "第29屆"+(window.__LIFECYCLE_LABEL ? window.__LIFECYCLE_LABEL[st] : "籌備中")+"管理總覽";
+          const label29 = (lec29 && lec29.ED29 && lec29.ED29.editionStatus) || "追蹤中";
+          hz.textContent = "第29屆"+label29+"管理總覽";
         }
       }
+      // v68新增：Latest Performance頁副標題依選中屆次動態切換城市對照組，避免固定顯示「台中 vs 高雄」
+      const lpz = document.getElementById("lpHeadZh");
+      if(lpz){ lpz.textContent = target === "s28" ? "台中 vs 高雄成效比較" : "新竹 vs 台北成效比較"; }
     }
     group.querySelectorAll(".ia-tab-panel").forEach(function(p){
       const isActive = p.getAttribute("data-group-panel") === target;
@@ -3618,7 +3624,7 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
     '<div class="le2-actions-grid">'+
       '<div class="le2-action-card p1"><div class="ac-tag">P1</div><div class="ac-title">回報'+d2.city+'場1-on-1組數</div><div class="ac-desc">'+d2.city+'場('+d2.dateLabel+')活動已完成，實到'+fmtOrDash(d2.attendancePeople)+'人，1-on-1組數尚待業務回報，回報後將自動併入全屆1-on-1轉換率。</div><div class="ac-meta">Owner：Sales Manager｜Due：儘速</div></div>'+
       '<div class="le2-action-card p2"><div class="ac-tag">P2</div><div class="ac-title">補齊兩日Reserved／成交</div><div class="ac-desc">'+d1.city+'場已實到'+fmtOrDash(d1.attendancePeople)+'人、1-on-1'+fmtOrDash(d1.oneOnOne)+'組(轉換率'+fmtPctOrDash(rateOf(d1.oneOnOne,d1.attendancePeople))+')；'+d2.city+'場已實到'+fmtOrDash(d2.attendancePeople)+'人；兩場Reserved與成交結果均尚待業務回報，回填前無法計算完整ROI。</div><div class="ac-meta">Owner：Sales Manager</div></div>'+
-      '<div class="le2-action-card p3"><div class="ac-tag">P3</div><div class="ac-title">追蹤未定名單（16筆）</div><div class="ac-desc">兩天聯繫名單合計48筆中仍有16筆意向未定，距活動剩餘時間有限，需加快確認。</div><div class="ac-meta">Owner：5位業務（Amber/Bailey/Cathy/Nicole/White）</div></div>'+
+      '<div class="le2-action-card p3"><div class="ac-tag">P3</div><div class="ac-title">追蹤未定名單（16筆）</div><div class="ac-desc">活動已結束，兩天聯繫名單合計48筆中仍有16筆意向未定，需盡快完成會後歸類，避免影響後續1-on-1與Reserved追蹤。</div><div class="ac-meta">Owner：5位業務（Amber/Bailey/Cathy/Nicole/White）</div></div>'+
     '</div>';
 
   // ---- Accordion 1：成本明細 ----
@@ -3773,15 +3779,37 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
     return '<div class="le2-kpi-card"><div class="v">'+value+'</div><div class="l">'+label+'</div>'+
       '<div style="font-size:10px;color:var(--text-tertiary);margin-top:4px;line-height:1.4;">'+formula+'</div></div>';
   }
+  // v68修正(使用者2026/7/27指定)：活動已於7/25-26完成，本區塊原本以「未來預估」語氣呈現台北場數字，
+  // 但台北場實際到場率(15.4%)／實到人數(4人)已經確認，繼續講「預估」會誤導管理層以為活動尚未發生。
+  // 改為Actual vs Forecast：保留原7/25估算的公式與區間(不竄改)，並列實際結果與落點判斷(區間內／低於區間／高於區間)。
+  function verdictText(actual, low, high){
+    if(actual==null) return {txt:"尚無實際數字可比對", color:"var(--text-tertiary)"};
+    if(low==null || high==null) return {txt:"實際"+actual+"，無同城市歷史區間可比對", color:"var(--text-tertiary)"};
+    if(actual < low) return {txt:"實際結果低於原預估區間", color:"var(--status-negative)"};
+    if(actual > high) return {txt:"實際結果高於原預估區間", color:"var(--status-positive)"};
+    return {txt:"實際結果落在原預估區間內", color:"var(--text-secondary)"};
+  }
+  function actualVsForecastCard(label, actualLabel, forecastLabel, formula, verdict){
+    return '<div class="le2-kpi-card"><div class="v">'+actualLabel+'</div><div class="l">'+label+'</div>'+
+      '<div style="font-size:11px;color:var(--text-secondary);margin-top:4px;">原預估：'+forecastLabel+'</div>'+
+      (verdict.txt ? '<div style="font-size:11px;font-weight:700;margin-top:2px;color:'+verdict.color+';">'+verdict.txt+'</div>' : '')+
+      '<div style="font-size:10px;color:var(--text-tertiary);margin-top:4px;line-height:1.4;">'+formula+'</div></div>';
+  }
+  const rateForecastLabel = d2RateLow!=null?(pct(d2RateLow)+'–'+pct(d2RateHigh)):'無法預估（無同城市歷史資料）';
+  const attForecastLabel = d2AttLow!=null?(d2AttLow+'–'+d2AttHigh+'人'):'無法預估';
+  const oneForecastLabel = d2OneLow!=null?(d2OneLow+'–'+d2OneHigh+'組'):'無法預估';
+  const rateVerdict = verdictText(d2.attendanceRate!=null?d2.attendanceRate*100:null, d2RateLow!=null?d2RateLow*100:null, d2RateHigh!=null?d2RateHigh*100:null);
+  const attVerdict = verdictText(d2.attendancePeople, d2AttLow, d2AttHigh);
+  const oneVerdict = verdictText(d2.oneOnOne, d2OneLow, d2OneHigh);
   const forecastHtml =
-    '<div class="le2-section-sub">目前尚無任何屆別設定正式目標值，本區塊僅呈現「預估範圍」，達成率／缺口待設定目標後啟用（見'+d2.dateLabel+d2.city+'場個案）。缺資料一律顯示「無法預估」，不以0代替；範圍非單一數字。</div>'+
+    '<div class="le2-section-sub">活動已於'+d1.dateLabel+'／'+d2.dateLabel+'完成，本區塊為「實際結果 vs 2026/7/25原預估」對照，原預估公式與資料來源保持不變（供事後檢視預估準確度），不回頭竄改預估數字本身。目前尚無任何屆別設定正式目標值，達成率／缺口待設定正式目標後啟用。缺資料一律顯示「無法預估」或「尚無實際數字」，不以0代替；預估仍以範圍呈現。</div>'+
     '<div class="le2-kpi-grid">'+
-      forecastCard(d2.dateLabel+d2.city+'場 到場率預估', d2RateLow!=null?(pct(d2RateLow)+'–'+pct(d2RateHigh)):'無法預估（無同城市歷史資料）', '公式：'+d2.city+'歷史'+(taipeiRateStats?taipeiRateStats.n:0)+'場到場率最小–最大值區間｜資料：completed歷史事件(loc='+d2.city+')｜信心度：'+confLabel(taipeiRateStats?taipeiRateStats.n:null))+
-      forecastCard(d2.dateLabel+d2.city+'場 實到人數預估', d2AttLow!=null?(d2AttLow+'–'+d2AttHigh+'人'):'無法預估', '公式：報名'+fmtOrDash(d2.registrations)+'人 × 到場率預估區間｜信心度：'+confLabel(taipeiRateStats?taipeiRateStats.n:null))+
-      forecastCard(d2.dateLabel+d2.city+'場 1-on-1組數預估', d2OneLow!=null?(d2OneLow+'–'+d2OneHigh+'組'):'無法預估', '公式：預估實到區間 × '+d1.city+'房產場實到轉1-on-1率'+fmtPctOrDash(d1OneRate)+'(樣本僅'+fmtOrDash(d1.attendancePeople)+'人)｜信心度：低（跨城市套用單場比率，屬假設非實證，非同方法論歷史數據）')+
-      forecastCard('Reserved／成交預估', '資料不足無法預估', '全26場歷史活動僅第27屆具備完整Reserved／成交追蹤(樣本數=1)，未達建立轉換率方法論之最低樣本需求，依治理規則不予估算')+
+      actualVsForecastCard(d2.dateLabel+d2.city+'場 到場率', pct(d2.attendanceRate), rateForecastLabel, '原公式：'+d2.city+'歷史'+(taipeiRateStats?taipeiRateStats.n:0)+'場到場率最小–最大值區間｜資料：completed歷史事件(loc='+d2.city+')｜信心度：'+confLabel(taipeiRateStats?taipeiRateStats.n:null), rateVerdict)+
+      actualVsForecastCard(d2.dateLabel+d2.city+'場 實到人數', fmtOrDash(d2.attendancePeople)+'人', attForecastLabel, '原公式：報名'+fmtOrDash(d2.registrations)+'人 × 到場率預估區間｜信心度：'+confLabel(taipeiRateStats?taipeiRateStats.n:null), attVerdict)+
+      actualVsForecastCard(d2.dateLabel+d2.city+'場 1-on-1組數', d2.oneOnOne!=null?(d2.oneOnOne+'組'):'尚待業務回報', oneForecastLabel, '原公式：預估實到區間 × '+d1.city+'房產場實到轉1-on-1率'+fmtPctOrDash(d1OneRate)+'(樣本僅'+fmtOrDash(d1.attendancePeople)+'人)｜信心度：低（跨城市套用單場比率，屬假設非實證）', oneVerdict)+
+      actualVsForecastCard('Reserved／成交', '尚待業務回報', '資料不足無法預估', '全26場歷史活動僅第27屆具備完整Reserved／成交追蹤(樣本數=1)，未達建立轉換率方法論之最低樣本需求，依治理規則不予估算', verdictText(null,null,null))+
     '</div>'+
-    '<div class="le2-section-sub" style="margin-top:8px;">預算：核准總額'+fmtMoney(total.totalCost)+'（廣告'+fmtMoney(total.adCost)+'＋營運'+fmtMoney(total.nonAdCost)+'，2026/7/21審批核准）已全數認列；此為核准金額而非另行推估之實際支出，活動進行中無需追加預算，兩者如有差異將另行標註於本次成本頁。</div>';
+    '<div class="le2-section-sub" style="margin-top:8px;">預算：核准總額'+fmtMoney(total.totalCost)+'（廣告'+fmtMoney(total.adCost)+'＋營運'+fmtMoney(total.nonAdCost)+'，2026/7/21審批核准）已全數認列；此為核准金額而非另行推估之實際支出，實際支出核銷後將另行標註於本次成本頁。</div>';
 
   // ---- 組裝 ----
   const finalHtml =
@@ -3801,7 +3829,7 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
     singleFunnelHtml()+
     '<div class="le2-section-title">Decision Metrics｜決策指標</div>'+
     decisionHtml+
-    '<div class="le2-section-title">活動達標預估｜Event Goal Forecast</div>'+
+    '<div class="le2-section-title">實際結果 vs 原預估｜Actual vs Forecast</div>'+
     forecastHtml+
     '<div class="le2-section-title">Next Actions｜管理層下一步</div>'+
     actionsHtml+
@@ -3897,8 +3925,13 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
   const oneOnOneRate = lec.oneOnOneRate;
   const oneOnOneScopeOK = lec.oneOnOneScopeOK, oneOnOneScopeNote = lec.oneOnOneScopeNote;
   // v63: 生命週期狀態（籌備中/進行中/資料回收中/已完成），依日期自動判斷，取代原本的prep/not-prep二分法
-  const lifecycleState = window.__eventLifecycleState ? window.__eventLifecycleState(latestEvent) : "done";
-  const lifecycleLabel = (window.__LIFECYCLE_LABEL && window.__LIFECYCLE_LABEL[lifecycleState]) || "";
+  // v68修正(使用者2026/7/27指定)：window.__eventLifecycleState只依「今天日期是否落在活動日期區間內」判斷，
+  // 不看實到資料是否已回填——導致快照日7/26中午仍落在台北場(7/26)當日區間內，被誤判為「進行中」，
+  // 即使兩日實到資料其實都已確認。第29屆改讀ED29.editionStatus(單一來源，與頁首/側欄/分頁按鈕同步)；
+  // 其他屆別(如第28屆)不受影響，仍沿用原本的日期窗口判斷，避免影響歷史資料回溯顯示。
+  const ed29ForLifecycle = lec.ED29;
+  const lifecycleState = ed29ForLifecycle ? null : (window.__eventLifecycleState ? window.__eventLifecycleState(latestEvent) : "done");
+  const lifecycleLabel = ed29ForLifecycle ? ed29ForLifecycle.editionStatus : ((window.__LIFECYCLE_LABEL && window.__LIFECYCLE_LABEL[lifecycleState]) || "");
   const isLatestPrep = !!(d2 && d2.attendancePeople == null); // 沿用於「兩日尚未完整加總」的提示文字判斷
 
   // ---- 4 Executive KPI（來源：completed events陣列，既有avgCpl/avgRate/totalCost，未重算）----
@@ -3941,7 +3974,7 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
     venue: {
       notStarted:{label:"尚未開始", cls:"st-prep"}, adRunning:{label:"投廣中", cls:"st-prep"},
       inviting:{label:"邀約中", cls:"st-prep"}, upcoming:{label:"即將舉行", cls:"st-live"},
-      done:{label:"已完成", cls:"st-done"}, pendingData:{label:"待補資料", cls:"st-tracking"},
+      done:{label:"已完成", cls:"st-done"}, pendingData:{label:"會後追蹤中", cls:"st-tracking"},
       pendingSettle:{label:"待結算", cls:"st-pending"}, closed:{label:"已結案", cls:"st-closed"}
     }
   };
@@ -3949,6 +3982,21 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
   function resolveVenueStatus(day){
     if(day.attendancePeople != null) return day.reserved!=null ? STATUS_CONFIG.venue.pendingSettle : STATUS_CONFIG.venue.pendingData;
     return STATUS_CONFIG.venue.upcoming;
+  }
+  // v68新增(使用者2026/7/27指定)：「待補資料」過於模糊，無法判斷具體缺什麼；改為列出已確認欄位與待回報欄位，
+  // 全部依實際null值動態產生，不寫死文字，回填後會自動從「待回報」清單移除。
+  function venueStatusDetailText(day, ed29){
+    if(day.attendancePeople == null) return "尚未舉行";
+    const confirmed = ["報名","實到"];
+    const pending = [];
+    if(day.oneOnOne != null) confirmed.push("1-on-1"); else pending.push("1-on-1");
+    if(day.reserved == null) pending.push("Reserved");
+    if(day.deals == null) pending.push("成交");
+    if(!ed29 || ed29.revenue == null) pending.push("收入");
+    let txt = confirmed.join("、")+"已確認";
+    if(pending.length) txt += "；"+pending.join("／")+"待回報";
+    if(ed29 && ed29.actualCost == null) txt += "；實際成本核銷待確認";
+    return txt;
   }
   // v65: 屆次狀態改讀取ED29.editionStatus（單一來源，與頁首/側邊欄/分頁按鈕共用同一值），不再於Executive頁另行判斷
   const EDITION_STATUS_LABEL_TO_CFG = {"籌備中":STATUS_CONFIG.edition.prep, "進行中":STATUS_CONFIG.edition.live, "追蹤中":STATUS_CONFIG.edition.tracking, "活動已完成":STATUS_CONFIG.edition.done, "待結案":STATUS_CONFIG.edition.pendingClose, "已結案":STATUS_CONFIG.edition.closed};
@@ -4024,9 +4072,13 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
       '<div class="lg-cell"><div class="k">到場率</div><div class="v">'+fmtPctOrDash(total.attendanceRate)+'</div></div>'+
       '<div class="lg-cell"><div class="k">總成本</div><div class="v">'+fmtMoney(total.totalCost)+'</div></div>'+
     '</div>'+
-    (lifecycleState==="prep" ? '<div class="eh-section-sub" style="margin-top:6px;">活動尚未開始，成效數據將於活動後更新。</div>' :
+    (ed29ForLifecycle ?
+      (ed29ForLifecycle.editionStatus==="籌備中" ? '<div class="eh-section-sub" style="margin-top:6px;">活動尚未開始，成效數據將於活動後更新。</div>' :
+       ed29ForLifecycle.editionStatus==="進行中" ? '<div class="eh-section-sub" style="margin-top:6px;">活動進行中：＊'+d2.city+'場（'+d2.dateLabel+'）尚未舉行，上列為'+d1.city+'場已回報數字之累計，非兩日完整加總；'+d2.city+'場完成後將自動更新。</div>' :
+       '<div class="eh-section-sub" style="margin-top:6px;">活動已完成，會後追蹤中：1-on-1／Reserved／成交／收入待業務回報，實際成本待核銷。</div>')
+    : (lifecycleState==="prep" ? '<div class="eh-section-sub" style="margin-top:6px;">活動尚未開始，成效數據將於活動後更新。</div>' :
      lifecycleState==="live" && isLatestPrep ? '<div class="eh-section-sub" style="margin-top:6px;">活動進行中：＊'+d2.city+'場（'+d2.dateLabel+'）尚未舉行，上列為'+d1.city+'場已回報數字之累計，非兩日完整加總；'+d2.city+'場完成後將自動更新。</div>' :
-     lifecycleState==="collecting" ? '<div class="eh-section-sub" style="margin-top:6px;">活動已結束，部分數據尚在回收中，將於業務回報後更新。</div>' : '')+
+     lifecycleState==="collecting" ? '<div class="eh-section-sub" style="margin-top:6px;">活動已結束，部分數據尚在回收中，將於業務回報後更新。</div>' : ''))+
     '<div class="eh-latest-concl">'+lec.signalText+'</div>'+
     '<div class="eh-latest-link" id="ehLatestLink">查看Day 1／Day 2完整決策頁 →</div>';
 
@@ -4072,30 +4124,59 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
     const __snapNow = new Date((window.__SNAPSHOT_DATE||"2026-07-25")+"T00:00:00");
     const __d2Date = new Date(d2.date+"T00:00:00");
     const daysToD2 = Math.round((__d2Date - __snapNow) / 86400000);
+    // v68新增(使用者2026/7/27指定)：活動已結束後，「今日優先行動」應以本屆結案追蹤事項為最高優先，而非歷史異常或籌備期名單治理提醒。
+    // 三項固定結案任務，資料回填後條件不成立會自動從清單消失，不會顯示已解決的過期任務。
+    const __total29 = lec29.total;
+    if(d2.oneOnOne == null){
+      addAnomaly({rule:"taipei1on1Pending", severity:"高", eventLabel:ev29.title, city:d2.city, type:"結案追蹤", isCurrentEdition:true,
+        issue:"台北房產場1-on-1組數尚未回報（新竹房產場已回報4組）",
+        metric:"台北1-on-1：待回報", action:"業務回報台北房產場1-on-1組數與客戶歸屬",
+        owner:"Sales Manager", due:"活動後24小時內", source:"業務現場回報"});
+    }
+    if(__total29 && (__total29.reserved == null || __total29.deals == null)){
+      addAnomaly({rule:"reservedDealsPending", severity:"高", eventLabel:ev29.title, city:"新竹＋台北", type:"結案追蹤", isCurrentEdition:true,
+        issue:"新竹／台北兩場Reserved、成交與收入均尚未回報",
+        metric:"Reserved／成交／收入：待回報", action:"各負責Sales與Sales Manager回填Reserved、成交與收入",
+        owner:"各負責Sales＋Sales Manager", due:"活動後24–48小時", source:"業務現場回報"});
+    }
+    if(__ed29.actualCost == null){
+      addAnomaly({rule:"costReconciliationPending", severity:"高", eventLabel:ev29.title, city:"新竹＋台北", type:"結案追蹤", isCurrentEdition:true,
+        issue:"實際支出尚未核對，目前僅有核准預算"+fmtMoney(__ed29.approvedCost),
+        metric:"實際成本：待核銷", action:"核對實際支出與核准預算"+fmtMoney(__ed29.approvedCost)+"之差異，取得憑證後核銷",
+        owner:"財務／活動Owner", due:"活動後2日內", source:"RayWhite_活動預算審批表.xlsx"});
+    }
     if(d2.attendancePeople == null && daysToD2 <= 3 && undecidedRatio > ANOMALY_RULES.undecidedRatioPre3d.threshold){
-      addAnomaly({rule:"undecidedRatioPre3d", severity:"高", eventLabel:ev29.title, city:d2.city, type:"名單治理",
+      addAnomaly({rule:"undecidedRatioPre3d", severity:"高", eventLabel:ev29.title, city:d2.city, type:"名單治理", isCurrentEdition:true,
         issue:"距"+d2.city+"場僅剩"+daysToD2+"天，聯繫名單未定比例"+(undecidedRatio*100).toFixed(1)+"%，超過30%門檻",
         metric:undecidedTotal+"筆未定／"+contactTotal+"筆總數", action:"5位業務加速確認未定名單意向，優先處理一對一名單",
         owner:"Amber／Bailey／Cathy／Nicole／White", due:d2.dateLabel+" 前", source:"latestConv29聯繫名單彙整"});
     }
     if(d2.attendancePeople == null && daysToD2 <= 1 && undecidedTotal > ANOMALY_RULES.undecidedCountPre1d.threshold){
-      addAnomaly({rule:"undecidedCountPre1d", severity:"高", eventLabel:ev29.title, city:d2.city, type:"名單治理",
+      addAnomaly({rule:"undecidedCountPre1d", severity:"高", eventLabel:ev29.title, city:d2.city, type:"名單治理", isCurrentEdition:true,
         issue:"距"+d2.city+"場僅剩"+daysToD2+"天，未定名單仍有"+undecidedTotal+"筆，超過10筆門檻",
         metric:undecidedTotal+"筆未定", action:"業務主管介入，逐筆確認意向", owner:"Sales Manager",
         due:d2.dateLabel+" 前", source:"latestConv29聯繫名單彙整"});
     }
     // v65: 新竹移民13:30／台北兩場已於官方報名與簽到表補齊(2026/7/26)，原「資料缺口」異常已解除，移除該筆(不再顯示過期缺口提示)。
+    // v68修正：原本此規則只檢查d1(新竹)，未檢查d2(台北)，導致台北15.4%到場率(明顯低於25%門檻、也低於新竹32.0%)從未被列為本屆異常，
+    // Executive「最大風險」因此改抓歷史事件遞補。現同時檢查兩場地，且isCurrentEdition:true讓本屆風險在排序時優先於歷史異常。
     if(d1.attendanceRate != null && d1.attendanceRate < ANOMALY_RULES.lowAttendanceRate.threshold){
-      addAnomaly({rule:"lowAttendanceRate", severity:"高", eventLabel:ev29.title, city:d1.city, type:"成效異常",
+      addAnomaly({rule:"lowAttendanceRate", severity:"高", eventLabel:ev29.title, city:d1.city, type:"成效異常", isCurrentEdition:true,
         issue:d1.city+"場到場率"+(d1.attendanceRate*100).toFixed(1)+"%，低於25%門檻",
         metric:"到場率"+(d1.attendanceRate*100).toFixed(1)+"%", action:"檢討名單品質與邀約方式",
         owner:"Sales Manager", due:"活動結束後檢討", source:"08分頁"});
+    }
+    if(d2.attendanceRate != null && d2.attendanceRate < ANOMALY_RULES.lowAttendanceRate.threshold){
+      addAnomaly({rule:"lowAttendanceRate", severity:"高", eventLabel:ev29.title, city:d2.city, type:"成效異常", isCurrentEdition:true,
+        issue:d2.city+"房產場到場率"+(d2.attendanceRate*100).toFixed(1)+"%，報名"+d2.registrations+"人／實到"+d2.attendancePeople+"人，低於25%門檻且低於26場歷史平均，為本屆最高優先風險",
+        metric:"到場率"+(d2.attendanceRate*100).toFixed(1)+"%", action:"檢討台北場名單品質、邀約方式與會前提醒機制；1-on-1／Reserved待回報前不得下最終結論",
+        owner:"Sales Manager", due:"活動結束後檢討", source:"Property Team官方報名與簽到表"});
     }
     // 業務邀約率偏低（含樣本數揭露）
     if(lec29.salesRanking && lec29.salesRanking.length){
       lec29.salesRanking.forEach(function(r){
         if(r.rate < ANOMALY_RULES.lowInviteRate.threshold){
-          addAnomaly({rule:"lowInviteRate", severity:"低", eventLabel:ev29.title, city:"—", type:"業務績效",
+          addAnomaly({rule:"lowInviteRate", severity:"低", eventLabel:ev29.title, city:"—", type:"業務績效", isCurrentEdition:true,
             issue:r.name+"邀約率"+(r.rate*100).toFixed(1)+"%，低於30%門檻（樣本數n="+r.total+"，樣本較小時單筆變動即可能大幅影響比例，僅供參考）",
             metric:"邀約率"+(r.rate*100).toFixed(1)+"%（n="+r.total+"）", action:"與業務本人核實名單品質及邀約紀錄習慣",
             owner:r.name, due:"下次覆核時", source:"latestConv29 Sales Ranking"});
@@ -4151,9 +4232,13 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
   // 改用明確的undefined檢查，不改動異常判定規則本身(門檻/資料來源全部沿用ANOMALY_RULES與window.__sharedThresholds)。
   const SEV_ORDER = {"高":0,"中":1,"低":2};
   function sevRank(s){ return SEV_ORDER[s] !== undefined ? SEV_ORDER[s] : 9; }
+  // v68：風險排序原則(使用者2026/7/27指定)—①本屆尚未結案且高影響的異常 ②本屆缺失資料 ③本屆成本/轉換異常 ④歷史結構性問題 ⑤一般歷史異常。
+  // 具體作法：先比較isCurrentEdition(本屆優先於歷史)，同層再比嚴重度，避免歷史異常(如2025/11/22-23台北場)排到本屆風險(如本屆台北15.4%到場率)之前。
   anomalyItems.sort(function(a,b){
     if(a.status==="已完成" && b.status!=="已完成") return 1;
     if(b.status==="已完成" && a.status!=="已完成") return -1;
+    const aCur = a.isCurrentEdition ? 0 : 1, bCur = b.isCurrentEdition ? 0 : 1;
+    if(aCur !== bCur) return aCur - bCur;
     return sevRank(a.severity) - sevRank(b.severity);
   });
   window.__anomalyItems = anomalyItems;
@@ -4174,6 +4259,9 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
   const operationalItems = anomalyItems.filter(function(a){ return a.status!=="已完成" && a.type!=="資料治理"; });
   const systemicItems = anomalyItems.filter(function(a){ return a.type==="資料治理"; });
   const topAnomalies = operationalItems.slice(0,3);
+  // v68：「最大風險」與「今日優先行動」原本共用topAnomalies[0]，導致本屆結案追蹤任務(1-on-1回報等)與風險診斷(到場率偏低等)混為一談。
+  // 拆分為diagnosticRisks(成效/成本異常，供「最大風險」使用)，topAnomalies維持結案追蹤優先(供「今日優先行動」Top3使用)。
+  const diagnosticRisks = operationalItems.filter(function(a){ return a.type==="成效異常" || a.type==="成本異常"; });
   const actionsHtml = topAnomalies.map(function(a,i){ return anomalyCardHtml(a, i, true); }).join("");
   const systemicActionsHtml = systemicItems.map(function(a,i){ return anomalyCardHtml(a, i, false); }).join("");
   const systemicSectionHtml = systemicItems.length ?
@@ -4220,10 +4308,15 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
   const overallHealthScore = Math.round((leadsHealth+attHealth+adsHealth)/3);
   const trustLabel = overallHealthScore>=85 ? "高" : (overallHealthScore>=60 ? "中" : "低");
   const trustCls = overallHealthScore>=85 ? "good" : (overallHealthScore>=60 ? "warn" : "bad");
-  const topRisk = topAnomalies[0];
+  const topRisk = diagnosticRisks[0] || topAnomalies[0];
   const topAction = topAnomalies[0];
+  // v68：風險改為兩層——A.本屆最大風險(topRisk，本屆優先) B.歷史結構性風險(historicalRiskCount，僅計數不佔版面，避免新增模組)
+  const historicalRiskCount = diagnosticRisks.filter(function(a){ return !a.isCurrentEdition; }).length;
+  const historicalRiskNote = historicalRiskCount>0 ? ('另有'+historicalRiskCount+'項歷史結構性風險（如台北多場到場率偏低），已歸類為制度改善，不影響本屆判斷，詳見下方「異常與待處理中心」') : null;
+  // v68：統一狀態用語(使用者2026/7/27指定)——活動狀態＝活動已完成／結案狀態＝會後追蹤中／Dashboard整體狀態＝第29屆追蹤中，三層分開陳述避免混用一詞。
   const editionStateSentence =
-    "第29屆"+editionStatus.label+"：新竹場"+d1VenueStatus.label+"、台北場"+d2VenueStatus.label+
+    (ED29.editionStatus==="追蹤中" ? "第29屆活動已完成，會後追蹤中" : "第29屆"+editionStatus.label) +
+    "：新竹場"+d1VenueStatus.label+"、台北場"+d2VenueStatus.label+
     "，官方報名"+ED29.officialRegistrations+"／實到"+ED29.deduplicatedAttendance+"（"+pct(ED29.attendanceRate)+"），1-on-1與Reserved仍在追蹤中。";
   const decisionBarHtml =
     '<div class="eh-decision-bar">'+
@@ -4232,13 +4325,12 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
           '<div class="eh-db-editionstatus '+editionStatus.cls+'">'+editionStatus.label+'</div>'+
           '<div class="eh-db-statement">'+editionStateSentence+'</div>'+
           '<div class="eh-db-venues">'+
-            '<span class="eh-db-venue '+d1VenueStatus.cls+'">新竹：'+d1VenueStatus.label+'</span>'+
-            '<span class="eh-db-venue '+d2VenueStatus.cls+'">台北：'+d2VenueStatus.label+'</span>'+
-            '<span class="eh-db-venue st-tracking">後續轉單：追蹤中</span>'+
+            '<span class="eh-db-venue '+d1VenueStatus.cls+'">新竹：'+venueStatusDetailText(d1, ED29)+'</span>'+
+            '<span class="eh-db-venue '+d2VenueStatus.cls+'">台北：'+venueStatusDetailText(d2, ED29)+'</span>'+
           '</div>'+
         '</div>'+
         '<div class="eh-db-right">'+
-          (topRisk ? ('<div class="eh-db-risk"><div class="eh-db-tag bad">最大風險</div><div class="eh-db-txt">'+topRisk.issue+'</div></div>') : '<div class="eh-db-risk"><div class="eh-db-tag good">最大風險</div><div class="eh-db-txt">目前無高風險待處理項目</div></div>')+
+          (topRisk ? ('<div class="eh-db-risk"><div class="eh-db-tag bad">本屆最大風險</div><div class="eh-db-txt">'+topRisk.issue+'</div>'+(historicalRiskNote?('<div class="ac-meta" style="margin-top:4px;">'+historicalRiskNote+'</div>'):'')+'</div>') : '<div class="eh-db-risk"><div class="eh-db-tag good">本屆最大風險</div><div class="eh-db-txt">目前無高風險待處理項目</div>'+(historicalRiskNote?('<div class="ac-meta" style="margin-top:4px;">'+historicalRiskNote+'</div>'):'')+'</div>')+
           (topAction ? ('<div class="eh-db-action"><div class="eh-db-tag action">今日優先行動</div><div class="eh-db-txt">'+topAction.action+'</div></div>') : '<div class="eh-db-action"><div class="eh-db-tag good">今日優先行動</div><div class="eh-db-txt">無待處理事項</div></div>')+
         '</div>'+
       '</div>'+
