@@ -644,6 +644,94 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
 @media(max-width:700px){
   .eh-kpi-grid-5{grid-template-columns:repeat(2,1fr);}
 }
+
+
+/* ==== v64: Executive Command Center — Decision Bar / Hero KPI / Funnel / Cost Summary / Badges / Empty State ==== */
+/* 沿用既有canonical design tokens(:root)，不新增第二套顏色系統；Spacing採4/8倍數(8/12/16/24px) */
+.eh-decision-bar{
+  background:linear-gradient(180deg,var(--bg-card) 0%,var(--warm-white) 100%);
+  border:1px solid var(--border-default); border-left:3px solid var(--rw-yellow-dark);
+  border-radius:16px; padding:20px 24px; margin-bottom:24px;
+  box-shadow:0 2px 12px rgba(23,25,28,.06);
+}
+.eh-db-row{display:flex; gap:24px; flex-wrap:wrap; justify-content:space-between;}
+.eh-db-left{flex:1 1 360px; min-width:280px;}
+.eh-db-editionstatus{display:inline-block; font-size:11px; font-weight:700; letter-spacing:.3px; padding:3px 10px; border-radius:999px; margin-bottom:8px;}
+.eh-db-statement{font-size:16px; font-weight:700; color:var(--text-primary); line-height:1.5; margin-bottom:10px;}
+.eh-db-venues{display:flex; flex-wrap:wrap; gap:8px;}
+.eh-db-venue{font-size:11px; font-weight:600; padding:3px 10px; border-radius:999px; background:var(--bg-subtle); color:var(--text-secondary);}
+.eh-db-right{flex:1 1 320px; min-width:260px; display:flex; flex-direction:column; gap:10px;}
+.eh-db-risk,.eh-db-action{background:var(--bg-card); border:1px solid var(--border-default); border-radius:10px; padding:10px 12px;}
+.eh-db-tag{display:inline-block; font-size:10px; font-weight:800; letter-spacing:.4px; text-transform:uppercase; padding:2px 8px; border-radius:999px; margin-bottom:5px;}
+.eh-db-tag.bad{background:var(--status-negative-bg); color:var(--status-negative);}
+.eh-db-tag.good{background:var(--status-positive-bg); color:var(--status-positive);}
+.eh-db-tag.action{background:var(--rw-yellow-soft); color:var(--rw-yellow-dark);}
+.eh-db-txt{font-size:12.5px; color:var(--text-primary); line-height:1.55; font-weight:600;}
+.eh-db-foot{display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-top:16px; padding-top:12px; border-top:1px solid var(--border-default); font-size:11px; color:var(--text-tertiary);}
+.eh-db-trust b.good{color:var(--status-positive);} .eh-db-trust b.warn{color:var(--status-warning);} .eh-db-trust b.bad{color:var(--status-negative);}
+
+/* 統一活動狀態色（Edition/Venue Status Resolver 共用） */
+.st-prep{background:var(--status-missing-bg); color:var(--status-missing);}
+.st-live{background:var(--status-info-bg); color:var(--status-info);}
+.st-done{background:var(--status-positive-bg); color:var(--status-positive);}
+.st-tracking{background:var(--status-warning-bg); color:var(--status-warning);}
+.st-pending{background:var(--status-warning-bg); color:var(--status-warning);}
+.st-closed{background:var(--status-missing-bg); color:var(--status-missing);}
+
+/* 統一資料狀態Badge */
+.eh-databadge{display:inline-block; font-size:9.5px; font-weight:800; letter-spacing:.3px; padding:2px 7px; border-radius:999px; vertical-align:middle;}
+.badge-actual{background:var(--status-positive-bg); color:var(--status-positive);}
+.badge-estimate{background:var(--status-online-bg); color:var(--status-online);}
+.badge-approved{background:var(--status-info-bg); color:var(--status-info);}
+.badge-pending{background:var(--status-missing-bg); color:var(--status-missing);}
+.badge-partial{background:var(--status-warning-bg); color:var(--status-warning);}
+.badge-na{background:var(--status-missing-bg); color:var(--status-missing);}
+
+/* Hero KPI（5張，中性背景，取代原eh-kpi-card大面積品牌黃背景） */
+.eh-hero-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-bottom:8px;}
+.eh-hero-card{background:var(--bg-card); border:1px solid var(--border-default); border-radius:12px; padding:16px; display:flex; flex-direction:column; gap:8px; min-height:128px;}
+.ehc-top{display:flex; justify-content:space-between; align-items:flex-start; gap:6px;}
+.ehc-ll{font-size:11px; font-weight:700; color:var(--text-secondary); line-height:1.4;}
+.ehc-lv{font-size:26px; font-weight:800; color:var(--text-primary); font-variant-numeric:tabular-nums; letter-spacing:-.4px; line-height:1.1;}
+.ehc-ls{font-size:10.5px; color:var(--text-tertiary); font-weight:600; line-height:1.5;}
+.ehc-ls .tr{font-weight:800;} .ehc-ls .tr.up{color:var(--status-positive);} .ehc-ls .tr.down{color:var(--status-negative);}
+
+/* 商業漏斗（精簡版） */
+.eh-funnel-wrap{display:flex; align-items:stretch; gap:0; overflow-x:auto; padding:4px 0 8px; margin-bottom:4px;}
+.eh-funnel-step{flex:1 1 0; min-width:104px; background:var(--bg-card); border:1px solid var(--border-default); border-radius:10px; padding:10px 12px; text-align:center;}
+.efs-label{font-size:10.5px; font-weight:700; color:var(--text-secondary); margin-bottom:6px; display:flex; flex-direction:column; align-items:center; gap:4px;}
+.efs-val{font-size:19px; font-weight:800; color:var(--text-primary); font-variant-numeric:tabular-nums;}
+.eh-funnel-gap{font-size:11.5px; color:var(--status-missing); font-weight:700;}
+.efs-conv{font-size:10px; color:var(--text-tertiary); margin-top:4px;}
+.eh-funnel-arrow{flex:0 0 auto; display:flex; align-items:center; justify-content:center; padding:0 6px; color:var(--border-strong); font-size:16px;}
+
+/* 成本摘要 */
+.eh-cost-summary{background:var(--bg-card); border:1px solid var(--border-default); border-radius:12px; padding:16px 18px; margin-bottom:8px;}
+.eh-cost-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:12px;}
+.eh-cost-item{display:flex; flex-direction:column; gap:4px;}
+.eci-l{font-size:10.5px; color:var(--text-secondary); font-weight:700;}
+.eci-v{font-size:17px; font-weight:800; color:var(--text-primary); font-variant-numeric:tabular-nums;}
+.eh-cost-judge{font-size:12px; color:var(--navy); line-height:1.6; padding-top:10px; border-top:1px solid var(--border-default);}
+.eh-cost-missing{font-size:11px; color:var(--text-tertiary); margin-top:6px; line-height:1.6;}
+
+/* Empty State（統一樣式，取代 No Data / -- / 空白卡片） */
+.eh-empty-state{background:var(--bg-subtle); border:1px dashed var(--border-strong); border-radius:12px; padding:16px 18px;}
+.ees-title{font-size:13px; font-weight:800; color:var(--text-primary); margin-bottom:6px;}
+.ees-body{font-size:12px; color:var(--text-secondary); line-height:1.7;}
+
+@media(max-width:1100px){
+  .eh-hero-grid{grid-template-columns:repeat(3,1fr);}
+  .eh-cost-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:700px){
+  .eh-db-row{flex-direction:column;}
+  .eh-hero-grid{grid-template-columns:repeat(2,1fr);}
+  .eh-cost-grid{grid-template-columns:repeat(2,1fr);}
+  .eh-funnel-wrap{flex-direction:column;}
+  .eh-funnel-arrow{transform:rotate(90deg); padding:2px 0;}
+  .eh-funnel-step{min-width:0;}
+}
+
 </style>
 </head>
 <body>
@@ -3723,6 +3811,7 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
   if(!lec) return;
   const d1 = lec.d1, d2 = lec.d2, total = lec.total, latestEvent = lec.latestEvent;
   const fmtMoney = lec.fmtMoney, fmtOrDash = lec.fmtOrDash, fmtPctOrDash = lec.fmtPctOrDash;
+  const oneOnOneRate = lec.oneOnOneRate;
   // v63: 生命週期狀態（籌備中/進行中/資料回收中/已完成），依日期自動判斷，取代原本的prep/not-prep二分法
   const lifecycleState = window.__eventLifecycleState ? window.__eventLifecycleState(latestEvent) : "done";
   const lifecycleLabel = (window.__LIFECYCLE_LABEL && window.__LIFECYCLE_LABEL[lifecycleState]) || "";
@@ -3739,6 +3828,118 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
   const kpiHtml = evKpis.map(function(k){
     return '<div class="eh-kpi-card"><div class="ll">'+k.ll+'</div><div class="lv">'+k.lv+'</div><div class="ls">'+k.ls+'</div></div>';
   }).join("");
+
+
+  // ==== v64: Executive Command Center 重構（2026/7/26）====
+  // 官方報名與簽到總表：來源Property Team官方報名/簽到Google Sheet（2026/7/26更新，涵蓋7/25＋7/26全部6場次含一對一）。
+  // 與latestConv29既有CRM聯繫名單(48筆／不同口徑不可加總)、既有days[]（僅涵蓋新竹房產9:00場／台北原標「尚未舉行」)屬不同資料來源與統計時點，
+  // 兩者皆保留、不互相覆蓋，本區塊誠實揭露差異，不靜默擇一。
+  const OFFICIAL_29 = {
+    registrations: 101, attendance: 18, rate: 18/101,
+    bySession: [
+      {label:"新竹｜房產9:00", reg:25, att:8},
+      {label:"新竹｜移民13:30", reg:13, att:3},
+      {label:"新竹｜一對一", reg:4, att:0},
+      {label:"台北｜移民11:00", reg:24, att:5},
+      {label:"台北｜房產14:00", reg:25, att:3},
+      {label:"台北｜一對一", reg:10, att:0}
+    ],
+    asOf: "2026/7/26", source: "Property Team官方報名與簽到表（Google Sheet）",
+    note: "六場次報名加總101、實到逐場加總為19，惟官方顧問邀約出席統計表（依人去重）總計18，因1人(CJ Tseng)同時報名11:00與14:00兩場次被逐場重複計入1次；本頁採官方去重總計18人／17.8%為準。"
+  };
+  window.__official29 = OFFICIAL_29;
+
+  // ---- 統一資料狀態Badge（集中規則，不於各元件分散判斷）----
+  const DATA_BADGE = {
+    actual:   {label:"實際",       cls:"badge-actual"},
+    estimate: {label:"預估",       cls:"badge-estimate"},
+    approved: {label:"核准預算",   cls:"badge-approved"},
+    pending:  {label:"待補",       cls:"badge-pending"},
+    partial:  {label:"資料不完整", cls:"badge-partial"},
+    na:       {label:"不可計算",   cls:"badge-na"}
+  };
+  function badgeHtml(kind){ const b = DATA_BADGE[kind] || DATA_BADGE.na; return '<span class="eh-databadge '+b.cls+'">'+b.label+'</span>'; }
+  window.__dataBadgeConfig = DATA_BADGE;
+
+  // ---- 統一活動狀態設定（Edition／Venue Status Resolver，集中管理，供全站共用；本輪先於Executive頁套用）----
+  const STATUS_CONFIG = {
+    edition: {
+      prep:{label:"籌備中", cls:"st-prep"}, live:{label:"進行中", cls:"st-live"},
+      done:{label:"活動已完成", cls:"st-done"}, tracking:{label:"追蹤中", cls:"st-tracking"},
+      pendingClose:{label:"待結案", cls:"st-pending"}, closed:{label:"已結案", cls:"st-closed"}
+    },
+    venue: {
+      notStarted:{label:"尚未開始", cls:"st-prep"}, adRunning:{label:"投廣中", cls:"st-prep"},
+      inviting:{label:"邀約中", cls:"st-prep"}, upcoming:{label:"即將舉行", cls:"st-live"},
+      done:{label:"已完成", cls:"st-done"}, pendingData:{label:"待補資料", cls:"st-tracking"},
+      pendingSettle:{label:"待結算", cls:"st-pending"}, closed:{label:"已結案", cls:"st-closed"}
+    }
+  };
+  window.__STATUS_CONFIG = STATUS_CONFIG;
+  function resolveVenueStatus(day){
+    if(day.attendancePeople != null) return day.reserved!=null ? STATUS_CONFIG.venue.pendingSettle : STATUS_CONFIG.venue.pendingData;
+    return STATUS_CONFIG.venue.upcoming;
+  }
+  function resolveEditionStatus(){
+    const d1Done = d1.attendancePeople != null, d2Done = d2.attendancePeople != null;
+    if(!d1Done && !d2Done) return STATUS_CONFIG.edition.prep;
+    if(d1Done && d2Done) return STATUS_CONFIG.edition.tracking;
+    return STATUS_CONFIG.edition.live;
+  }
+  const editionStatus = resolveEditionStatus();
+  const d1VenueStatus = resolveVenueStatus(d1), d2VenueStatus = resolveVenueStatus(d2);
+
+  // ---- Hero KPI（5張，取代原「26場歷史彙總」作為Executive首屏主視覺；歷史彙總改列次層strip）----
+  const costApproved29 = total.totalCost; // NT$176,500＝廣告份額NT$95,000＋場地/交通/餐飲/PT核准金額，2026/7/21已全數審批核准（非估算）
+  const cpaApprox = OFFICIAL_29.attendance ? (costApproved29 / OFFICIAL_29.attendance) : null;
+  const rateDeltaTxt = (OFFICIAL_29.rate < avgRate)
+    ? '<span class="tr down">&#9660; 低於26場歷史平均'+((avgRate-OFFICIAL_29.rate)*100).toFixed(1)+'個百分點</span>'
+    : '<span class="tr up">&#9650; 高於26場歷史平均'+((OFFICIAL_29.rate-avgRate)*100).toFixed(1)+'個百分點</span>';
+  const oneOnOnePartial = (total.oneOnOne!=null && d2.oneOnOne==null);
+  const heroKpis = [
+    {ll:"正式報名（官方）", lv:fmt(OFFICIAL_29.registrations), ls:"CRM聯繫名單另計48筆，口徑不同不可加總", badge:"actual"},
+    {ll:"到場率（官方，兩日六場次）", lv:pct(OFFICIAL_29.rate), ls:rateDeltaTxt, badge:"actual"},
+    {ll:"實到轉1-on-1率", lv:(total.oneOnOne!=null?fmtPctOrDash(oneOnOneRate):"待補"), ls:(total.oneOnOne!=null?(fmtOrDash(total.oneOnOne)+"組（僅新竹已回報，台北待補）"):"雙場皆待業務回報"), badge:(oneOnOnePartial?"partial":(total.oneOnOne!=null?"actual":"pending"))},
+    {ll:"每位實到成本（CPA）", lv:(cpaApprox!=null?("NT$"+fmt(cpaApprox)):"—"), ls:"依核准成本"+fmtMoney(costApproved29)+"估算，非最終決算", badge:"estimate"},
+    {ll:"核准總成本（房產團隊）", lv:fmtMoney(costApproved29), ls:"廣告份額"+fmtMoney(total.adCost)+"＋場地交通餐飲PT，2026/7/21已核准", badge:"approved"}
+  ];
+  const heroKpiHtml = heroKpis.map(function(k){
+    return '<div class="eh-hero-card"><div class="ehc-top"><span class="ehc-ll">'+k.ll+'</span>'+badgeHtml(k.badge)+'</div>'+
+      '<div class="ehc-lv">'+k.lv+'</div><div class="ehc-ls">'+k.ls+'</div></div>';
+  }).join("");
+
+  // ---- 商業漏斗（精簡版，Executive首屏固定顯示；缺失資料顯示「追蹤不足」，不畫零轉換、不補值）----
+  const adLeadsTotal29 = 108; // 廣告成效表「總名單數」（FB名單89＋Landing Page 19），來源08分頁／廣告成效Google Sheet，2026/7/26查詢
+  const funnelSteps29 = [
+    {label:"廣告名單", n: adLeadsTotal29, badge:"actual"},
+    {label:"正式報名", n: OFFICIAL_29.registrations, badge:"actual"},
+    {label:"實到", n: OFFICIAL_29.attendance, badge:"actual"},
+    {label:"1-on-1", n: total.oneOnOne, badge:(oneOnOnePartial?"partial":"pending")},
+    {label:"Reserved", n: total.reserved, badge:"pending"},
+    {label:"成交", n: total.deals, badge:"pending"}
+  ];
+  const funnelHtmlMini = funnelSteps29.map(function(s, idx){
+    const prev = idx>0 ? funnelSteps29[idx-1].n : null;
+    const hasConv = (s.n!=null && prev!=null && prev>0);
+    const convTxt = hasConv ? pct(s.n/prev) : (s.n==null ? "追蹤不足" : "—");
+    const valTxt = s.n==null ? '<span class="eh-funnel-gap">追蹤不足</span>' : fmt(s.n);
+    return '<div class="eh-funnel-step"><div class="efs-label">'+s.label+badgeHtml(s.badge)+'</div><div class="efs-val">'+valTxt+'</div>'+(idx>0?('<div class="efs-conv">轉換率 '+convTxt+'</div>'):'<div class="efs-conv">起點</div>')+'</div>';
+  }).join('<div class="eh-funnel-arrow" aria-hidden="true">&#8594;</div>');
+  const funnelNote = "口徑：CRM聯繫名單與已加LINE不計入正式報名；未定不計入會參加；Reserved／成交尚未回填時顯示「追蹤不足」，不以0表示，不自動補值。";
+
+  // ---- 成本摘要（精簡版，首層只回答花多少／最大成本／CPA／尚缺什麼；場地交通住宿完整明細收合於latest-cost頁）----
+  const adCostShare29 = costApproved29 ? (total.adCost/costApproved29) : null;
+  const costSummaryHtml =
+    '<div class="eh-cost-grid">'+
+      '<div class="eh-cost-item"><div class="eci-l">核准總成本（房產團隊）</div><div class="eci-v">'+fmtMoney(costApproved29)+'</div>'+badgeHtml('approved')+'</div>'+
+      '<div class="eh-cost-item"><div class="eci-l">最大成本項目</div><div class="eci-v">廣告（'+fmtMoney(total.adCost)+'）</div>'+badgeHtml('actual')+'</div>'+
+      '<div class="eh-cost-item"><div class="eci-l">廣告佔比</div><div class="eci-v">'+(adCostShare29!=null?pct(adCostShare29):'—')+'</div>'+badgeHtml('estimate')+'</div>'+
+      '<div class="eh-cost-item"><div class="eci-l">每位實到成本(CPA)</div><div class="eci-v">'+(cpaApprox!=null?('NT$'+fmt(cpaApprox)):'—')+'</div>'+badgeHtml('estimate')+'</div>'+
+    '</div>'+
+    '<div class="eh-cost-judge"><b>判斷：</b>目前僅第27屆具備完整Reserved／成交資料可驗證CPA是否「值得」；本屆需待1-on-1與Reserved結果回填後才能評估投資報酬，暫不對CPA高低下結論。</div>'+
+    '<div class="eh-cost-missing">尚缺：Reserved與成交結果、場地/交通/餐飲若有實報實銷差額之核銷紀錄。取得後可進入結案流程。</div>';
+
+
 
   // ---- 3 Executive Signals：亮點／問題／Action ----
   const bestEvent = completed.slice().sort(function(a,b){ return (b.rate||0)-(a.rate||0); })[0];
@@ -3907,8 +4108,16 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
       '<div class="ac-meta">Owner：'+a.owner+'｜Due：'+a.due+'｜Status：'+a.status+'｜來源：'+a.source+'｜發現：'+a.foundAt+'</div></div>';
   }
 
-  const topAnomalies = anomalyItems.filter(function(a){ return a.status!=="已完成"; }).slice(0,3);
+  // v64：今日營運行動（Top 3）與制度改善行動分開顯示，不再混為一談（原本同一份清單同時包含單場次操作性問題與全站結構性缺口）
+  const operationalItems = anomalyItems.filter(function(a){ return a.status!=="已完成" && a.type!=="資料治理"; });
+  const systemicItems = anomalyItems.filter(function(a){ return a.type==="資料治理"; });
+  const topAnomalies = operationalItems.slice(0,3);
   const actionsHtml = topAnomalies.map(function(a,i){ return anomalyCardHtml(a, i, true); }).join("");
+  const systemicActionsHtml = systemicItems.map(function(a,i){ return anomalyCardHtml(a, i, false); }).join("");
+  const systemicSectionHtml = systemicItems.length ?
+    '<div class="eh-section-title">制度改善行動｜長期系統建設</div>'+
+    '<div class="eh-section-sub">全站結構性缺口，非單場次操作性問題，優先級低於「今日營運行動」，建議排入下次系統改善排程。</div>'+
+    '<details class="le2-detail-section" id="systemicActionsAcc"><summary>查看制度改善行動（共'+systemicItems.length+'項）</summary><div class="le2-detail-body eh-actions-grid">'+systemicActionsHtml+'</div></details>' : '';
 
   const allSeverities = ["全部","高","中","低"];
   const allCities = ["全部"].concat(Array.from(new Set(anomalyItems.map(function(a){return a.city;}).filter(function(c){return c!=="—";}))));
@@ -3944,6 +4153,41 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
     '<div class="eh-health-card"><div class="hv '+healthCls(adsHealth)+'">'+adsHealth+'%</div><div class="hl">廣告成本完整度</div></div>'+
     '<div class="eh-health-card"><div class="hv '+healthCls(roiHealth)+'">'+roiHealth+'%</div><div class="hl">Reserved／成交追蹤完整度</div></div>';
 
+
+  // ==== v64: Executive Decision Bar（整頁唯一高視覺權重容器，組裝於Top3Actions／DataHealth皆已算出之後）====
+  const overallHealthScore = Math.round((leadsHealth+attHealth+adsHealth)/3);
+  const trustLabel = overallHealthScore>=85 ? "高" : (overallHealthScore>=60 ? "中" : "低");
+  const trustCls = overallHealthScore>=85 ? "good" : (overallHealthScore>=60 ? "warn" : "bad");
+  const topRisk = topAnomalies[0];
+  const topAction = topAnomalies[0];
+  const editionStateSentence =
+    "第29屆"+editionStatus.label+"：新竹場"+d1VenueStatus.label+"、台北場"+d2VenueStatus.label+
+    "，官方報名"+OFFICIAL_29.registrations+"／實到"+OFFICIAL_29.attendance+"（"+pct(OFFICIAL_29.rate)+"），1-on-1與Reserved仍在追蹤中。";
+  const decisionBarHtml =
+    '<div class="eh-decision-bar">'+
+      '<div class="eh-db-row">'+
+        '<div class="eh-db-left">'+
+          '<div class="eh-db-editionstatus '+editionStatus.cls+'">'+editionStatus.label+'</div>'+
+          '<div class="eh-db-statement">'+editionStateSentence+'</div>'+
+          '<div class="eh-db-venues">'+
+            '<span class="eh-db-venue '+d1VenueStatus.cls+'">新竹：'+d1VenueStatus.label+'</span>'+
+            '<span class="eh-db-venue '+d2VenueStatus.cls+'">台北：'+d2VenueStatus.label+'</span>'+
+            '<span class="eh-db-venue st-tracking">後續轉單：追蹤中</span>'+
+          '</div>'+
+        '</div>'+
+        '<div class="eh-db-right">'+
+          (topRisk ? ('<div class="eh-db-risk"><div class="eh-db-tag bad">最大風險</div><div class="eh-db-txt">'+topRisk.issue+'</div></div>') : '<div class="eh-db-risk"><div class="eh-db-tag good">最大風險</div><div class="eh-db-txt">目前無高風險待處理項目</div></div>')+
+          (topAction ? ('<div class="eh-db-action"><div class="eh-db-tag action">今日優先行動</div><div class="eh-db-txt">'+topAction.action+'</div></div>') : '<div class="eh-db-action"><div class="eh-db-tag good">今日優先行動</div><div class="eh-db-txt">無待處理事項</div></div>')+
+        '</div>'+
+      '</div>'+
+      '<div class="eh-db-foot">'+
+        '<span class="eh-db-trust">資料可信度：<b class="'+trustCls+'">'+trustLabel+'</b>（完整度／時效／歸屬明確度綜合評估，展開下方「資料健康度」查看細項）</span>'+
+        '<span class="eh-db-updated">最後更新：'+OFFICIAL_29.asOf+'</span>'+
+      '</div>'+
+    '</div>';
+
+
+
   // ---- Section 九：AI功能預留與整併（2026/7/25新增）----
   // 本輪僅建置UI佔位／loading-error-empty狀態／結構化資料格式，不串接真實AI、不放API金鑰於前端或repo。
   // 既有人工摘要(Executive Signals／Top 3 Actions／異常與待處理中心)保留不變，AI區塊為「未來擴充位」，
@@ -3971,13 +4215,15 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
     '<details class="le2-detail-section" id="aiBlocksAcc"><summary>查看規劃中AI功能（共'+AI_BLOCKS.length+'項）</summary><div class="le2-detail-body"><div class="ai-block-grid">'+AI_BLOCKS.map(aiBlockCardHtml).join("")+'</div></div></details>';
 
   // ---- 組裝 ----
-  const finalHtml =
-    '<div class="eh-toggle" id="ehViewToggle"><button data-view="exec" class="active">Executive</button><button data-view="full">Full Analysis</button></div>'+
-    '<div class="eh-kpi-grid">'+kpiHtml+'</div>'+
-    '<div class="eh-section-title">Executive Signals｜三張重點</div>'+
-    '<div class="eh-signal-grid">'+signalsHtml+'</div>'+
-    '<div class="eh-section-title">Latest Event｜'+latestEvent.title+'</div>'+
-    '<div class="eh-latest-card">'+latestHtml+'</div>'+
+const targetsEmptyStateHtml =
+    '<div class="eh-empty-state">'+
+      '<div class="ees-title">目標達成｜尚未設定正式目標</div>'+
+      '<div class="ees-body">系統尚未建立本屆報名／實到／1-on-1／Reserved／CPA之正式目標值與門檻，因此無法顯示達成率。'+
+      '建立方式：於管理中心設定target／warningThreshold／criticalThreshold／historicalBenchmark，設定後本區塊將自動改為對照表。'+
+      '目前不以任何示範數字代表正式目標，避免誤判達成狀況。</div>'+
+    '</div>';
+
+  const matrixSectionHtml =
     '<div class="eh-section-title">Event Matrix｜CPL × 到場率</div>'+
     '<div class="eh-section-sub">越左獲客成本越低，越上到場率越高；氣泡越大代表總成本越高。</div>'+
     '<div class="matrix-legend" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:0 0 10px;font-size:11.5px;color:var(--grey);">'+
@@ -3989,15 +4235,41 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
       '<span style="display:inline-flex;align-items:center;gap:5px;"><span class="grade gN" style="width:17px;height:17px;line-height:17px;font-size:9.5px;">N</span>資料不足</span>'+
     '</div>'+
     '<div class="eh-matrix-wrap"><canvas id="ehMatrixChart"></canvas></div>'+
-    '<div class="eh-matrix-concl"><b>管理結論：</b>'+matrixConclText+'</div>'+
-    '<div class="eh-section-title">Top 3 Actions｜管理層下一步</div>'+
-    '<div class="eh-actions-grid">'+actionsHtml+'</div>'+
+    '<div class="eh-matrix-concl"><b>管理結論：</b>'+matrixConclText+'</div>';
+
+  const historicalDetailHtml =
+    '<div class="eh-section-title" style="margin-top:0;">26場歷史彙總</div>'+
+    '<div class="eh-kpi-grid">'+kpiHtml+'</div>'+
+    '<div class="eh-section-title">Executive Signals｜三張重點</div>'+
+    '<div class="eh-signal-grid">'+signalsHtml+'</div>'+
+    '<div class="eh-section-title">Latest Event Day明細｜'+latestEvent.title+'</div>'+
+    '<div class="eh-latest-card">'+latestHtml+'</div>';
+
+  const finalHtml =
+    '<div class="eh-toggle" id="ehViewToggle"><button data-view="exec" class="active">Executive</button><button data-view="full">Full Analysis</button></div>'+
+    decisionBarHtml+
+    '<div class="eh-section-title">Hero KPI｜第29屆核心指標</div>'+
+    '<div class="eh-hero-grid">'+heroKpiHtml+'</div>'+
+    '<div class="eh-section-title">商業漏斗｜廣告名單 → 正式報名 → 實到 → 1-on-1 → Reserved → 成交</div>'+
+    '<div class="eh-funnel-wrap">'+funnelHtmlMini+'</div>'+
+    '<div class="eh-section-sub">'+funnelNote+'</div>'+
+    matrixSectionHtml+
+    '<div class="eh-section-title">成本效率摘要</div>'+
+    '<div class="eh-cost-summary">'+costSummaryHtml+'</div>'+
+    '<div class="eh-section-title">今日營運行動｜Top 3</div>'+
+    '<div class="eh-actions-grid">'+(actionsHtml||'<div class="eh-empty-state"><div class="ees-title">目前無待處理之今日營運行動</div><div class="ees-body">系統掃描聯繫名單、到場率、業務邀約率後未發現需立即處理之操作性問題。</div></div>')+'</div>'+
+    '<div class="eh-section-title">目標達成</div>'+
+    targetsEmptyStateHtml+
+    systemicSectionHtml+
     anomalyCenterHtml+
     '<div class="eh-section-title">Data Health｜資料健康度</div>'+
-    '<div class="eh-health-grid">'+healthHtml+'</div>'+
-    '<div class="eh-health-note">Reserved／成交資料覆蓋率過低，目前無法完整計算全數活動ROI。</div>'+
+    '<details class="le2-detail-section" id="dataHealthAcc" open><summary>完整度／時效／歸屬明確度細項</summary><div class="le2-detail-body"><div class="eh-health-grid">'+healthHtml+'</div>'+
+    '<div class="eh-health-note">Reserved／成交資料覆蓋率過低，目前無法完整計算全數活動ROI。</div></div></details>'+
+    '<div class="eh-section-title">完整脈絡（歷史彙總／Day明細）</div>'+
+    '<details class="le2-detail-section" id="historicalDetailAcc"><summary>展開查看26場歷史彙總與Day 1／Day 2明細</summary><div class="le2-detail-body">'+historicalDetailHtml+'</div></details>'+
     aiSectionHtml+
     '<div class="eh-full-link" id="ehFullLink">查看完整Dashboard（Full Analysis）→</div>';
+
 
   const ehRoot = document.getElementById("ehRoot");
   if(ehRoot){
