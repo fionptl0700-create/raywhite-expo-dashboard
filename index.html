@@ -928,37 +928,10 @@ v65補充：活動「已舉行」但部分欄位(1-on-1/Reserved/成交/收入)�
 </section>
 <section id="latestPerf29" class="ia-tab-panel active" data-group-panel="s29">
 <h2>第29屆成效：新竹 vs 台北</h2>
-<div class="info-line" style="margin-bottom:10px;">兩日活動皆已完成（v65更新，2026/7/26官方報名與簽到表）：新竹／台北報名實到已回報，CPL／CPA已可計算；1-on-1／Reserved／成交／收入仍待業務回報，暫無法計算完整ROI。</div>
-<div class="charts-row" style="margin-bottom:14px;">
-  <div class="day-card">
-    <h4>新竹 7/25</h4>
-    <div class="drow"><span class="k">聯繫名單(5位業務)</span><span class="v">19筆</span></div>
-    <div class="drow"><span class="k">已加賴</span><span class="v" style="color:var(--v-green);">17筆(89%，含已開群1)</span></div>
-    <div class="drow"><span class="k">會參加意向</span><span class="v">10筆</span></div>
-    <div class="drow"><span class="k">報名 ／ 實到</span><span class="v" style="color:var(--v-green);">25 ／ 8（房產9:00場，32.0%）</span></div>
-    <div class="drow"><span class="k">CPL（廣告／報名）</span><span class="v">NT$1,900</span></div>
-    <div class="drow"><span class="k">CPA（總成本／實到）</span><span class="v">NT$13,075（估算，估算成本104,600÷8）</span></div>
-  </div>
-  <div class="day-card">
-    <h4>台北 7/26</h4>
-    <div class="drow"><span class="k">聯繫名單(5位業務)</span><span class="v">28筆</span></div>
-    <div class="drow"><span class="k">已加賴</span><span class="v" style="color:var(--v-green);">10筆(36%)</span></div>
-    <div class="drow"><span class="k">會參加意向</span><span class="v">14筆</span></div>
-    <div class="drow"><span class="k">報名 ／ 實到</span><span class="v" style="color:var(--v-green);">26 ／ 4（房產14:00場，15.4%，v66更新）</span></div>
-    <div class="drow"><span class="k">CPL（廣告／報名）</span><span class="v">NT$1,827</span></div>
-    <div class="drow"><span class="k">CPA（總成本／實到）</span><span class="v">NT$17,975（估算，估算成本71,900÷4）</span></div>
-  </div>
-</div>
-<div class="tbl-scroll"><table class="le-cplcpa-table" style="font-size:13px;">
-  <thead><tr><th class="left">指標</th><th>新竹 7/25</th><th>台北 7/26</th><th>26場歷史平均</th></tr></thead>
-  <tbody>
-    <tr><td class="left">聯繫名單（業務CRM，非廣告報名）</td><td>19筆</td><td>28筆</td><td>—</td></tr>
-    <tr><td class="left">已加賴</td><td>17筆</td><td>10筆</td><td>—</td></tr>
-    <tr><td class="left">廣告預算（房產份額）</td><td>NT$47,500</td><td>NT$47,500</td><td>—</td></tr>
-    <tr><td class="left">報名／實到</td><td>25／8（房產9:00場，32.0%）</td><td>26／4（房產14:00場，15.4%）</td><td>—</td></tr>
-    <tr><td class="left">CPL（廣告／報名）</td><td>NT$1,900</td><td>NT$1,827</td><td>—</td></tr>
-  </tbody>
-</table></div>
+<div class="info-line" style="margin-bottom:10px;">兩日活動皆已完成（v70更新，2026/7/26官方報名與簽到表）：新竹／台北正式報名、實到、到場率、CPL已完整；CPA為審批表核准預算除以實到人數之估算值(非實報實銷)；1-on-1僅新竹已回報，Reserved／成交／收入仍待業務回報，暫無法計算完整ROI。</div>
+<div id="latestPerf29Body"></div>
+<div class="tbl-scroll" id="latestPerf29TableWrap" style="margin-top:12px;"></div>
+<div id="latestPerf29Concl" style="margin-top:8px;"></div>
 <div class="info-line" style="margin-top:6px;">聯繫名單為業務CRM追蹤之聯繫意向，與正式「報名人數」（廣告表單填寫）屬不同資料口徑，不可直接換算或比較，比照第28屆分頁上方註記同一原則。</div>
 </section>
 </div>
@@ -3542,6 +3515,87 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
   };
   const ED29 = window.EVENT_DATA.editions["29"];
 
+  // ---- v70新增：Latest Performance頁重做 — 新竹/台北/全屆/歷史平均四欄比較表 ----
+  // 六列：正式報名／實到／到場率／1-on-1／CPA／Reserved（另延續既有CPL列）。
+  // 1-on-1轉換率沿用上方oneOnOneScopeOK/oneOnOneScopeNote範圍檢查，全屆列不得以「新竹已回報組數／全屆實到人數」計算（分子分母範圍不一致時禁止計算並顯示待補說明）。
+  (function renderLatestPerf29(){
+    const perfBodyEl = document.getElementById("latestPerf29Body");
+    const perfTableEl = document.getElementById("latestPerf29TableWrap");
+    const conclEl = document.getElementById("latestPerf29Concl");
+    if(!perfBodyEl && !perfTableEl && !conclEl) return;
+
+    const d1Cpl = perUnit(d1.adCost, d1.registrations);
+    const d2Cpl = perUnit(d2.adCost, d2.registrations);
+    const d1Cpa = perUnit(d1.totalCost, d1.attendancePeople);
+    const d2Cpa = perUnit(d2.totalCost, d2.attendancePeople);
+    const totalCpl = perUnit(total.adCost, total.registrations);
+    const totalCpa = perUnit(total.totalCost, total.attendancePeople); // 估算：核准預算，非實報實銷
+    const d1OneOnOneRate = rateOf(d1.oneOnOne, d1.attendancePeople);
+
+    const avgRatePct = (avgRate*100).toFixed(1);
+    const avgCplR = Math.round(avgCpl);
+    const avgCpaR = Math.round(avgCpa);
+    function trendArrow29(better){ return better ? '<span class="le-trend-arrow" style="color:var(--good);">&#9650;</span>' : '<span class="le-trend-arrow" style="color:var(--v-red);">&#9660;</span>'; }
+    function fmt2(v){ return v==null ? "—" : v.toLocaleString("en-US",{maximumFractionDigits:0}); }
+
+    const bodyHtml = `
+      <div class="charts-row" style="margin-bottom:14px;">
+        <div class="day-card">
+          <h4>新竹 7/25</h4>
+          <div class="drow"><span class="k">正式報名</span><span class="v">${fmtOrDash(d1.registrations)}</span></div>
+          <div class="drow"><span class="k">實到</span><span class="v" style="color:var(--v-green);">${fmtOrDash(d1.attendancePeople)}人</span></div>
+          <div class="drow"><span class="k">到場率</span><span class="v" style="color:${d1.attendanceRate<avgRate?'var(--v-red)':'var(--good)'};">${fmtPctOrDash(d1.attendanceRate)}${trendArrow29(d1.attendanceRate>=avgRate)}</span></div>
+          <div class="drow"><span class="k">vs 26場歷史平均(${avgRatePct}%)</span><span class="v">${d1.attendanceRate<avgRate?'低於':'高於'}平均 ${Math.abs((d1.attendanceRate-avgRate)*100).toFixed(1)}pt</span></div>
+          <div class="drow"><span class="k">CPL（廣告／報名）</span><span class="v" style="color:${d1Cpl>avgCplR?'var(--v-red)':'var(--good)'};">NT$${fmt2(d1Cpl)}${trendArrow29(d1Cpl<=avgCplR)}</span></div>
+          <div class="drow"><span class="k">CPA（估算，核准預算／實到）</span><span class="v" style="color:${d1Cpa>avgCpaR?'var(--v-red)':'var(--good)'};">NT$${fmt2(d1Cpa)}${trendArrow29(d1Cpa<=avgCpaR)}</span></div>
+          <div class="drow"><span class="k">1-on-1</span><span class="v">${fmtOrDash(d1.oneOnOne)}組（實到轉1-on-1率${fmtPctOrDash(d1OneOnOneRate)}）</span></div>
+          <div class="drow"><span class="k">Reserved</span><span class="v" style="color:var(--text-tertiary);">待業務回報</span></div>
+        </div>
+        <div class="day-card">
+          <h4>台北 7/26</h4>
+          <div class="drow"><span class="k">正式報名</span><span class="v">${fmtOrDash(d2.registrations)}</span></div>
+          <div class="drow"><span class="k">實到</span><span class="v" style="color:var(--v-green);">${fmtOrDash(d2.attendancePeople)}人</span></div>
+          <div class="drow"><span class="k">到場率</span><span class="v" style="color:${d2.attendanceRate<avgRate?'var(--v-red)':'var(--good)'};">${fmtPctOrDash(d2.attendanceRate)}${trendArrow29(d2.attendanceRate>=avgRate)}</span></div>
+          <div class="drow"><span class="k">vs 26場歷史平均(${avgRatePct}%)</span><span class="v">${d2.attendanceRate<avgRate?'低於':'高於'}平均 ${Math.abs((d2.attendanceRate-avgRate)*100).toFixed(1)}pt</span></div>
+          <div class="drow"><span class="k">CPL（廣告／報名）</span><span class="v" style="color:${d2Cpl>avgCplR?'var(--v-red)':'var(--good)'};">NT$${fmt2(d2Cpl)}${trendArrow29(d2Cpl<=avgCplR)}</span></div>
+          <div class="drow"><span class="k">CPA（估算，核准預算／實到）</span><span class="v" style="color:${d2Cpa>avgCpaR?'var(--v-red)':'var(--good)'};">NT$${fmt2(d2Cpa)}${trendArrow29(d2Cpa<=avgCpaR)}</span></div>
+          <div class="drow"><span class="k">1-on-1</span><span class="v" style="color:var(--text-tertiary);">待業務回報</span></div>
+          <div class="drow"><span class="k">Reserved</span><span class="v" style="color:var(--text-tertiary);">待業務回報</span></div>
+        </div>
+      </div>
+    `;
+    if(perfBodyEl) perfBodyEl.innerHTML = bodyHtml;
+
+    const oneOnOneCellTotal = oneOnOneScopeOK
+      ? (fmtOrDash(total.oneOnOne)+"組（"+fmtPctOrDash(oneOnOneRate)+"）")
+      : ('<span style="color:var(--status-warning);">'+(oneOnOneScopeNote||"不可加總計算（分子分母範圍不一致）")+'</span>');
+
+    const tableHtml = `
+      <table class="le-cplcpa-table" style="font-size:13px;">
+        <thead><tr><th class="left">指標</th><th>新竹 7/25</th><th>台北 7/26</th><th>全屆合計</th><th>26場歷史平均</th></tr></thead>
+        <tbody>
+          <tr><td class="left">正式報名</td><td>${fmtOrDash(d1.registrations)}</td><td>${fmtOrDash(d2.registrations)}</td><td>${fmtOrDash(total.registrations)}</td><td>—</td></tr>
+          <tr><td class="left">實到</td><td class="le-green-val">${fmtOrDash(d1.attendancePeople)}</td><td class="le-green-val">${fmtOrDash(d2.attendancePeople)}</td><td class="le-green-val">${fmtOrDash(total.attendancePeople)}</td><td>—</td></tr>
+          <tr><td class="left">到場率</td><td class="le-orange-val">${fmtPctOrDash(d1.attendanceRate)}${trendArrow29(d1.attendanceRate>=avgRate)}</td><td class="le-orange-val">${fmtPctOrDash(d2.attendanceRate)}${trendArrow29(d2.attendanceRate>=avgRate)}</td><td class="le-orange-val">${fmtPctOrDash(total.attendanceRate)}${trendArrow29(total.attendanceRate>=avgRate)}</td><td class="le-orange-val">${avgRatePct}%</td></tr>
+          <tr><td class="left">CPL（廣告／報名）</td><td>NT$${fmt2(d1Cpl)}${trendArrow29(d1Cpl<=avgCplR)}</td><td>NT$${fmt2(d2Cpl)}${trendArrow29(d2Cpl<=avgCplR)}</td><td>NT$${fmt2(totalCpl)}${trendArrow29(totalCpl<=avgCplR)}</td><td>NT$${fmt2(avgCplR)}</td></tr>
+          <tr><td class="left">CPA（估算，核准預算／實到）</td><td class="le-red-val">NT$${fmt2(d1Cpa)}${trendArrow29(d1Cpa<=avgCpaR)}</td><td class="le-red-val">NT$${fmt2(d2Cpa)}${trendArrow29(d2Cpa<=avgCpaR)}</td><td class="le-red-val">NT$${fmt2(totalCpa)}${trendArrow29(totalCpa<=avgCpaR)}</td><td class="le-red-val">NT$${fmt2(avgCpaR)}</td></tr>
+          <tr><td class="left">1-on-1</td><td>${fmtOrDash(d1.oneOnOne)}組（${fmtPctOrDash(d1OneOnOneRate)}）</td><td style="color:var(--text-tertiary);">待業務回報</td><td>${oneOnOneCellTotal}</td><td style="color:var(--text-tertiary);">資料不足（26場僅第27屆有完整追蹤）</td></tr>
+          <tr><td class="left">Reserved</td><td style="color:var(--text-tertiary);">待業務回報</td><td style="color:var(--text-tertiary);">待業務回報</td><td style="color:var(--text-tertiary);">待業務回報</td><td style="color:var(--text-tertiary);">資料不足（26場皆無完整Reserved欄位）</td></tr>
+        </tbody>
+      </table>
+      <div class="info-line" style="margin-top:8px;">CPL僅計算廣告花費，反映純廣告名單取得效率；CPA為審批表核准預算(非實報實銷)除以實到人數之估算值，兩者基準不同、不可互相取代或加總。綠色▲代表優於26場歷史平均，紅色▼代表劣於平均。1-on-1轉換率僅在分子(已回報城市組數)與分母(對應範圍實到人數)屬同一資料範圍時才計算；台北尚未回報前，全屆列不強行以「新竹已回報組數÷全屆實到人數」計算，避免分子分母範圍不一致。</div>
+      <div class="info-line" style="margin-top:6px;"><b>樣本數與資料完整度：</b>本屆為2個城市場次(n=2)，正式報名／實到／到場率／CPL已100%完整；CPA為估算值(核准預算，非實報實銷)；1-on-1僅新竹單日回報(台北待補)；Reserved／成交／收入兩日皆待業務回報，暫無法計算完整轉換率與ROI。n=2屬單場觀察，不足以做統計顯著性比較，下方管理判斷僅供描述性參考。</div>
+    `;
+    if(perfTableEl) perfTableEl.innerHTML = tableHtml;
+
+    const hcCityBetter = d1.attendanceRate >= d2.attendanceRate ? "新竹" : "台北";
+    const hcBetter = d1.attendanceRate >= d2.attendanceRate ? d1 : d2;
+    const hcWorse = d1.attendanceRate >= d2.attendanceRate ? d2 : d1;
+    const hcWorseCity = hcCityBetter === "新竹" ? "台北" : "新竹";
+    const gapPt = Math.abs((d1.attendanceRate - d2.attendanceRate)*100).toFixed(1);
+    const concl = hcCityBetter+"到場率("+fmtPctOrDash(hcBetter.attendanceRate)+")優於"+hcWorseCity+"("+fmtPctOrDash(hcWorse.attendanceRate)+")，差距"+gapPt+"個百分點；兩場皆低於26場歷史平均("+avgRatePct+"%)。差距可能來自場地類型與成本結構差異（新竹為付費場地且與移民場對半分攤場地費，台北為自有場地免場地費）與名單品質／邀約方式差異，惟n=2單場比較樣本數過小，不足以判斷是否為系統性差異，需累積更多同口徑場次後才能下結論。";
+    if(conclEl) conclEl.innerHTML = '<div class="info-line" style="font-weight:700;"><b>管理判斷：</b>'+concl+'</div>';
+  })();
 
   // ---- Executive Signal（活動進行中：一天尚未舉行時，不強行做兩日比較）----
   const bothDaysHaveAttendance = d1.attendancePeople!=null && d2.attendancePeople!=null;
