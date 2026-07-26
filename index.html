@@ -727,9 +727,9 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
   .eh-db-row{flex-direction:column;}
   .eh-hero-grid{grid-template-columns:repeat(2,1fr);}
   .eh-cost-grid{grid-template-columns:repeat(2,1fr);}
-  .eh-funnel-wrap{flex-direction:column;}
-  .eh-funnel-arrow{transform:rotate(90deg); padding:2px 0;}
-  .eh-funnel-step{min-width:0;}
+  .eh-funnel-wrap{display:block !important; overflow:visible !important; height:auto !important; max-height:none !important;}
+  .eh-funnel-wrap .eh-funnel-step{margin-bottom:8px; min-width:0;}
+  .eh-funnel-wrap .eh-funnel-arrow{transform:rotate(90deg); padding:6px 0; height:auto;}
 }
 
 </style>
