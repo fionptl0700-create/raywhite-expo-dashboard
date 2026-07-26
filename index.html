@@ -3955,16 +3955,16 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
   // 改為Actual vs Forecast：保留原7/25估算的公式與區間(不竄改)，並列實際結果與落點判斷(區間內／低於區間／高於區間)。
   function verdictText(actual, low, high){
     if(actual==null) return {txt:"尚無實際數字可比對", color:"var(--text-tertiary)"};
-    if(low==null || high==null) return {txt:"實際"+actual+"，無同城市歷史區間可比對", color:"var(--text-tertiary)"};
-    if(actual < low) return {txt:"實際結果低於原預估區間", color:"var(--status-negative)"};
-    if(actual > high) return {txt:"實際結果高於原預估區間", color:"var(--status-positive)"};
-    return {txt:"實際結果落在原預估區間內", color:"var(--text-secondary)"};
+    if(low==null || high==null) return {txt:"無同城市歷史區間可比對", color:"var(--text-tertiary)"};
+    if(actual < low) return {txt:"低於預估區間", color:"var(--status-negative)"};
+    if(actual > high) return {txt:"高於預估區間", color:"var(--status-positive)"};
+    return {txt:"符合預估區間", color:"var(--text-secondary)"};
   }
-  function actualVsForecastCard(label, actualLabel, forecastLabel, formula, verdict){
+  // v72精簡(使用者2026/7/27回饋「文字太多沒效果」)：每張卡只留「實際值＋一行原預估/結論」，
+  // 原本每卡都重複的公式／信心度說明改為區塊底部單一收合détail，資訊不變、僅收合預設不顯示。
+  function actualVsForecastCard(label, actualLabel, forecastLabel, verdict){
     return '<div class="le2-kpi-card"><div class="v">'+actualLabel+'</div><div class="l">'+label+'</div>'+
-      '<div style="font-size:11px;color:var(--text-secondary);margin-top:4px;">原預估：'+forecastLabel+'</div>'+
-      (verdict.txt ? '<div style="font-size:11px;font-weight:700;margin-top:2px;color:'+verdict.color+';">'+verdict.txt+'</div>' : '')+
-      '<div style="font-size:10px;color:var(--text-tertiary);margin-top:4px;line-height:1.4;">'+formula+'</div></div>';
+      '<div style="font-size:11.5px;font-weight:700;margin-top:4px;color:'+verdict.color+';">原預估'+forecastLabel+'｜'+verdict.txt+'</div></div>';
   }
   const rateForecastLabel = d2RateLow!=null?(pct(d2RateLow)+'–'+pct(d2RateHigh)):'無法預估（無同城市歷史資料）';
   const attForecastLabel = d2AttLow!=null?(d2AttLow+'–'+d2AttHigh+'人'):'無法預估';
@@ -3972,15 +3972,25 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
   const rateVerdict = verdictText(d2.attendanceRate!=null?d2.attendanceRate*100:null, d2RateLow!=null?d2RateLow*100:null, d2RateHigh!=null?d2RateHigh*100:null);
   const attVerdict = verdictText(d2.attendancePeople, d2AttLow, d2AttHigh);
   const oneVerdict = verdictText(d2.oneOnOne, d2OneLow, d2OneHigh);
+  const forecastFormulaItems = [
+    {ll:d2.dateLabel+d2.city+'場 到場率', f:'原公式：'+d2.city+'歷史'+(taipeiRateStats?taipeiRateStats.n:0)+'場到場率最小–最大值區間｜資料：completed歷史事件(loc='+d2.city+')｜信心度：'+confLabel(taipeiRateStats?taipeiRateStats.n:null)},
+    {ll:d2.dateLabel+d2.city+'場 實到人數', f:'原公式：報名'+fmtOrDash(d2.registrations)+'人 × 到場率預估區間｜信心度：'+confLabel(taipeiRateStats?taipeiRateStats.n:null)},
+    {ll:d2.dateLabel+d2.city+'場 1-on-1組數', f:'原公式：預估實到區間 × '+d1.city+'房產場實到轉1-on-1率'+fmtPctOrDash(d1OneRate)+'(樣本僅'+fmtOrDash(d1.attendancePeople)+'人)｜信心度：低（跨城市套用單場比率，屬假設非實證）'},
+    {ll:'Reserved／成交', f:'全26場歷史活動僅第27屆具備完整Reserved／成交追蹤(樣本數=1)，未達建立轉換率方法論之最低樣本需求，依治理規則不予估算'}
+  ];
+  const forecastFormulaDetailHtml = '<details class="le2-detail-section" style="margin-top:6px;"><summary>查看各項預估公式與信心度</summary><div class="le2-detail-body" style="font-size:11.5px;color:var(--text-secondary);line-height:1.7;">'+
+    forecastFormulaItems.map(function(f){ return '<div style="margin-bottom:4px;"><b>'+f.ll+'：</b>'+f.f+'</div>'; }).join('')+
+    '</div></details>';
   const forecastHtml =
-    '<div class="le2-section-sub">活動已於'+d1.dateLabel+'／'+d2.dateLabel+'完成，本區塊為「實際結果 vs 2026/7/25原預估」對照，原預估公式與資料來源保持不變（供事後檢視預估準確度），不回頭竄改預估數字本身。目前尚無任何屆別設定正式目標值，達成率／缺口待設定正式目標後啟用。缺資料一律顯示「無法預估」或「尚無實際數字」，不以0代替；預估仍以範圍呈現。</div>'+
+    '<div class="le2-section-sub">活動已完成，本區塊為「實際結果 vs 2026/7/25原預估」對照，原預估公式不回頭竄改。尚無正式目標值；缺資料一律顯示「無法預估」，不以0代替。</div>'+
     '<div class="le2-kpi-grid">'+
-      actualVsForecastCard(d2.dateLabel+d2.city+'場 到場率', pct(d2.attendanceRate), rateForecastLabel, '原公式：'+d2.city+'歷史'+(taipeiRateStats?taipeiRateStats.n:0)+'場到場率最小–最大值區間｜資料：completed歷史事件(loc='+d2.city+')｜信心度：'+confLabel(taipeiRateStats?taipeiRateStats.n:null), rateVerdict)+
-      actualVsForecastCard(d2.dateLabel+d2.city+'場 實到人數', fmtOrDash(d2.attendancePeople)+'人', attForecastLabel, '原公式：報名'+fmtOrDash(d2.registrations)+'人 × 到場率預估區間｜信心度：'+confLabel(taipeiRateStats?taipeiRateStats.n:null), attVerdict)+
-      actualVsForecastCard(d2.dateLabel+d2.city+'場 1-on-1組數', d2.oneOnOne!=null?(d2.oneOnOne+'組'):'尚待業務回報', oneForecastLabel, '原公式：預估實到區間 × '+d1.city+'房產場實到轉1-on-1率'+fmtPctOrDash(d1OneRate)+'(樣本僅'+fmtOrDash(d1.attendancePeople)+'人)｜信心度：低（跨城市套用單場比率，屬假設非實證）', oneVerdict)+
-      actualVsForecastCard('Reserved／成交', '尚待業務回報', '資料不足無法預估', '全26場歷史活動僅第27屆具備完整Reserved／成交追蹤(樣本數=1)，未達建立轉換率方法論之最低樣本需求，依治理規則不予估算', verdictText(null,null,null))+
+      actualVsForecastCard(d2.dateLabel+d2.city+'場 到場率', pct(d2.attendanceRate), rateForecastLabel, rateVerdict)+
+      actualVsForecastCard(d2.dateLabel+d2.city+'場 實到人數', fmtOrDash(d2.attendancePeople)+'人', attForecastLabel, attVerdict)+
+      actualVsForecastCard(d2.dateLabel+d2.city+'場 1-on-1組數', d2.oneOnOne!=null?(d2.oneOnOne+'組'):'尚待業務回報', oneForecastLabel, oneVerdict)+
+      actualVsForecastCard('Reserved／成交', '尚待業務回報', '資料不足無法預估', verdictText(null,null,null))+
     '</div>'+
-    '<div class="le2-section-sub" style="margin-top:8px;">預算：核准總額'+fmtMoney(total.totalCost)+'（廣告'+fmtMoney(total.adCost)+'＋營運'+fmtMoney(total.nonAdCost)+'，2026/7/21審批核准）已全數認列；此為核准金額而非另行推估之實際支出，實際支出核銷後將另行標註於本次成本頁。</div>';
+    forecastFormulaDetailHtml+
+    '<div class="le2-section-sub" style="margin-top:8px;">預算：核准總額'+fmtMoney(total.totalCost)+'（廣告'+fmtMoney(total.adCost)+'＋營運'+fmtMoney(total.nonAdCost)+'，2026/7/21審批核准）已全數認列，非另行推估之實際支出。</div>';
 
   // ---- 組裝 ----
   const finalHtml =
