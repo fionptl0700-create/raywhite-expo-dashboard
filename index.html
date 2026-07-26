@@ -447,12 +447,14 @@ body.sidebar-collapsed .sidebar-group-label{padding:0;text-align:center;}
 .sidebar-nav-item.active .sidebar-nav-item-label small{opacity:.9;color:rgba(255,255,255,.92);}
 body.sidebar-collapsed .sidebar-nav-item{justify-content:center;padding:9px;}
 body.sidebar-collapsed .sidebar-nav-item-label{display:none;}
-.sidebar-latest-card{display:flex;flex-direction:column;gap:2px;align-items:flex-start;width:calc(100% - 20px);margin:10px 10px 6px;padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-left:3px solid var(--rw-yellow);cursor:pointer;font-family:inherit;text-align:left;transition:border-color .15s,background .15s;max-height:112px;}
+.sidebar-latest-card{display:flex;flex-direction:column;gap:2px;align-items:flex-start;width:calc(100% - 20px);margin:10px 10px 6px;padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-left:3px solid var(--rw-yellow);cursor:pointer;font-family:inherit;text-align:left;transition:border-color .15s,background .15s;max-height:none;}
 .sidebar-latest-card:hover{background:rgba(255,255,255,.09);border-color:var(--rw-yellow);}
 .sidebar-latest-card .slc-badge{font-size:9px;font-weight:800;letter-spacing:.6px;color:var(--rw-yellow);display:flex;align-items:center;gap:4px;}
 .sidebar-latest-card .slc-title{font-size:13.5px;font-weight:800;color:#fff;margin-top:2px;}
 .sidebar-latest-card .slc-sub{font-size:11px;color:rgba(255,255,255,.6);}
-.sidebar-latest-card .slc-status{font-size:10.5px;color:rgba(255,255,255,.75);margin-top:2px;}
+.sidebar-latest-card .slc-status{display:grid;width:100%;gap:2px;font-size:10.5px;line-height:1.45;color:rgba(255,255,255,.75);margin-top:5px;overflow-wrap:anywhere;}
+.sidebar-latest-card .slc-status-line{display:block;}
+.sidebar-latest-card .slc-status-line:last-child{color:rgba(255,255,255,.58);}
 body.sidebar-collapsed .sidebar-latest-card{padding:8px;align-items:center;}
 body.sidebar-collapsed .sidebar-latest-card .slc-title,body.sidebar-collapsed .sidebar-latest-card .slc-sub,body.sidebar-collapsed .sidebar-latest-card .slc-status{display:none;}
 .scope-banner{display:inline-block;font-size:11.5px;font-weight:700;padding:5px 12px;border-radius:100px;margin:0 0 16px;letter-spacing:.2px;}
@@ -865,7 +867,7 @@ body{
 .sidebar-collapse-btn{width:30px;height:30px;border-radius:9px;border-color:rgba(255,255,255,.13);}
 .sidebar-collapse-btn:focus-visible,.topbar button:focus-visible{outline:none;box-shadow:var(--focus-ring);}
 .sidebar-latest-card{
-  width:calc(100% - 24px);margin:14px 12px 4px;padding:13px 14px;border-radius:13px;
+  flex:0 0 auto;width:calc(100% - 24px);margin:14px 12px 12px;padding:13px 14px;border-radius:13px;
   background:linear-gradient(135deg,rgba(255,212,0,.10),rgba(255,255,255,.035));
   border:1px solid rgba(255,212,0,.24);border-left:3px solid var(--rw-yellow);
   box-shadow:inset 0 1px rgba(255,255,255,.04);
@@ -953,6 +955,44 @@ header #updatedAt{margin-left:auto;white-space:nowrap;position:relative;z-index:
 }
 .kpi-card .label,.eh-kpi-card .ll,.ehc-ll,.le2-kpi-card .ll{font-size:12px;font-weight:600;color:var(--text-secondary);}
 .kpi-card .note,.eh-kpi-card .ls,.ehc-ls,.le2-kpi-card .ls{font-size:11.5px;color:var(--text-tertiary);}
+.event-tabs{
+  display:inline-flex;width:auto;max-width:100%;gap:3px;padding:4px;margin-bottom:22px;
+  background:#EAF0F5;border:1px solid var(--border-default);border-radius:12px;
+  box-shadow:inset 0 1px 2px rgba(16,24,40,.035);
+}
+.event-tabs .group-tab-btn,.event-tabs .etab-29,.event-tabs .etab-28{
+  display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:8px 13px;border:1px solid transparent;
+  border-radius:8px;background:transparent;color:var(--text-secondary);box-shadow:none;font-size:12px;font-weight:650;
+}
+.event-tabs .group-tab-btn::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--text-tertiary);box-shadow:0 0 0 3px rgba(102,112,133,.10);}
+.event-tabs .etab-29::before{background:var(--status-warning);box-shadow:0 0 0 3px rgba(197,106,18,.11);}
+.event-tabs .etab-28::before{background:var(--status-positive);box-shadow:0 0 0 3px rgba(22,130,93,.11);}
+.event-tabs .group-tab-btn.active,.event-tabs .etab-29.active,.event-tabs .etab-28.active{
+  background:#fff;color:var(--text-primary);border-color:rgba(190,204,218,.84);box-shadow:0 2px 7px rgba(16,24,40,.08);
+}
+.event-tabs .group-tab-btn:hover{filter:none;background:rgba(255,255,255,.62);color:var(--text-primary);}
+#page-latest-overview>.ia-group>section{padding:2px 0 0;background:transparent;border:0;box-shadow:none;}
+.le2-header{align-items:center;margin-bottom:6px;}
+.le2-title{font-size:20px;font-weight:700;letter-spacing:-.45px;}
+.le2-subtitle{margin-bottom:18px;font-size:12.5px;}
+.le2-kpi-grid{gap:14px;margin-bottom:18px;}
+.le2-kpi-card{
+  --kpi-accent:var(--status-info);position:relative;min-width:0;min-height:156px;padding:18px 18px 16px!important;
+  overflow:hidden;display:flex;flex-direction:column;justify-content:flex-start;
+}
+.le2-kpi-card::before{content:"";position:absolute;inset:0 0 auto;height:3px;background:var(--kpi-accent);opacity:.86;}
+.le2-kpi-card::after{content:"";position:absolute;width:88px;height:88px;right:-42px;top:-46px;border-radius:50%;background:color-mix(in srgb,var(--kpi-accent) 7%,transparent);pointer-events:none;}
+.le2-kpi-card.kpi-0{--kpi-accent:var(--status-warning);}.le2-kpi-card.kpi-1{--kpi-accent:var(--status-positive);}
+.le2-kpi-card.kpi-2{--kpi-accent:var(--status-online);}.le2-kpi-card.kpi-3{--kpi-accent:var(--status-info);}
+.le2-kpi-card.kpi-4,.le2-kpi-card.kpi-5{--kpi-accent:var(--status-negative);}
+.le2-kpi-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:13px;}
+.le2-kpi-card .ll{margin:0;font-size:12px;font-weight:650;color:var(--text-secondary);}
+.le2-kpi-icon{display:grid;place-items:center;flex:0 0 auto;width:32px;height:32px;border-radius:9px;background:color-mix(in srgb,var(--kpi-accent) 10%,#fff);color:var(--kpi-accent);border:1px solid color-mix(in srgb,var(--kpi-accent) 14%,transparent);}
+.le2-kpi-icon svg{width:16px;height:16px;}
+.container .le2-kpi-card .lv{font-size:clamp(23px,1.75vw,29px);font-weight:700;line-height:1.05;letter-spacing:-.75px;white-space:nowrap;}
+.container .le2-kpi-card.kpi-money .lv{font-size:clamp(19px,1.42vw,24px);letter-spacing:-.55px;}
+.le2-kpi-card .ls{margin-top:9px;font-size:10.5px;line-height:1.5;font-weight:550;}
+.le2-kpi-card.tier1{border-left:1px solid var(--border-default);}
 .eh-hero-grid{gap:16px;margin-bottom:12px;}
 .eh-hero-card{min-height:156px;padding:20px;position:relative;overflow:hidden;}
 .ehc-icon{width:38px;height:38px;border-radius:11px;}
@@ -1109,7 +1149,7 @@ select:hover,input:hover{border-color:var(--border-strong);}
     <div class="slc-badge"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> LATEST</div>
     <div class="slc-title">第29屆 新竹／台北</div>
     <div class="slc-sub">7/25–7/26</div>
-    <div class="slc-status">新竹房產場已於7/25完成，實到8組・台北房產場已於7/26完成，實到4組（1-on-1／Reserved待回填）・48筆聯繫名單</div>
+    <div class="slc-status"><span class="slc-status-line">新竹 完成・實到8組｜台北 完成・實到4組</span><span class="slc-status-line">待追蹤 1-on-1／Reserved・48筆名單</span></div>
   </button>
   <nav class="sidebar-nav">
       <div class="sidebar-group-label group-exec"><span>執行總覽</span><small>EXECUTIVE</small></div>
@@ -4320,8 +4360,16 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
     {ll:"總成本", lv:fmtMoney(total.totalCost), ls:"廣告"+fmtMoney(total.adCost)+"｜營運"+fmtMoney(total.nonAdCost), cc:"le-red-val"},
     {ll:"每組1-on-1成本", lv:fmtMoney(costPerOneOnOne), ls:"目前最重要的活動效率指標", cc:"le-red-val"}
   ];
+  const kpiIcons = [
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 16 4-5 4 3 5-7"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81"/><path d="M3 4h8M3 3 2 14l6.5 6.5"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21 12 16l-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M8 6h8M16 14v4M16 10h.01M12 10h.01M8 10h.01M12 14h.01M8 14h.01M12 18h.01M8 18h.01"/></svg>'
+  ];
   const kpiHtml = kpiCards.map(function(k,i){
-    return '<div class="le2-kpi-card'+(i>=3?' tier1':'')+'"><div class="ll">'+k.ll+'</div><div class="lv '+k.cc+'">'+k.lv+'</div><div class="ls">'+k.ls+'</div></div>';
+    return '<div class="le2-kpi-card kpi-'+i+(i>=3?' tier1':'')+(i>=4?' kpi-money':'')+'"><div class="le2-kpi-head"><div class="ll">'+k.ll+'</div><span class="le2-kpi-icon" aria-hidden="true">'+kpiIcons[i]+'</span></div><div class="lv '+k.cc+'">'+k.lv+'</div><div class="ls">'+k.ls+'</div></div>';
   }).join("");
 
   // ---- Day Comparison ----
@@ -4944,8 +4992,16 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
     {ll:"總成本", lv:fmtMoney(total.totalCost), ls:"廣告"+fmtMoney(total.adCost)+"｜營運"+fmtMoney(total.nonAdCost)+"（審批核准金額）", cc:"le-red-val"},
     {ll:"每組1-on-1成本", lv:fmtMoney(costPerOneOnOne), ls:"目前最重要的活動效率指標", cc:"le-red-val"}
   ];
+  const kpiIcons = [
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 16 4-5 4 3 5-7"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81"/><path d="M3 4h8M3 3 2 14l6.5 6.5"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21 12 16l-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M8 6h8M16 14v4M16 10h.01M12 10h.01M8 10h.01M12 14h.01M8 14h.01M12 18h.01M8 18h.01"/></svg>'
+  ];
   const kpiHtml = kpiCards.map(function(k,i){
-    return '<div class="le2-kpi-card'+(i>=3?' tier1':'')+'"><div class="ll">'+k.ll+'</div><div class="lv '+k.cc+'">'+k.lv+'</div><div class="ls">'+k.ls+'</div></div>';
+    return '<div class="le2-kpi-card kpi-'+i+(i>=3?' tier1':'')+(i>=4?' kpi-money':'')+'"><div class="le2-kpi-head"><div class="ll">'+k.ll+'</div><span class="le2-kpi-icon" aria-hidden="true">'+kpiIcons[i]+'</span></div><div class="lv '+k.cc+'">'+k.lv+'</div><div class="ls">'+k.ls+'</div></div>';
   }).join("");
 
   // ---- Day Comparison ----
@@ -5348,9 +5404,15 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
     });
     const sidebarStatus = document.querySelector(".slc-status");
     if(sidebarStatus){
-      const d1Txt = d1.attendancePeople!=null ? ("新竹房產場已於"+d1.dateLabel+"完成，實到"+d1.attendancePeople+"組") : ("新竹房產場"+d1.dateLabel+"尚未舉行");
-      const d2Txt = d2.attendancePeople!=null ? ("台北房產場已於"+d2.dateLabel+"完成，實到"+d2.attendancePeople+"組（1-on-1／Reserved待回填）") : ("台北房產場"+d2.dateLabel+"尚未舉行");
-      sidebarStatus.textContent = d1Txt+"・"+d2Txt+"・"+ED29.crmContacts+"筆聯繫名單";
+      const d1Txt = d1.attendancePeople!=null ? ("新竹 完成・實到"+d1.attendancePeople+"組") : ("新竹 "+d1.dateLabel+"尚未舉行");
+      const d2Txt = d2.attendancePeople!=null ? ("台北 完成・實到"+d2.attendancePeople+"組") : ("台北 "+d2.dateLabel+"尚未舉行");
+      const resultsLine = document.createElement("span");
+      const followupLine = document.createElement("span");
+      resultsLine.className = "slc-status-line";
+      followupLine.className = "slc-status-line";
+      resultsLine.textContent = d1Txt+"｜"+d2Txt;
+      followupLine.textContent = "待追蹤 1-on-1／Reserved・"+ED29.crmContacts+"筆名單";
+      sidebarStatus.replaceChildren(resultsLine,followupLine);
     }
   })();
 })();
