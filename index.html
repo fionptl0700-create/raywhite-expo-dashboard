@@ -4223,9 +4223,9 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
   }).join("");
 
   // ---- 商業漏斗（精簡版，Executive首屏固定顯示；缺失資料顯示「追蹤不足」，不畫零轉換、不補值；v65新增「收入」層）----
-  const adLeadsTotal29 = ED29.adLeads; // 廣告成效表「總名單數」，來源08分頁／廣告成效Google Sheet，2026/7/26查詢，引用EVENT_DATA非另行硬編碼
+  const adLeadsTotal29 = ED29.adLeads; // 廣告成效表「總名單數」，來源08分頁／廣告成效Google Sheet，2026/7/26查詢，引用EVENT_DATA非另行硬編碼(含移民場，與下方房產場Meta歸因報名數為不同口徑)
   const funnelSteps29 = [
-    {label:"廣告名單", n: adLeadsTotal29, badge:"actual"},
+    {label:"廣告名單", n: total.metaRegistrations, badge:"actual", sub:"7/25 "+fmtOrDash(d1.metaRegistrations)+"／7/26 "+fmtOrDash(d2.metaRegistrations)+"｜業務總報名：7/25 "+fmtOrDash(d1.businessRegistrations)+"／7/26 "+fmtOrDash(d2.businessRegistrations)},
     {label:"正式報名", n: ED29.officialRegistrations, badge:"actual"},
     {label:"實到", n: ED29.deduplicatedAttendance, badge:"actual"},
     {label:"1-on-1", n: total.oneOnOne, badge:(oneOnOneScopeOK?"actual":(total.oneOnOne!=null?"partial":"pending")), convOverride:(oneOnOneScopeOK?null:oneOnOneScopeNote)},
@@ -4238,7 +4238,7 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
     const hasConv = (s.n!=null && prev!=null && prev>0) && !s.convOverride;
     const convTxt = s.convOverride ? s.convOverride : (hasConv ? pct(s.n/prev) : (s.n==null ? "追蹤不足" : "—"));
     const valTxt = s.n==null ? '<span class="eh-funnel-gap">追蹤不足</span>' : fmt(s.n);
-    return '<div class="eh-funnel-step"><div class="efs-label">'+s.label+badgeHtml(s.badge)+'</div><div class="efs-val">'+valTxt+'</div>'+(idx>0?('<div class="efs-conv">轉換率 '+convTxt+'</div>'):'<div class="efs-conv">起點</div>')+'</div>';
+    return '<div class="eh-funnel-step"><div class="efs-label">'+s.label+badgeHtml(s.badge)+'</div><div class="efs-val">'+valTxt+'</div>'+(s.sub?('<div class="efs-conv" style="white-space:normal;">'+s.sub+'</div>'):'')+(idx>0?('<div class="efs-conv">轉換率 '+convTxt+'</div>'):(s.sub?'':'<div class="efs-conv">起點</div>'))+'</div>';
   }).join('<div class="eh-funnel-arrow" aria-hidden="true">&#8594;</div>');
   const funnelNote = "口徑：CRM聯繫名單與已加LINE不計入正式報名；未定不計入會參加；Reserved／成交／收入尚未回填時顯示「追蹤不足」，不以0表示，不自動補值。成交金額尚未回填，暫無法計算完整ROI。";
 
