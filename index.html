@@ -3392,7 +3392,7 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
         dayIndex: 1, date: "2026-07-25", dateLabel: "7/25", city: "新竹",
         format: "offline", formatLabel: "實體", venue: "新竹喜來登西館4F小宴會廳（房產9:00／移民13:30，官方口徑僅計房產場）",
         statusLabel: "活動已完成(房產場)，1-on-1後續追蹤中",
-        registrations: 25, attendancePeople: 8, attendanceGroups: null, metaRegistrations: 17,
+        registrations: 25, attendancePeople: 8, attendanceGroups: null, metaRegistrations: 17, businessRegistrations: 21,
         oneOnOne: 4, reserved: null, deals: null,
         adCost: 47498.5, venueCost: 40500, accommodationCost: 0, ptCost: 2000, mealCost: 4022, transportCost: 14505,
         note: "v68更新(2026/7/27排程檢查，改採實報實銷)：官方成效僅採房產場，新竹房產9:00場報名25／實到8(業務逐一回報：小白(White)3／Bailey2／Jason1／Nicole1／Cathy1／Amber0)。同場地同時段之移民13:30(報名13／實到3)與一對一(報名4／實到0)為不同業務線，不列入本屆房產官方報名/實到統計，僅保留於attendanceBySession供稽核參考。1-on-1組數4組(使用者提供，2026/7/25，僅涵蓋房產9:00場)。成本已改採「RayWhite_活動預算審批表.xlsx」總表分頁本次首次出現之「實際」列(取代先前審批預估)：Meta Ads 47,498.5(=廣告成效Sheet「說明會數據」頁簽7/25廣告費94,997之對半均攤)、場地40,500(=81,000對半均攤)、交通14,505、餐飲4,022、PT2,000，實際總成本NT$108,525.5(較審批預估104,600高3,925.5)，Justin已審核。"
@@ -3401,7 +3401,7 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
         dayIndex: 2, date: "2026-07-26", dateLabel: "7/26", city: "台北",
         format: "offline", formatLabel: "實體", venue: "Ray White台灣總部（移民11:00／房產14:00，官方口徑僅計房產場）",
         statusLabel: "活動已完成(房產場)，1-on-1／Reserved／成交待回填",
-        registrations: 26, attendancePeople: 4, attendanceGroups: null, metaRegistrations: 31,
+        registrations: 26, attendancePeople: 4, attendanceGroups: null, metaRegistrations: 31, businessRegistrations: 27,
         oneOnOne: null, reserved: null, deals: null,
         adCost: 47500, venueCost: 0, accommodationCost: 0, ptCost: 1400, mealCost: 0, transportCost: 0,
         note: "v68更新(2026/7/27排程檢查，改採實報實銷)：官方成效僅採房產場，台北房產14:00場報名26／實到4(小白3/Amber1，Nicole/Cathy/Bailey皆0)。同場地同時段之移民11:00(報名24／實到5)與一對一(報名10／實到0)為不同業務線，不列入本屆房產官方報名/實到統計，僅保留於attendanceBySession供稽核參考(故不涉及CJ Tseng跨場次重複計入問題)。1-on-1／Reserved／成交／收入待業務回報。成本已改採審批表總表分頁「實際」列：Meta Ads 47,500、PT1,400，交通與餐飲實際皆為NT$0(原審批預估交通500／餐飲22,500未實際發生)，實際總成本NT$48,900(較審批預估71,900低23,000)，Justin已審核。"
@@ -3470,7 +3470,8 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
     ptCost: sumField(latestEvent29.days,"ptCost"),
     mealCost: sumField(latestEvent29.days,"mealCost"),
     transportCost: sumField(latestEvent29.days,"transportCost"),
-    metaRegistrations: sumField(latestEvent29.days,"metaRegistrations")
+    metaRegistrations: sumField(latestEvent29.days,"metaRegistrations"),
+    businessRegistrations: sumField(latestEvent29.days,"businessRegistrations")
   };
   total.nonAdCost = nonAdCost(total);
   total.totalCost = totalCostOf(total);
@@ -3689,7 +3690,7 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
 
   // ---- 6 KPI 卡（結構與第28屆完全一致；1-on-1／Reserved活動進行中尚無資料則顯示「待回報」）----
   const kpiCards = [
-    {ll:"總報名", lv:fmtOrDash(total.registrations)+"組", ls:"Meta廣告報名："+d1.dateLabel+" "+fmtOrDash(d1.metaRegistrations)+"／"+d2.dateLabel+" "+fmtOrDash(d2.metaRegistrations)+"｜業務報名數(CRM聯繫名單去重)：48筆", cc:"le-orange-val"},
+    {ll:"總報名", lv:fmtOrDash(total.registrations)+"組", ls:"廣告名單："+d1.dateLabel+" "+fmtOrDash(d1.metaRegistrations)+"／"+d2.dateLabel+" "+fmtOrDash(d2.metaRegistrations)+"｜業務總報名："+d1.dateLabel+" "+fmtOrDash(d1.businessRegistrations)+"／"+d2.dateLabel+" "+fmtOrDash(d2.businessRegistrations), cc:"le-orange-val"},
     {ll:"總實到", lv:fmtOrDash(total.attendancePeople)+"組", ls:(d2.attendancePeople==null?"僅新竹房產場已回報，":"")+"整體到場率"+fmtPctOrDash(total.attendanceRate), cc:"le-green-val"},
     {ll:"1-on-1", lv:total.oneOnOne!=null?fmtOrDash(total.oneOnOne)+"組":"待回報", ls:(oneOnOneScopeOK?("實到轉1-on-1率"+fmtPctOrDash(oneOnOneRate)):(oneOnOneScopeNote||"")), cc:""},
     {ll:"Reserved", lv:total.reserved!=null?fmtOrDash(total.reserved)+"組":"待回報", ls:"依業務回報後更新", cc:""},
@@ -4209,7 +4210,7 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
     wallet:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>'
   };
   const heroKpis = [
-    {ll:"總報名", lv:fmt(ED29.officialRegistrations), ls:"Meta廣告報名："+d1.dateLabel+" "+fmtOrDash(d1.metaRegistrations)+"／"+d2.dateLabel+" "+fmtOrDash(d2.metaRegistrations)+"｜業務報名數(CRM聯繫名單去重)："+ED29.crmContacts+"筆", badge:"actual", ic:"people"},
+    {ll:"總報名", lv:fmt(ED29.officialRegistrations), ls:"廣告名單："+d1.dateLabel+" "+fmtOrDash(d1.metaRegistrations)+"／"+d2.dateLabel+" "+fmtOrDash(d2.metaRegistrations)+"｜業務總報名："+d1.dateLabel+" "+fmtOrDash(d1.businessRegistrations)+"／"+d2.dateLabel+" "+fmtOrDash(d2.businessRegistrations), badge:"actual", ic:"people"},
     {ll:"到場率（官方，房產場次）", lv:pct(ED29.attendanceRate), ls:rateDeltaTxt, badge:"actual", ic:"rate"},
     {ll:"1-on-1（已回報組數）", lv:(total.oneOnOne!=null?fmtOrDash(total.oneOnOne)+"組":"待補"), ls:(oneOnOneScopeOK?("實到轉1-on-1率"+fmtPctOrDash(oneOnOneRate)):(oneOnOneScopeNote||"雙場皆待業務回報")), badge:(oneOnOneScopeOK?"actual":(total.oneOnOne!=null?"partial":"pending")), ic:"handshake"},
     {ll:"每位實到成本（CPA）", lv:(cpaApprox!=null?("NT$"+fmt(cpaApprox)):"—"), ls:"依核准成本"+fmtMoney(costApproved29)+"估算，非最終決算", badge:"estimate", ic:"coin"},
