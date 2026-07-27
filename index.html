@@ -4209,7 +4209,7 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
     wallet:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>'
   };
   const heroKpis = [
-    {ll:"正式報名（官方）", lv:fmt(ED29.officialRegistrations), ls:"CRM聯繫名單另計"+ED29.crmContacts+"筆，口徑不同不可加總", badge:"actual", ic:"people"},
+    {ll:"總報名", lv:fmt(ED29.officialRegistrations), ls:"Meta廣告報名："+d1.dateLabel+" "+fmtOrDash(d1.metaRegistrations)+"／"+d2.dateLabel+" "+fmtOrDash(d2.metaRegistrations)+"｜業務報名數(CRM聯繫名單去重)："+ED29.crmContacts+"筆", badge:"actual", ic:"people"},
     {ll:"到場率（官方，房產場次）", lv:pct(ED29.attendanceRate), ls:rateDeltaTxt, badge:"actual", ic:"rate"},
     {ll:"1-on-1（已回報組數）", lv:(total.oneOnOne!=null?fmtOrDash(total.oneOnOne)+"組":"待補"), ls:(oneOnOneScopeOK?("實到轉1-on-1率"+fmtPctOrDash(oneOnOneRate)):(oneOnOneScopeNote||"雙場皆待業務回報")), badge:(oneOnOneScopeOK?"actual":(total.oneOnOne!=null?"partial":"pending")), ic:"handshake"},
     {ll:"每位實到成本（CPA）", lv:(cpaApprox!=null?("NT$"+fmt(cpaApprox)):"—"), ls:"依核准成本"+fmtMoney(costApproved29)+"估算，非最終決算", badge:"estimate", ic:"coin"},
