@@ -1018,6 +1018,35 @@ header #updatedAt{margin-left:auto;white-space:nowrap;position:relative;z-index:
 .eh-health-card{padding:18px;}
 .eh-health-card .hv{font-size:26px;font-weight:700;}
 .eh-health-note,.le-note-box,.info-line{border:1px solid rgba(197,106,18,.20);}
+.ia-group-head .ia-sub{max-width:760px;font-size:12px;line-height:1.55;color:var(--text-tertiary);}
+
+/* Readability pass: decisions stay visible; methodology is progressively disclosed. */
+.rw-readable-block{position:relative;overflow:hidden;cursor:default!important;transition:max-height .22s var(--ease-out);-webkit-mask-image:none!important;mask-image:none!important;padding-bottom:initial;}
+.rw-readable-block:not(.rw-expanded){max-height:3.25em;}
+.rw-readable-block:not(.rw-expanded)::after{
+  content:""!important;position:absolute;inset:auto 0 0;height:1.25em;pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,255,255,0),var(--rw-fade-bg,#fff));
+}
+.rw-readable-block.rw-expanded{max-height:none!important;overflow:visible;-webkit-mask-image:none!important;mask-image:none!important;}
+.rw-readable-block.rw-expanded::after{content:none!important;}
+.rw-detail-toggle{
+  display:inline-flex;align-items:center;gap:5px;min-height:28px!important;margin:3px 0 10px;padding:4px 8px!important;
+  border:0!important;border-radius:7px!important;background:transparent!important;color:var(--text-secondary)!important;
+  font-size:10.5px!important;font-weight:650!important;cursor:pointer;box-shadow:none!important;
+}
+.rw-detail-toggle::after{content:"";width:6px;height:6px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .16s ease;}
+.rw-detail-toggle[aria-expanded="true"]::after{transform:rotate(225deg) translate(-1px,-1px);}
+.rw-detail-toggle:hover{background:#EEF3F7!important;color:var(--text-primary)!important;}
+.rw-readable-block.info-line,.rw-readable-block.le-note-box,.rw-readable-block.eh-health-note{--rw-fade-bg:var(--bg-card);}
+.rw-readable-block.eh-section-sub,.rw-readable-block.le2-section-sub,.rw-readable-block.ia-sub{--rw-fade-bg:var(--bg-page);}
+.rw-readable-block.ac-meta,.rw-readable-block.ees-body,.rw-readable-block.eh-cost-judge,.rw-readable-block.eh-cost-missing{--rw-fade-bg:var(--bg-card);}
+.eh-action-card .ac-desc+.ac-desc,.le2-action-card .ac-desc+.ac-desc{
+  margin-top:8px;padding:8px 10px;border-radius:8px;background:#F5F8FB;border:1px solid #E8EEF4;
+}
+.eh-action-card .ac-meta,.le2-action-card .ac-meta{margin-top:10px;padding-top:9px;border-top:1px solid var(--border-default);line-height:1.55;}
+.eh-db-statement{max-width:880px;line-height:1.55;}
+.eh-db-venue{font-size:11.5px;line-height:1.45;}
+.ees-body{line-height:1.6;}
 .eh-toggle{background:#EAF0F5;border:1px solid var(--border-default);border-radius:11px;padding:3px;}
 .eh-toggle button{min-height:36px;border-radius:8px;}
 .eh-toggle button.active{box-shadow:0 2px 7px rgba(16,24,40,.09);}
@@ -6229,9 +6258,107 @@ const targetsEmptyStateHtml =
 <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="回到頂部"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg></button>
 <script>
 (function(){
-  document.addEventListener('click', function(e){
-    var t = e.target.closest('.le-note-box,.eh-health-note,.info-line,.le2-signal-txt');
-    if(t){ t.classList.toggle('rw-expanded'); }
+  const PAGE_TITLES = {
+    executive:'執行總覽', 'latest-overview':'本屆活動', 'latest-performance':'本屆成效',
+    'latest-cost':'本屆成本', 'latest-conversion':'本屆轉換', 'cumulative-overview':'歷史總覽',
+    performance:'歷史成效', conversion:'歷史轉換', sales:'業務表現', cost:'成本分析',
+    events:'活動場次', management:'資料管理'
+  };
+  const PAGE_SUBTITLES = {
+    executive:'Executive', 'latest-overview':'第29屆・追蹤中', 'latest-performance':'新竹 vs 台北',
+    'latest-cost':'Cost', 'latest-conversion':'Conversion', 'cumulative-overview':'Overview',
+    performance:'Performance', conversion:'Conversion', management:'Management'
+  };
+  const SUBTITLE_REFINEMENTS = [
+    ['成本／轉換／資料完整度全指標明細','26場成本、轉換與資料完整度'],
+    ['CPL／到場率趨勢・地區表現・活動分級','CPL、到場率、地區與活動分級'],
+    ['三段獨立轉換漏斗・第27屆深度剖析・27v28對照','轉換漏斗與屆次比較'],
+    ['立即處理・30天內・本季','依時程管理待辦'],
+    ['資料來源・口徑限制・EDM影像牆','資料來源、口徑與完整度']
+  ];
+
+  function refinePageHeadings(){
+    document.querySelectorAll('.tab-page[data-tab-page]').forEach(function(page){
+      const h = page.querySelector('.ia-group-head h1');
+      const label = PAGE_TITLES[page.getAttribute('data-tab-page')];
+      if(!h || !label) return;
+      const icon = h.querySelector('.ia-ic');
+      const mainText = Array.from(h.childNodes).find(function(n){ return n.nodeType===3 && n.textContent.trim(); });
+      if(mainText) mainText.textContent = label;
+      else if(icon) icon.insertAdjacentText('afterend',label);
+      const secondary = h.querySelector('.ia-zh');
+      if(secondary && PAGE_SUBTITLES[page.getAttribute('data-tab-page')]) secondary.textContent = PAGE_SUBTITLES[page.getAttribute('data-tab-page')];
+    });
+    const managementHeads = document.querySelectorAll('#page-management .ia-group-head h1');
+    if(managementHeads.length>1){
+      const dataHead = managementHeads[1];
+      const dataText = Array.from(dataHead.childNodes).find(function(n){ return n.nodeType===3 && n.textContent.trim(); });
+      if(dataText) dataText.textContent = '資料治理';
+      const dataSecondary = dataHead.querySelector('.ia-zh');
+      if(dataSecondary) dataSecondary.textContent = 'Data';
+    }
+    document.querySelectorAll('.ia-sub').forEach(function(el){
+      const source = el.textContent.trim();
+      const match = SUBTITLE_REFINEMENTS.find(function(pair){ return source.indexOf(pair[0])===0; });
+      if(match) el.textContent = match[1];
+    });
+    document.querySelectorAll('.le2-title,.eh-section-title,.le2-section-title').forEach(function(el){
+      const txt = el.textContent.trim();
+      const split = txt.indexOf('｜');
+      if(split>0 && /[A-Za-z]/.test(txt.slice(0,split))){ el.textContent = txt.slice(split+1).trim(); }
+      if(el.textContent.trim()==='Actual vs Forecast') el.textContent = '實際結果與原預估';
+    });
+    const latest29Title = document.querySelector('#s29latest .le2-title');
+    const latest28Title = document.querySelector('#s28latest .le2-title');
+    if(latest29Title) latest29Title.textContent = '第29屆活動概況';
+    if(latest28Title) latest28Title.textContent = '第28屆活動概況';
+    document.querySelectorAll('.le2-signal-txt').forEach(function(el){
+      el.innerHTML = el.innerHTML.replace('Executive Signal：','管理重點：');
+    });
+  }
+
+  function refineExecutiveCopy(){
+    const statement = document.querySelector('.eh-db-statement');
+    if(statement) statement.textContent = '第29屆已完成｜報名51・實到12（23.5%）｜1-on-1與Reserved待追蹤';
+    const risk = document.querySelector('.eh-db-risk .eh-db-txt');
+    if(risk) risk.textContent = '台北到場率15.4%（報名26／實到4），低於25%門檻與歷史平均，列為最高風險。';
+    const trust = document.querySelector('.eh-db-trust');
+    if(trust) trust.innerHTML = '資料可信度：<b class="good">高</b>｜完整度、時效與歸屬明確度綜合評估';
+  }
+
+  function initReadableBlocks(root){
+    const selector = '.ia-sub,.info-line,.le-note-box,.eh-health-note,.eh-section-sub,.le2-section-sub,.ees-body,.eh-cost-judge,.eh-cost-missing,.ac-meta';
+    root.querySelectorAll(selector).forEach(function(el,index){
+      if(el.classList.contains('rw-readable-block') || el.textContent.trim().length<72 || el.closest('details') || !el.getClientRects().length) return;
+      el.classList.add('rw-readable-block');
+      if(el.scrollHeight<=el.clientHeight+1){ el.classList.remove('rw-readable-block'); return; }
+      const bg = getComputedStyle(el).backgroundColor;
+      if(bg && bg!=='rgba(0, 0, 0, 0)') el.style.setProperty('--rw-fade-bg',bg);
+      if(!el.id) el.id = 'rw-note-'+index+'-'+Math.random().toString(36).slice(2,7);
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'rw-detail-toggle';
+      btn.textContent = '查看說明';
+      btn.setAttribute('aria-controls',el.id);
+      btn.setAttribute('aria-expanded','false');
+      btn.addEventListener('click',function(){
+        const expanded = el.classList.toggle('rw-expanded');
+        btn.setAttribute('aria-expanded',String(expanded));
+        btn.textContent = expanded ? '收合說明' : '查看說明';
+      });
+      el.insertAdjacentElement('afterend',btn);
+    });
+  }
+
+  function applyReadabilityPass(){
+    refinePageHeadings();
+    refineExecutiveCopy();
+    initReadableBlocks(document);
+  }
+  applyReadabilityPass();
+  window.__refreshReadableBlocks = applyReadabilityPass;
+  document.addEventListener('click',function(e){
+    if(e.target.closest('.group-tab-btn,.sidebar-nav-item,.drawer-nav-item,.seg-btn,.mnav-groups button,.mnav-subs button')) setTimeout(applyReadabilityPass,40);
   });
 })();
 </script>
