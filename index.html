@@ -3689,7 +3689,7 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
 
   // ---- 6 KPI 卡（結構與第28屆完全一致；1-on-1／Reserved活動進行中尚無資料則顯示「待回報」）----
   const kpiCards = [
-    {ll:"總報名", lv:fmtOrDash(total.registrations)+"組", ls:"Meta廣告報名："+d1.dateLabel+" "+fmtOrDash(d1.metaRegistrations)+"／"+d2.dateLabel+" "+fmtOrDash(d2.metaRegistrations)+"｜業務報名數(CRM聯繫名單去重)：48筆｜官方報名："+d1.dateLabel+" "+fmtOrDash(d1.registrations)+"／"+d2.dateLabel+" "+fmtOrDash(d2.registrations), cc:"le-orange-val"},
+    {ll:"總報名", lv:fmtOrDash(total.registrations)+"組", ls:"Meta廣告報名："+d1.dateLabel+" "+fmtOrDash(d1.metaRegistrations)+"／"+d2.dateLabel+" "+fmtOrDash(d2.metaRegistrations)+"｜業務報名數(CRM聯繫名單去重)：48筆", cc:"le-orange-val"},
     {ll:"總實到", lv:fmtOrDash(total.attendancePeople)+"組", ls:(d2.attendancePeople==null?"僅新竹房產場已回報，":"")+"整體到場率"+fmtPctOrDash(total.attendanceRate), cc:"le-green-val"},
     {ll:"1-on-1", lv:total.oneOnOne!=null?fmtOrDash(total.oneOnOne)+"組":"待回報", ls:(oneOnOneScopeOK?("實到轉1-on-1率"+fmtPctOrDash(oneOnOneRate)):(oneOnOneScopeNote||"")), cc:""},
     {ll:"Reserved", lv:total.reserved!=null?fmtOrDash(total.reserved)+"組":"待回報", ls:"依業務回報後更新", cc:""},
