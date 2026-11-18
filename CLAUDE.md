@@ -24,6 +24,29 @@
 | 為什麼客戶不買、定錨、稀缺、框架效應 | `marketing-psychology` |
 | 中文文稿完成後（提案、公告、文案、報告） | **一律最後過一次 `humanizer-zh`** |
 | 「最近大家怎麼說 X」、趨勢、市場聲量 | `last30days` |
+| Dashboard 任何圖表（Chart.js）、KPI 卡、配色、圖例、tooltip、新增指標 | **先 `dataviz`** → 再 `ui-ux-pro-max` → 收尾 `impeccable` |
+| 新做一頁 Dashboard／報表頁／把資料變成可分享頁面 | `data:build-dashboard` → `dataviz` → `impeccable` |
+| 企劃、提案、報告要統一視覺（配色＋字體主題） | `anthropic-skills:theme-factory` |
+| 要做 PPT／簡報檔（.pptx） | `anthropic-skills:pptx` → 套 `theme-factory` → 圖用 `diagram-design` |
+| 發布成網頁 Artifact（企劃頁、展會一頁式） | `artifact-design` |
+
+### 設計美化鏈（強制）
+任何會給人看的視覺產出（Dashboard、企劃、簡報、一頁式），依序走：
+1. 內容 skill（events / offers / marketing-plan…）
+2. 主題統一：`theme-factory`（簡報、文件）或 `ui-ux-pro-max`（Dashboard、網頁）
+3. 圖：架構／流程用 `diagram-design`；數據圖表用 `dataviz`
+4. 視覺把關：`impeccable` audit + polish
+5. 文字收尾：`humanizer-zh`
+
+### 企劃必附圖（強制）
+凡企劃類產出（行銷／招商／展會計畫、加盟方案、提案書、營運制度），內容 skill 跑完後，**交付前一律用 `diagram-design` 畫圖並嵌入企劃**，不等使用者要求。最低配置：
+1. **時間軸／甘特**：執行節點、里程碑、負責人
+2. **權責泳道**：誰負責哪段、交接點在哪
+3. **轉換漏斗或預算流向**（依內容擇一）：名單轉換率、預算分配到成果
+
+依內容加畫：組織架構、中台架構、決策樹、SOP 流程。
+例外：單頁 one-pager、純文案、短話術可不畫。
+流程順序：內容 skill → `diagram-design` → `humanizer-zh`（文字收尾）。
 
 ## 輸出規則
 - 繁體中文。結論先行、條列、高密度，不寫空話。
