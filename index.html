@@ -5,28 +5,58 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Ray White Taiwan 活動效益 Dashboard</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+/* Chart.js 全域樣式：與頁面 Design Tokens 對齊（字體、文字色、格線、圖例、tooltip） */
+if(window.Chart){
+  const D=Chart.defaults;
+  D.font.family='"Noto Sans TC",Inter,"PingFang TC","Microsoft JhengHei",system-ui,sans-serif';
+  D.font.size=12;
+  D.color="#4A4F56";
+  D.borderColor="#ECECE7";
+  D.elements.line.borderWidth=2;
+  D.elements.point.hoverRadius=6;
+  D.elements.point.hitRadius=10;
+  D.plugins.legend.labels.usePointStyle=true;
+  D.plugins.legend.labels.boxWidth=8;
+  D.plugins.legend.labels.boxHeight=8;
+  D.plugins.legend.labels.padding=16;
+  D.plugins.legend.labels.color="#4A4F56";
+  Object.assign(D.plugins.tooltip,{backgroundColor:"#17191C",titleColor:"#FFFFFF",bodyColor:"#E4E4DF",padding:10,cornerRadius:8,boxPadding:4,usePointStyle:true,titleFont:{weight:"600"}});
+  D.scale.title.color="#676C74";
+  D.scale.ticks.color="#676C74";
+  /* 折線圖圖例色塊跟線色走，不被逐點異常色（紅點）帶偏 */
+  const __genLabels=D.plugins.legend.labels.generateLabels;
+  D.plugins.legend.labels.generateLabels=function(chart){
+    return __genLabels(chart).map(function(l){
+      const ds=chart.data.datasets[l.datasetIndex];
+      if(chart.config.type==="line" && ds && typeof ds.borderColor==="string"){ l.fillStyle=ds.borderColor; l.strokeStyle=ds.borderColor; }
+      return l;
+    });
+  };
+}
+</script>
 <style>
   :root{
     color-scheme:light;
     /* ---- Design Tokens (canonical, Executive Command Center palette) ---- */
     --rw-yellow:#F6D500; --rw-yellow-soft:#FDF6CC; --rw-yellow-dark:#8a6d00;
     --charcoal:#17191C; --warm-white:#F7F7F4;
-    --text-primary:#17191C; --text-secondary:#4A4F56; --text-tertiary:#7B818A; --text-inverse:#FFFFFF;
+    --text-primary:#17191C; --text-secondary:#4A4F56; --text-tertiary:#676C74; --text-inverse:#FFFFFF;
     --bg-page:#F7F7F4; --bg-card:#FFFFFF; --bg-subtle:#F1F1EE;
     --border-default:#E4E4DF; --border-strong:#CBCBC4;
-    --status-positive:#16825D; --status-positive-bg:#E7F5EF;
-    --status-warning:#C98212; --status-warning-bg:#FCF0DC;
-    --status-negative:#D64A4A; --status-negative-bg:#FBEAEA;
-    --status-info:#3977C3; --status-info-bg:#EAF1FB;
-    --status-missing:#7B818A; --status-missing-bg:#EFEFEC;
-    --status-online:#7966B7; --status-online-bg:#F1EEF9;
+    --status-positive:#157D59; --status-positive-bg:#E7F5EF;
+    --status-warning:#95600D; --status-warning-bg:#FCF0DC;
+    --status-negative:#CA2E2E; --status-negative-bg:#FBEAEA;
+    --status-info:#346DB3; --status-info-bg:#EAF1FB;
+    --status-missing:#676C74; --status-missing-bg:#EFEFEC;
+    --status-online:#725EB3; --status-online-bg:#F1EEF9;
     --sidebar-w:252px; --sidebar-w-collapsed:68px;
     /* ---- Legacy variable names aliased to tokens above ---- */
     --yellow:var(--rw-yellow); --yellow-dark:var(--rw-yellow-dark); --black:#101010;
     --dark:var(--text-primary); --grey:var(--text-secondary); --grey-lt:var(--text-tertiary);
     --good:var(--status-positive); --warn:var(--status-warning); --bad:var(--status-negative);
     --bg:var(--bg-page); --card:var(--bg-card); --border:var(--border-default);
-    --navy:#17191C; --teal:#16825D; --seafoam:#a8dadc; --cream:var(--bg-subtle);
+    --navy:#17191C; --teal:#157D59; --seafoam:#a8dadc; --cream:var(--bg-subtle);
     --v-blue:var(--status-info); --v-blue-soft:var(--status-info-bg);
     --v-purple:var(--status-online); --v-purple-soft:var(--status-online-bg);
     --v-orange:var(--status-warning); --v-orange-soft:var(--status-warning-bg);
@@ -280,6 +310,7 @@
   @media(min-width:900px){ section{padding:28px 32px;} }
   section h2{font-size:18px;margin:0 0 18px;padding-bottom:13px;border-bottom:1px solid var(--border-default);font-weight:750;color:var(--navy);letter-spacing:-.2px;}
   .charts-row{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;}
+  .charts-row>*{min-width:0;}
   @media(max-width:900px){.charts-row{grid-template-columns:1fr;}}
   table{width:100%;border-collapse:collapse;font-size:13px;}
   #eventTable thead th{position:sticky;top:0;background:var(--bg-card);z-index:5;box-shadow:0 1px 0 var(--border-default);}
@@ -400,9 +431,9 @@ body.sidebar-collapsed .sidebar-brand-text{display:none;}
 .sidebar-collapse-btn:hover{background:rgba(255,255,255,.14);}
 body.sidebar-collapsed .sidebar-collapse-btn svg{transform:rotate(180deg);}
 .sidebar-nav{flex:1 1 auto;overflow-y:auto;padding:10px 10px;display:flex;flex-direction:column;gap:2px;}
-.sidebar-group-label{margin:20px 0 6px;padding:0 11px;font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:rgba(255,255,255,.4);display:flex;align-items:baseline;gap:6px;}
+.sidebar-group-label{margin:20px 0 6px;padding:0 11px;font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:rgba(255,255,255,.62);display:flex;align-items:baseline;gap:6px;}
 .sidebar-group-label:first-child{margin-top:2px;}
-.sidebar-group-label small{font-size:9.5px;font-weight:600;letter-spacing:.4px;color:rgba(255,255,255,.24);}
+.sidebar-group-label small{font-size:9.5px;font-weight:600;letter-spacing:.4px;color:rgba(255,255,255,.5);}
 body.sidebar-collapsed .sidebar-group-label small,body.sidebar-collapsed .sidebar-group-label span{display:none;}
 body.sidebar-collapsed .sidebar-group-label{padding:0;text-align:center;}
 .sidebar-nav-item{display:flex;align-items:center;gap:11px;padding:9px 11px;min-height:42px;border-radius:8px;border:none;border-left:3px solid transparent;background:transparent;color:rgba(255,255,255,.86);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;text-align:left;white-space:nowrap;overflow:hidden;transition:background .15s,color .15s,border-color .15s;}
@@ -456,7 +487,7 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
 .drawer-nav-item[data-nav-group="cumulative"].active .ic{color:#5B9BE0;}
 .drawer-nav-item[data-nav-group="mgmt"].active{background:rgba(121,102,183,.16);border-left-color:#9B87D4;}
 .drawer-nav-item[data-nav-group="mgmt"].active .ic{color:#9B87D4;}
-.drawer-nav .sidebar-group-label{color:rgba(255,255,255,.4);}
+.drawer-nav .sidebar-group-label{color:rgba(255,255,255,.62);}
 
 .tab-page{display:none;}
 .tab-page.active{display:block;}
@@ -499,8 +530,8 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
 .le2-section-sub{font-size:11px;color:var(--grey);margin-bottom:12px;}
 .le2-daycomp{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px;}
 .le2-daycomp-col{background:var(--bg-card);border-radius:12px;padding:16px 18px;border:1px solid var(--border-default);border-top:3px solid var(--border-strong);}
-.le2-daycomp-col.tc{border-top-color:#c98212;}
-.le2-daycomp-col.kh{border-top-color:#16825d;}
+.le2-daycomp-col.tc{border-top-color:#95600D;}
+.le2-daycomp-col.kh{border-top-color:#157D59;}
 .le2-daycomp-col .dc-head{font-size:13.5px;font-weight:800;color:var(--navy);margin-bottom:10px;}
 .le2-daycomp-row{display:flex;justify-content:space-between;font-size:12px;padding:6px 0;border-bottom:1px dashed var(--border);}
 .le2-daycomp-row .k{color:var(--grey);font-weight:600;}
@@ -690,6 +721,7 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
 /* Hero KPI（5張，中性背景，取代原eh-kpi-card大面積品牌黃背景） */
 /* v73新增：icon徽章+柔和hover浮起，僅表層視覺升級，不動版面結構/欄位數量 */
 .eh-hero-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-bottom:8px;}
+.eh-hero-grid>*,.eh-cost-grid>*,.eh-kpi-grid>*{min-width:0;}
 .eh-hero-card{background:var(--bg-card); border:1px solid var(--border-default); border-radius:14px; padding:16px; display:flex; flex-direction:column; gap:8px; min-height:128px;
   box-shadow:0 1px 2px rgba(23,25,28,.04); transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;}
 .eh-hero-card:hover{transform:translateY(-2px); box-shadow:0 8px 20px rgba(23,25,28,.08); border-color:var(--border-strong);}
@@ -698,7 +730,7 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
 .ehc-icon.ic-people{background:linear-gradient(150deg,#EDE9FE 0%,#DDD6FE 100%); color:#7C5CD6;}
 .ehc-icon.ic-rate{background:linear-gradient(150deg,#DCFCE7 0%,#BBF7D0 100%); color:#189F63;}
 .ehc-icon.ic-handshake{background:linear-gradient(150deg,var(--rw-yellow-soft) 0%,#FBEBA6 100%); color:#9A7A00;}
-.ehc-icon.ic-coin{background:linear-gradient(150deg,#DBEAFE 0%,#BFDBFE 100%); color:#3977C3;}
+.ehc-icon.ic-coin{background:linear-gradient(150deg,#DBEAFE 0%,#BFDBFE 100%); color:#346DB3;}
 .ehc-icon.ic-wallet{background:linear-gradient(150deg,#F1F2F4 0%,#E4E6E9 100%); color:#4A4F56;}
 .ehc-top{display:flex; justify-content:space-between; align-items:flex-start; gap:6px;}
 .ehc-ll{font-size:11px; font-weight:700; color:var(--text-secondary); line-height:1.4;}
@@ -736,6 +768,7 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
 @media(max-width:700px){
   .eh-db-row{flex-direction:column;}
   .eh-hero-grid{grid-template-columns:repeat(2,1fr);}
+  .ehc-lv,.eh-kpi-card .lv{font-size:clamp(17px,5vw,26px);white-space:nowrap;}
   .eh-cost-grid{grid-template-columns:repeat(2,1fr);}
   .eh-funnel-wrap{display:block !important; overflow:visible !important; height:auto !important; max-height:none !important;}
   .eh-funnel-wrap .eh-funnel-step{margin-bottom:8px; min-width:0;}
@@ -839,7 +872,7 @@ body.sidebar-collapsed .sidebar-foot-row span:not(.dot){display:none;}
   <svg class="hero-deco" viewBox="0 0 400 140" preserveAspectRatio="xMaxYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <circle cx="330" cy="40" r="60" fill="none" stroke="#F6D500" stroke-width="1" opacity=".35"/>
     <circle cx="330" cy="40" r="90" fill="none" stroke="#F6D500" stroke-width="1" opacity=".2"/>
-    <g fill="#7966B7" opacity=".45">
+    <g fill="#725EB3" opacity=".45">
       <rect x="150" y="90" width="14" height="50"/>
       <rect x="168" y="70" width="16" height="70"/>
       <rect x="188" y="100" width="12" height="40"/>
@@ -1190,7 +1223,7 @@ v65補充：活動「已舉行」但部分欄位(1-on-1/Reserved/成交/收入)�
 
   <div id="legacyExecOverview2">
   <section id="s28spot">
-    <h2><span class="ic" style="width:16px;height:16px;color:var(--v-amber,#C98212);"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg></span> 第28屆重點摘要（2026/7/11台中・7/12高雄，已過時，保留供追溯）</h2>
+    <h2><span class="ic" style="width:16px;height:16px;color:var(--v-amber,#95600D);"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg></span> 第28屆重點摘要（2026/7/11台中・7/12高雄，已過時，保留供追溯）</h2>
     <div class="badge-row" style="margin-bottom:12px;">
       <span class="b-orange">高雄場(7/12)資料仍在追蹤更新中；台中場(7/11)已完成（因颱風改線上）</span>
     </div>
@@ -2029,7 +2062,7 @@ function avgLinePlugin(avgVal, label, color){
     ctx.strokeStyle = color; ctx.setLineDash([6,4]); ctx.lineWidth=1.4;
     ctx.beginPath(); ctx.moveTo(left,yPix); ctx.lineTo(right,yPix); ctx.stroke();
     ctx.setLineDash([]);
-    ctx.font = "700 10px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif";
+    ctx.font = "700 10px 'Noto Sans TC',Inter,'PingFang TC','Microsoft JhengHei',system-ui,sans-serif";
     ctx.fillStyle = color;
     ctx.textAlign="right";
     ctx.fillText(label, right-4, yPix-4);
@@ -2045,7 +2078,7 @@ function peakLowPlugin(values, labels, fmtFn, higherIsPeakGood){
     const maxP = valid.reduce((a,b)=>b.v>a.v?b:a);
     const minP = valid.reduce((a,b)=>b.v<a.v?b:a);
     ctx.save();
-    ctx.font = "800 10px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif";
+    ctx.font = "800 10px 'Noto Sans TC',Inter,'PingFang TC','Microsoft JhengHei',system-ui,sans-serif";
     const areaLeft = chartArea ? chartArea.left : 0;
     const areaRight = chartArea ? chartArea.right : chart.width;
     const margin = 4;
@@ -2061,8 +2094,8 @@ function peakLowPlugin(values, labels, fmtFn, higherIsPeakGood){
       ctx.fillText(text, drawX, y);
     }
     const peakEl = meta.data[maxP.i], lowEl = meta.data[minP.i];
-    if(peakEl){ ctx.fillStyle = higherIsPeakGood? "#1a7f37":"#b91c1c"; drawEdgeSafeLabel("峰值 "+fmtFn(maxP.v), peakEl.x, peakEl.y-12); }
-    if(lowEl && minP.i!==maxP.i){ ctx.fillStyle = higherIsPeakGood? "#b91c1c":"#1a7f37"; drawEdgeSafeLabel("低點 "+fmtFn(minP.v), lowEl.x, lowEl.y+18); }
+    if(peakEl){ ctx.fillStyle = higherIsPeakGood? "#157D59":"#CA2E2E"; drawEdgeSafeLabel("峰值 "+fmtFn(maxP.v), peakEl.x, peakEl.y-12); }
+    if(lowEl && minP.i!==maxP.i){ ctx.fillStyle = higherIsPeakGood? "#CA2E2E":"#157D59"; drawEdgeSafeLabel("低點 "+fmtFn(minP.v), lowEl.x, lowEl.y+18); }
     ctx.restore();
   }};
 }
@@ -2237,7 +2270,7 @@ function applyFilter(){
 
 const gradeCounts = {A:0,B:0,C:0,D:0,N:0};
 completed.forEach(e=>gradeCounts[e.grade]++);
-const gradeColors = {A:"#1a7f37",B:"#2563eb",C:"#FFC72C",D:"#b91c1c",N:"#9ca3af"};
+const gradeColors = {A:"#157D59",B:"#346DB3",C:"#95600D",D:"#CA2E2E",N:"#676C74"};
 const gradeOrderList = ["A","B","C","D","N"];
 window.__lazyCharts = window.__lazyCharts || {};
 // ---- CPA序列（=(廣告+場地)÷實到組數，與活動資料庫頁CPA同一公式）----
@@ -2284,8 +2317,8 @@ function renderTrendCharts(evs){
   __rateChart = new Chart(document.getElementById("rateTrendChart"), {
     type:"line",
     data:{ labels: labels, datasets:[
-      {label:"到場率(%)", data: rSeries.map(v=>v!=null?+(v*100).toFixed(1):null), borderColor:"#D64A4A", backgroundColor:"#D64A4A", tension:0.25, spanGaps:true, pointRadius:anomalyPointRadii(evs,3), pointHoverRadius:6, pointBackgroundColor:anomalyPointColors(evs,"#D64A4A")},
-      {label:"3場移動平均(%)", data: rMA3.map(v=>v!=null?+(v*100).toFixed(1):null), borderColor:"#1B5FC4", backgroundColor:"#1B5FC4", tension:0.25, spanGaps:true, borderDash:[6,4], pointRadius:0, borderWidth:2.5},
+      {label:"到場率(%)", data: rSeries.map(v=>v!=null?+(v*100).toFixed(1):null), borderColor:"#17191C", backgroundColor:"#17191C", tension:0.25, spanGaps:true, pointRadius:anomalyPointRadii(evs,3), pointHoverRadius:6, pointBackgroundColor:anomalyPointColors(evs,"#CA2E2E")},
+      {label:"3場移動平均(%)", data: rMA3.map(v=>v!=null?+(v*100).toFixed(1):null), borderColor:"#8a6d00", backgroundColor:"#8a6d00", tension:0.25, spanGaps:true, borderDash:[6,4], pointRadius:0, borderWidth:1.75, pointStyle:"line"},
     ]},
     options:{ responsive:true, maintainAspectRatio:false, interaction:{mode:"index",intersect:false},
       plugins:{legend:{position:"bottom"}, tooltip:{callbacks:{label:(ctx)=> ctx.datasetIndex===0 ? trendTooltipLines(ctx,evs,v=>v+"%") : `${ctx.dataset.label}: ${ctx.parsed.y}%`}}},
@@ -2296,8 +2329,8 @@ function renderTrendCharts(evs){
   __cplChart = new Chart(document.getElementById("cplTrendChart"), {
     type:"line",
     data:{ labels: labels, datasets:[
-      {label:"CPL(NT$)", data: cSeries, borderColor:"#16202E", backgroundColor:"#16202E", tension:0.25, spanGaps:true, pointRadius:anomalyPointRadii(evs,3), pointHoverRadius:6, pointBackgroundColor:anomalyPointColors(evs,"#16202E")},
-      {label:"3場移動平均(NT$)", data: cMA3.map(v=>v!=null?Math.round(v):null), borderColor:"#1B5FC4", backgroundColor:"#1B5FC4", tension:0.25, spanGaps:true, borderDash:[6,4], pointRadius:0, borderWidth:2.5},
+      {label:"CPL(NT$)", data: cSeries, borderColor:"#17191C", backgroundColor:"#17191C", tension:0.25, spanGaps:true, pointRadius:anomalyPointRadii(evs,3), pointHoverRadius:6, pointBackgroundColor:anomalyPointColors(evs,"#16202E")},
+      {label:"3場移動平均(NT$)", data: cMA3.map(v=>v!=null?Math.round(v):null), borderColor:"#8a6d00", backgroundColor:"#8a6d00", tension:0.25, spanGaps:true, borderDash:[6,4], pointRadius:0, borderWidth:1.75, pointStyle:"line"},
     ]},
     options:{ responsive:true, maintainAspectRatio:false, interaction:{mode:"index",intersect:false},
       plugins:{legend:{position:"bottom"}, tooltip:{callbacks:{label:(ctx)=> ctx.datasetIndex===0 ? trendTooltipLines(ctx,evs,v=>"NT$"+fmt(v)) : `${ctx.dataset.label}: NT$${fmt(ctx.parsed.y)}`}}},
@@ -2308,8 +2341,8 @@ function renderTrendCharts(evs){
   __cpaChart = new Chart(document.getElementById("cpaTrendChart"), {
     type:"line",
     data:{ labels: labels, datasets:[
-      {label:"CPA(NT$)", data: pSeries, borderColor:"#5b3fa0", backgroundColor:"#5b3fa0", tension:0.25, spanGaps:true, pointRadius:anomalyPointRadii(evs,3), pointHoverRadius:6, pointBackgroundColor:anomalyPointColors(evs,"#5b3fa0")},
-      {label:"3場移動平均(NT$)", data: pMA3.map(v=>v!=null?Math.round(v):null), borderColor:"#1B5FC4", backgroundColor:"#1B5FC4", tension:0.25, spanGaps:true, borderDash:[6,4], pointRadius:0, borderWidth:2.5},
+      {label:"CPA(NT$)", data: pSeries, borderColor:"#17191C", backgroundColor:"#17191C", tension:0.25, spanGaps:true, pointRadius:anomalyPointRadii(evs,3), pointHoverRadius:6, pointBackgroundColor:anomalyPointColors(evs,"#5b3fa0")},
+      {label:"3場移動平均(NT$)", data: pMA3.map(v=>v!=null?Math.round(v):null), borderColor:"#8a6d00", backgroundColor:"#8a6d00", tension:0.25, spanGaps:true, borderDash:[6,4], pointRadius:0, borderWidth:1.75, pointStyle:"line"},
     ]},
     options:{ responsive:true, maintainAspectRatio:false, interaction:{mode:"index",intersect:false},
       plugins:{legend:{position:"bottom"}, tooltip:{callbacks:{label:(ctx)=> ctx.datasetIndex===0 ? trendTooltipLines(ctx,evs,v=>"NT$"+fmt(v)) : `${ctx.dataset.label}: NT$${fmt(ctx.parsed.y)}`}}},
@@ -2345,8 +2378,8 @@ new Chart(document.getElementById("matrixChart"), {
   data:{ datasets:[{
     label:"活動",
     data: matrixData,
-    backgroundColor: matrixData.map(d=>({A:"rgba(21,127,73,.55)",B:"rgba(27,95,196,.55)",C:"rgba(255,199,44,.6)",D:"rgba(185,28,28,.55)",N:"rgba(156,163,175,.55)"}[d.grade]||"rgba(156,163,175,.55)")),
-    borderColor: matrixData.map(d=>({A:"#157F49",B:"#1B5FC4",C:"#9A5B00",D:"#C21F1F",N:"#667085"}[d.grade]||"#9ca3af")),
+    backgroundColor: matrixData.map(d=>({A:"rgba(21,125,89,.5)",B:"rgba(52,109,179,.5)",C:"rgba(149,96,13,.45)",D:"rgba(202,46,46,.5)",N:"rgba(103,108,116,.4)"}[d.grade]||"rgba(156,163,175,.55)")),
+    borderColor: matrixData.map(d=>({A:"#157D59",B:"#346DB3",C:"#95600D",D:"#CA2E2E",N:"#676C74"}[d.grade]||"#9ca3af")),
     borderWidth:1.5,
   }]},
   options:{
@@ -2458,8 +2491,8 @@ window.__lazyCharts["cumulative-overview"] = __initOverviewCharts;
       data:{
         labels:["台中 7/11","高雄 7/12","28場歷史平均"],
         datasets:[
-          {label:"CPL（廣告／報名）", data:[tc28.cpl, kh28.cpl, avgCplR], backgroundColor:"#3977C3"},
-          {label:"CPA（總成本／實到）", data:[tcCpa, khCpa, avgCpaR], backgroundColor:"#D64A4A"}
+          {label:"CPL（廣告／報名）", data:[tc28.cpl, kh28.cpl, avgCplR], backgroundColor:"#346DB3"},
+          {label:"CPA（總成本／實到）", data:[tcCpa, khCpa, avgCpaR], backgroundColor:"#CA2E2E"}
         ]
       },
       options:{
@@ -2573,7 +2606,7 @@ const quadrantPlugin = {
     ctx.beginPath(); ctx.moveTo(xAvg, top); ctx.lineTo(xAvg, bottom); ctx.stroke();
     ctx.beginPath(); ctx.moveTo(left, yAvg); ctx.lineTo(right, yAvg); ctx.stroke();
     ctx.setLineDash([]);
-    ctx.font = "700 10.5px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif";
+    ctx.font = "700 10.5px 'Noto Sans TC',Inter,'PingFang TC','Microsoft JhengHei',system-ui,sans-serif";
     ctx.fillStyle = "#1a7f37";
     ctx.fillText("★ 優質高效（低CPL・高到場）", left+8, top+14);
     ctx.fillStyle = "#b45309";
@@ -2594,7 +2627,7 @@ const bubbleLabelPlugin = {
     const {ctx} = chart;
     const meta = chart.getDatasetMeta(0);
     ctx.save();
-    ctx.font = "800 9.5px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif";
+    ctx.font = "800 9.5px 'Noto Sans TC',Inter,'PingFang TC','Microsoft JhengHei',system-ui,sans-serif";
     ctx.fillStyle = "#101828";
     ctx.textAlign = "center";
     meta.data.forEach((el,i)=>{ ctx.fillText(matrixData[i].label, el.x, el.y+3); });
@@ -2663,7 +2696,7 @@ const rankValueLabelsPlugin = {
     const {ctx} = chart;
     const meta = chart.getDatasetMeta(0);
     ctx.save();
-    ctx.font = "700 11px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif";
+    ctx.font = "700 11px 'Noto Sans TC',Inter,'PingFang TC','Microsoft JhengHei',system-ui,sans-serif";
     ctx.fillStyle = "#1a2332";
     ctx.textAlign = "left";
     ctx.textBaseline = "middle";
@@ -2678,19 +2711,19 @@ window.__lazyCharts = window.__lazyCharts || {};
 function initConsultantChart(){
 new Chart(document.getElementById("consultantChart"), {
   type:"bar",
-  indexAxis:"y",
   data:{
     labels: consultantsRanked.map((c,i)=>`${rankIcon(i)} ${c.name}${sampleFlag(c.total)}`),
-    datasets:[{ label:"邀約率(%)", data: consultantsRanked.map(c=>+(c.attendYes/c.total*100).toFixed(1)), backgroundColor: consultantsRanked.map((c,i)=> i<3 ? "#FFC72C" : "#a8dadc") }]
+    datasets:[{ label:"邀約率(%)", data: consultantsRanked.map(c=>+(c.attendYes/c.total*100).toFixed(1)), backgroundColor: consultantsRanked.map((c,i)=> i<3 ? "#F6D500" : "#CBCBC4") }]
   },
   options:{
+    indexAxis:"y",
     responsive:true, maintainAspectRatio:false,
     layout:{ padding:{right:70} },
     plugins:{
       legend:{display:false},
       tooltip:{ callbacks:{ label:(ctx)=>{ const c = consultantsRanked[ctx.dataIndex]; return [`邀約率 ${ctx.parsed.x}%`, `會參加 ${c.attendYes}組 ／ 名單 ${c.total}筆`]; } } }
     },
-    scales:{ x:{ beginAtZero:true, max:115, title:{display:true,text:"邀約率(%)"} } }
+    scales:{ x:{ beginAtZero:true, max:100, title:{display:true,text:"邀約率(%)"} }, y:{ grid:{display:false} } }
   },
   plugins:[rankValueLabelsPlugin]
 });
@@ -3366,8 +3399,8 @@ document.querySelectorAll(".group-tabs").forEach(function(tabs){
               data:{
                 labels:["Day 1（"+d1.dateLabel+"）","Day 2（"+d2.dateLabel+"）","Event Total"],
                 datasets:[
-                  {label:"廣告花費", data:[d1.adCost, d2.adCost, total.adCost], backgroundColor:"#3977C3"},
-                  {label:"非廣告成本", data:[d1.nonAdCost, d2.nonAdCost, total.nonAdCost], backgroundColor:"#7966B7"}
+                  {label:"廣告花費", data:[d1.adCost, d2.adCost, total.adCost], backgroundColor:"#346DB3"},
+                  {label:"非廣告成本", data:[d1.nonAdCost, d2.nonAdCost, total.nonAdCost], backgroundColor:"#725EB3"}
                 ]
               },
               options:{
@@ -4707,8 +4740,8 @@ const targetsEmptyStateHtml =
       data:{ datasets:[{
         label:"活動",
         data: matrixData,
-        backgroundColor: matrixData.map(function(d){ return ({A:"rgba(21,127,73,.55)",B:"rgba(27,95,196,.55)",C:"rgba(255,199,44,.6)",D:"rgba(185,28,28,.55)",N:"rgba(156,163,175,.55)"}[d.grade]||"rgba(156,163,175,.55)"); }),
-        borderColor: matrixData.map(function(d){ return ({A:"#157F49",B:"#1B5FC4",C:"#9A5B00",D:"#C21F1F",N:"#667085"}[d.grade]||"#9ca3af"); }),
+        backgroundColor: matrixData.map(function(d){ return ({A:"rgba(21,125,89,.5)",B:"rgba(52,109,179,.5)",C:"rgba(149,96,13,.45)",D:"rgba(202,46,46,.5)",N:"rgba(103,108,116,.4)"}[d.grade]||"rgba(156,163,175,.55)"); }),
+        borderColor: matrixData.map(function(d){ return ({A:"#157D59",B:"#346DB3",C:"#95600D",D:"#CA2E2E",N:"#676C74"}[d.grade]||"#9ca3af"); }),
         borderWidth:1.5
       }]},
       options:{
